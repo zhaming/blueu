@@ -1,0 +1,28 @@
+body {width: 1280px;height: 850px;margin: 0 auto;font-family: 宋体;background-color: #FFF}
+a{text-decoration: none;}
+.main{width: 1280px;height: 850px;background: #fff}
+.search{height: 150px;text-align: center;width:90%;margin-left: 50px;}
+.search form .input-prepend{ padding-top:60px;position: relative;background: #F1F1F1;padding-bottom: 50px;border-bottom: 1px solid #DDDDDD}
+.search .input-prepend select{display: inline-block;width: auto;height: 30px;vertical-align: top;min-width: 16px;padding: 4px 5px;font-size: 12px;font-weight: normal;line-height: 20px;text-align: center;text-shadow: 0 1px 0 #fff;background-color: #E9E5DE;border: 1px solid #ccc;margin-right: -1px;}
+.search .input-prepend .fixed_ie{margin-left: -10px;height: 26px;border: 1px solid #ccc;vertical-align: top;width:300px;clear: both;margin-right: -1px;}
+.search .input-prepend .search_img{height:30px;width:30px;background-color: #E9E5DE;border: 1px solid #ccc;margin-left: -8px;clear: both;background-image: url("/statics/images/check.png");}
+
+.content{width:100%;heigh:auto;min-height:1080px;font-size: 14px;font-weight:400;clear: both;padding-top: 30px;}
+.content .input_content{width:90%;heigh:auto;min-height:100px;margin-left: 50px;clear: both;margin-bottom: 40px;background: #F1F1F1;border: 1px solid #DDDDDD}
+.content .input_content .search_content{heigh:auto;min-height:30px;margin-bottom: 3px;}
+.content .input_content .title{color:#269394;width:100px;height:25px;text-align: right;float: left;clear: both;}
+.content .input_content .input{width:1045px;text-align: left;line-height: 20px;float: right;  }
+.content .input_content .input img{border:0px solid red}
+
+
+ .pages{height: 90px;width: 100%; text-align:center;clear: both;margin-top: 30px;}
+ .pages ul li{display: inline;margin-right: 30px;}
+ .pages  li a{text-decoration: none;color:#279DC8}
+ .pages  li a:hover{color:red}
+.pages  .current a{color:#CCCCCC;readonly:true;disabled:true}
+ .pages  .current a:hover{color:#CCCCCC;}
+
+
+
+#imgdiv { margin: 0 auto;width: 300px;background: #FFFFFF;display: none;position: absolute;vertical-align: middle;text-align: center;font-family: Arial;}
+div#imgdiv p /*大图下面的文字标题样式*/{ text-align: center;}

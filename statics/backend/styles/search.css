@@ -1,0 +1,41 @@
+body {width: 1024px;height: 800px;margin: 0 auto;font-family: 宋体;background-color: #FFF}
+.main{width: 1024px;height: 800px;}
+select{border-color:#999999 #CCCCCC #CCCCCC #999999;border-style:solid;border-width:1px;border-radius: 5px;text-align: center;}
+input[type=checkbox]{border-color:#DED9D2;vertical-align: middle;}
+.main_top{min-height: 200px;height:auto !important;width: 100%;color: #279DC8;background: #F0EEEB;border:1px solid #F0EEEB;border-bottom: 1px solid #DED9D2;}
+.main_top .controllers{min-height: 30px;height:auto !important;margin-top: 10px;padding: 0px 0px 0px 25px}
+.main_top .controllers .title{float: left;font-size: 18px;text-align: left;width:0 auto;line-height: 28px;}
+.main_top .controllers .dom{float: left;font-size: 12px;text-align: left;width:0 auto;line-height: 28px;}
+.main_top .controllers .dom select{width: 100px;border-color:#CFC8BC;color: #2CB0E0;height: 25px;background: #F2F1ED;vertical-align: middle; }
+.main_top .controllers #dom{display: inline;margin-right: 15px;vertical-align: middle;}
+.main_top .controllers #dom label{text-align: left;}
+.main_top .controllers #dom img{vertical-align: middle;margin-left: -5px}
+.main_top .controllers #doms{color:#6A6A6A;vertical-align: middle;}
+.main_top .controllers .doms{font-size: 12px;float: left;margin-left:82px;}
+.toggle{clear: both;margin-top: -80px;margin-right: 50px;position: relative;float: right;}
+.toggle1{clear: both;float: right;margin-right: 50px;}
+/*=======内容=======*/
+.main_content{height: 700px;width: 100%;}
+.main_content .main_content_left{width: 95%;float: left;height: 100%;margin-left:50px }
+.search{width: 100%;height: 40px;margin-left: 40px;clear: both;}
+.search input{height: 28px;width: 400px; border-radius: 3px;float: left;margin-top: 10px;border: 1px solid #DED9D2;background:#F5F3EF; }
+.search input:focus{border-color:#DED9D2 }
+.search #button{height: 30px;width: 80px;float: left;margin-top: 10px;border: 1px solid #DED9D2;margin-left: 5px;border-radius: 5px;color:#279DC8}
+.search #button:hover{background:#279DC8;color:#FFF}
+.main_content_left .contents{height:0 auto;margin-top: 25px;text-align: left;color: #279DC8;line-height: 20px;font-size: 14px;}
+.main_content_left .contents h4{display: inline;font-weight: normal;}
+.main_content_left .contents h4 span{color:#279DC8;font-size: 14px;}
+.main_content_left .contents #fenshu{background: url("/statics/images/start.png");width:22px;height: 20px ;position: absolute;display: inline;text-align: center;color:#fff;font-size: 11px;}
+#num{display: inline;color: #C1C1C1;}
+.main_content_left .contents #content{line-height: 30px;color:#929292;}
+.main_content_left .pages{height: 90px;width: 100%; text-align:center;clear: both;margin-top: 30px;}
+.main_content_left .pages ul li{display: inline;margin-right: 30px;}
+.main_content_left .pages  li a{text-decoration: none;color:#279DC8}
+.main_content_left .pages  li a:hover{color:red}
+.main_content_left .pages .current a{color:#CCCCCC;readonly:true;disabled:true}
+.main_content_left .pages  .current a:hover{color:#CCCCCC;}
+
+.display{display: none;}
+.selected{height: 28px;width: 100px;float: left;margin-top: 10px;border: 1px solid #DED9D2;margin-left: 5px;border-radius: 5px;}
+.heightline{color:red;}
+.highlight { background-color:yellow;color:red;font-size: 20px; }

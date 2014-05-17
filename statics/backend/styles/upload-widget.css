@@ -1,0 +1,134 @@
+/**
+ * upload div
+ */
+.upload-div{
+   display: none;
+   position: relative;
+   margin: 5px;
+   background: #fff;
+   z-index: 10;
+   padding: 10px;
+   border: 1px solid #ccc;
+   /*border-top: none;*/
+   box-shadow: 0px 5px 10px #ccc;
+   -webkit-box-shadow: 0px 5px 10px #ccc;
+   -moz-box-shadow: 0px 5px 10px #ccc;
+}
+/**
+ * upload file widget
+ */
+.select-file-div{
+	position: relative;
+	width: 450px;
+	min-height: 30px;
+	overflow: auto;
+	padding: 10px 10px 45px;
+	border: 1px solid #e5e5e5;
+}
+.s-f-title{
+	float: left;
+	width: 448px;
+	background: #e5e5e5;
+	border: 1px solid #ccc;
+}
+.s-f-title .tit{
+	float: left;
+	padding: 0 5px;
+	font-size: 14px;
+	color: #4D90FE;
+	line-height: 26px;
+}
+.s-f-title .add-file{
+	position: relative;
+	float: right;
+	margin: 2px 5px;
+	padding: 0 5px;
+	font-size: 14px;
+	color: #000;
+	line-height: 20px;
+	background: #ccc;
+	border: 1px solid #999;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	cursor: pointer;
+	overflow: hidden;
+}
+.s-f-title .add-file:hover{	
+	border: 1px solid #3079ED;
+}
+.s-f-title .tit-msg{
+	float: left;
+	padding: 5px 0px 1px 3px;
+	font-size: 12px;
+	color: #666;
+	line-height: 20px;
+}
+.add-file input,.s-f-onefile input,.s-f-uploaded input{
+	cursor:pointer;
+	position:absolute;
+	left:0;
+	top:0;
+	width: 70px;
+	height: 22px;
+	overflow:hidden;
+	opacity: 0;
+	filter:alpha(opacity=0);
+	font-size: 12px;
+}
+.s-f-title .demo{
+	cursor: pointer;
+}
+.s-f-demo,.s-f-onefile,.s-f-uploaded{
+	position: relative;
+	float: left;
+	margin: 5px 0 1px;
+	width: 448px;
+	height: 22px;
+	font-size: 12px;
+	line-height: 20px;	
+	background: #f5f5f5;
+	border: 1px solid #e5e5e5;
+	overflow: hidden;
+}
+.s-f-demo{
+	display: none;
+}
+.s-f-onefile input,.s-f-uploaded input{
+	width: 0px;
+	height: 0px;
+}
+.s-f-onefile span.file-name,.s-f-uploaded span.file-name{
+	float: left;
+	width: 300px;
+	padding: 0 5px;
+	font-size: 12px;
+	color: #333;
+	text-align: left;
+	overflow: hidden;
+}
+.s-f-onefile span.del,.s-f-uploaded span.del{
+	float: right;
+	margin-right: 10px;
+	padding: 0 5px;
+	font-size: 12px;
+	color: #C53727;
+	cursor: pointer;
+}
+.s-f-onefile span.progress,.s-f-uploaded span.progress{
+	float: right;
+	margin-right: 10px;
+	padding: 0 5px;
+	font-size: 12px;
+	color: #4D90FE;
+}
+.s-f-submit{
+	position: absolute;
+	bottom: 10px;
+	float: left;
+	width: 450px;
+	height: 28px;
+}
+.s-f-submit div{
+	float: right;
+}

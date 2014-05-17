@@ -1,0 +1,119 @@
+/**
+ * Slider CSS
+ */
+.before-slider{
+   float: left;
+   position: relative;
+   margin: 5px 0;
+   width: 100%;
+}
+.before-slider a{
+   margin-right: 10px;
+}
+
+/***
+ * gallery
+ */
+
+.slider{
+   float: left;
+   width: 100%;
+}
+.slidertwo{
+   float: left;
+   width: 100%;
+   display: none;
+}
+.one{
+   float: left;
+   margin: 5px 10px 5px 0;
+   width: 200px;
+   height: 155px;
+   background: #f5f5f5;
+   border: 1px solid #e5e5e5;
+   overflow: hidden;
+}
+.one .one-img{
+   position: relative;
+   margin-top: 10px;
+   width: 190px;
+   height: 120px;
+}
+.one img{
+   max-width: 290px;
+   max-height: 120px;
+}
+.one-img .href{
+   display: none;
+   position: absolute;
+   width: 100%;
+   height: 23px;
+   bottom: 0px;
+   left: 0px;
+   font-size: 12px;
+   line-height: 23px;
+   overflow: hidden;
+   opacity: 0.5;
+   filter: alpha(opacity=50);
+   background: #666;
+   color: #fff;
+}
+.turn{
+   float: left;
+   width: 200px;
+   height: 25px;
+   background: #e6e6e6;
+}
+.turn a,.turn span{
+   float: right;
+   font-size: 12px;
+   line-height: 25px;
+   padding: 0 3px;
+   text-decoration: none;
+   color: #4D90FE;
+}
+.turn a.red{  
+   color: #C53727;  
+}
+
+/**
+ * slider edit
+ */
+.slider-div{
+   float: left;
+   margin-top: 10px;
+   padding: 4px;
+   width: 500px;
+   height: 250px;
+   background: #fcfcfc;
+   border: 1px solid #e5e5e5;
+}
+.slider-div img{
+   max-width: 500px;
+   max-height: 250px;
+}
+.edit-div{
+   float: left;
+   margin: 10px 0 0 20px;
+   width: 400px;
+   height: 250px;
+}
+.edit-type{
+   width: 100%;
+   float: left;
+   font-size: 14px;
+   line-height: 25px;
+}
+
+.slider-href{
+   width: 390px;
+}
+#more_info{
+   width: 390px;
+   height: 130px;
+   border: 1px solid #c5c5c5;
+}
+.edit-save{
+   float: right;
+   margin: 5px 8px;
+}

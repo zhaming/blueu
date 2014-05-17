@@ -1,0 +1,96 @@
+/*base css*/
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, a, abbr, address, cite, code, del, dfn, em,
+img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, hr,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figure, figcaption, hgroup,
+menu, footer, header, nav, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+}
+
+article, aside, canvas, figure, figure img, figcaption, hgroup,
+footer, header, nav, section, audio, video {
+    display: block;
+}
+
+a img {border: 0;}
+a{
+    color: #000;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+body{
+    font: 12px/24px "\5FAE\8F6F\96C5\9ED1",Arial,verdana;
+    color: #000;
+}
+
+.clear{
+    clear: both;
+}
+ul,li{
+    list-style: none;
+}
+
+
+#header{
+    height: 94px ;
+    background: #96a9c2;
+}
+#container{
+    background: url(/statics/images/404bg.png) repeat-x;
+    height: 500px;
+}
+.con_{
+    width: 575px;
+    margin: 0 auto;
+    /*background: url(images/404bg2.png) repeat-y;*/
+
+   text-align: center;
+    font-size:16px;
+    color: #849bba;
+    line-height: 30px;
+    padding: 20px;
+}
+.b_2{
+   margin-top:20px;
+}
+.b_2 p{
+    width: 210px;
+    background: #96a9c2;
+    color: #fff;
+    margin: 0 auto;
+}
+.b_3{
+    margin: 20px auto;
+    width: 220px;
+    height: 140px;
+    background:url(/statics/images/404logo.png) no-repeat center ;
+}
+.b_4 a{
+    color: #fec142;
+    margin: 0 5px;
+}
+
+#footer{
+    height: 12px;
+    background:#96a9c2;
+    position: relative;
+}
+.ft{
+    position: absolute;
+    width: 670px;
+    background: #fff;
+    height: 14px;
+    top:-1px;
+    left: 50%;
+    margin-left: -335px;
+    text-align: center;
+    line-height: 14px;
+    color: #849bba;
+}

@@ -1,0 +1,14 @@
+﻿/*==============错误信息===============*/
+.noteInfo{display:inline-block; color:#c00; line-height:17px;vertical-align:middle;}
+.noteInfo em{ height:17px; width:17px;overflow:hidden; background:url(/statics/images/noteIcon.png) no-repeat 0 0; float:left; margin:0px 5px 0 0; font-size:0}
+.noteInfo em.sure{ background-position:0 -18px;}
+/*==========提示框屏幕居中==========*/
+.PromptBox{left:50%;top:50%;margin-left: -60px !important;margin-top: -20px !important; margin-left: 0px; margin-top: 0px; z-index:9999999;position: fixed !important; /*FF IE7*/ position: absolute; /*IE6*/ background:#fef5e2;border:1px #ccc solid;line-height:20px;padding:10px 20px;letter-spacing:1px;color:#666;
+_top: expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop + (document.documentElement.clientHeight-this.offsetHeight)/2 : /*IE6*/ document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2); /*IE5 IE5.5*/
+_left: expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollLeft + (document.documentElement.clientWidth-this.offsetWidth)/2 : /*IE6*/ document.body.scrollLeft + (document.body.clientWidth - this.clientWidth)/2); /*IE5 IE5.5*/
+}
+.PromptBox .PromptSuccess{float:left;padding-left:30px;line-height:25px;position:relative}
+.PromptBox em{background:url('/statics/images/noteIcon.png') no-repeat;position:absolute;left:4px;top:4px;width:17px;height:17px;overflow:hidden}
+.PromptBox .PromptSuccess em{background-position:0 -18px}
+.PromptBox .PromptFail{float:left;padding-left:30px;line-height:25px;position:relative}
+.PromptBox .PromptFail em{background-position:0 0}

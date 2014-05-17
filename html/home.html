@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" style="" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms no-csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>home</title>
+    <link href="/statics/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/statics/blueu/styles/fonts.css" rel="stylesheet">
+    <link href="/statics/blueu/styles/prettyPhoto.css" rel="stylesheet">
+    <link href="/statics/blueu/styles/style.css" rel="stylesheet">
+
+    <script id="facebook-jssdk" src="/statics/blueu/js/all.js"></script>
+    <script type="text/javascript" src="/statics/blueu/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/statics/blueu/js/modernizr-latest.js"></script>
+    <script type="text/javascript" src="/statics/blueu/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/statics/blueu/js/tweenmax.min.js"></script>
+    <script type="text/javascript" src="/statics/blueu/js/jquery.superscrollorama.js"></script>
+
+  <style type="text/css">
+  #viewport-wrapper{
+min-width:1000px;	
+}
+    .fb_hidden{position:absolute;top:-10000px;z-index:10001}
+    .fb_invisible{display:none}
+    .fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+    .fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}
+    .fb_reset .fb_dialog_legacy{overflow:visible}
+    .fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+    .fb_dialog_content{background:#fff;color:#333}
+    .fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}
+    .fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}
+    .fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
+    .fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+    .fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+    .fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}
+    .fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}
+    .fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}
+    .fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}
+    .fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}
+    .fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}
+    .fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}
+    .fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}
+    .fb_dialog_vert_left{margin-left:-10px}
+    .fb_dialog_vert_right{right:0;margin-right:-10px}
+    .fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}
+    .fb_dialog_horiz_top{margin-top:-10px}
+    .fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}
+    .fb_dialog_iframe{line-height:0}
+    .fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}
+    .fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}
+    body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}
+    .fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}
+    .fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}
+    #fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}
+    #fb-root #fb_dialog_ipad_overlay.hidden{display:none}
+    .fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}
+    .fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}
+    .fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}
+    .fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}
+    .fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}
+    .fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}
+    .fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+    .fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}
+    .fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}
+    .fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}
+    #fb_dialog_loader_close{float:left}
+    .fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+    .fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+    .fb_iframe_widget{display:inline-block;position:relative}
+    .fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}
+    .fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}
+    .fb_hide_iframes iframe{position:relative;left:-10000px}
+    .fb_iframe_widget_loader{position:relative;display:inline-block}
+    .fb_iframe_widget_fluid{display:inline}
+    .fb_iframe_widget_fluid span{width:100%}
+    .fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}
+    .fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+    .fb_connect_bar_container div,.fb_connect_bar_container span,.fb_connect_bar_container a,.fb_connect_bar_container img,.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}
+    .fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}
+    .fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}
+    .fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}
+    .fb_connect_bar a:hover{color:#fff}
+    .fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}
+    .fb_connect_bar div a,.fb_connect_bar span,.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}
+    .fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+    .fbpluginrecommendationsbarleft,.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}
+    .fbpluginrecommendationsbarleft{left:10px}.fbpluginrecommendationsbarright{right:10px}
+</style>
+
+</head>
+<body id="estimote-com" class="home" style="">
+    <div id="viewport-wrapper">
+      <div id="nav" class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <div id="branding" class="pull-left">
+              <a href="/html/home.html" title="Real world context for your apps">Estimote Beacons</a>
+            </div>
+            <ul class="nav">
+              <li><a href="#hero"  class="active">简介</a></li>
+              <li><a href="#about" >蓝友基站</a></li>
+              <li><a href="#details">寻宝</a></li>             
+              <li><a href="#api" >前景</a></li>
+              <li><a href="#contact_us">联系我们</a></li>
+            </ul>
+          </div>
+        </div>
+      </div> <!-- .navbar -->
+
+      <div id="hero" class="row-fluid">
+        <div id="locations" class="carousel slide">
+          <div class="container">
+            <div class="span7 content">
+              
+              <h1>蓝友寻宝 <br> 一个让人穿梭在虚拟和现实之间的体验式逛街游戏</h1>
+              <p>
+              <br/>
+              逛街也是一种工作？
+              <br/>
+              在蓝友寻宝中，逛街就是你的工作任务，虚拟游戏世界的体验，现实世界完成任务的快感，当然，还少不了你心仪的礼物！
+              这一切，你懂的…
+              </p>
+
+            </div>
+   
+            <div id="location-apps" class="">
+              <div class="hand hand1"><img src="/statics/blueu/images/screen1.png" alt="" style="display: none;"></div>
+              <div class="hand hand2 active"><img src="/statics/blueu/images/screen2.png" alt="" style="display: inline;"></div>
+              <div class="hand hand3"><img src="/statics/blueu/images/screen3.png" alt="" style="display: none;"></div>
+            </div>
+          </div>
+
+          <ol class="carousel-indicators">
+            <li data-target="#locations" data-slide-to="0" class=""></li>
+            <li data-target="#locations" data-slide-to="1" class="active"></li>
+            <li data-target="#locations" data-slide-to="2" class=""></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="item hero1"></div>
+            <div class="item hero2 active"></div>
+            <div class="item hero3"></div>
+          </div>
+        </div>
+      </div>  
+      <div id="about" class="row-fluid">
+        <img src="/statics/blueu/images/b1.png" width="100%" height="100%" style="position: absolute;">      
+        <div class="container">
+          <div class="span6"><div class="figure"></div></div>
+          <div class="span6">  
+            <div class="content-space">
+              <div class="content" >
+                <h2>什么是蓝友基站？</h2>
+                  <p>蓝友基站是基于iBeacons技术的无线蓝牙交互设备。</p>
+                  <p>蓝友基站可以实现精准的位置信标和交互，同时具有自维护的特性，一颗纽扣电池工作时间长达2年。</p>
+                  <p>蓝友基站的外形采用3D打印技术，可定制化设计，实现多种场景要求。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+
+      <div id="details" class="row-fluid">
+          <div class="container">
+            <div class="span6">
+              <div class="content-space">
+                <div class="content">
+                  <h2>寻宝是如何实现的？</h2>
+                  <p>整个游戏过程中，玩家通过手机，在现实世界的店铺，步行街，购物中心，活动现场等场景中，按照提示进行解密，抽奖，互动，社交等方式完成既定的任务后，按照游戏规则，获得由商家提供的奖品和优惠。</p>
+                  <div class="ibeacon-certified">
+                    <span></span>
+                    <p>蓝友使用授权苹果iBeacon技术 <br/>和兼容iBeacon-enabled苹果产品的应用程序。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="span6 figure">
+              <div class="factory-video">
+              <img src="/statics/blueu/images/get.png">
+              </div>
+            </div>
+          </div>
+        </div> 
+      <!-- <div class="superscrollorama-pin-spacer" style="position: relative; top: auto; left: auto; height: 0px;"></div>
+      <div id="example" class="row-fluid dark visible-desktop" style="position: relative; top: auto; left: auto;">
+        <div class="container">
+          <div class="venue">
+          </div>
+          <div class="span12 text-center">
+            <h2>使用蓝友实现寻宝</h2>
+            <div id="static-example" class="row-fluid dark" style="display:none">
+              <div id="example-carousel" class="carousel slide">
+                <div class="carousel-inner">
+                  <div class="item active"><img src="/statics/blueu/images/how-it-works-step1.png" alt=""></div>
+                  <div class="item"><img src="/statics/blueu/images/how-it-works-step2.png" alt=""></div>
+                  <div class="item"><img src="/statics/blueu/images/how-it-works-step3.png" alt=""></div>
+                  <div class="item"><img src="/statics/blueu/images/how-it-works-step4.png" alt=""></div>
+                </div>
+                <a class="carousel-control right" href="http://estimote.com/#example-carousel" data-slide="next"><img src="/statics/blueu/images/next.png" alt=""></a>
+              </div>
+            </div>  
+            <div class="narrative">
+              <p class="story story1" style="opacity: 1;">张明去他最喜欢的零售商店。他商店的手机应用程序的智能手机,虽然是在他的口袋里,但是蓝友基站位于商店。</p>
+              <p class="story story2" style="opacity: 0;">张明,紫蓝友基站定位在窗口,将个性化的消息发送给他的电话他读取到欢迎消息。</p>
+              <p class="story story3" style="opacity: 0;">张明看到一些伟大的牛仔裤和想要更多地了解他们。由于另一个蓝友基站附近的产品,他可以立即获得更多信息和一个特别优惠价。</p>
+              <p class="sstory story4" style="opacity: 0;">他旁边的黄色蓝友基站将新消息发送给张明，建议购买一个新的手机。张明决定购买的两个物品,并使用商店的手机应用程序完成购买。</p>
+              <p class="story story5" style="opacity: 0;">张明走出商店淡蓝色蓝友基站触发发货信息,谢谢你的消息出现在他的电话上。</p>
+            </div>
+
+            <div class="shopper" style="left: 0px; top: 120px;"></div>
+            <div class="highlight shirt" style="opacity: 0;"></div>
+            <div class="highlight jeans" style="opacity: 0;"></div>
+      			<div class="violet bubble" style="opacity: 0;"><h1>您好张明！</h1><p>我们今天有一个特殊的打折商品！</p></div>
+            <div class="navy bubble" style="opacity: 0;"><h1>牛仔裤今天有折扣优惠。</h1><p>今天，他们可以以20％的折扣购买！</p></div>
+            <div class="yellow bubble" style="opacity: 0;"><h1>黄色T恤</h1><p>非常棒！你喜欢的牛仔裤！</p></div>
+            <div class="blue bubble" style="opacity: 0;"><h1>谢谢张明！</h1><p>您所购买的物品将今天发货,并送到您的家庭住址。</p></div>
+
+          </div>
+      </div>
+      </div> --> 
+       
+
+      <div id="api" class="row-fluid">
+        <div class="container">
+          <div class="span8 figure"></div>
+          <div class="span4">
+            <div class="content-space">
+              <div class="content">
+                <h2>未来是什么样的？</h2>
+                <p>蓝友立志做O2O大潮中的“卖水者”</p>
+                <p>在发展蓝友寻宝的同时，也将通过SDK/API向其他合作伙伴提供蓝友基站的服务</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
+      <div id="contact_us"></div>
+    <iframe width="100%" height="244px" style="border:none;overflow:hidden;"  src="footer.html"></iframe>
+
+    <script type="text/javascript">
+
+
+      $(function() {
+
+        var carousel = $('#locations').carousel({
+            pause: false,
+            interval: 5000
+        }).on('slid', function(e) {
+            var $active = $('#hero div.hand.active');
+            var $next = $active.next('div.hand').is('div') ? $active.next('div.hand') : $('#hero').find('div.hand:first-child');
+            if ($next.is('div.hand1')) {
+                $('#location-apps').addClass('loop')
+            }
+            $next.find('img').fadeIn('slow', function(e) {
+                $active.removeClass('active');
+                $active.find('img').hide();
+                $(this).parent().addClass('active');
+                $('#location-apps').removeClass('loop');
+            });
+        });
+
+        // var howItWorks = $.superscrollorama({
+        //         playoutAnimations: false
+        // });
+        // $(".nav>li>a").click(function(){
+        //     howItWorks.removePin('#example');
+        //     setTimeout(function(){
+        //       howItWorks.pin($('#example'), 2000,pin_option );
+        //     },5000);
+        // });
+        // var pin_option = {
+        //         anim: (new TimelineLite())
+        //         .append([
+        //                 TweenMax.to($('.shopper'), .1, { css: { left: '73px'}}),
+        //                 TweenMax.to($('.shopper'), .1, {css: { top: '241px'}}),
+        //         ])
+        //         .append([
+        //             TweenMax.to($('.shopper'), .05, {css: { left: '73px'}}),
+        //             TweenMax.to($('.shopper'), .05, {css: { top: '241px'}}),
+        //             TweenMax.to($('.violet'), .009, {css: { opacity: 1}}),
+        //             TweenMax.to($('.story1'), .005, {css: { opacity: 0}}),
+        //             TweenMax.to($('.story2'), .009, {css: { opacity: 1}}),
+        //         ])
+        //         .append([
+        //             TweenMax.to($('.violet'), .009, {css: { opacity: 0}}),
+        //             TweenMax.to($('.shopper'), .1, {css: { left: '188px'}}),
+        //             TweenMax.to($('.shopper'), .1, {css: { top: '433px'}}),                
+        //         ])
+        //         .append([
+        //             TweenMax.to($('.shopper'), .05, {css: { left: '188px'}}),
+        //             TweenMax.to($('.shopper'), .05, {css: { top: '433px'}}),
+        //             TweenMax.to($('.navy'), .009, {css: { opacity: 1}}),
+        //             TweenMax.to($('.story2'), .005, {css: { opacity: 0}}),
+        //             TweenMax.to($('.story3'), .009, {css: { opacity: 1}}),
+        //             TweenMax.to($('.jeans'), .009, {css: { opacity: 1}}),
+        //         ])
+        //         .append([
+        //             TweenMax.to($('.navy'), .009, {css: { opacity: 0}}),
+        //             TweenMax.to($('.shopper'), .1, {css: { left: '383px'}}),
+        //             TweenMax.to($('.shopper'), .1, {css: { top: '349px'}}),
+        //             TweenMax.to($('.jeans'), .009, {css: { opacity: 0}}),
+        //         ])
+        //         .append([
+        //             TweenMax.to($('.shopper'), .05, {css: { left: '383px'}}),
+        //             TweenMax.to($('.shopper'), .05, {css: { top: '349px'}}),
+        //             TweenMax.to($('.yellow'), .009, {css: { opacity: 1}}),
+        //             TweenMax.to($('.story3'), .005, {css: { opacity: 0}}),
+        //             TweenMax.to($('.story4'), .009, {css: { opacity: 1}}),
+        //             TweenMax.to($('.shirt'), .009, {css: { opacity: 1}}),
+        //         ])
+        //         .append([
+        //             TweenMax.to($('.yellow'), .009, {css: { opacity: 0}}),
+        //             TweenMax.to($('.shopper'), .1, {css: { left: '489px'}}),
+        //             TweenMax.to($('.shopper'), .1, {css: { top: '430px'}}),
+        //             TweenMax.to($('.shirt'), .009, {css: { opacity: 0}}),
+        //         ])
+        //         .append([
+        //             TweenMax.to($('.shopper'), .05, {css: { left: '489px'}}),
+        //             TweenMax.to($('.shopper'), .05, {css: { top: '430px'}}),
+        //             TweenMax.to($('.blue'), .009, {css: { opacity: 1}}),
+        //             TweenMax.to($('.story4'), .005, {css: { opacity: 0}}),
+        //             TweenMax.to($('.story5'), .009, { css: { opacity: 1  } }),
+        //         ])
+        //         .append([
+        //             TweenMax.to($('.blue'), .009, { css: {  opacity: 0 } }),
+        //             TweenMax.to($('.shopper'), .1, { css: { left: '590px' }  }),
+        //             TweenMax.to($('.shopper'), .1, {  css: {  top: '520px' }  }),
+        //         ])
+        //     };
+
+        
+        //   if (!Modernizr.touch) {
+        //     howItWorks.pin($('#example'), 2000,pin_option );
+        // } else {
+        //     $('#static-example').show();
+        //     $('#example').css('height', '760px');
+        //     $('#example .narrative, #example .shopper, #example .bubble').hide();
+        //     $('#example > .container, #example .venue').addClass('static');
+        // }
+
+    })
+    </script>
+
+<script language="javascript" type="text/javascript" src="/statics/blueu/js/chartbeat.js"></script> 
+
+</body>
+</html>

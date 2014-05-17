@@ -1,0 +1,59 @@
+[class^="img_"],
+[class*="img_"] {
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    margin-top: 1px;
+    *margin-right: .3em;
+    line-height: 21px;
+    vertical-align: text-top;
+    background-position: 21px 21px;
+    background-repeat: no-repeat;
+}
+.img_active{
+    background-image: url('/statics/images/st.png');
+}
+.img_disable{
+    background-image: url('/statics/images/st_g.png');
+}
+.img_email{
+    background-position:-46px 0;
+}
+.img_phone{
+    background-position:0 0;
+}
+.img_idcard{
+    background-position:-21px 0;
+}
+/*圖片顯示不出來就顯示的背景圖*/
+.small_head_img{
+    background-image: url('/statics/images/21_avatar_middle_30.jpg');
+    background-repeat:repeat-x; 
+    height: 30px;
+    width: 30px;
+    outline: none;
+    border: none;
+}
+.big_head_img{
+    background-image: url('/statics/images/21_avatar_middle.jpg');
+    background-repeat:repeat-x; 
+    height: 120px;
+    width: 120px;
+    outline: none;
+    border: none;
+}
+.idcard_img{
+    background-image: url('/statics/images/sfz.png');
+    background-repeat:repeat-x; 
+    height: 125px;
+    width: 200px;
+    outline: none;
+    border: none;
+}
+
+
+/**举报管理**/
+
+.control-left{width:98%;padding-top: 30px; margin-top: 20px;}
+.control-right{width:90%;padding-top: 10px;background:#E6EDF0;padding-bottom: 10px;}
+.control-grop-left{width:100%;display: inline-block;float: left;}
