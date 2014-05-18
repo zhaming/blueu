@@ -95,5 +95,9 @@ class UserController extends BController {
     public function actionLogout() {
         
     }
+    
+    public function actionEdit(){
+        $this->render('edit');
+    }
 
 }

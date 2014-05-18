@@ -64,9 +64,12 @@
                                 <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" class="btn btn-xs btn-danger">
                                     <i class="icon-trash bigger-120"></i>
                                 </a>
-                                <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" class="btn btn-xs btn-danger">
+                                <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" title="关闭推送" class="btn btn-xs btn-danger">
                                     <i class="icon-download-alt bigger-120"></i>
-                                </a>                                 
+                                </a>  
+                                <a href="/admin/user/edit?id=<?php echo $item->id; ?>" title="编辑" class="btn btn-xs btn-grey">
+                                    <i class="icon-edit bigger-120"></i>
+                                </a>
                             </div>
                         </td>
                     </tr>

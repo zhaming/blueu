@@ -148,7 +148,7 @@ class UserController extends IController {
         
     }
 
-    public function actionPrinting() {
+    public function actionStamp() {
         
     }
 
@@ -157,6 +157,14 @@ class UserController extends IController {
     }
 
     public function actionPush() {
+        
+    }
+
+    public function actionEnablepush() {
+        
+    }
+
+    public function actionDisablepush() {
         
     }
 
