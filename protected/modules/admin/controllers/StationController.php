@@ -1,36 +1,30 @@
-<?php 
-class StationController extends BController
-{
-    public function actionIndex()
-    {
+<?php
+
+class StationController extends BController {
+
+    public function actionIndex() {
         $filters = Yii::app()->request->getQuery('filters');
         $listData = BlueStation::model()->findAll();
         $this->render('index', array('listData' => $listData));
     }
 
-    public function actionAdd()
-    {
+    public function actionAdd() {
         $id = '';
         $name = '';
         $describ = '';
-        $positionX = '';$positionY = '';
         if (Yii::app()->request->isPostRequest) {
             $id = Yii::app()->request->getPost('id');
             $name = Yii::app()->request->getPost('name');
-            $positionX = Yii::app()->request->getPost('positionX');
-            $positionY = Yii::app()->request->getPost('positionY');
             $describ = Yii::app()->request->getPost('describ');
             if (!empty($id) && !empty($name) && !empty($describ)) {
                 $criteria = new CDbCriteria;
-                $criteria->addColumnCondition(array('id'=>$id));
+                $criteria->addColumnCondition(array('id' => $id));
                 if (BlueStation::model()->exists($criteria)) {
                     $this->showError('已经存在此基站编码, 请重新指定');
                 } else {
                     $model = new BlueStation;
                     $model->id = $id;
                     $model->name = $name;
-                    $model->positionX = $positionX;
-                    $model->positionY = $positionY;
                     $model->describ = $describ;
                     if ($model->save()) {
                         $this->showSuccess('保存成功', $this->createUrl('edit?id=' . $id));
@@ -42,31 +36,25 @@ class StationController extends BController
                 $this->showError('请填写完整信息');
             }
         }
-        $this->render('add', compact('id', 'name', 'describ', 'positionX', 'positionY'));
+        $this->render('add', compact('id', 'name', 'describ'));
     }
 
-    public function actionEdit()
-    {
+    public function actionEdit() {
         $id = '';
         $name = '';
         $describ = '';
-        $positionX = '';$positionY = '';
         if (Yii::app()->request->isPostRequest) {
             $id = Yii::app()->request->getQuery('id');
             $criteria = new CDbCriteria;
-            $criteria->addColumnCondition(array('id'=>$id));
+            $criteria->addColumnCondition(array('id' => $id));
             $model = BlueStation::model()->find($criteria);
             if (is_null($model)) {
-                $this->showError('非法操作',  $this->createUrl('index'));
+                $this->showError('非法操作', $this->createUrl('index'));
             } else {
                 $name = Yii::app()->request->getPost('name');
-                $positionX = Yii::app()->request->getPost('positionX');
-                $positionY = Yii::app()->request->getPost('positionY');
                 $describ = Yii::app()->request->getPost('describ');
                 if (!empty($name) && !empty($describ)) {
                     $model->name = $name;
-                    $model->positionX = $positionX;
-                    $model->positionY = $positionY;
                     $model->describ = $describ;
                     if ($model->save()) {
                         $this->showSuccess('保存成功', $this->createUrl('edit?id=' . $id));
@@ -80,27 +68,24 @@ class StationController extends BController
         } else {
             $criteria = new CDbCriteria;
             $id = Yii::app()->request->getQuery('id');
-            $criteria->addColumnCondition(array('id'=>$id));
+            $criteria->addColumnCondition(array('id' => $id));
             $model = BlueStation::model()->find($criteria);
             if (is_null($model)) {
-                $this->showError('非法操作',  $this->createUrl('index'));
+                $this->showError('非法操作', $this->createUrl('index'));
             } else {
                 $id = $model->id;
                 $name = $model->name;
-                $positionX = $model->positionX;
-                $positionY = $model->positionY;
                 $describ = $model->describ;
             }
         }
-        $this->render('edit', compact('id', 'name', 'describ', 'positionX', 'positionY'));
+        $this->render('edit', compact('id', 'name', 'describ'));
     }
 
-    public function actionDelete()
-    {
+    public function actionDelete() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
             $criteria = new CDbCriteria;
-            $criteria->addColumnCondition(array('id'=>$id));
+            $criteria->addColumnCondition(array('id' => $id));
             $model = BlueStation::model()->find($criteria);
             if (!is_null($model)) {
                 if ($model->delete()) {
@@ -112,5 +97,7 @@ class StationController extends BController
         }
         $this->showError('非法操作', $this->createUrl('index'));
     }
+
 }
+
 ?>

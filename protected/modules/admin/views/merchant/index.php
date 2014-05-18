@@ -1,52 +1,61 @@
-<!-- <form class="well form-inline" action="/admin/user/index" method="get">
-    <p>
-    <label>邮件：<input type="text" value="<?php if(!empty($filters['email'])) {echo $filters['email']; } ?>" name="filters[email]" /></label>
-    <label>姓名：<input type="text" value="<?php if(!empty($filters['name'])) { echo $filters['name']; } ?>" name="filters[name]" /></label>
-    <label>电话：<input type="text" value="<?php if(!empty($filters['phone'])) { echo $filters['phone']; } ?>" name="filters[phone]" /></label>
-    <button class="btn" type="submit"><i class='icon-search'></i>查询</button>
-    </p>
-</form> -->
+<div class="page-header">
+    <h1>商户管理<small><i class="icon-double-angle-right"></i>商户列表</small></h1>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <p>
+            <a href="/admin/merchant/create" class="btn btn-app btn-yellow btn-xs"><i class="icon-create bigger-120"></i>创建</a>
+            <a href="/admin/merchant/delete" class="btn btn-app btn-danger btn-xs"><i class="icon-remove bigger-120"></i>删除</a>
+        </p>
+        <div class="table-responsive">
+            <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="center">
+                            <label>
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </th>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th></th>
+                    </tr>
+                </thead>
 
-<table class='table table-bordered table-striped'>
-    <tr>
-        <th>编号</th>
-        <th>名称</th>
-        <th>基站名称</th>
-        <th>描述信息</th>
-        <th>图片信息</th>
-        <th>操作</th>
-    </tr>
-    <?php if(!empty($listData)): ?>
-        <?php foreach ($listData as $item): ?>
-            <tr>
-                <td><?php echo $item['id']; ?></td>
-                <td>
-                    <?php if(empty($item['url'])): ?>
-                    <a href="<?php echo 'javascript:void();';?>">
-                    <?php else: ?>
-                    <a href="<?php echo $item['url']; ?>" target="_blank">
-                    <?php endif;?>
-                    <?php echo $item['name']; ?>
-                    </a>
-                </td>
-                <td>
-                    <?php if (!empty($item->station)): ?>
-                        <?php echo $item->station[0]['name']; ?>
-                    <?php else: ?>
-                        未绑定
-                    <?php endif;?>
-                </td>
-                <td><?php echo $item['describ']; ?></td>
-                <td><?php echo FilesComponent::getImageUrl($item['pic']); ?></td>
-                <td>
-                    <a href="<?php echo $this->createUrl('ad/add?merid='. $item['id']); ?>">添加广告</a>
-                    <a href="<?php echo $this->createUrl('user/index?blueid='. $item['blueid']); ?>">查看用户</a>
-                    <a href="<?php echo $this->createUrl('ad/index?merid='. $item['id']); ?>">查看广告</a>
-                    <a href="<?php echo $this->createUrl('edit?id='. $item['id']); ?>">编辑</a>
-                    <a href="<?php echo $this->createUrl('delete?id='. $item['id']); ?>">删除</a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    <?php endif; ?>
-</table>
-<?php //$this->widget('application.modules.admin.widgets.BCLinkPager', array('pages'=>$listData['pages']));?>
+                <tbody>
+                    <tr>
+                        <?php if (!empty($data)) { foreach ($data as $item) { ?>
+                        <td class="center">
+                            <label>
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+                        <td><?php echo $item->id; ?></td>
+                        <td><?php echo $item->name; ?></td>
+                        <td>
+                            <a href="/admin/merchant/activity?id=<?php echo $item->id; ?>" title="活动" class="btn btn-xs btn-info">
+                                <i class="icon-coffee bigger-120"></i>
+                            </a>
+                            <a href="/admin/merchant/stations?id=<?php echo $item->id; ?>" title="基站" class="btn btn-xs btn-yellow">
+                                <i class="icon-signal bigger-120"></i>
+                            </a>
+                            <a href="/admin/merchant/mermber?id=<?php echo $item->id; ?>" title="会员" class="btn btn-xs btn-success">
+                                <i class="icon-user bigger-120"></i>
+                            </a>
+                            <a href="/admin/merchant/edit?id=<?php echo $item->id; ?>" title="编辑" class="btn btn-xs btn-grey">
+                                <i class="icon-edit bigger-120"></i>
+                            </a>
+                            <a href="" title="删除" class="btn btn-xs btn-danger">
+                                <i class="icon-trash bigger-120"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <?php }} ?>
+                </tbody>
+            </table>
+            <?php $this->widget('application.modules.admin.widgets.BCLinkPager', array('pages' => $pager)); ?>
+        </div>
+    </div>
+</div>

@@ -1,20 +1,19 @@
-<?php 
-class AdController extends BController
-{
-    public function actionIndex()
-    {
+<?php
+
+class AdController extends BController {
+
+    public function actionIndex() {
         $filters = Yii::app()->request->getQuery('filters');
         $merid = Yii::app()->request->getQuery('merid');
         $criteria = new CDbCriteria;
         if (!is_null($merid)) {
-            $criteria->addColumnCondition(array('merid'=>$merid));
+            $criteria->addColumnCondition(array('merid' => $merid));
         }
         $listData = Advertisement::model()->findAll($criteria);
         $this->render('index', array('listData' => $listData));
     }
 
-    public function actionAdd()
-    {
+    public function actionAdd() {
         $id = '';
         $name = '';
         $describ = '';
@@ -27,7 +26,7 @@ class AdController extends BController
             $merid = Yii::app()->request->getQuery('merid');
             if (!empty($id) && !empty($name) && !empty($merid) && !empty($describ)) {
                 $criteria = new CDbCriteria;
-                $criteria->addColumnCondition(array('id'=>$id));
+                $criteria->addColumnCondition(array('id' => $id));
                 if (Advertisement::model()->exists($criteria)) {
                     $this->showError('已经存在此广告编码, 请重新指定');
                 } else {
@@ -54,8 +53,7 @@ class AdController extends BController
         $this->render('add', compact('id', 'name', 'pic', 'describ'));
     }
 
-    public function actionEdit()
-    {
+    public function actionEdit() {
         $id = '';
         $name = '';
         $describ = '';
@@ -63,10 +61,10 @@ class AdController extends BController
         if (Yii::app()->request->isPostRequest) {
             $id = Yii::app()->request->getQuery('id');
             $criteria = new CDbCriteria;
-            $criteria->addColumnCondition(array('id'=>$id));
+            $criteria->addColumnCondition(array('id' => $id));
             $model = Advertisement::model()->find($criteria);
             if (is_null($model)) {
-                $this->showError('非法操作',  $this->createUrl('index'));
+                $this->showError('非法操作', $this->createUrl('index'));
             } else {
                 $name = Yii::app()->request->getPost('name');
                 $describ = Yii::app()->request->getPost('describ');
@@ -90,10 +88,10 @@ class AdController extends BController
         } else {
             $criteria = new CDbCriteria;
             $id = Yii::app()->request->getQuery('id');
-            $criteria->addColumnCondition(array('id'=>$id));
+            $criteria->addColumnCondition(array('id' => $id));
             $model = Advertisement::model()->find($criteria);
             if (is_null($model)) {
-                $this->showError('非法操作',  $this->createUrl('index'));
+                $this->showError('非法操作', $this->createUrl('index'));
             } else {
                 $id = $model->id;
                 $name = $model->name;
@@ -104,12 +102,11 @@ class AdController extends BController
         $this->render('edit', compact('id', 'name', 'pic', 'describ'));
     }
 
-    public function actionDelete()
-    {
+    public function actionDelete() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
             $criteria = new CDbCriteria;
-            $criteria->addColumnCondition(array('id'=>$id));
+            $criteria->addColumnCondition(array('id' => $id));
             $model = Advertisement::model()->find($criteria);
             if (!is_null($model)) {
                 if ($model->delete()) {
@@ -121,5 +118,7 @@ class AdController extends BController
         }
         $this->showError('非法操作', $this->createUrl('index'));
     }
+
 }
+
 ?>

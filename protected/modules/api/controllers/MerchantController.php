@@ -18,16 +18,7 @@ class MerchantController extends IController
                     $data['id'] = $queryResult->id;
                     $data['name'] = $queryResult->name;
                     $data['describ'] = $queryResult->describ;
-                    $data['url'] = $queryResult->url;
                     $data['pic'] = FilesComponent::getImageUrl($queryResult->pic);
-                    
-                    $criteriaStation = new CDbCriteria;
-                    $criteriaStation->addColumnCondition(array('id'=>$blueid));
-                    $queryResultStation = BlueStation::model()->find($criteriaStation);
-                    if(!empty($queryResultStation)){
-                        $data['positionX'] = $queryResultStation->positionX;
-                        $data['positionY'] = $queryResultStation->positionY;
-                    }
                     $result['data'] = $data;
                 }
                 echo JsonTools::json_encode_cn($result);

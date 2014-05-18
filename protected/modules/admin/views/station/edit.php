@@ -17,20 +17,6 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label">坐标X:</label>
-                    <div class="controls">
-                        <input type="text" name='positionX' class="span3" value="<?php echo $positionX; ?>">
-                        <p class="help-block"></p>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">坐标Y:</label>
-                    <div class="controls">
-                        <input type="text" name='positionY' class="span3" value="<?php echo $positionY; ?>">
-                        <p class="help-block"></p>
-                    </div>
-                </div>
-                <div class="control-group">
                     <label class="control-label">基站描述信息:</label>
                     <div class="controls">
                         <input type="text" name='describ' class="span3" value="<?php echo $describ; ?>">

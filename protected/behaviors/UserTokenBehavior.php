@@ -1,14 +1,14 @@
 <?php
-class UserTokenBehavior extends CActiveRecordBehavior
-{
+
+class UserTokenBehavior extends CActiveRecordBehavior {
+
     /**
      * 保持本次登录token
      * @param  [type] $user_id [description]
      * @param  [type] $token   [description]
      * @return [type]          [description]
      */
-    public function saveToken($user_id, $token)
-    {
+    public function saveToken($user_id, $token) {
         $result = false;
         $user = $this->getOwner()->getById($user_id);
         if (!empty($user)) {
@@ -24,8 +24,7 @@ class UserTokenBehavior extends CActiveRecordBehavior
      * @param  [type] $user_id [description]
      * @return [type]          [description]
      */
-    public function updateTokenLastOperateTime($user_id)
-    {
+    public function updateTokenLastOperateTime($user_id) {
         $result = false;
         $user = $this->getOwner()->getById($user_id);
         if (!empty($user)) {
@@ -40,18 +39,18 @@ class UserTokenBehavior extends CActiveRecordBehavior
      * @param  [type] $token [description]
      * @return [type]        [description]
      */
-    public function getUserByToken($token)
-    {
-        $liveTime = 20*60;
+    public function getUserByToken($token) {
+        $liveTime = 20 * 60;
         $user = array();
         $tmpUser = $this->getOwner()->getUserByAttributes(array('token' => $token, 'type' => User::USER_TYPE_GENERA));
         if (!empty($tmpUser)) {
-            if (time()-$liveTime < $tmpUser['last_operate']) {
+            if (time() - $liveTime < $tmpUser['last_operate']) {
                 $user = $tmpUser;
             }
         }
         return $user;
     }
+
 }
 
 ?>

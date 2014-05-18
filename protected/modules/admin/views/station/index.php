@@ -11,7 +11,6 @@
     <tr>
         <th>编号</th>
         <th>名称</th>
-        <th style="text-align:center;">坐标</th>
         <th>绑定商户</th>
         <th>基站描述信息</th>
         <th>操作</th>
@@ -21,15 +20,14 @@
             <tr>
                 <td><?php echo $item['id']; ?></td>
                 <td><?php echo $item['name']; ?></td>
-                <td style="text-align:center;"><?php echo empty($item['positionX'])|empty($item['positionY'])?'空':$item['positionX'].','.$item['positionY']; ?></td>
+                <td><?php echo $item['name']; ?></td>
+                <td><?php echo $item['describ']; ?></td>
                 <td>
                     <?php if (!is_null($item->merchant)): ?>
-                        <?php echo $item->merchant->name; ?>
+                        <?php $item->merchant->name; ?>
                     <?php else: ?>
                         未绑定
                     <?php endif; ?>
-                </td>
-                <td><?php echo $item['describ']; ?></td>
                 <td>
                     <a href="<?php echo $this->createUrl('merchant/add?blueid='. $item['id']); ?>">绑定商户</a>
                     <a href="<?php echo $this->createUrl('edit?id='. $item['id']); ?>">编辑</a>

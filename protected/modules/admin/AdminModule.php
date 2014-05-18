@@ -1,21 +1,20 @@
 <?php
 
-class AdminModule extends CWebModule
-{
+class AdminModule extends CWebModule {
+
     public $defaultController = 'site';
     public $layout = 'admin';
 
-    public function init()
-    {
+    public function init() {
         parent::init();
         $this->setImport(array(
             'admin.components.*',
         ));
 
         Yii::app()->setComponents(array(
-            'errorHandler'=>array(
-                'class'=>'CErrorHandler',
-                'errorAction'=>'admin/site/error',
+            'errorHandler' => array(
+                'class' => 'CErrorHandler',
+                'errorAction' => 'admin/site/error',
             )
         ));
 
@@ -23,5 +22,5 @@ class AdminModule extends CWebModule
         //$layoutPath = $base_dir.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'layouts';
         //$this->setLayoutPath($layoutPath);
     }
+
 }
-?>

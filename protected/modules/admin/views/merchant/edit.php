@@ -19,7 +19,7 @@
                 <div class="control-group">
                     <label class="control-label">描述信息:</label>
                     <div class="controls">
-                        <input type="text" name='describ' class="span3" style="width:400px;" value="<?php echo $describ; ?>">
+                        <input type="text" name='describ' class="span3" value="<?php echo $describ; ?>">
                         <p class="help-block"></p>
                     </div>
                 </div>
@@ -39,13 +39,6 @@
                     <img src=<?php echo FilesComponent::getImageUrl($pic); ?>></img>
                     <div class="controls">
                         <input type="file" name='pic' class="span3" value="<?php echo $pic; ?>">
-                        <p class="help-block"></p>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">商铺网址:</label>
-                    <div class="controls">
-                        <input type="text" name='url' class="span3" style="width:400px;" value="<?php echo $url; ?>">
                         <p class="help-block"></p>
                     </div>
                 </div>

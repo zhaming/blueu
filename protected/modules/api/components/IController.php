@@ -1,74 +1,80 @@
 <?php
-/**
- * Controller is the customized base controller class.
- * All controller classes for this application should extend from this base class.
+
+/*
+ * API控制器基类
  */
-class IController extends CController
-{
 
-    public $controller_id;
-    public $action_id;
-    public $referer;
+/**
+ * 2014-5-10 11:17:40 UTF-8
+ * @package application.behaviors
+ * @version 3.0
+ *
+ * @author hugb <hu198021688500@163.com>
+ * @copyright (c) 2011-2015
+ * @license ()
+ * 
+ * IController.php hugb
+ *
+ */
+class IController extends CController {
 
-    public $menu=array();
+    protected $error_code = 0;
+    protected $error_msg = '';
+    protected $message = '';
+    protected $data = null;
 
-    public $breadcrumbs=array();
+    const REQUEST_METHOD_ERROR = 1;
+    const REQUEST_TOKEN_INVALID = 2;
 
+    /* 所有错误码定义 */
 
-    public $method;
-
-    public $params;
-
-    public $error=array(
-        '-1'=>'token无效',
-        '0'=>"成功",
-        '100'=>'请求方法错误，请求method必须为GET、PUT、POST、DELETE其中一个，具体参照API文档。',
-        '101'=>'参数错误，或缺少必要参数',
-        '999'=>"程序错误,未定义的错误码",
+    public $errors = array(
+        '0' => '请求成功',
+        '1' => '请求方法不正确',
+        '2' => 'token无效',
+        '100' => '请求方法错误，请求method必须为GET、PUT、POST、DELETE其中一个，具体参照API文档。',
+        '101' => '参数错误，或缺少必要参数',
+        '999' => "程序错误,未定义的错误码",
     );
 
-    public function beforeAction($action)
-    {
+    public function beforeAction($action) {
         parent::beforeAction($action);
-        
-        $this->method = strtoupper($_SERVER['REQUEST_METHOD']);
-        $this->params = CJSON::decode(file_get_contents('php://input'));
 
+        /* 检查是否登录 */
         // $this->recoveryLogin();
-
-        $this->controller_id = $this->getId();
-        $this->action_id = $this->getAction()->getId();
-        $this->referer = Yii::app()->request->getUrlReferrer();
-
+        /* 检查访问权限 */
         // $this->checkPermissions();
+
+        return true;
+    }
+
+    protected function afterAction($action) {
+        parent::afterAction($action);
         header('Content-Type: application/json;charset=utf-8;');
-        return true;
-    }
+        $data = array(
+            "error_code" => $this->error_code,
+            "error_msg" => $this->errors[$this->error_code]
+        );
 
-    public function checkParams($params,$keys,$type='empty')
-    {
-        if (!is_array($params))
-            return false;
-        foreach ($keys as $key) {
-            if ($type=='empty') {
-                if (empty($params[$key]))
-                    return false;
-            } elseif ($type=='isset') {
-                if(!isset($params[$key]))
-                    return false;
-            } else {
-                return false;
-            }
+        if (!empty($this->message)) {
+            $data['error_msg'] = $data['error_msg'] . '，' . $this->message;
         }
+
+        if (!empty($this->data)) {
+            $data['data'] = $this->data;
+        }
+
+        exit(json_encode($data));
+    }
+
+    protected function getJsonFormData() {
+        //return CJSON::decode(file_get_contents('php://input'));
+        return CJSON::decode(Yii::app()->request->rawBody);
+    }
+
+    protected function checkToken() {
+        
         return true;
     }
 
-    public function showError($errcode)
-    {
-        if(empty($this->error[$errcode]))
-            $errcode = 999;
-        $error['errcode'] = $errcode;
-        $error['errmsg'] = $this->error[$errcode];
-        echo JsonTools::json_encode_cn($error);
-    }
 }

@@ -1,36 +1,93 @@
-<?php 
-class MerchantController extends BController
-{
-    public function actionIndex()
-    {
-        $filters = Yii::app()->request->getQuery('filters');
-        $listData = Merchant::model()->findAll();
-        $this->render('index', array('listData' => $listData));
+<?php
+
+/*
+ * 后台商户管理
+ */
+
+/**
+ * 2014-5-10 11:17:40 UTF-8
+ * @package application.modules.admin.controllers
+ * @version 3.0
+ *
+ * @author hugb <hu198021688500@163.com>
+ * @copyright (c) 2011-2015
+ * @license ()
+ * 
+ * MerchantController.php hugb
+ *
+ */
+class MerchantController extends BController {
+
+    protected $merchantBehavior;
+
+    public function init() {
+        parent::init();
+        $this->merchantBehavior = new MerchantBehavior();
     }
 
-    public function actionAdd()
-    {
+    public function actionIndex() {
+        $filter = array();
+        $name = Yii::app()->request->getQuery('name');
+        if (!empty($name)) {
+            $filter['search'] = array('t.name' => $name);
+        }
+        $viewData = $this->merchantBehavior->getlist($filter);
+        $viewData['name'] = $name;
+        $this->render('index', $viewData);
+    }
+
+    public function actionCreate() {
+        $message = '';
+        $categoryBehavior = new CategoryBehavior();
+        $merchantCreateForm = new MerchantCreateForm();
+        if (Yii::app()->request->isPostRequest) {
+            $merchantCreateForm->attributes = Yii::app()->request->getPost('merchant');
+            if ($merchantCreateForm->save()) {
+                $this->redirect('/admin/merchant/index');
+            } else {
+                $message = $merchantCreateForm->getError();
+            }
+        }
+        $viewData = array(
+            'message' => $message,
+            'categories' => $categoryBehavior->getAll(),
+            'merchant' => $merchantCreateForm->getAttributes()
+        );
+        $this->render('create', $viewData);
+    }
+
+    public function actionActivity() {
+        $this->render('activity');
+    }
+
+    public function actionStations() {
+        $this->render('stations');
+    }
+
+    public function actionMember() {
+        $this->render('member');
+    }
+
+    public function actionAdd() {
         $id = '';
         $name = '';
         $describ = '';
         $pic = '';
-        $url = '';
         if (Yii::app()->request->isPostRequest) {
             $id = Yii::app()->request->getPost('id');
             $name = Yii::app()->request->getPost('name');
             $describ = Yii::app()->request->getPost('describ');
-            $url = Yii::app()->request->getPost('url');
+            // $pic = Yii::app()->request->getPost('pic');
             $blueid = Yii::app()->request->getPost('blueid');
             if (!empty($id) && !empty($name) && !empty($describ) && !empty($blueid)) {
                 $criteria = new CDbCriteria;
-                $criteria->addColumnCondition(array('id'=>$id));
+                $criteria->addColumnCondition(array('id' => $id));
                 if (Merchant::model()->exists($criteria)) {
                     $this->showError('商户编号已存在, 请重新指定');
                 } else {
                     $model = new Merchant;
                     $model->id = $id;
                     $model->name = $name;
-                    $model->url = $url;
                     $model->describ = $describ;
                     $model->blueid = $blueid;
                     $file_cpt = new FilesComponent;
@@ -50,31 +107,27 @@ class MerchantController extends BController
         }
         $blueid = Yii::app()->request->getQuery('blueid');
         $rc_station = BlueStation::model()->findAll();
-        $this->render('add', compact('id', 'name', 'describ', 'pic', 'url', 'blueid', 'rc_station'));
+        $this->render('add', compact('id', 'name', 'describ', 'pic', 'blueid', 'rc_station'));
     }
 
-    public function actionEdit()
-    {
+    public function actionEdit() {
         $id = '';
         $name = '';
         $describ = '';
         $pic = '';
-        $url = '';
         if (Yii::app()->request->isPostRequest) {
             $id = Yii::app()->request->getQuery('id');
             $criteria = new CDbCriteria;
-            $criteria->addColumnCondition(array('id'=>$id));
+            $criteria->addColumnCondition(array('id' => $id));
             $model = Merchant::model()->find($criteria);
             if (is_null($model)) {
-                $this->showError('非法操作',  $this->createUrl('index'));
+                $this->showError('非法操作', $this->createUrl('index'));
             } else {
                 $name = Yii::app()->request->getPost('name');
-                $url = Yii::app()->request->getPost('url');
                 $describ = Yii::app()->request->getPost('describ');
                 $blueid = Yii::app()->request->getPost('blueid');
                 if (!empty($name) && !empty($describ)) {
                     $model->name = $name;
-                    $model->url = $url;
                     $model->describ = $describ;
                     $model->blueid = $blueid;
                     $file_cpt = new FilesComponent;
@@ -94,29 +147,27 @@ class MerchantController extends BController
         } else {
             $criteria = new CDbCriteria;
             $id = Yii::app()->request->getQuery('id');
-            $criteria->addColumnCondition(array('id'=>$id));
+            $criteria->addColumnCondition(array('id' => $id));
             $model = Merchant::model()->find($criteria);
             if (is_null($model)) {
-                $this->showError('非法操作',  $this->createUrl('index'));
+                $this->showError('非法操作', $this->createUrl('index'));
             } else {
                 $id = $model->id;
                 $name = $model->name;
-                $url = $model->url;
                 $describ = $model->describ;
                 $pic = $model->pic;
                 $blueid = $model->blueid;
             }
         }
         $rc_station = BlueStation::model()->findAll();
-        $this->render('edit', compact('id', 'name', 'describ', 'pic', 'url', 'blueid', 'rc_station'));
+        $this->render('edit', compact('id', 'name', 'describ', 'pic', 'blueid', 'rc_station'));
     }
 
-    public function actionDelete()
-    {
+    public function actionDelete() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
             $criteria = new CDbCriteria;
-            $criteria->addColumnCondition(array('id'=>$id));
+            $criteria->addColumnCondition(array('id' => $id));
             $model = Merchant::model()->find($criteria);
             if (!is_null($model)) {
                 if ($model->delete()) {
@@ -128,5 +179,7 @@ class MerchantController extends BController
         }
         $this->showError('非法操作', $this->createUrl('index'));
     }
+
 }
+
 ?>
