@@ -46,6 +46,10 @@ class BaseBehavior
 			exit();
 		}
 	}
+    
+    public function getError(){
+        return $this->error;
+    }
 
 }
 ?>

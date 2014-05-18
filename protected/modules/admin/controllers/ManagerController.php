@@ -19,7 +19,7 @@
 class ManagerController extends BController {
 
     public function actionLogin() {
-        $this->layout = '';
+        $this->layout = false;
         if (Yii::app()->request->isPostRequest) {
             $username = Yii::app()->request->getPost("username");
             $password = Yii::app()->request->getPost("password");
@@ -57,6 +57,11 @@ class ManagerController extends BController {
     public function actionLogout() {
         Yii::app()->user->logout();
         $this->redirect('/admin/manager/login');
+    }
+
+    public function actionFindpwd() {
+        $this->layout = false;
+        $this->render('findpwd');
     }
 
     public function actionMypass() {

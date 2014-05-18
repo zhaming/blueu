@@ -56,6 +56,25 @@ class MerchantController extends BController {
         $this->render('create', $viewData);
     }
 
+    public function actionRegister() {
+        $message = '';
+        $this->layout = false;
+        $merchantCreateForm = new MerchantCreateForm();
+        if (Yii::app()->request->isPostRequest) {
+            $merchantCreateForm->attributes = Yii::app()->request->getPost('merchant');
+            if ($merchantCreateForm->save()) {
+                $this->redirect('/admin/manager/login');
+            } else {
+                $message = $merchantCreateForm->getError();
+            }
+        }
+        $viewData = array(
+            'message' => $message,
+            'merchant' => $merchantCreateForm->getAttributes()
+        );
+        $this->render('register', $viewData);
+    }
+
     public function actionActivity() {
         $this->render('activity');
     }

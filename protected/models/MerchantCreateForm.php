@@ -18,21 +18,23 @@
  */
 class MerchantCreateForm extends CFormModel {
 
+    public $id;
     public $username;
     public $password;
     public $repassword;
     public $name;
-    public $logo;
-    public $category;
-    public $description;
+    public $legal;
+    public $telephone;
+    public $bank;
+    public $shopnum;
     private $error;
 
     public function rules() {
         return array(
-            array('username,password,repassword,name,category', 'required'),
+            array('username,password,repassword,name', 'required'),
             array('repassword', 'checkRepassword'),
             array('username', 'checkUsername'),
-            array('logo,description', 'safe')
+            array('legal,telephone,bank,shopnum', 'safe')
         );
     }
 
@@ -47,27 +49,19 @@ class MerchantCreateForm extends CFormModel {
             'username' => '用户名',
             'password' => '密码',
             'repassword' => '确认密码',
-            'name' => '名称',
-            'logo' => 'Logo',
-            'category' => '分类',
-            'description' => '描述'
+            'name' => '名称'
         );
     }
 
     public function save() {
         if ($this->validate()) {
-            $this->saveLogo();
-
             $account = new Account();
             $merchant = new Merchant();
             $account->username = $this->username;
             $account->password = md5($this->password);
-            $account->type = 2;
+            $account->roleid = 4;
 
             $merchant->name = $this->name;
-            $merchant->logo = $this->logo;
-            $merchant->category = $this->category;
-            $merchant->description = $this->description;
 
             $transaction = Yii::app()->db->beginTransaction();
             try {
@@ -85,10 +79,6 @@ class MerchantCreateForm extends CFormModel {
             $this->error = array_shift($firstError);
         }
         return false;
-    }
-
-    public function saveLogo() {
-        $this->logo = "xxx";
     }
 
     public function checkUsername() {

@@ -12,7 +12,7 @@
         <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
         <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
         -->
-
+        
         <!-- basic styles -->
         <link href="/statics/css/bootstrap.min.css" rel="stylesheet" />
         <link href="/statics/css/font-awesome.min.css" rel="stylesheet" />
@@ -58,48 +58,28 @@
                             </div>
                             <div class="space-6"></div>
                             <div class="position-relative">
-                                <div class="login-box widget-box no-border visible">
+                                <div class="forgot-box widget-box no-border visible">
                                     <div class="widget-body">
                                         <div class="widget-main">
-                                            <h4 class="header blue lighter bigger"><i class="icon-coffee green"></i>&nbsp;&nbsp;<?php echo Yii::t('admin', 'Login'); ?></h4>
+                                            <h4 class="header red lighter bigger"><i class="icon-key"></i><?php echo Yii::t('admin','Forgot password'); ?></h4>
                                             <div class="space-6"></div>
-                                            <form action="/admin/manager/login" method="post">
+                                            <form>
                                                 <fieldset>
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
-                                                            <input type="text" name="username" class="form-control" placeholder="<?php echo Yii::t('admin', 'Username'); ?>" />
-                                                            <i class="icon-user"></i>
+                                                            <input type="email" name="email" class="form-control" placeholder="<?php echo Yii::t('admin','Email'); ?>" />
+                                                            <i class="icon-envelope"></i>
                                                         </span>
                                                     </label>
-
-                                                    <label class="block clearfix">
-                                                        <span class="block input-icon input-icon-right">
-                                                            <input type="password" name="password" class="form-control" placeholder="<?php echo Yii::t('admin', 'Password'); ?>" />
-                                                            <i class="icon-lock"></i>
-                                                        </span>
-                                                    </label>
-
-                                                    <div class="space"></div>
 
                                                     <div class="clearfix">
-                                                        <label class="inline">
-                                                            <input type="checkbox" class="ace" />
-                                                            <span class="lbl">&nbsp;&nbsp;<?php echo Yii::t('admin', 'Remember me'); ?></span>
-                                                        </label>
-                                                        <button type="submit" class="width-35 pull-right btn btn-sm btn-primary"><i class="icon-key"></i><?php echo Yii::t('admin', 'Login'); ?></button>
+                                                        <button type="button" class="width-35 pull-right btn btn-sm btn-danger"><i class="icon-lightbulb"></i>发送</button>
                                                     </div>
                                                 </fieldset>
                                             </form>
                                         </div>
-
-                                        <div class="toolbar clearfix">
-                                            <div>
-                                                <a href="/admin/manager/findpwd" class="link forgot-password-link"><i class="icon-arrow-left"></i>&nbsp;<?php echo Yii::t('admin', 'Forgot password'); ?></a>
-                                            </div>
-
-                                            <div>
-                                                <a href="/admin/merchant/register" class="link user-signup-link"><?php echo Yii::t('admin', 'Merchant register'); ?>&nbsp;<i class="icon-arrow-right"></i></a>
-                                            </div>
+                                        <div class="toolbar center">
+                                            <a href="/admin/manager/login" class="link back-to-login-link"><?php echo Yii::t('admin','Return login'); ?>&nbsp;&nbsp;<i class="icon-arrow-right"></i></a>
                                         </div>
                                     </div>
                                 </div>

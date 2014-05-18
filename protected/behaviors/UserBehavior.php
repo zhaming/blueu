@@ -85,8 +85,28 @@ class UserBehavior extends BaseBehavior {
         return false;
     }
 
-    public function getError() {
-        return $this->error;
+    public function apiLogin($data) {
+        $account = Account::model()->findByAttributes(array('username' => $this->username));
+        if (empty($account)) {
+            $this->error = '帐号无效';
+        } else if (md5($data['password']) != $account->password) {
+            $this->error = '密码错误';
+        } else {
+            return 'xcvxccvxcvxc';
+        }
+        return false;
+    }
+
+    public function resetpwd($data) {
+        $account = Account::model()->findByAttributes(array('username' => $this->username));
+        if (empty($account)) {
+            $this->error = '帐号无效';
+        } else if (md5($data['password']) != $account->password) {
+            $this->error = '密码错误';
+        } else {
+            return Account::model()->updateByPk($account->id, array("password" => md5($data['newpassword'])));
+        }
+        return false;
     }
 
 }

@@ -52,38 +52,38 @@ class UserController extends BController {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
             if ($this->userBehavior->delete($id)) {
-                $this->showSuccess('删除成功', $this->createUrl('index'));
+                $this->showSuccess(Yii::t('admin', 'Delete Success'), $this->createUrl('index'));
             } else {
-                $this->showError('删除失败', $this->createUrl('index'));
+                $this->showError(Yii::t('admin', 'Delete Failure'), $this->createUrl('index'));
             }
         }
-        $this->showError('非法请求', $this->createUrl('index'));
+        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
     }
 
     public function actionDisable() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
             if ($this->userBehavior->disable($id)) {
-                $this->showSuccess('禁用成功', $this->createUrl('index'));
+                $this->showSuccess(Yii::t('admin', 'Disable Success'), $this->createUrl('index'));
             } else {
-                $this->showError('禁用失败', $this->createUrl('index'));
+                $this->showError(Yii::t('admin', 'Disable Failure'), $this->createUrl('index'));
             }
         }
-        $this->showError('非法请求', $this->createUrl('index'));
+        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
     }
 
     public function actionEnable() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
             if ($this->userBehavior->enable($id)) {
-                $this->showSuccess('恢复成功', $this->createUrl('index'));
+                $this->showSuccess(Yii::t('admin', 'Restore Success'), $this->createUrl('index'));
             } else {
-                $this->showError('恢复失败', $this->createUrl('index'));
+                $this->showError(Yii::t('admin', 'Restore Failure'), $this->createUrl('index'));
             }
         }
-        $this->showError('非法请求', $this->createUrl('index'));
+        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
     }
-    
+
     public function actionProfile() {
         $this->render('profile');
     }

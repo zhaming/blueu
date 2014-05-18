@@ -38,19 +38,19 @@
         <li<?php if (Yii::app()->controller->id == 'user') { ?> class="active"<?php } ?>>
             <a href="/admin/user">
                 <i class="icon-text-width"></i>
-                <span class="menu-text">用户管理</span>
+                <span class="menu-text"><?php echo Yii::t('admin','User manaer'); ?></span>
             </a>
         </li>
         <li<?php if (Yii::app()->controller->id == 'merchant') { ?> class="active"<?php } ?>>
             <a href="/admin/merchant">
                 <i class="icon-desktop"></i>
-                <span class="menu-text">商户管理</span>
+                <span class="menu-text"><?php echo Yii::t('admin','Merchant manager'); ?></span>
             </a>
         </li>
         <li<?php if (Yii::app()->controller->id == 'activity') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-list"></i>
-                <span class="menu-text cursor-default">活动管理</span>
+                <span class="menu-text cursor-default"><?php echo Yii::t('admin','Activity manager'); ?></span>
                 <b class="arrow icon-angle-down"></b>
             </a>
             <ul class="submenu">

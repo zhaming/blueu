@@ -64,6 +64,9 @@
                                 <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" class="btn btn-xs btn-danger">
                                     <i class="icon-trash bigger-120"></i>
                                 </a>
+                                <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" class="btn btn-xs btn-danger">
+                                    <i class="icon-download-alt bigger-120"></i>
+                                </a>                                 
                             </div>
                         </td>
                     </tr>
