@@ -34,42 +34,31 @@ class BController extends CController {
     }
 
     public function resourceInsert() {
-        $cs = Yii::app()->getClientScript();
-        $baseUrl = Yii::app()->request->baseUrl;
+        //$cs = Yii::app()->getClientScript();
+        //$baseUrl = Yii::app()->request->baseUrl;
 
-        /*$cs->registerScriptFile($baseUrl . '/statics/plugins/jquery-1.8.2.min.js');
-        $cs->registerCssFile($baseUrl . '/statics/plugins/bootstrap/css/bootstrap.css');
-        $cs->registerScriptFile($baseUrl . '/statics/plugins/bootstrap/js/bootstrap.js');
-        $cs->registerCssFile($baseUrl . '/statics/plugins/bootstrap/css/bootstrap-responsive.css');
+        /* $cs->registerScriptFile($baseUrl . '/statics/plugins/jquery-1.8.2.min.js');
+          $cs->registerCssFile($baseUrl . '/statics/plugins/bootstrap/css/bootstrap.css');
+          $cs->registerScriptFile($baseUrl . '/statics/plugins/bootstrap/js/bootstrap.js');
+          $cs->registerCssFile($baseUrl . '/statics/plugins/bootstrap/css/bootstrap-responsive.css');
 
-        $cs->registerScriptFile($baseUrl . '/statics/plugins/zTree/js/jquery.ztree.core-3.5.js');
-        $cs->registerScriptFile($baseUrl . '/statics/plugins/zTree/js/jquery.ztree.excheck-3.5.js');
-        $cs->registerCssFile($baseUrl . '/statics/plugins/zTree/css/zTreeStyle/zTreeStyle.css');
+          $cs->registerScriptFile($baseUrl . '/statics/plugins/zTree/js/jquery.ztree.core-3.5.js');
+          $cs->registerScriptFile($baseUrl . '/statics/plugins/zTree/js/jquery.ztree.excheck-3.5.js');
+          $cs->registerCssFile($baseUrl . '/statics/plugins/zTree/css/zTreeStyle/zTreeStyle.css');
 
-        $cs->registerScriptFile($baseUrl . '/statics/plugins/fancybox/jquery.fancybox-1.3.4.js');
-        $cs->registerCssFile($baseUrl . '/statics/plugins/fancybox/jquery.fancybox-1.3.4.css');
+          $cs->registerScriptFile($baseUrl . '/statics/plugins/fancybox/jquery.fancybox-1.3.4.js');
+          $cs->registerCssFile($baseUrl . '/statics/plugins/fancybox/jquery.fancybox-1.3.4.css');
 
-        $cs->registerCssFile($baseUrl . '/statics/css/admin.css');*/
+          $cs->registerCssFile($baseUrl . '/statics/css/admin.css'); */
     }
 
     protected function afterAction($action) {
         parent::afterAction($action);
-
-        $message = Yii::app()->user->getFlash('alertmsg');
-        if ($message != null) {
-            if ($message['type']) {
-                echo '<script>alert("' . $message['msg'] . '");</script>';
-            } else {
-                echo '<script>alert("' . $message['msg'] . '");</script>';
-            }
-        }
     }
 
     public function showSuccess($msg, $url = '') {
-        $message = array();
-        $message['type'] = 'success';
-        $message['msg'] = $msg;
-        Yii::app()->user->setFlash('alertmsg', $message);
+        $message = array('type' => 'success', 'msg' => $msg);
+        Yii::app()->user->setFlash('messagetip', $message);
         if (!empty($url)) {
             $this->redirect($url);
         }
@@ -79,7 +68,7 @@ class BController extends CController {
         $message = array();
         $message['type'] = 'error';
         $message['msg'] = $msg;
-        Yii::app()->user->setFlash('alertmsg', $message);
+        Yii::app()->user->setFlash('messagetip', $message);
         if (!empty($url)) {
             $this->redirect($url);
         }
@@ -89,7 +78,7 @@ class BController extends CController {
         $message = array();
         $message['type'] = $type;
         $message['msg'] = $msg;
-        Yii::app()->user->setFlash('alertmsg', $message);
+        Yii::app()->user->setFlash('messagetip', $message);
         if (!empty($url)) {
             $this->redirect($url);
         }

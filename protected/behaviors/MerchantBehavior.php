@@ -20,7 +20,7 @@ class MerchantBehavior extends BaseBehavior {
 
     public function getlist($filter = array()) {
         $criteria = new CDbCriteria();
-        $criteria->addCondition('account.type=2');
+        $criteria->addCondition('account.roleid=4');
         $criteria->addCondition('account.status!=2');
         $criteria->order = 't.id desc';
         foreach ($filter as $key => $value) {

@@ -197,20 +197,22 @@ pic                 | 是   | string | 见示例 | 广告图片
 
 
 ## 提交用户  {#user}
-地址：/api/user
+地址：/api/user/register
 
 ###接口输入
 
 提交方式：POST
 
-参数名  | 必填  | 类型   | 示例        | 说明  
--------|------|--------|------------|------  
-blueid | 是   | string | 0000000002 | BlueU设备识别码  
-name   | 是   | string | 见示例      | 商户名称 
+ 参数名     必填   类型     示例            说明   
+username    是  string  zhansan@test.com 帐号  
+password    是  string  123456           密码
+name        是  string  张三              昵称
+sex         否  int     0                0:保密 1:女 2:男
+period      否  string  70               年代
 
 完整参数示例:
 <pre>
-    curl -d "blueid=0000000002&name=test" http://apiserver
+    curl -i -X POST -H "Accept: application/json" -d '{"username":"0000000002","password":"123456","name":"张三"}' http://api.blueu.com/api/user/register
 </pre>
 
 ###接口输出

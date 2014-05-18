@@ -18,10 +18,12 @@
  */
 class Merchant extends CActiveRecord {
 
+    public $id;
     public $name;
-    public $logo;
-    public $category;
-    public $description;
+    public $legal;
+    public $telephone;
+    public $bank;
+    public $shopnum;
 
     public static function model($className = __CLASS__) {
         return parent::model($className);

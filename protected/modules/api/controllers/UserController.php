@@ -18,14 +18,41 @@
  */
 class UserController extends IController {
 
+    public $userBehavior;
+
+    public function init() {
+        parent::init();
+        $this->userBehavior = new UserBehavior();
+    }
+
     public function actionRegister() {
         if (!Yii::app()->request->getIsPostRequest()) {
             $this->error_code = self::REQUEST_METHOD_ERROR;
             $this->message = '请使用POST';
-            return;
+            return false;
         }
         $data = $this->getJsonFormData();
-        $this->data = $data;
+        if (!isset($data['username'])) {
+            $this->error_code = self::REQUEST_PARAMS_ERROR;
+            $this->message = 'username未设置';
+            return false;
+        }
+        if (!isset($data['password'])) {
+            $this->error_code = self::REQUEST_PARAMS_ERROR;
+            $this->message = 'password未设置';
+            return false;
+        }
+        if (!isset($data['name'])) {
+            $this->error_code = self::REQUEST_PARAMS_ERROR;
+            $this->message = 'name未设置';
+            return false;
+        }
+        if (!$this->userBehavior->regsiter($data)) {
+            $this->error_code = self::REQUEST_FAILURE;
+            $this->message = '保存信息失败';
+            return false;
+        }
+        return true;
     }
 
     public function actionLogin() {
@@ -36,7 +63,43 @@ class UserController extends IController {
         //$password = $_SERVER['PHP_AUTH_PW'];
     }
 
+    public function actionEdit() {
+        
+    }
+
+    public function actionResetpwd() {
+        
+    }
+
     public function actionLogout() {
+        
+    }
+
+    public function actionFllow() {
+        
+    }
+
+    public function actionShare() {
+        
+    }
+
+    public function actionWelfare() {
+        
+    }
+
+    public function actionCoupon() {
+        
+    }
+
+    public function actionPrinting() {
+        
+    }
+
+    public function actionNotice() {
+        
+    }
+
+    public function actionPush() {
         
     }
 

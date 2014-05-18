@@ -7,6 +7,20 @@
             <a href="/admin/user/create" class="btn btn-app btn-yellow btn-xs"><i class="icon-create bigger-120"></i>创建</a>
             <a href="/admin/user/delete" class="btn btn-app btn-danger btn-xs"><i class="icon-remove bigger-120"></i>删除</a>
         </p>
+        <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
+        <div class="alert alert-block alert-success">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="icon-remove"></i>
+            </button>
+            <p>
+                <strong>
+                    <?php if ($message['type'] == 'success') { ?><i class="icon-ok"></i><?php } ?>
+                    <?php if ($message['type'] == 'error') { ?><i class="icon-remove"></i><?php } ?>
+                    <?php echo $message['msg']; ?>
+                </strong>
+            </p>
+        </div>
+        <?php } ?>
         <div class="table-responsive">
             <table id="sample-table-1" class="table table-striped table-bordered table-hover">
                 <thead>

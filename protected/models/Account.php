@@ -5,7 +5,10 @@ class Account extends CActiveRecord {
     public $id;
     public $username;
     public $password;
-    public $type;
+    public $roleid;
+    public $status;
+    public $registertime;
+    public $logintime;
 
     public static function model($className = __CLASS__) {
         return parent::model($className);

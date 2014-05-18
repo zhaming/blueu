@@ -20,7 +20,7 @@ class UserBehavior extends BaseBehavior {
 
     public function getList($filter = array()) {
         $criteria = new CDbCriteria();
-        $criteria->addCondition('account.type=1');
+        $criteria->addCondition('account.roleid=5');
         $criteria->addCondition('account.status!=2');
         $criteria->order = 't.id desc';
         foreach ($filter as $key => $value) {
@@ -56,6 +56,37 @@ class UserBehavior extends BaseBehavior {
 
     public function enable($id) {
         return Account::model()->updateByPk($id, array("status" => 0));
+    }
+
+    public function regsiter($data) {
+        $account = new Account();
+        $user = new User();
+        $account->username = $data['username'];
+        $account->password = md5($data['password']);
+        $account->roleid = 5;
+
+        $user->name = $data['name'];
+        $user->sex = isset($data['sex']) ? $data['sex'] : 0;
+        $user->century = isset($data['century']) ? $data['century'] : 'other';
+        $user->mobile = isset($data['mobile']) ? $data['mobile'] : '';
+
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $account->save();
+            $user->id = $account->id;
+            $user->save();
+            $transaction->commit();
+            return true;
+        } catch (Exception $e) {
+            $transaction->rollback();
+            $this->error = $e->getMessage();
+        }
+
+        return false;
+    }
+
+    public function getError() {
+        return $this->error;
     }
 
 }

@@ -72,9 +72,9 @@
             </div>
             <div class="space-4"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="user[period]">年代</label>
+                <label class="col-sm-3 control-label no-padding-right" for="user[century]">年代</label>
                 <div class="col-sm-9">
-                    <select name="user[period]" class="col-sm-5">
+                    <select name="user[century]" class="col-sm-5">
                         <option value="">00</option>
                         <option value="AL">90</option>
                         <option value="AK">80</option>

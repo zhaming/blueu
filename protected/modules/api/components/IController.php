@@ -23,15 +23,19 @@ class IController extends CController {
     protected $message = '';
     protected $data = null;
 
-    const REQUEST_METHOD_ERROR = 1;
-    const REQUEST_TOKEN_INVALID = 2;
+    const REQUEST_FAILURE = 1;
+    const REQUEST_METHOD_ERROR = 2;
+    const REQUEST_PARAMS_ERROR = 3;
+    const REQUEST_TOKEN_INVALID = 4;
 
     /* 所有错误码定义 */
 
     public $errors = array(
         '0' => '请求成功',
-        '1' => '请求方法不正确',
-        '2' => 'token无效',
+        '1' => '请求失败',
+        '2' => '请求方法不正确',
+        '3' => '请求参数错误',
+        '4' => 'token无效',
         '100' => '请求方法错误，请求method必须为GET、PUT、POST、DELETE其中一个，具体参照API文档。',
         '101' => '参数错误，或缺少必要参数',
         '999' => "程序错误,未定义的错误码",
@@ -73,7 +77,7 @@ class IController extends CController {
     }
 
     protected function checkToken() {
-        
+
         return true;
     }
 

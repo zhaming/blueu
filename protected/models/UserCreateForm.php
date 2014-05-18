@@ -23,14 +23,14 @@ class UserCreateForm extends CFormModel {
     public $repassword;
     public $name;
     public $sex = 0;
+    public $century;
     public $mobile;
-    public $period;
     private $error;
 
     public function rules() {
         return array(
             array('username,password,repassword,name', 'required'),
-            array('sex,mobile,period', 'safe')
+            array('sex,mobile,century', 'safe')
         );
     }
 
@@ -48,34 +48,22 @@ class UserCreateForm extends CFormModel {
             'name' => '昵称',
             'sex' => '性别',
             'mobile' => '手机号',
-            'period' => '年代'
+            'century' => '年代'
         );
     }
 
     public function save() {
         if ($this->validate()) {
-            $account = new Account();
-            $user = new User();
-            $account->username = $this->username;
-            $account->password = md5($this->password);
-            $account->type = 1;
-
-            $user->name = $this->name;
-            $user->sex = $this->sex;
-            $user->mobile = $this->mobile;
-            $user->period = $this->period;
-
-            $transaction = Yii::app()->db->beginTransaction();
-            try {
-                $account->save();
-                $user->id = $account->id;
-                $user->save();
-                $transaction->commit();
-                return true;
-            } catch (Exception $e) {
-                $transaction->rollback();
-                $this->error = $e->getMessage();
-            }
+            $data = array(
+                'username' => $this->username,
+                'password' => $this->password,
+                'name' => $this->name,
+                'sex' => $this->sex,
+                'mobile' => $this->mobile,
+                'century' => $this->century
+            );
+            $userBehavoir = new UserBehavior();
+            return $userBehavoir->regsiter($data);
         } else {
             $firstError = array_shift($this->getErrors());
             $this->error = array_shift($firstError);

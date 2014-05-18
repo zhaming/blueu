@@ -21,8 +21,8 @@ class User extends CActiveRecord {
     public $id;
     public $name;
     public $sex;
+    public $century;
     public $mobile;
-    public $period;
 
     public static function model($className = __CLASS__) {
         return parent::model($className);

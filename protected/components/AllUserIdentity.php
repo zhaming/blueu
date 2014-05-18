@@ -5,7 +5,7 @@ class AllUserIdentity extends CUserIdentity {
     const ERROR_STATUS_INVALID = 3;
 
     private $id;
-    private $type;
+    private $roleid;
 
     public function authenticate() {
         $accounts = Account::model()->findByAttributes(array('username' => $this->username));
@@ -19,7 +19,7 @@ class AllUserIdentity extends CUserIdentity {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         } else {
             $this->id = $accounts['id'];
-            $this->type = $accounts['type'];
+            $this->roleid = $accounts['roleid'];
             $this->errorCode = self::ERROR_NONE;
             //Yii::app()->user->setState('aid', $accounts['id']);
         }
@@ -30,8 +30,8 @@ class AllUserIdentity extends CUserIdentity {
         return $this->id;
     }
 
-    public function getType() {
-        return $this->type;
+    public function getRoleid() {
+        return $this->roleid;
     }
 
 }
