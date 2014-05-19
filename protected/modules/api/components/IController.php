@@ -27,6 +27,7 @@ class IController extends CController {
     const REQUEST_METHOD_ERROR = 2;
     const REQUEST_PARAMS_ERROR = 3;
     const REQUEST_TOKEN_INVALID = 4;
+    const SERVER_ERROR = 999;
 
     protected $userBehavior;
     protected $tokenBehavior;
@@ -35,12 +36,10 @@ class IController extends CController {
     public $errors = array(
         '0' => '请求成功',
         '1' => '请求失败',
-        '2' => '请求方法不正确',
+        '2' => '请求方法错误',
         '3' => '请求参数错误',
         '4' => 'token无效',
-        '100' => '请求方法错误，请求method必须为GET、PUT、POST、DELETE其中一个，具体参照API文档。',
-        '101' => '参数错误，或缺少必要参数',
-        '999' => "程序错误,未定义的错误码",
+        '999' => "程序错误"
     );
 
     public function init() {
@@ -51,14 +50,7 @@ class IController extends CController {
 
     protected function beforeAction($action) {
         parent::beforeAction($action);
-
-        /* 检查是否登录 */
-        // $this->recoveryLogin();
-        /* 检查访问权限 */
-        // $this->checkPermissions();
-
         header('Content-Type: application/json;charset=utf-8;');
-
         return true;
     }
 

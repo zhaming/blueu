@@ -6465,3 +6465,13 @@ REQUEST_URI=/api/user/resetpwd
 in /var/www/blueu/protected/behaviors/UserBehavior.php (104)
 in /var/www/blueu/protected/modules/api/controllers/UserController.php (111)
 in /var/www/blueu/index.php (13)
+2014/05/19 15:49:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message '系统无法找到请求的 "resetpw1" 动作.' in /var/www/blueu/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/blueu/framework/web/CController.php(270): CController->missingAction('resetpw1')
+#1 /var/www/blueu/framework/web/CWebApplication.php(282): CController->run('resetpw1')
+#2 /var/www/blueu/framework/web/CWebApplication.php(141): CWebApplication->runController('api/user/resetp...')
+#3 /var/www/blueu/framework/base/CApplication.php(184): CWebApplication->processRequest()
+#4 /var/www/blueu/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/api/user/resetpw1
+---

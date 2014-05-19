@@ -1,8 +1,7 @@
 <?php
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * 默认控制器
  */
 
 /**
@@ -19,8 +18,12 @@
  */
 class SiteController extends IController {
 
-    public function actionError1() {
-        echo "error";
+    public function actionError() {
+        $this->error_code = self::SERVER_ERROR;
+        $error = Yii::app()->errorHandler->getError();
+        if ($error != null) {
+            $this->message = implode('\n', $error);
+        }
     }
 
 }
