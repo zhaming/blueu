@@ -142,5 +142,9 @@ class UserBehavior extends BaseBehavior {
     public function push($userId, $enable = 1) {
         return User::model()->updateByPk($userId, array('pushable' => $enable));
     }
+    
+    public function like($data){
+        return  true;
+    }
 
 }
