@@ -64,6 +64,7 @@ class UserBehavior extends BaseBehavior {
         $account->username = $data['username'];
         $account->password = md5($data['password']);
         $account->roleid = 5;
+        $account->registertime = time();
 
         $user->name = $data['name'];
         $user->sex = isset($data['sex']) ? $data['sex'] : 0;
@@ -86,19 +87,35 @@ class UserBehavior extends BaseBehavior {
     }
 
     public function apiLogin($data) {
-        $account = Account::model()->findByAttributes(array('username' => $this->username));
+        $account = Account::model()->findByAttributes(array('username' => $data['username'], 'roleid' => 5));
         if (empty($account)) {
             $this->error = '帐号无效';
-        } else if (md5($data['password']) != $account->password) {
-            $this->error = '密码错误';
-        } else {
-            return 'xcvxccvxcvxc';
+            return false;
         }
-        return false;
+        if (md5($data['password']) != $account->password) {
+            $this->error = '密码错误';
+            return false;
+        }
+        Account::model()->updateByPk($account->id, array('logintime' => time()));
+        return array('id' => $account['id'], 'username' => $account['username']);
+    }
+
+    public function apiLogout($data) {
+        $token = Token::model()->findByPk($data['token_id']);
+        if ($token == null) {
+            $this->error = Yii::t('api', 'Token is not exist');
+            return false;
+        }
+        $userData = CJSON::decode($token->data);
+        if ($userData['username'] != $data['username']) {
+            $this->error = Yii::t('api', 'Illegal identity');
+            return false;
+        }
+        return Token::model()->deleteByPk($data['token_id']);
     }
 
     public function resetpwd($data) {
-        $account = Account::model()->findByAttributes(array('username' => $this->username));
+        $account = Account::model()->findByAttributes(array('username' => $data['username']));
         if (empty($account)) {
             $this->error = '帐号无效';
         } else if (md5($data['password']) != $account->password) {
@@ -107,6 +124,23 @@ class UserBehavior extends BaseBehavior {
             return Account::model()->updateByPk($account->id, array("password" => md5($data['newpassword'])));
         }
         return false;
+    }
+
+    public function edit($userId, $data) {
+        $enableEdit = array(
+            'name'
+        );
+        while (list($key, ) = each($data)) {
+            if (!in_array($key, $enableEdit)) {
+                $this->error = $key . ' ' . Yii::t('api', 'Not editable');
+                return false;
+            }
+        }
+        return User::model()->updateByPk($userId, $data);
+    }
+
+    public function push($userId, $enable = 1) {
+        return User::model()->updateByPk($userId, array('pushable' => $enable));
     }
 
 }

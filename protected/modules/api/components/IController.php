@@ -28,8 +28,10 @@ class IController extends CController {
     const REQUEST_PARAMS_ERROR = 3;
     const REQUEST_TOKEN_INVALID = 4;
 
-    /* 所有错误码定义 */
+    protected $userBehavior;
+    protected $tokenBehavior;
 
+    /* 所有错误码定义 */
     public $errors = array(
         '0' => '请求成功',
         '1' => '请求失败',
@@ -41,7 +43,13 @@ class IController extends CController {
         '999' => "程序错误,未定义的错误码",
     );
 
-    public function beforeAction($action) {
+    public function init() {
+        parent::init();
+        $this->userBehavior = new UserBehavior();
+        $this->tokenBehavior = new TokenBehavior();
+    }
+
+    protected function beforeAction($action) {
         parent::beforeAction($action);
 
         /* 检查是否登录 */
@@ -49,12 +57,13 @@ class IController extends CController {
         /* 检查访问权限 */
         // $this->checkPermissions();
 
+        header('Content-Type: application/json;charset=utf-8;');
+
         return true;
     }
 
     protected function afterAction($action) {
         parent::afterAction($action);
-        header('Content-Type: application/json;charset=utf-8;');
         $data = array(
             "error_code" => $this->error_code,
             "error_msg" => $this->errors[$this->error_code]
@@ -77,8 +86,45 @@ class IController extends CController {
     }
 
     protected function checkToken() {
+        $username = $this->getHeader('X-Auth-Username');
+        $password = $this->getHeader('X-Auth-Password');
+        if ($username != '' && $password != '') {
+            $params = array('username' => $username, 'password' => $password);
+            $user = $this->userBehavior->apiLogin($params);
+            if (!$user) {
+                $this->error_code = self::REQUEST_FAILURE;
+                $this->message = $this->userBehavior->getError();
+                return false;
+            }
+            return $user;
+        }
+        $tokenId = $this->getHeader('X-Auth-Token');
+        if ($tokenId == '') {
+            $this->error_code = self::REQUEST_TOKEN_INVALID;
+            $this->message = Yii::t('api', 'Token not set');
+            return false;
+        }
+        $token = $this->tokenBehavior->get($tokenId);
+        if ($token == null) {
+            $this->error_code = self::REQUEST_TOKEN_INVALID;
+            $this->message = Yii::t('api', 'Token not exist');
+            return false;
+        }
+        if (time() > $token->expires_at) {
+            $this->error_code = self::REQUEST_TOKEN_INVALID;
+            $this->message = Yii::t('api', 'Token has expired');
+            return false;
+        }
+        return CJSON::decode($token->data);
+    }
 
-        return true;
+    protected function getHeader($key, $default = '') {
+        $newKey = 'HTTP_' . strtoupper(str_replace('-', '_', $key));
+        if (isset($_SERVER[$newKey])) {
+            return $_SERVER[$newKey];
+        } else {
+            return $default;
+        }
     }
 
 }
