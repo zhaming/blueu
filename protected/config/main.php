@@ -51,6 +51,11 @@ return array(
                 'images/<name>' => 'files/image',
                 'download/<name>' => 'files/index',
                 'search/<keyword>' => 'search/index',
+                // reset api
+                array('api/user/edit', 'pattern' => 'api/user/<id:\d+>/edit', 'verb' => 'POST'),
+                array('api/user/push', 'pattern' => 'api/user/<id:\d+>/push', 'verb' => 'POST'),
+                array('api/user/detail', 'pattern' => 'api/user/<id:\d+>', 'verb' => 'GET')
+            //array('api/update', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'PUT'),
             ),
         ),
         /*

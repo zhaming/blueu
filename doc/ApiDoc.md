@@ -15,8 +15,9 @@ BlueU客户端接口文档
 [用户登录](#user)  /api/user/login    PSOT
 [重置密码](#user)  /api/user/resetpwd PSOT
 [用户登出](#user)  /api/user/logout   PSOT
-[编辑资料](#user)  /api/user/edit     PSOT
-[启用推送](#user)  /api/user/push     PSOT
+[编辑资料](#user)  /api/user/1/edit   PSOT
+[启用推送](#user)  /api/user/1/push   PSOT
+[用户详情](#user)  /api/user/1        GET
 
 
 ## 约定  
@@ -28,43 +29,43 @@ BlueU客户端接口文档
 示例1, 接口访问成功, 服务端不带数据:  
 <pre>
 {
-  "error_code":0,
-  "error_msg":"success"
+    "error_code": 0,
+    "error_msg": "success"
 }
 </pre>
 
 示例2, 接口访问失败:  
 <pre>
 {
-  "error_code":101,
-  "error_msg":"用户没有权限访问"
+    "error_code": 101,
+    "error_msg": "用户没有权限访问"
 }
 </pre>
 
 示例3, 服务端返回单条数据:  
 <pre>
 {
-  "error_code":0,
-  "error_msg":"success",
-  "data":{
-    "id":1
-    "name":"name"
-  }
+    "error_code": 0,
+    "error_msg": "success",
+    "data": {
+    "id": 1
+        "name": "name"
+    }
 }
 </pre>
 
 示例4, 服务端返回多组数据:  
 <pre>
 {
-  "error_code":0,
-  "error_msg":"success",
-  "data":[{
-    "id":1
-    "name":"name"
-  },{
-    "id":2
-    "name":"name2"
-  }]
+    "error_code": 0,
+    "error_msg": "success",
+    "data":[{
+        "id": 1
+        "name": "name"
+    },{
+        "id": 2
+        "name": "name2"
+    }]
 }
 </pre>
 
@@ -87,15 +88,15 @@ BlueU客户端接口文档
 </pre>
 
 
-## 用户注册  {#user}
+## 用户注册 {#user}
 地址：/api/user/register
 
 ###接口输入
 
 提交方式：POST
 
- 参数名     必填   类型     示例            说明   
-username    是  string  zhansan@test.com 帐号  
+ 参数名     必填   类型     示例            说明
+username    是  string  zhansan@test.com 帐号
 password    是  string  123456           密码
 name        是  string  张三              昵称
 sex         否  int     0                0:保密 1:女 2:男
@@ -103,171 +104,204 @@ period      否  string  70               年代
 
 完整参数示例:
 <pre>
-    curl -i -X POST -H "Accept: application/json" -d '{"username":"0000000002","password":"123456","name":"张三"}' http://api.blueu.com/api/user/register
+    curl -X POST -H "Accept: application/json" -d '{"username":"0000000002","password":"123456","name":"张三"}' http://api.blueu.com/api/user/register
 </pre>
 
 ###接口输出
 
-参数名      必有  类型    示例   说明 
+参数名      必有  类型    示例   说明
 error_code  是   int   见示例  返回数据
 error_msg   是  string 见示例  返回数据
 
 <pre>
 {
-  "error_code":0,
-  "error_msg":"success"
+    "error_code": 0,
+    "error_msg": "success"
 }
 </pre>
 
 
-## 用户登录  {#user}
+## 用户登录 {#user}
 地址：/api/user/login
 
 ###接口输入
 
 提交方式：POST
 
- 参数名     必填   类型     示例            说明   
+ 参数名     必填   类型     示例            说明
 username    是  string  zhansan@test.com 帐号  
 password    是  string  123456           密码
 
 完整参数示例:
 <pre>
-    curl -i -X POST -H "Accept: application/json" -d '{"username":"0000000002","password":"123456"}' http://api.blueu.com/api/user/login
+    curl -X POST -H "Accept: application/json" -d '{"username":"0000000002","password":"123456"}' http://api.blueu.com/api/user/login
 </pre>
 
 ###接口输出
 
-参数名      必有   类型     示例    说明  
+参数名      必有   类型     示例    说明
 error_code  是    int    见示例  返回数据
 error_msg   是   string  见示例  返回数据
 data        是    map    见示例  返回数据
 
 <pre>
 {
-  "error_code":0,
-  "error_msg":"success"，
-  "data":{
-     "token_id":"00320d40-89f8-4b28-d18e-fe12abefcf47"
-  }
+    "error_code": 0,
+    "error_msg": "success"，
+    "data": {
+        "token_id": "00320d40-89f8-4b28-d18e-fe12abefcf47"
+    }
 }
 </pre>
 
 
-## 重置密码  {#user}
+## 重置密码 {#user}
 地址：/api/user/resetpwd
 
 ###接口输入
 
 提交方式：POST
 
- 参数名      必填   类型     示例  说明   
-password     是  string  12312  密码  
+ 参数名      必填   类型     示例  说明
+password     是  string  12312  密码
 newpassword  是  string  123456 新密码
 
 完整参数示例:
 <pre>
-    curl -i -X POST -H "Accept: application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"password":"0000000002","newpassword":"123456"}' http://api.blueu.com/api/user/resetpwd
+    curl -X POST -H "Accept: application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"password":"0000000002","newpassword":"123456"}' http://api.blueu.com/api/user/resetpwd
     or
-    curl -i -X POST -H "Accept: application/json" -H "X-Auth-Username:zhangsan" -H "X-Auth-Password:zhangsan" -d '{"password":"0000000002","newpassword":"123456"}' http://api.blueu.com/api/user/resetpwd
+    curl -X POST -H "Accept: application/json" -H "X-Auth-Username:zhangsan" -H "X-Auth-Password:zhangsan" -d '{"password":"0000000002","newpassword":"123456"}' http://api.blueu.com/api/user/resetpwd
 </pre>
 
 ###接口输出
 
-参数名      必有   类型     示例    说明  
+参数名      必有   类型     示例    说明
 error_code  是    int    见示例  返回数据
 error_msg   是   string  见示例  返回数据
 
 <pre>
 {
-  "error_code":0,
-  "error_msg":"success"
+    "error_code": 0,
+    "error_msg": "success"
 }
 </pre>
 
 
-## 用户登出  {#user}
+## 用户登出 {#user}
 地址：/api/user/logout
 
 ###接口输入
 
 提交方式：POST
 
- 参数名     必填   类型     示例            说明   
-username    是  string  zhansan@test.com 帐号  
-password    是  string  123456           密码
+ 参数名     必填   类型     示例            说明
+username    是  string  zhansan@test.com  帐号  
+password    是  string  123456            密码
 
 完整参数示例:
 <pre>
-    curl -i -X POST -H "Accept: application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"username":"0000000002","password":"123456"}' http://api.blueu.com/api/user/logout
+    curl -X POST -H "Accept: application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"username":"0000000002","password":"123456"}' http://api.blueu.com/api/user/logout
 </pre>
 
 ###接口输出
 
-参数名      必有   类型     示例    说明  
+参数名      必有   类型     示例    说明
 error_code  是    int    见示例  返回数据
 error_msg   是   string  见示例  返回数据
 
 <pre>
 {
-  "error_code":0,
-  "error_msg":"success"
+    "error_code": 0,
+    "error_msg": "success"
 }
 </pre>
 
 
-## 用户修改资料  {#user}
-地址：/api/user/edit
+## 用户修改资料 {#user}
+地址：/api/user/1/edit
 
 ###接口输入
 
 提交方式：POST
 
-参数名  必填   类型     示例   说明   
-name    否  string    张三   名称  
+参数名  必填   类型     示例   说明
+name    否  string    张三   名称
 
 完整参数示例:
 <pre>
-    curl -i -X POST -H "Accept: application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"name":"张三"}' http://api.blueu.com/api/user/edit
+    curl -X POST -H "Accept: application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"name":"张三"}' http://api.blueu.com/api/user/1/edit
 </pre>
 
 ###接口输出
 
-参数名      必有   类型     示例    说明  
+参数名      必有   类型     示例    说明
 error_code  是    int    见示例  返回数据
 error_msg   是   string  见示例  返回数据
 
 <pre>
 {
-  "error_code":0,
-  "error_msg":"success"
+    "error_code": 0,
+    "error_msg": "success"
 }
 </pre>
 
-## 用户信息推送开关  {#user}
-地址：/api/user/push
+
+## 用户信息推送开关 {#user}
+地址：/api/user/1/push
 
 ###接口输入
 
 提交方式：POST
 
-参数名  必填   类型   示例   说明   
-enable  是    int    1   是否开启  
+参数名  必填   类型   示例   说明
+enable  是    int    1   是否开启
 
 完整参数示例:
 <pre>
-    curl -i -X POST -H "Accept: application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"enable":1}' http://api.blueu.com/api/user/push
+    curl -X POST -H "Accept: application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"enable":1}' http://api.blueu.com/api/user/1/push
 </pre>
 
 ###接口输出
 
-参数名      必有   类型     示例    说明  
+参数名      必有   类型     示例    说明
 error_code  是    int    见示例  返回数据
 error_msg   是   string  见示例  返回数据
 
 <pre>
 {
-  "error_code":0,
-  "error_msg":"success"
+    "error_code": 0,
+    "error_msg": "success"
+}
+</pre>
+
+
+## 用户信息推送开关 {#user}
+地址：/api/user/1
+
+###接口输入
+
+提交方式：GET
+
+参数名  必填   类型   示例   说明
+
+完整参数示例:
+<pre>
+    curl -X POST -H "Accept: application/json" http://api.blueu.com/api/user/1
+</pre>
+
+###接口输出
+
+参数名      必有   类型     示例    说明
+error_code  是    int    见示例  返回数据
+error_msg   是   string  见示例  返回数据
+data        是    map    见示例  返回数据
+
+<pre>
+{
+    "error_code": 0,
+    "error_msg": "success",
+    "data": {
+        "name": "xxx"
+    }
 }
 </pre>

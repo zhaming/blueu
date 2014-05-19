@@ -82,6 +82,27 @@ class UserController extends IController {
         $this->data = array('token_id' => $tokenId);
     }
 
+    public function actionDetail() {
+        if (Yii::app()->request->getRequestType() != 'GET') {
+            $this->error_code = self::REQUEST_METHOD_ERROR;
+            $this->message = Yii::t('api', 'Please use POST method');
+            return;
+        }
+        $userId = Yii::app()->request->getQuery('id');
+        if ($userId == null) {
+            $this->error_code = self::REQUEST_PARAMS_ERROR;
+            $this->message = 'userid' . Yii::t('api', ' is not set');
+            return;
+        }
+        $user = $this->userBehavior->detail($userId);
+        if (!$user) {
+            $this->error_code = self::REQUEST_FAILURE;
+            $this->message = $this->userBehavior->getError();
+            return;
+        }
+        $this->data = $user;
+    }
+
     public function actionResetpwd() {
         if (!Yii::app()->request->getIsPostRequest()) {
             $this->error_code = self::REQUEST_METHOD_ERROR;
@@ -142,9 +163,20 @@ class UserController extends IController {
             $this->message = Yii::t('api', 'Please use POST method');
             return;
         }
+        $userId = Yii::app()->request->getQuery('id');
+        if ($userId == null) {
+            $this->error_code = self::REQUEST_PARAMS_ERROR;
+            $this->message = 'userid' . Yii::t('api', ' is not set');
+            return;
+        }
         $data = $this->getJsonFormData();
         $userData = $this->checkToken();
         if (!$userData) {
+            return;
+        }
+        if ($userId != $userData['id']) {
+            $this->error_code = self::REQUEST_FAILURE;
+            $this->message = Yii::t('api', 'Illegal request');
             return;
         }
         if (!$this->userBehavior->edit($userData['id'], $data)) {
@@ -158,6 +190,12 @@ class UserController extends IController {
             $this->error_code = self::REQUEST_METHOD_ERROR;
             $this->message = Yii::t('api', 'Please use POST method');
             return false;
+        }
+        $userId = Yii::app()->request->getQuery('id');
+        if ($userId == null) {
+            $this->error_code = self::REQUEST_PARAMS_ERROR;
+            $this->message = 'userid' . Yii::t('api', ' is not set');
+            return;
         }
         $data = $this->getJsonFormData();
         if (!isset($data['enable'])) {
@@ -179,6 +217,11 @@ class UserController extends IController {
         }
         $userData = $this->checkToken();
         if (!$userData) {
+            return;
+        }
+        if ($userId != $userData['id']) {
+            $this->error_code = self::REQUEST_FAILURE;
+            $this->message = Yii::t('api', 'Illegal request');
             return;
         }
         if (!$this->userBehavior->push($userData['id'], $enable)) {

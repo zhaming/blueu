@@ -142,9 +142,18 @@ class UserBehavior extends BaseBehavior {
     public function push($userId, $enable = 1) {
         return User::model()->updateByPk($userId, array('pushable' => $enable));
     }
-    
-    public function like($data){
-        return  true;
+
+    public function detail($userId) {
+        $user = User::model()->findByPk($userId);
+        if ($user == null) {
+            $this->error = Yii::t('api', 'User is no exist');
+            return false;
+        }
+        return $user;
+    }
+
+    public function like($data) {
+        return true;
     }
 
 }

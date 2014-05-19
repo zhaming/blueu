@@ -23,23 +23,45 @@ class IController extends CController {
     protected $message = '';
     protected $data = null;
 
+    /* error code */
+
     const REQUEST_FAILURE = 1;
     const REQUEST_METHOD_ERROR = 2;
     const REQUEST_PARAMS_ERROR = 3;
     const REQUEST_TOKEN_INVALID = 4;
     const SERVER_ERROR = 999;
 
+    /* http response */
+    const ERROR_OK = 200;
+    const ERROR_BAD_REQUEST = 400;
+    const ERROR_UNAUTHORIZED = 401;
+    const ERROR_PAYMENT_REQUIRED = 402;
+    const ERROR_FORBIDDEN = 403;
+    const ERROR_NOT_FOUNT = 404;
+    const ERROR_INTERNAL_SERVER_ERROR = 500;
+    const ERROR_NOT_IMPLEMENTED = 501;
+
     protected $userBehavior;
     protected $tokenBehavior;
 
     /* 所有错误码定义 */
-    public $errors = array(
+    protected $errors = array(
         '0' => '请求成功',
         '1' => '请求失败',
         '2' => '请求方法错误',
         '3' => '请求参数错误',
         '4' => 'token无效',
         '999' => "程序错误"
+    );
+    protected static $errorMessages = array(
+        self::ERROR_OK => 'Ok',
+        self::ERROR_BAD_REQUEST => 'Bad Request',
+        self::ERROR_UNAUTHORIZED => 'Unauthorized',
+        self::ERROR_PAYMENT_REQUIRED => 'Payment required',
+        self::ERROR_FORBIDDEN => 'Forbidden',
+        self::ERROR_NOT_FOUNT => 'Not Found',
+        self::ERROR_INTERNAL_SERVER_ERROR => 'Internal Server Error',
+        self::ERROR_NOT_IMPLEMENTED => 'Not Implemented',
     );
 
     public function init() {
@@ -117,6 +139,10 @@ class IController extends CController {
         } else {
             return $default;
         }
+    }
+
+    public static function getErrorMessage($errorCode) {
+        return isset(self::$errorMessages[$errorCode]) ? self::$errorMessages[$errorCode] : "";
     }
 
 }
