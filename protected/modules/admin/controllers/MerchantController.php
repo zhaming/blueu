@@ -12,7 +12,7 @@
  * @author hugb <hu198021688500@163.com>
  * @copyright (c) 2011-2015
  * @license ()
- * 
+ *
  * MerchantController.php hugb
  *
  */

@@ -18,6 +18,7 @@ class MerchantshopController extends BController {
         $param['pageSize'] =2;
         $param['page'] =$page;
         $param['merchantid'] = Yii::app()->user->getId();
+        $param['selfid'] = Yii::app()->user->getId();
         if(!empty($name))
             $param['name']   =  $name;
         if(!empty($isonly))
@@ -63,9 +64,53 @@ class MerchantshopController extends BController {
 
         }else{
             $id  =  Yii::app()->request->getParam("id");
-
         }
+    }
 
+    public function actionAddShopAccount(){
+        if(Yii::app()->request->IsPostRequest){
+             $shopid =  Yii::app()->request->getPost("shopid");
+             $username = Yii::app()->request->getPost("username");
+             $passwd = Yii::app()->request->getPost("passwd");
+
+             if(empty($username) || empty($passwd)){
+                $this->showError("用户名密码不能为空",$this->referer);
+                Yii::app()->end();
+             }
+
+             $bhv = new AccountBehavior();
+             if($bhv->isExist($username)){
+                $this->showError("用户名已经存在",$this->referer);
+                Yii::app()->end();
+             }
+             $res = $this->shopBehavior-> createAccount($username,$passwd,$shopid);
+             if($res){
+                $this->showSuccess("创建成功");
+             }else{
+                $this->showError("创建失败");
+             }
+             $this->redirect($this->referer);
+
+        }else{
+            $shopid  = Yii::app()->request->getParam("id");
+            if(empty($shopid))
+            {
+                $this->showError("非法操作",$this->referer);
+                Yii::app()->end();
+            }
+            $shop = $this->shopBehavior->getById($shopid);
+
+            if(empty($shop)){
+                $this->showError("没有查询到该店铺",$this->referer);
+                Yii::app()->end();
+            }
+            if($shop->merchantid != Yii::app()->user->getId()){
+                $this->showError("这不是你的店铺",$this->referer);
+                Yii::app()->end();
+            }
+
+            $this->render("create_account",compact('shop'));
+        }
     }
 
     public function actionDelete(){
