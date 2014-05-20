@@ -9,6 +9,7 @@ class AdminModule extends CWebModule {
         parent::init();
         $this->setImport(array(
             'admin.components.*',
+            'admin.widgets.*',
         ));
 
         Yii::app()->setComponents(array(

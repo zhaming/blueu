@@ -47,6 +47,12 @@
                 <span class="menu-text"><?php echo Yii::t('admin','Merchant manager'); ?></span>
             </a>
         </li>
+        <li<?php if (Yii::app()->controller->id == 'merchantshop') { ?> class="active"<?php } ?>>
+            <a href="/admin/merchantshop">
+                <i class="icon-home"></i>
+                <span class="menu-text"><?php echo Yii::t('admin','Merchant shop_manager'); ?></span>
+            </a>
+        </li>
         <li<?php if (Yii::app()->controller->id == 'activity') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-list"></i>

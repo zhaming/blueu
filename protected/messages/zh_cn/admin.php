@@ -29,6 +29,7 @@ return array (
   'Illegal request' => '非法请求',
   'Login' => '登录',
   'Merchant manager' => '商户管理',
+  'Merchant shop_manager' => '商铺管理',
   'Merchant register' => '商户注册',
   'Name' => '名称',
   'Password' => '密码',

@@ -1,24 +1,12 @@
-<?php if (Yii::app()->user->hasFlash('alertmsg')): ?>
-    <?php $msg = Yii::app()->user->getFlash('alertmsg'); ?>
-    <?php if ($msg['type'] == 'success'): ?>
-    <?php $div_css_class['class'] = 'alert alert-success'; ?>
-    <?php elseif ($msg['type'] == 'error'): ?>
-    <?php $div_css_class['class'] = 'alert alert-error'; ?>
-    <?php else: ?>
-    <?php $div_css_class['class'] = 'alert alert-warning'; ?>
-    <?php endif; ?>
-    <?php echo CHtml::tag('div', $div_css_class); ?>
-    <?php echo $msg['msg']; ?>
-    <a class="close" href="#">&times;</a>
-    <?php echo CHtml::closeTag('div'); ?>
-<?php endif; ?>
-<script>
-    $('a.close').click(function(){
-        //$('div.alert').slideUp();
-        $(this).parent().slideUp();
-    });
-       
-    // setTimeout(function(){
-    //     $('.alert a.close').click();
-    // },2000);
-</script>
+<?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
+        <div class="alert alert-block <?php echo $message['type'] == 'success'?"alert-success":"alert-danger"  ?>">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="icon-remove"></i>
+            </button>
+            <p>
+                <strong>
+                    <?php echo $message['msg']; ?>
+                </strong>
+            </p>
+        </div>
+<?php } ?>
