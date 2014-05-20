@@ -19,7 +19,7 @@
 class SiteController extends IController {
 
     public function actionError() {
-        $this->error_code = self::SERVER_ERROR;
+        $this->error_code = self::ERROR_INTERNAL_SERVER_ERROR;
         $error = Yii::app()->errorHandler->getError();
         if ($error != null) {
             $this->message = implode('\n', $error);

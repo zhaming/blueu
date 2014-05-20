@@ -18,7 +18,7 @@
  */
 class UserBehavior extends BaseBehavior {
 
-    public function getList($filter = array()) {
+    public function getList($filter = array(), $page = null, $pagesize = null) {
         $criteria = new CDbCriteria();
         $criteria->addCondition('account.roleid=5');
         $criteria->addCondition('account.status!=2');
@@ -39,7 +39,8 @@ class UserBehavior extends BaseBehavior {
         $count = User::model()->with('account')->count($criteria);
 
         $pager = new CPagination($count);
-        $pager->setPageSize(2);
+        $page != null && $pager->setCurrentPage($page - 1);
+        $pagesize != null && $pager->setPageSize($pagesize);
         $pager->applyLimit($criteria);
 
         $data = User::model()->with('account')->findAll($criteria);

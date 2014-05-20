@@ -1,12 +1,12 @@
 BlueU客户端接口文档
 ========================
 
-文档版本: *v0.1-14-05-19*  
-接口协议: *http*  
-报文格式: *json*  
-报文编码: *utf-8*  
-正式接口: *待发布*  
-测试接口: *mocky.shifang.info*  
+文档版本:*v0.1-14-05-19*  
+接口协议:*http*  
+报文格式:*json*  
+报文编码:*utf-8*  
+正式接口:*待发布*  
+测试接口:*mocky.shifang.info*  
 
 
 
@@ -18,6 +18,9 @@ BlueU客户端接口文档
 [编辑资料](#user)  /api/user/1/edit   PSOT
 [启用推送](#user)  /api/user/1/push   PSOT
 [用户详情](#user)  /api/user/1        GET
+[用户列表](#user)  /api/users         GET
+[商户详情](#user)  /api/merchant/1    GET
+[商户列表](#user)  /api/merchants     GET
 
 
 ## 约定  
@@ -26,50 +29,50 @@ BlueU客户端接口文档
 2.error_msg字段返回接口访问情况信息, 如果出错, 服务端会返回错误情况, 供客户端酌情使用;  
 3.如果服务端状态正常,并且需要返回数据, 将数据报文放入data字段, 不需要返回时或访问失败, 服务端不保持该字段;  
 
-示例1, 接口访问成功, 服务端不带数据:  
+示例1, 接口访问成功, 服务端不带数据:
 <pre>
 {
-    "error_code": 0,
-    "error_msg": "success"
+    "error_code":0,
+    "error_msg":"success"
 }
 </pre>
 
-示例2, 接口访问失败:  
+示例2, 接口访问失败:
 <pre>
 {
-    "error_code": 101,
-    "error_msg": "用户没有权限访问"
+    "error_code":101,
+    "error_msg":"用户没有权限访问"
 }
 </pre>
 
-示例3, 服务端返回单条数据:  
+示例3, 服务端返回单条数据:
 <pre>
 {
-    "error_code": 0,
-    "error_msg": "success",
-    "data": {
-    "id": 1
-        "name": "name"
+    "error_code":0,
+    "error_msg":"success",
+    "data":{
+    "id":1
+        "name":"name"
     }
 }
 </pre>
 
-示例4, 服务端返回多组数据:  
+示例4, 服务端返回多组数据:
 <pre>
 {
-    "error_code": 0,
-    "error_msg": "success",
+    "error_code":0,
+    "error_msg":"success",
     "data":[{
-        "id": 1
-        "name": "name"
+        "id":1
+        "name":"name"
     },{
-        "id": 2
-        "name": "name2"
+        "id":2
+        "name":"name2"
     }]
 }
 </pre>
 
-示例5, 服务端返回多组字典数据:  
+示例5, 服务端返回多组字典数据:
 <pre>
 {
   "error_code":0,
@@ -104,7 +107,7 @@ period      否  string  70               年代
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept: application/json" -d '{"username":"0000000002","password":"123456","name":"张三"}' http://api.blueu.com/api/user/register
+    curl -X POST -H "Accept:application/json" -d '{"username":"zhansan@test.com","password":"123456","name":"张三"}' http://api.blueu.com/api/user/register
 </pre>
 
 ###接口输出
@@ -115,8 +118,8 @@ error_msg   是  string 见示例  返回数据
 
 <pre>
 {
-    "error_code": 0,
-    "error_msg": "success"
+    "error_code":0,
+    "error_msg":"success"
 }
 </pre>
 
@@ -134,7 +137,7 @@ password    是  string  123456           密码
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept: application/json" -d '{"username":"0000000002","password":"123456"}' http://api.blueu.com/api/user/login
+    curl -X POST -H "Accept:application/json" -d '{"username":"zhansan@test.com","password":"123456"}' http://api.blueu.com/api/user/login
 </pre>
 
 ###接口输出
@@ -146,10 +149,10 @@ data        是    map    见示例  返回数据
 
 <pre>
 {
-    "error_code": 0,
-    "error_msg": "success"，
-    "data": {
-        "token_id": "00320d40-89f8-4b28-d18e-fe12abefcf47"
+    "error_code":0,
+    "error_msg":"success"，
+    "data":{
+        "token_id":"00320d40-89f8-4b28-d18e-fe12abefcf47"
     }
 }
 </pre>
@@ -162,15 +165,15 @@ data        是    map    见示例  返回数据
 
 提交方式：POST
 
- 参数名      必填   类型     示例  说明
-password     是  string  12312  密码
-newpassword  是  string  123456 新密码
+ 参数名      必填   类型     示例      说明
+password     是  string  123456     密码
+newpassword  是  string  1234567890 新密码
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept: application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"password":"0000000002","newpassword":"123456"}' http://api.blueu.com/api/user/resetpwd
+    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"password":"123456","newpassword":"1234567890"}' http://api.blueu.com/api/user/resetpwd
     or
-    curl -X POST -H "Accept: application/json" -H "X-Auth-Username:zhangsan" -H "X-Auth-Password:zhangsan" -d '{"password":"0000000002","newpassword":"123456"}' http://api.blueu.com/api/user/resetpwd
+    curl -X POST -H "Accept:application/json" -H "X-Auth-Username:zhangsan" -H "X-Auth-Password:zhangsan" -d '{"password":"123456","newpassword":"1234567890"}' http://api.blueu.com/api/user/resetpwd
 </pre>
 
 ###接口输出
@@ -181,8 +184,8 @@ error_msg   是   string  见示例  返回数据
 
 <pre>
 {
-    "error_code": 0,
-    "error_msg": "success"
+    "error_code":0,
+    "error_msg":"success"
 }
 </pre>
 
@@ -200,7 +203,7 @@ password    是  string  123456            密码
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept: application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"username":"0000000002","password":"123456"}' http://api.blueu.com/api/user/logout
+    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"username":"zhansan@test.com","password":"123456"}' http://api.blueu.com/api/user/logout
 </pre>
 
 ###接口输出
@@ -211,8 +214,8 @@ error_msg   是   string  见示例  返回数据
 
 <pre>
 {
-    "error_code": 0,
-    "error_msg": "success"
+    "error_code":0,
+    "error_msg":"success"
 }
 </pre>
 
@@ -229,7 +232,7 @@ name    否  string    张三   名称
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept: application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"name":"张三"}' http://api.blueu.com/api/user/1/edit
+    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"name":"张三"}' http://api.blueu.com/api/user/1/edit
 </pre>
 
 ###接口输出
@@ -240,8 +243,8 @@ error_msg   是   string  见示例  返回数据
 
 <pre>
 {
-    "error_code": 0,
-    "error_msg": "success"
+    "error_code":0,
+    "error_msg":"success"
 }
 </pre>
 
@@ -258,7 +261,7 @@ enable  是    int    1   是否开启
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept: application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"enable":1}' http://api.blueu.com/api/user/1/push
+    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"enable":1}' http://api.blueu.com/api/user/1/push
 </pre>
 
 ###接口输出
@@ -269,13 +272,13 @@ error_msg   是   string  见示例  返回数据
 
 <pre>
 {
-    "error_code": 0,
-    "error_msg": "success"
+    "error_code":0,
+    "error_msg":"success"
 }
 </pre>
 
 
-## 用户信息推送开关 {#user}
+## 用户详情 {#user}
 地址：/api/user/1
 
 ###接口输入
@@ -286,7 +289,7 @@ error_msg   是   string  见示例  返回数据
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept: application/json" http://api.blueu.com/api/user/1
+    curl -X POST -H "Accept:application/json" http://api.blueu.com/api/user/1
 </pre>
 
 ###接口输出
@@ -298,10 +301,149 @@ data        是    map    见示例  返回数据
 
 <pre>
 {
-    "error_code": 0,
-    "error_msg": "success",
-    "data": {
-        "name": "xxx"
+    "error_code":0,
+    "error_msg":"success",
+    "data":{
+	"id":"4",
+	"name":"王五",
+	"sex":"1",
+	"century":null,
+	"mobile":null,
+	"pushable":"1"
     }
+}
+</pre>
+
+
+
+## 用户列表 {#user}
+地址：/api/users
+
+###接口输入
+
+提交方式：GET
+
+查询参数
+参数名    必填   类型   示例    说明
+page      否    int    1    当前页码
+pagesize  否    int    2    每页显示的数据条数
+
+完整参数示例:
+<pre>
+    curl -X POST -H "Accept:application/json" http://api.blueu.com/api/users?page=1&pagesize=2
+</pre>
+
+###接口输出
+
+参数名      必有   类型     示例    说明
+error_code  是    int    见示例  返回数据
+error_msg   是   string  见示例  返回数据
+data        是    map    见示例  返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success",
+    "data":[{
+	"id":"5",
+	"name":"刘六",
+	"sex":"0",
+	"century":null,
+	"mobile":null,
+	"pushable":"1"
+    },{
+	"id":"4",
+	"name":"王五",
+	"sex":"1",
+	"century":null,
+	"mobile":null,
+	"pushable":"1"
+    }]
+}
+</pre>
+
+
+
+## 商户详情 {#merchant}
+地址：/api/merchant/1
+
+###接口输入
+
+提交方式：GET
+
+参数名  必填   类型   示例   说明
+
+完整参数示例:
+<pre>
+    curl -X POST -H "Accept:application/json" http://api.blueu.com/api/merchant/1
+</pre>
+
+###接口输出
+
+参数名      必有   类型     示例    说明
+error_code  是    int    见示例  返回数据
+error_msg   是   string  见示例  返回数据
+data        是    map    见示例  返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success",
+    "data":{
+	"id":"8",
+	"name":"360",
+	"legal":null,
+	"telephone":"",
+	"bank":"",
+	"shopnum":"0"
+    }
+}
+</pre>
+
+
+
+## 商户列表 {#merchants}
+地址：/api/merchants
+
+###接口输入
+
+提交方式：GET
+
+查询参数
+参数名    必填   类型   示例    说明
+page      否    int    1    当前页码
+pagesize  否    int    2    每页显示的数据条数
+
+完整参数示例:
+<pre>
+    curl -X POST -H "Accept:application/json" http://api.blueu.com/api/merchants?page=1&pagesize=2
+</pre>
+
+###接口输出
+
+参数名      必有   类型     示例    说明
+error_code  是    int    见示例  返回数据
+error_msg   是   string  见示例  返回数据
+data        是    map    见示例  返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success",
+    "data":[{
+	"id":"9",
+	"name":"麻辣空间",
+	"legal":null,
+	"telephone":"",
+	"bank":"",
+	"shopnum":"0"
+    },{
+	"id":"8",
+	"name":"360",
+	"legal":null,
+	"telephone":"",
+	"bank":"",
+	"shopnum":"0"
+    }]
 }
 </pre>

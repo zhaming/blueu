@@ -54,7 +54,14 @@ return array(
                 // reset api
                 array('api/user/edit', 'pattern' => 'api/user/<id:\d+>/edit', 'verb' => 'POST'),
                 array('api/user/push', 'pattern' => 'api/user/<id:\d+>/push', 'verb' => 'POST'),
-                array('api/user/detail', 'pattern' => 'api/user/<id:\d+>', 'verb' => 'GET')
+                // get user list
+                'api/users' => 'api/user/list',
+                // get user detail
+                array('api/user/detail', 'pattern' => 'api/user/<id:\d+>'),
+                // get merchant list
+                'api/merchants' => 'api/merchant/list',
+                // get merchant detail
+                array('api/merchant/detail', 'pattern' => 'api/merchant/<id:\d+>')
             //array('api/update', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'PUT'),
             ),
         ),

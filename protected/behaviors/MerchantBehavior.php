@@ -18,7 +18,7 @@
  */
 class MerchantBehavior extends BaseBehavior {
 
-    public function getlist($filter = array()) {
+    public function getlist($filter = array(), $page = null, $pagesize = null) {
         $criteria = new CDbCriteria();
         $criteria->addCondition('account.roleid=4');
         $criteria->addCondition('account.status!=2');
@@ -39,11 +39,21 @@ class MerchantBehavior extends BaseBehavior {
         $count = Merchant::model()->with('account')->count($criteria);
 
         $pager = new CPagination($count);
-        $pager->setPageSize(2);
+        $page != null && $pager->setCurrentPage($page - 1);
+        $pagesize != null && $pager->setPageSize($pagesize);
         $pager->applyLimit($criteria);
 
         $data = Merchant::model()->with('account')->findAll($criteria);
         return array('pager' => $pager, 'data' => $data);
+    }
+
+    public function detail($merchantId) {
+        $merchant = User::model()->findByPk($merchantId);
+        if ($merchant == null) {
+            $this->error = Yii::t('api', 'Merchant is no exist');
+            return false;
+        }
+        return $merchant;
     }
 
 }
