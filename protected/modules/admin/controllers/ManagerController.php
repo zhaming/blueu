@@ -19,31 +19,28 @@
 class ManagerController extends BController {
 
     public function actionLogin() {
-        $this->layout = false;
-        if (Yii::app()->request->isPostRequest) {
-            $username = Yii::app()->request->getPost("username");
-            $password = Yii::app()->request->getPost("password");
-            $rememberme = Yii::app()->request->getPost("rememberme");
-            $identity = new AllUserIdentity($username, $password);
-            if ($identity->authenticate()) {
-                if (empty($rememberme)) {
-                    $duration = 0;
-                } else {
-                    $duration = 3600 * 24 * 1;
-                }
-                Yii::app()->user->login($identity, $duration);
-                $this->redirect('/admin');
-            } else {
-                $this->showError($identity->errorMessage, '/admin/manager/login');
-            }
-        } else {
-            if (Yii::app()->user->isGuest) {
-                $this->layout = "null";
-                $this->render("login");
-            } else {
-                $this->redirect('/admin');
-            }
+        $viewData = array();
+        $this->layout = 'simple';
+        $loginForm = new ManagerLoginForm();
+        if (!Yii::app()->request->isPostRequest) {
+            $viewData['user'] = $loginForm->getAttributes();
+            return $this->render("login", $viewData);
         }
+        $loginForm->attributes = Yii::app()->request->getPost('user');
+        $viewData['user'] = $loginForm->getAttributes();
+        if (!$loginForm->validate()) {
+            $firstError = array_shift($loginForm->getErrors());
+            $viewData['message'] = array_shift($firstError);
+            return $this->render("login", $viewData);
+        }
+        $identity = new AllUserIdentity($loginForm->username, $loginForm->password);
+        if (!$identity->authenticate()) {
+            $viewData['message'] = $identity->errorMessage;
+            return $this->render("login", $viewData);
+        }
+        $duration = empty($loginForm->rememberme) ? 0 : 3600 * 24 * 1;
+        Yii::app()->user->login($identity, $duration);
+        $this->redirect('/admin');
     }
 
     public function actionProfile() {
@@ -60,7 +57,7 @@ class ManagerController extends BController {
     }
 
     public function actionFindpwd() {
-        $this->layout = false;
+        $this->layout = 'simple';
         $this->render('findpwd');
     }
 

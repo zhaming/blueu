@@ -58,7 +58,7 @@ class MerchantController extends BController {
 
     public function actionRegister() {
         $message = '';
-        $this->layout = false;
+        $this->layout = 'simple';
         $merchantCreateForm = new MerchantCreateForm();
         if (Yii::app()->request->isPostRequest) {
             $merchantCreateForm->attributes = Yii::app()->request->getPost('merchant');

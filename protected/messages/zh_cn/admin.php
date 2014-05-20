@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Password is not correct' => '',
+  'Username is invalid' => '',
   'Accept' => '接受',
   'Activity manager' => '活动管理',
   'Agreement' => '协议',
@@ -29,8 +31,8 @@ return array (
   'Illegal request' => '非法请求',
   'Login' => '登录',
   'Merchant manager' => '商户管理',
-  'Merchant shop_manager' => '商铺管理',
   'Merchant register' => '商户注册',
+  'Merchant shop_manager' => '商铺管理',
   'Name' => '名称',
   'Password' => '密码',
   'Register' => '注册',

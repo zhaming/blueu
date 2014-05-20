@@ -9,7 +9,7 @@
  * Each array element represents the translation (value) of a message (key).
  * If the value is empty, the message is considered as not translated.
  * Messages that no longer need translation will have their translations
- * enclosed between a pair of '' marks.
+ * enclosed between a pair of '@@' marks.
  *
  * Message string can be used with plural forms format. Check i18n section
  * of the guide for details.
@@ -17,9 +17,23 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Name no set' => '名称未设置',
-  'Newpassword no set' => '新密码未设置',
-  'Password no set' => '密码未设置',
-  'Please use POST' => '请使用POST方法',
-  'Username no set' => '用户名未设置',
+  ' is not correct' => ' 不正确',
+  ' is not set' => '未设置',
+  'Advertisement is no exist' => '',
+  'Illegal identity' => '',
+  'Illegal request' => '',
+  'Merchant is no exist' => '',
+  'Not editable' => '',
+  'Please use GET method' => '',
+  'Please use POST method' => '',
+  'Token has expired' => 'Token已过期',
+  'Token is not exist' => 'Token不存在',
+  'Token not exist' => '',
+  'Token not set' => '',
+  'User is no exist' => '',
+  'Name no set' => '@@名称未设置@@',
+  'Newpassword no set' => '@@新密码未设置@@',
+  'Password no set' => '@@密码未设置@@',
+  'Please use POST' => '@@请使用POST方法@@',
+  'Username no set' => '@@用户名未设置@@',
 );

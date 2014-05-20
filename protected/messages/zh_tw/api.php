@@ -17,9 +17,23 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Name no set' => '',
-  'Newpassword no set' => '',
-  'Password no set' => '',
-  'Please use POST' => '',
-  'Username no set' => '',
+  ' is not correct' => '',
+  ' is not set' => '',
+  'Advertisement is no exist' => '',
+  'Illegal identity' => '',
+  'Illegal request' => '',
+  'Merchant is no exist' => '',
+  'Not editable' => '',
+  'Please use GET method' => '',
+  'Please use POST method' => '',
+  'Token has expired' => '',
+  'Token is not exist' => '',
+  'Token not exist' => '',
+  'Token not set' => '',
+  'User is no exist' => '',
+  'Name no set' => '@@@@',
+  'Newpassword no set' => '@@@@',
+  'Password no set' => '@@@@',
+  'Please use POST' => '@@@@',
+  'Username no set' => '@@@@',
 );

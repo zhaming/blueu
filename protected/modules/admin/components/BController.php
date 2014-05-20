@@ -9,6 +9,7 @@ class BController extends CController {
     public $pageName = '后台';
     public $menu = array();
     public $breadcrumbs = array();
+    protected $error;
 
     protected function beforeAction($action) {
         parent::beforeAction($action);
