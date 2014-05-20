@@ -1,7 +1,7 @@
 <?php
 
 /*
- * 商户api
+ * 商户API
  */
 
 /**
@@ -56,7 +56,7 @@ class MerchantController extends IController {
         $merchant = $this->merchantBehavior->detail($merchantId);
         if (!$merchant) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
-            $this->message = $this->userBehavior->getError();
+            $this->message = $this->merchantBehavior->getError();
             return;
         }
         $this->data = $merchant;

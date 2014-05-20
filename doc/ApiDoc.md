@@ -10,17 +10,18 @@ BlueU客户端接口文档
 
 
 
-接口名               地址              类型
-[用户注册](#user)  /api/user/register PSOT
-[用户登录](#user)  /api/user/login    PSOT
-[重置密码](#user)  /api/user/resetpwd PSOT
-[用户登出](#user)  /api/user/logout   PSOT
-[编辑资料](#user)  /api/user/1/edit   PSOT
-[启用推送](#user)  /api/user/1/push   PSOT
-[用户详情](#user)  /api/user/1        GET
-[用户列表](#user)  /api/users         GET
-[商户详情](#user)  /api/merchant/1    GET
-[商户列表](#user)  /api/merchants     GET
+接口名                      地址          类型
+[用户注册](#user)      /api/user/register PSOT
+[用户登录](#user)      /api/user/login    PSOT
+[重置密码](#user)      /api/user/resetpwd PSOT
+[用户登出](#user)      /api/user/logout   PSOT
+[编辑资料](#user)      /api/user/1/edit   PSOT
+[启用推送](#user)      /api/user/1/push   PSOT
+[用户详情](#user)      /api/user/1        GET
+[用户列表](#user)      /api/users         GET
+[商户详情](#merchant)  /api/merchant/1    GET
+[商户列表](#merchant)  /api/merchants     GET
+[广告详情](#ad)        /api/ad/1          GET
 
 
 ## 约定  
@@ -445,5 +446,43 @@ data        是    map    见示例  返回数据
 	"bank":"",
 	"shopnum":"0"
     }]
+}
+</pre>
+
+
+
+## 广告详情 {#ad}
+地址：/api/ad/1
+
+###接口输入
+
+提交方式：GET
+
+参数名  必填   类型   示例   说明
+
+完整参数示例:
+<pre>
+    curl -X POST -H "Accept:application/json" http://api.blueu.com/api/ad/1
+</pre>
+
+###接口输出
+
+参数名      必有   类型     示例    说明
+error_code  是    int    见示例  返回数据
+error_msg   是   string  见示例  返回数据
+data        是    map    见示例  返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success",
+    "data":{
+	"id":"8",
+	"name":"360",
+	"legal":null,
+	"telephone":"",
+	"bank":"",
+	"shopnum":"0"
+    }
 }
 </pre>

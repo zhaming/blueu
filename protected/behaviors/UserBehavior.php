@@ -1,7 +1,7 @@
 <?php
 
 /*
- * 完成用户相关业务
+ * 完成用户相关业务逻辑
  */
 
 /**
@@ -90,11 +90,11 @@ class UserBehavior extends BaseBehavior {
     public function apiLogin($data) {
         $account = Account::model()->findByAttributes(array('username' => $data['username'], 'roleid' => 5));
         if (empty($account)) {
-            $this->error = '帐号无效';
+            $this->error = Yii::t('admin', 'Username is invalid');
             return false;
         }
         if (md5($data['password']) != $account->password) {
-            $this->error = '密码错误';
+            $this->error = Yii::t('admin', 'Password is not correct');
             return false;
         }
         Account::model()->updateByPk($account->id, array('logintime' => time()));
@@ -118,9 +118,9 @@ class UserBehavior extends BaseBehavior {
     public function resetpwd($data) {
         $account = Account::model()->findByAttributes(array('username' => $data['username']));
         if (empty($account)) {
-            $this->error = '帐号无效';
+            $this->error = Yii::t('admin', 'Username is invalid');
         } else if (md5($data['password']) != $account->password) {
-            $this->error = '密码错误';
+            $this->error = Yii::t('admin', 'Password is not correct');
         } else {
             return Account::model()->updateByPk($account->id, array("password" => md5($data['newpassword'])));
         }

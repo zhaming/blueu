@@ -61,7 +61,9 @@ return array(
                 // get merchant list
                 'api/merchants' => 'api/merchant/list',
                 // get merchant detail
-                array('api/merchant/detail', 'pattern' => 'api/merchant/<id:\d+>')
+                array('api/merchant/detail', 'pattern' => 'api/merchant/<id:\d+>'),
+                // get ad detail
+                array('api/advertisement/detail', 'pattern' => 'api/ad/<id:\d+>'),
             //array('api/update', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'PUT'),
             ),
         ),
