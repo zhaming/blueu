@@ -1,46 +1,46 @@
 <div class="page-header">
     <h1>
         <?php echo Yii::t('admin', 'Merchant shop_manager');?>
-        <small><i class="icon-double-angle-right"></i>商铺创建</small>
+        <small><i class="icon-double-angle-right"></i>商铺信息编辑</small>
     </h1>
 </div>
 <?php $this->widget("AlterMsgWidget")?>
 <div class="row">
     <div class="col-xs-12">
-        <form class="form-horizontal"  action="/admin/merchantshop/create" method="POST" >
-
+        <form class="form-horizontal"  action="/admin/merchantshop/edit" method="POST" >
+<input type="hidden" name="shop[id]" value="<?php echo $shop->id;?>"?>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[name]">商铺名</label>
                 <div class="col-sm-9">
-                    <input type="text" name="shop[name]" value="" placeholder="请输入商铺名" class="col-xs-10 col-sm-5" />
+                    <input type="text" name="shop[name]" value="<?php echo $shop->name;?>" placeholder="请输入商铺名" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
 
-             <div class="form-group">
+            <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[owner]">店主</label>
                 <div class="col-sm-9">
-                    <input type="text" name="shop[owner]" value="" placeholder="请输入店主名" class="col-xs-10 col-sm-5" />
+                    <input type="text" name="shop[owner]" value="<?php echo $shop->owner;?>" placeholder="请输入店主名" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[telephone]">联系电话</label>
                 <div class="col-sm-9">
-                    <input type="text" name="shop[telephone]" value="" placeholder="请输入联系电话" class="col-xs-10 col-sm-5" />
+                    <input type="text" name="shop[telephone]" value="<?php echo $shop->telephone;?>" placeholder="请输入联系电话" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[address]">商铺地址</label>
                 <div class="col-sm-9">
-                    <input type="text" name="shop[address]" value="" placeholder="请输入商铺地址" class="col-xs-10 col-sm-5" />
+                    <input type="text" name="shop[address]" value="<?php echo $shop->address;?>" placeholder="请输入商铺地址" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[url]">商铺网址</label>
                 <div class="col-sm-9">
-                    <input type="text" name="shop[url]" value="" placeholder="请输入商铺网址" class="col-xs-10 col-sm-5" />
+                    <input type="text" name="shop[url]" value="<?php echo $shop->url;?>" placeholder="请输入商铺网址" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
 
@@ -50,7 +50,7 @@
                     <select name="shop[catid]" class="col-sm-5">
                     <?php if(!empty($category)):?>
                         <?php foreach ($category as $key => $value) :?>
-                        <option value="<?php echo $value->id;?>"><?php echo $value->name;?></option>
+                        <option value="<?php echo $value->id;?>"  <?php echo $value->id == $shop->catid?"selected":"";?>><?php echo $value->name;?></option>
                         <?php endforeach;?>
                     <?php endif;?>
                     </select>
@@ -63,7 +63,7 @@
                     <select name="shop[districtid]" class="col-sm-5">
                     <?php if(!empty($district)):?>
                     <?php foreach ($district as $key => $value):?>
-                        <option value="<?php echo $value->id?>"><?php echo $value->district?></option>
+                        <option value="<?php echo $value->id?>" <?php echo $value->id == $shop->districtid?"selected":"";?>><?php echo $value->district?></option>
                     <?php endforeach;?>
                     <?php endif;?>
                     </select>
@@ -73,14 +73,14 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[marketplace]">所在商场</label>
                 <div class="col-sm-9">
-                    <input type="text" name="shop[marketplace]" value="" placeholder="请输入商铺所在商场" class="col-xs-10 col-sm-5" />
+                    <input type="text" name="shop[marketplace]" value="<?php echo $shop->marketplace;?>" placeholder="请输入商铺所在商场" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[floor]">楼层号</label>
                 <div class="col-sm-9">
-                    <input type="text" name="shop[floor]" value="" placeholder="请输入商铺楼层号" class="col-xs-10 col-sm-5" />
+                    <input type="text" name="shop[floor]" value="<?php echo $shop->floor;?>" placeholder="请输入商铺楼层号" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
 
@@ -89,13 +89,13 @@
                 <div class="col-sm-9">
                     <label>
                         独家
-                        <input name="shop[isonly]" value="1" class="ace ace-switch ace-switch-5" type="checkbox">
+                        <input name="shop[isonly]" value="1"  <?php echo empty($shop->isonly) ?"":"checked";?> class="ace ace-switch ace-switch-5" type="checkbox">
                         <span class="lbl"></span>
                     </label>
                     &emsp; &emsp; &emsp;
                     <label>
                         总店
-                        <input name="shop[ismain]"  value="1" class="ace ace-switch ace-switch-5" type="checkbox">
+                        <input name="shop[ismain]" value="1" <?php echo empty($shop->ismain) ?"":"checked";?> class="ace ace-switch ace-switch-5" type="checkbox">
                         <span class="lbl"></span>
                     </label>
                 </div>
@@ -103,7 +103,7 @@
 
             <div class="clearfix form-actions">
                 <div class="col-md-offset-3 col-md-9">
-                    <button class="btn btn-info" type="submit"><i class="icon-ok bigger-110"></i>创建</button>
+                    <button class="btn btn-info" type="submit"><i class="icon-ok bigger-110"></i>提交</button>
                     &emsp; &emsp; &emsp;
                     <button class="btn" type="reset"><i class="icon-undo bigger-110"></i>重置</button>
                 </div>

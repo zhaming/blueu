@@ -69,6 +69,7 @@ class MerchantShopBehavior extends BaseBehavior{
             $account->username = $username;
             $account->password = md5($passwd);
             $account->registertime = time();
+            $account->roleid = 4;//写死的商家角色
             $account->save();
 
             $merchant->id = $account->id;

@@ -61,9 +61,43 @@ class MerchantshopController extends BController {
 
     public function actionEdit(){
         if(Yii::app()->request->IsPostRequest){
+                $shop = Yii::app()->request->getPost("shop");
 
+                if(empty($shop['isonly']))
+                    $shop['isonly'] =0;
+                if(empty($shop['ismain']))
+                    $shop['ismain'] =0;
+                $res = $this->shopBehavior->saveOrUpdate($shop);
+                if($res){
+                    $this->showSuccess("修改成功");
+                }else{
+                    $this->showError("修改失败");
+                }
+                $this->redirect($this->referer);
         }else{
-            $id  =  Yii::app()->request->getParam("id");
+            $shopid  =  Yii::app()->request->getParam("id");
+            if(empty($shopid))
+            {
+                $this->showError("非法操作",$this->referer);
+                Yii::app()->end();
+            }
+            $shop = $this->shopBehavior->getById($shopid);
+
+            if(empty($shop)){
+                $this->showError("没有查询到该店铺",$this->referer);
+                Yii::app()->end();
+            }
+            if($shop->merchantid != Yii::app()->user->getId()){
+                $this->showError("这不是你的店铺",$this->referer);
+                Yii::app()->end();
+            }
+              //商圈
+            $district  = District::model()->findAll();
+            $result['district'] = $district;
+            //行业-分类
+            $categoryBehavior = new CategoryBehavior();
+            $category = $categoryBehavior->getAll();
+            $this->render("edit",compact('shop',"district","category"));
         }
     }
 
@@ -114,6 +148,25 @@ class MerchantshopController extends BController {
     }
 
     public function actionDelete(){
-        $this->showError('非法操作', $this->referer);
+
+        $shopid  = Yii::app()->request->getParam("id");
+        if(empty($shopid))
+        {
+            $this->showError("非法操作",$this->referer);
+            Yii::app()->end();
+        }
+        $shop = $this->shopBehavior->getById($shopid);
+
+        if(empty($shop)){
+            $this->showError("没有查询到该店铺",$this->referer);
+            Yii::app()->end();
+        }
+        if( ($shop->merchantid == Yii::app()->user->getId()) || ($shop->selfid == Yii::app()->user->getId() )  ){
+                $shop->delete();
+        }else{
+            $this->showError("这不是你的店铺",$this->referer);
+            Yii::app()->end();
+        }
+        $this->showSuccess("删除成功",$this->referer);
     }
 }
