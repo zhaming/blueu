@@ -16,11 +16,14 @@ class MerchantShopBehavior extends BaseBehavior{
            $page = $param['page'];
         if(isset($param['pageSize']) && is_numeric($param['pageSize']))
            $pageSize = $param['pageSize'];
-
         if(isset($param['name']) && !empty($param['name']))
-            $criteria->addColumnCondition(array("name"=>$param['name']));
+            $criteria->addSearchCondition("name",$param['name']);
+        if(isset($param['owner']) && !empty($param['owner']))
+            $criteria->addSearchCondition("owner",$param['owner']);
         if(isset($param['isonly']) && is_numeric($param['isonly']))
             $criteria->addColumnCondition(array("isonly"=>$param['isonly']));
+        if(isset($param['merchantid']) && is_numeric($param['merchantid']))
+            $criteria->addColumnCondition(array("merchantid"=>$param['merchantid']));
 
         if(-1 != $page){
             $count=MerchantShop::model()->count($criteria);
@@ -43,6 +46,7 @@ class MerchantShopBehavior extends BaseBehavior{
         }else{
             $obj->id = null;
             $obj->setIsNewRecord(true);
+            $obj->created =  time();
         }
        return $obj->save();
     }

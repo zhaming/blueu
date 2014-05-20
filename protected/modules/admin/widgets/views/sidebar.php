@@ -48,10 +48,18 @@
             </a>
         </li>
         <li<?php if (Yii::app()->controller->id == 'merchantshop') { ?> class="active"<?php } ?>>
-            <a href="/admin/merchantshop">
+            <a class="dropdown-toggle">
                 <i class="icon-home"></i>
                 <span class="menu-text"><?php echo Yii::t('admin','Merchant shop_manager'); ?></span>
             </a>
+            <ul class="submenu">
+                <li<?php if (Yii::app()->controller->getId() == 'merchantshop' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
+                    <a href="/admin/merchantshop/index"><i class="icon-double-angle-right"></i>商铺列表</a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'merchantshop' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
+                    <a href="/admin/merchantshop/create"><i class="icon-double-angle-right"></i>创建商铺</a>
+                </li>
+            </ul>
         </li>
         <li<?php if (Yii::app()->controller->id == 'activity') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">

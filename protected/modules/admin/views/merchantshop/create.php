@@ -16,6 +16,13 @@
                 </div>
             </div>
 
+             <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="shop[owner]">店主</label>
+                <div class="col-sm-9">
+                    <input type="text" name="shop[owner]" value="" placeholder="请输入店主名" class="col-xs-10 col-sm-5" />
+                </div>
+            </div>
+
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[telephone]">联系电话</label>
                 <div class="col-sm-9">
@@ -41,7 +48,11 @@
                 <label class="col-sm-3 control-label no-padding-right" for="shop[catid]">行业</label>
                 <div class="col-sm-9">
                     <select name="shop[catid]" class="col-sm-5">
-                        <option value="1">vvv</option>
+                    <?php if(!empty($category)):?>
+                        <?php foreach ($category as $key => $value) :?>
+                        <option value="<?php echo $value->id;?>"><?php echo $value->name;?></option>
+                        <?php endforeach;?>
+                    <?php endif;?>
                     </select>
                 </div>
             </div>
@@ -50,7 +61,11 @@
                 <label class="col-sm-3 control-label no-padding-right" for="shop[districtid]">商圈</label>
                 <div class="col-sm-9">
                     <select name="shop[districtid]" class="col-sm-5">
-                        <option value="1">笑嘻嘻</option>
+                    <?php if(!empty($district)):?>
+                    <?php foreach ($district as $key => $value):?>
+                        <option value="<?php echo $value->id?>"><?php echo $value->district?></option>
+                    <?php endforeach;?>
+                    <?php endif;?>
                     </select>
                 </div>
             </div>
