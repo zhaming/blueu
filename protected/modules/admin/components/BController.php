@@ -15,6 +15,7 @@ class BController extends CController {
 
         $this->controller_id = $this->getId();
         $this->action_id = $this->getAction()->getId();
+        $this->referer = Yii::app()->request->getUrlReferrer();
 
         $this->checkPermissions();
         $this->resourceInsert();
