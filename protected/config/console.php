@@ -7,7 +7,7 @@ return array(
             'connectionString' => 'mysql:host=localhost;dbname=blueu',
             'emulatePrepare'   => true,
             'username'         => 'root',
-            'password'         => '93a78dc5',
+            'password'         => 'admin',
             'charset'          => 'utf8',
             'tablePrefix'      => ''
         ),
