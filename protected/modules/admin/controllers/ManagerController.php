@@ -18,47 +18,91 @@
  */
 class ManagerController extends BController {
 
+    protected $accountBehavior;
+
+    public function init() {
+        parent::init();
+        $this->accountBehavior = new AccountBehavior();
+    }
+
     public function actionLogin() {
         $viewData = array();
         $this->layout = 'simple';
-        $loginForm = new ManagerLoginForm();
+        $loginForm = new LoginForm();
         if (!Yii::app()->request->isPostRequest) {
             $viewData['user'] = $loginForm->getAttributes();
             return $this->render("login", $viewData);
         }
-        $loginForm->attributes = Yii::app()->request->getPost('user');
-        $viewData['user'] = $loginForm->getAttributes();
+        $loginForm->setAttributes(Yii::app()->request->getPost('user'));
         if (!$loginForm->validate()) {
-            $firstError = array_shift($loginForm->getErrors());
-            $viewData['message'] = array_shift($firstError);
+            $viewData['message'] = $loginForm->getFirstError();
+            $viewData['user'] = $loginForm->getAttributes();
             return $this->render("login", $viewData);
         }
         $identity = new AllUserIdentity($loginForm->username, $loginForm->password);
         if (!$identity->authenticate()) {
+            $loginForm->unsetAttributes();
             $viewData['message'] = $identity->errorMessage;
+            $viewData['user'] = $loginForm->getAttributes();
             return $this->render("login", $viewData);
         }
-        $duration = empty($loginForm->rememberme) ? 0 : 3600 * 24 * 1;
+        $duration = $loginForm->rememberme == 'on' ? 0 : 3600 * 24 * 1;
         Yii::app()->user->login($identity, $duration);
         $this->redirect('/admin');
     }
 
+    public function actionFindpwd() {
+        $this->layout = 'simple';
+        if (!Yii::app()->request->isPostRequest) {
+            return $this->render("findpwd");
+        }
+        $findPwdForm = new FindPwdForm();
+        $findPwdForm->username = Yii::app()->request->getPost('username');
+        if (!$findPwdForm->validate()) {
+            return $this->render("findpwd", array('message' => $findPwdForm->getFirstError()));
+        }
+        if ($this->accountBehavior->sendResetPwdMail($findPwdForm->username)) {
+            return $this->render("findpwd", array('message' => Yii::t('admin', 'Email send success.')));
+        } else {
+            return $this->render("findpwd", array('message' => Yii::t('admin', 'Email send failure.')));
+        }
+    }
+
     public function actionProfile() {
-        $this->render('profile');
+        $viewData = array();
+        $viewData['account'] = $this->accountBehavior->getAccount(Yii::app()->user->getId());
+        $this->render('profile', $viewData);
     }
 
     public function actionEdit() {
-        $this->render('edit');
+        $viewData = array('message' => '');
+        if (!Yii::app()->request->isPostRequest) {
+            return $this->render('edit', $viewData);
+        }
+        $password = Yii::app()->request->getPost('password');
+        $newPassword = Yii::app()->request->getPost('newpassword');
+        $rePassword = Yii::app()->request->getPost('repassword');
+        if (!empty($password) && !empty($newPassword) && !empty($rePassword)) {
+            $resetPwd = new ResetPwdForm();
+            $resetPwd->password = $password;
+            $resetPwd->newpassword = $newPassword;
+            $resetPwd->repassword = $rePassword;
+            if (!$resetPwd->validate()) {
+                $viewData['message'] = $resetPwd->getFirstError();
+                return $this->render('edit', $viewData);
+            }
+            $resetPwd->id = Yii::app()->user->getId();
+            if (!$this->accountBehavior->resetPwd($resetPwd->getAttributes())) {
+                $viewData['message'] = $this->accountBehavior->getError();
+                return $this->render('edit', $viewData);
+            }
+        }
+        $this->redirect('/admin/manager/profile');
     }
 
     public function actionLogout() {
         Yii::app()->user->logout();
         $this->redirect('/admin/manager/login');
-    }
-
-    public function actionFindpwd() {
-        $this->layout = 'simple';
-        $this->render('findpwd');
     }
 
     public function actionMypass() {

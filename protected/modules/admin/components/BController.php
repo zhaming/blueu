@@ -31,7 +31,7 @@ class BController extends CController {
         );
         if (Yii::app()->user->id == null) {
             if (key_exists($this->controller_id, $rules) && in_array($this->action_id, $rules[$this->controller_id])) {
-
+                
             } else {
                 $this->redirect('/admin/manager/login');
             }
