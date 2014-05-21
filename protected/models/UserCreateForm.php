@@ -1,7 +1,7 @@
 <?php
 
 /*
- * 创建用户表单
+ * 创建客户端用户表单
  */
 
 /**
@@ -16,7 +16,7 @@
  * UserCreateForm.php hugb
  *
  */
-class UserCreateForm extends CFormModel {
+class UserCreateForm extends BaseForm {
 
     public $username;
     public $password;
@@ -25,11 +25,14 @@ class UserCreateForm extends CFormModel {
     public $sex = 0;
     public $century;
     public $mobile;
-    private $error;
 
     public function rules() {
         return array(
             array('username,password,repassword,name', 'required'),
+            array('username', 'email'),
+            array('repassword', 'checkRepassword'),
+            array('mobile', 'match', 'pattern' => '/^(1(([35][0-9])|(47)|[8][0126789]))\d{8}$/', 'message' => Yii::t('admin', 'Mobile format error.')),
+            array('username', 'checkUsername'),
             array('sex,mobile,century', 'safe')
         );
     }
@@ -42,37 +45,27 @@ class UserCreateForm extends CFormModel {
 
     public function attributeLabels() {
         return array(
-            'username' => '用户名',
-            'password' => '密码',
-            'repassword' => '确认密码',
-            'name' => '昵称',
-            'sex' => '性别',
-            'mobile' => '手机号',
-            'century' => '年代'
+            'username' => Yii::t('admin', 'Username'),
+            'password' => Yii::t('admin', 'Password'),
+            'repassword' => Yii::t('admin', 'Repeat password'),
+            'name' => Yii::t('admin', 'Name'),
+            'sex' => Yii::t('admin', 'Sex'),
+            'mobile' => Yii::t('admin', 'Mobile'),
+            'century' => Yii::t('admin', 'century')
         );
     }
 
-    public function save() {
-        if ($this->validate()) {
-            $data = array(
-                'username' => $this->username,
-                'password' => $this->password,
-                'name' => $this->name,
-                'sex' => $this->sex,
-                'mobile' => $this->mobile,
-                'century' => $this->century
-            );
-            $userBehavoir = new UserBehavior();
-            return $userBehavoir->regsiter($data);
-        } else {
-            $firstError = array_shift($this->getErrors());
-            $this->error = array_shift($firstError);
+    public function checkUsername() {
+        $accountBehavior = new AccountBehavior();
+        if ($accountBehavior->isExist($this->username)) {
+            $this->addError('username', Yii::t('admin', 'Username already exists'));
         }
-        return false;
     }
 
-    public function getError() {
-        return $this->error;
+    public function checkRepassword() {
+        if ($this->password != $this->repassword) {
+            $this->addError('repassword', Yii::t('admin', 'Two passwords do not match'));
+        }
     }
 
 }

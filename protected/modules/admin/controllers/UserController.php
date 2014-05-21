@@ -35,17 +35,24 @@ class UserController extends BController {
     }
 
     public function actionCreate() {
-        $message = '';
+        $viewData = array('message' => null);
         $userCreateForm = new UserCreateForm();
-        if (Yii::app()->request->isPostRequest) {
-            $userCreateForm->attributes = Yii::app()->request->getPost('user');
-            if ($userCreateForm->save()) {
-                $this->redirect('/admin/user/index');
-            } else {
-                $message = $userCreateForm->getError();
-            }
+        if (!Yii::app()->request->isPostRequest) {
+            $viewData['user'] = $userCreateForm->getAttributes();
+            return $this->render("create", $viewData);
         }
-        $this->render('create', array('message' => $message, 'user' => $userCreateForm->getAttributes()));
+        $userCreateForm->setAttributes(Yii::app()->request->getPost('user'));
+        if (!$userCreateForm->validate()) {
+            $viewData['message'] = $userCreateForm->getFirstError();
+            $viewData['user'] = $userCreateForm->getAttributes();
+            return $this->render("create", $viewData);
+        }
+        if (!$this->userBehavior->register($userCreateForm->getAttributes())) {
+            $viewData['message'] = $this->userBehavior->getError();
+            $viewData['user'] = $userCreateForm->getAttributes();
+            return $this->render("create", $viewData);
+        }
+        $this->redirect('/admin/user/index');
     }
 
     public function actionDelete() {
@@ -64,9 +71,9 @@ class UserController extends BController {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
             if ($this->userBehavior->disable($id)) {
-                $this->showSuccess(Yii::t('admin', 'Disable Success'), $this->createUrl('index'));
+                $this->showSuccess(Yii::t('admin', 'Disable success'), $this->createUrl('index'));
             } else {
-                $this->showError(Yii::t('admin', 'Disable Failure'), $this->createUrl('index'));
+                $this->showError(Yii::t('admin', 'Disable failure'), $this->createUrl('index'));
             }
         }
         $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
@@ -76,9 +83,9 @@ class UserController extends BController {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
             if ($this->userBehavior->enable($id)) {
-                $this->showSuccess(Yii::t('admin', 'Restore Success'), $this->createUrl('index'));
+                $this->showSuccess(Yii::t('admin', 'Restore success'), $this->createUrl('index'));
             } else {
-                $this->showError(Yii::t('admin', 'Restore Failure'), $this->createUrl('index'));
+                $this->showError(Yii::t('admin', 'Restore failure'), $this->createUrl('index'));
             }
         }
         $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
@@ -95,9 +102,36 @@ class UserController extends BController {
     public function actionLogout() {
         
     }
-    
-    public function actionEdit(){
-        $this->render('edit');
+
+    public function actionEdit() {
+        $viewData = array();
+        $userId = Yii::app()->request->getQuery('id');
+        $viewData['user'] = $this->userBehavior->detail($userId);
+        $this->render('edit', $viewData);
+    }
+
+    public function actionEnablePush() {
+        $userId = Yii::app()->request->getQuery('id');
+        if (!empty($userId)) {
+            if ($this->userBehavior->push($userId, 1)) {
+                $this->showSuccess(Yii::t('admin', 'Enable push success'), $this->createUrl('index'));
+            } else {
+                $this->showError(Yii::t('admin', 'Enable push failure'), $this->createUrl('index'));
+            }
+        }
+        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
+    }
+
+    public function actionDisablePush() {
+        $userId = Yii::app()->request->getQuery('id');
+        if (!empty($userId)) {
+            if ($this->userBehavior->push($userId, 0)) {
+                $this->showSuccess(Yii::t('admin', 'Disable push success'), $this->createUrl('index'));
+            } else {
+                $this->showError(Yii::t('admin', 'Disable push failure'), $this->createUrl('index'));
+            }
+        }
+        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
     }
 
 }

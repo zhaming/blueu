@@ -37,23 +37,25 @@ class MerchantController extends BController {
     }
 
     public function actionCreate() {
-        $message = '';
         $categoryBehavior = new CategoryBehavior();
+        $viewData = array('categories' => $categoryBehavior->getAll());
         $merchantCreateForm = new MerchantCreateForm();
-        if (Yii::app()->request->isPostRequest) {
-            $merchantCreateForm->attributes = Yii::app()->request->getPost('merchant');
-            if ($merchantCreateForm->save()) {
-                $this->redirect('/admin/merchant/index');
-            } else {
-                $message = $merchantCreateForm->getError();
-            }
+        if (!Yii::app()->request->isPostRequest) {
+            $viewData['merchant'] = $merchantCreateForm->getAttributes();
+            return $this->render("create", $viewData);
         }
-        $viewData = array(
-            'message' => $message,
-            'categories' => $categoryBehavior->getAll(),
-            'merchant' => $merchantCreateForm->getAttributes()
-        );
-        $this->render('create', $viewData);
+        $merchantCreateForm->setAttributes(Yii::app()->request->getPost('merchant'));
+        if (!$merchantCreateForm->validate()) {
+            $viewData['message'] = $merchantCreateForm->getFirstError();
+            $viewData['merchant'] = $merchantCreateForm->getAttributes();
+            return $this->render("create", $viewData);
+        }
+        if (!$this->merchantBehavior->register($merchantCreateForm->getAttributes())) {
+            $viewData['message'] = $this->merchantBehavior->getError();
+            $viewData['merchant'] = $merchantCreateForm->getAttributes();
+            return $this->render("create", $viewData);
+        }
+        $this->redirect('/admin/merchant/index');
     }
 
     public function actionRegister() {

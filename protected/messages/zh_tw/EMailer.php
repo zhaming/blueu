@@ -17,23 +17,9 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Advertisement is no exist' => '',
-  'Illegal identity' => '',
-  'Illegal request' => '',
-  'Merchant is no exist' => '',
-  'Not editable' => '',
-  'Please use GET method' => '',
-  'Please use POST method' => '',
-  'Token not exist' => '',
-  'Token not set' => '',
-  'User is no exist' => '',
-  'Name no set' => '@@名称未设置@@',
-  'Newpassword no set' => '@@新密码未设置@@',
-  'Password no set' => '@@密码未设置@@',
-  'Please use POST' => '@@请使用POST方法@@',
-  'Username no set' => '@@用户名未设置@@',
-  ' is not correct' => ' 不正确',
-  ' is not set' => '未设置',
-  'Token has expired' => 'Token已过期',
-  'Token is not exist' => 'Token不存在',
+  'Can not access a property of a non existent object' => '',
+  'Can not call a method of a non existent object' => '',
+  'Can not set a property of a non existent object' => '',
+  'pathLayouts must be a Yii alias path' => '',
+  'pathViews must be a Yii alias path' => '',
 );

@@ -1,19 +1,18 @@
 <div class="breadcrumbs" id="breadcrumbs">
     <script type="text/javascript">
         try {
-            ace.settings.check('breadcrumbs', 'fixed')
+            ace.settings.check('breadcrumbs', 'fixed');
         } catch (e) {
+            console.log(e);
         }
     </script>
-
     <ul class="breadcrumb">
         <li>
             <i class="icon-home home-icon"></i>
-            <a href="/admin">首页</a>
+            <a href="/admin"><?php echo Yii::t('admin', 'Home'); ?></a>
         </li>
         <li class="active"><?php echo $menu; ?></li>
-    </ul><!-- .breadcrumb -->
-
+    </ul>
     <div class="nav-search" id="nav-search">
         <form class="form-search">
             <span class="input-icon">
@@ -21,5 +20,5 @@
                 <i class="icon-search nav-search-icon"></i>
             </span>
         </form>
-    </div><!-- #nav-search -->
+    </div>
 </div>

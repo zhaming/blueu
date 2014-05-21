@@ -29,7 +29,6 @@ class BaseForm extends CFormModel {
             $names[] = $key;
         }
         $this->unsetAttributes($names);
-        print_r($this->getAttributes());
         foreach ($allErrors as $key => $value) {
             return array_shift($value);
         }

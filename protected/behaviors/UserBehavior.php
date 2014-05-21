@@ -59,7 +59,7 @@ class UserBehavior extends BaseBehavior {
         return Account::model()->updateByPk($id, array("status" => 0));
     }
 
-    public function regsiter($data) {
+    public function register($data) {
         $account = new Account();
         $user = new User();
         $account->username = $data['username'];

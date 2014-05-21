@@ -56,4 +56,27 @@ class MerchantBehavior extends BaseBehavior {
         return $merchant;
     }
 
+    public function register($data) {
+        $account = new Account();
+        $merchant = new Merchant();
+        $account->username = $data['username'];
+        $account->password = md5($data['password']);
+        $account->roleid = 4;
+
+        $merchant->name = $data['name'];
+
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $account->save();
+            $merchant->id = $account->id;
+            $merchant->save();
+            $transaction->commit();
+            return true;
+        } catch (Exception $e) {
+            $transaction->rollback();
+            $this->error = $e->getMessage();
+        }
+        return false;
+    }
+
 }

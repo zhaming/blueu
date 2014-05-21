@@ -1,10 +1,7 @@
-<div class="page-header">
-    <h1>商户管理<small><i class="icon-double-angle-right"></i>商户列表</small></h1>
-</div>
 <div class="row">
     <div class="col-xs-12">
         <p>
-            <a href="/admin/merchant/create" class="btn btn-app btn-yellow btn-xs"><i class="icon-create bigger-120"></i>创建</a>
+            <a href="/admin/merchant/create" class="btn btn-app btn-success btn-xs"><i class="icon-plus bigger-120"></i>创建</a>
             <a href="/admin/merchant/delete" class="btn btn-app btn-danger btn-xs"><i class="icon-remove bigger-120"></i>删除</a>
         </p>
         <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
@@ -49,16 +46,16 @@
                         <td><?php echo $item->id; ?></td>
                         <td><?php echo $item->name; ?></td>
                         <td>
-                            <a href="/admin/merchant/activity?id=<?php echo $item->id; ?>" title="活动" class="btn btn-xs btn-info">
+                            <a href="/admin/merchant/activity?id=<?php echo $item->id; ?>" title="<?php echo Yii::t('admin', 'Product'); ?>" class="btn btn-xs btn-success">
                                 <i class="icon-coffee bigger-120"></i>
                             </a>
-                            <a href="/admin/merchant/stations?id=<?php echo $item->id; ?>" title="基站" class="btn btn-xs btn-yellow">
+                            <a href="/admin/merchant/stations?id=<?php echo $item->id; ?>" title="<?php echo Yii::t('admin', 'Bluetooth base station'); ?>" class="btn btn-xs btn-success">
                                 <i class="icon-signal bigger-120"></i>
                             </a>
-                            <a href="/admin/merchant/mermber?id=<?php echo $item->id; ?>" title="会员" class="btn btn-xs btn-success">
+                            <a href="/admin/merchant/mermber?id=<?php echo $item->id; ?>" title="<?php echo Yii::t('admin', 'Member'); ?>" class="btn btn-xs btn-success">
                                 <i class="icon-user bigger-120"></i>
                             </a>
-                            <a href="/admin/merchant/edit?id=<?php echo $item->id; ?>" title="编辑" class="btn btn-xs btn-grey">
+                            <a href="/admin/merchant/edit?id=<?php echo $item->id; ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
                                 <i class="icon-edit bigger-120"></i>
                             </a>
                             <a href="" title="删除" class="btn btn-xs btn-danger">

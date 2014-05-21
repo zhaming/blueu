@@ -16,7 +16,7 @@
  * MerchantCreateForm.php hugb
  *
  */
-class MerchantCreateForm extends CFormModel {
+class MerchantCreateForm extends BaseForm {
 
     public $id;
     public $username;
@@ -32,7 +32,9 @@ class MerchantCreateForm extends CFormModel {
     public function rules() {
         return array(
             array('username,password,repassword,name', 'required'),
+            array('username', 'email'),
             array('repassword', 'checkRepassword'),
+            array('telephone', 'match', 'pattern' => '/^(1(([35][0-9])|(47)|[8][0126789]))\d{8}$/', 'message' => Yii::t('admin', 'Mobile format error.')),
             array('username', 'checkUsername'),
             array('legal,telephone,bank,shopnum', 'safe')
         );
@@ -46,56 +48,24 @@ class MerchantCreateForm extends CFormModel {
 
     public function attributeLabels() {
         return array(
-            'username' => '用户名',
-            'password' => '密码',
-            'repassword' => '确认密码',
-            'name' => '名称'
+            'username' => Yii::t('admin', 'Username'),
+            'password' => Yii::t('admin', 'Password'),
+            'repassword' => Yii::t('admin', 'Repeat password'),
+            'name' => Yii::t('admin', 'Name')
         );
-    }
-
-    public function save() {
-        if ($this->validate()) {
-            $account = new Account();
-            $merchant = new Merchant();
-            $account->username = $this->username;
-            $account->password = md5($this->password);
-            $account->roleid = 4;
-
-            $merchant->name = $this->name;
-
-            $transaction = Yii::app()->db->beginTransaction();
-            try {
-                $account->save();
-                $merchant->id = $account->id;
-                $merchant->save();
-                $transaction->commit();
-                return true;
-            } catch (Exception $e) {
-                $transaction->rollback();
-                $this->error = $e->getMessage();
-            }
-        } else {
-            $firstError = array_shift($this->getErrors());
-            $this->error = array_shift($firstError);
-        }
-        return false;
     }
 
     public function checkUsername() {
         $accountBehavior = new AccountBehavior();
         if ($accountBehavior->isExist($this->username)) {
-            $this->addError('username', '用户名已经存在');
+            $this->addError('username', Yii::t('admin', 'Username already exists'));
         }
     }
 
     public function checkRepassword() {
         if ($this->password != $this->repassword) {
-            $this->addError('repassword', '两次输入的密码不一致');
+            $this->addError('repassword', Yii::t('admin', 'Two passwords do not match'));
         }
-    }
-
-    public function getError() {
-        return $this->error;
     }
 
 }

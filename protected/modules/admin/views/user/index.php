@@ -1,11 +1,14 @@
-<div class="page-header">
-    <h1>用户管理<small><i class="icon-double-angle-right"></i>列表</small></h1>
-</div>
 <div class="row">
     <div class="col-xs-12">
         <p>
-            <a href="/admin/user/create" class="btn btn-app btn-yellow btn-xs"><i class="icon-create bigger-120"></i>创建</a>
-            <a href="/admin/user/delete" class="btn btn-app btn-danger btn-xs"><i class="icon-remove bigger-120"></i>删除</a>
+            <a href="/admin/user/create" class="btn btn-app btn-success btn-xs">
+                <i class="icon-plus bigger-120"></i>
+                <?php echo Yii::t('admin', 'Create'); ?>
+            </a>
+            <a href="/admin/user/delete" class="btn btn-app btn-danger btn-xs">
+                <i class="icon-remove bigger-120"></i>
+                <?php echo Yii::t('admin', 'Delete'); ?>
+            </a>
         </p>
         <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
         <div class="alert alert-block alert-success">
@@ -31,16 +34,16 @@
                                 <span class="lbl"></span>
                             </label>
                         </th>
-                        <th>编号</th>
-                        <th>名称</th>
-                        <th>状态</th>
+                        <th><?php echo Yii::t('admin', 'Id'); ?></th>
+                        <th><?php echo Yii::t('admin', 'Name'); ?></th>
+                        <th><?php echo Yii::t('admin', 'Status'); ?></th>
                         <th></th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr>
-                        <?php if (!empty($data)) { foreach ($data as $item) { ?>
+                    <?php if (!empty($data)) {foreach ($data as $item) { ?>
                         <td class="center">
                             <label>
                                 <input type="checkbox" class="ace" />
@@ -49,25 +52,31 @@
                         </td>
                         <td><?php echo $item->id; ?></td>
                         <td><?php echo $item->name; ?></td>
-                        <td><?php if ($item->account->status == 0) { ?>正常<?php } ?><?php if ($item->account->status == 1) { ?>禁用<?php } ?></td>
+                        <td><?php if ($item->account->status == 0) { echo Yii::t('admin', 'Normal'); } if ($item->account->status == 1) { echo Yii::t('admin', 'Disable'); } ?></td>
                         <td>
                             <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
                                 <?php if ($item->account->status == 1) { ?>
-                                <a href="<?php echo $this->createUrl('enable?id=' . $item->id); ?>" class="btn btn-xs btn-success">
+                                <a href="<?php echo $this->createUrl('enable?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="btn btn-xs btn-success">
                                     <i class="icon-unlock bigger-120"></i>
                                 </a>
                                 <?php } else { ?>
-                                <a href="<?php echo $this->createUrl('disable?id=' . $item->id); ?>" class="btn btn-xs btn-warning">
+                                <a href="<?php echo $this->createUrl('disable?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="btn btn-xs btn-warning">
                                     <i class="icon-lock bigger-120"></i>
                                 </a>
                                 <?php } ?>
-                                <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" class="btn btn-xs btn-danger">
+                                <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger">
                                     <i class="icon-trash bigger-120"></i>
                                 </a>
-                                <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" title="关闭推送" class="btn btn-xs btn-danger">
+                                <?php if ($item->pushable) { ?>
+                                <a href="<?php echo $this->createUrl('disablepush?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Disable push'); ?>" class="btn btn-xs btn-danger">
                                     <i class="icon-download-alt bigger-120"></i>
-                                </a>  
-                                <a href="/admin/user/edit?id=<?php echo $item->id; ?>" title="编辑" class="btn btn-xs btn-grey">
+                                </a>
+                                <?php } else { ?>
+                                <a href="<?php echo $this->createUrl('enablepush?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Enable push'); ?>" class="btn btn-xs btn-success">
+                                    <i class="icon-download-alt bigger-120"></i>
+                                </a>
+                                <?php } ?>
+                                <a href="/admin/user/edit?id=<?php echo $item->id; ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
                                     <i class="icon-edit bigger-120"></i>
                                 </a>
                             </div>

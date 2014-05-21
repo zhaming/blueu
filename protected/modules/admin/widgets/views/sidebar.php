@@ -32,25 +32,28 @@
         <li<?php if (Yii::app()->controller->id == 'site') { ?> class="active"<?php } ?>>
             <a href="/admin">
                 <i class="icon-dashboard"></i>
-                <span class="menu-text">控制台</span>
+                <span class="menu-text"><?php echo Yii::t('admin', 'Console'); ?></span>
             </a>
         </li>
-        <li<?php if (Yii::app()->controller->id == 'user') { ?> class="active"<?php } ?>>
-            <a href="/admin/user">
-                <i class="icon-text-width"></i>
-                <span class="menu-text"><?php echo Yii::t('admin','User manaer'); ?></span>
+        <li<?php if (in_array(Yii::app()->controller->id, array('user', 'merchant'))) { ?> class="active"<?php } ?>>
+            <a class="dropdown-toggle">
+                <i class="icon-user"></i>
+                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'User manaer'); ?></span>
+                <b class="arrow icon-angle-down"></b>
             </a>
-        </li>
-        <li<?php if (Yii::app()->controller->id == 'merchant') { ?> class="active"<?php } ?>>
-            <a href="/admin/merchant">
-                <i class="icon-desktop"></i>
-                <span class="menu-text"><?php echo Yii::t('admin','Merchant manager'); ?></span>
-            </a>
+            <ul class="submenu">
+                <li<?php if (Yii::app()->controller->getId() == 'user') { ?> class="active"<?php } ?>>
+                    <a href="/admin/user"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Client user'); ?></a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'merchant') { ?> class="active"<?php } ?>>
+                    <a href="/admin/merchant"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Merchant'); ?></a>
+                </li>
+            </ul>
         </li>
         <li<?php if (Yii::app()->controller->id == 'merchantshop') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-home"></i>
-                <span class="menu-text"><?php echo Yii::t('admin','Merchant shop_manager'); ?></span>
+                <span class="menu-text"><?php echo Yii::t('admin', 'Merchant shop_manager'); ?></span>
             </a>
             <ul class="submenu">
                 <li<?php if (Yii::app()->controller->getId() == 'merchantshop' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
@@ -78,7 +81,7 @@
         <li<?php if (Yii::app()->controller->id == 'activity') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-list"></i>
-                <span class="menu-text cursor-default"><?php echo Yii::t('admin','Activity manager'); ?></span>
+                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'Activity manager'); ?></span>
                 <b class="arrow icon-angle-down"></b>
             </a>
             <ul class="submenu">
@@ -102,23 +105,33 @@
                 <span class="menu-text">推送管理</span>
             </a>
         </li>
-        <li<?php if (Yii::app()->controller->id == 'sys') { ?> class="active"<?php } ?>>
-            <a href="/admin/sys">
-                <i class="icon-picture"></i>
-                <span class="menu-text">系统管理</span>
+        <li<?php if (in_array(Yii::app()->controller->id, array('sys'))) { ?> class="active"<?php } ?>>
+            <a class="dropdown-toggle">
+                <i class="icon-legal"></i>
+                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'System manager'); ?></span>
+                <b class="arrow icon-angle-down"></b>
             </a>
+            <ul class="submenu">
+                <li<?php if (Yii::app()->controller->getId() == 'settings') { ?> class="active"<?php } ?>>
+                    <a href="/admin/settings"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'System settings'); ?></a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'manager') { ?> class="active"<?php } ?>>
+                    <a href="/admin/manager"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Administrator manager'); ?></a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'log') { ?> class="active"<?php } ?>>
+                    <a href="/admin/log"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Log manager'); ?></a>
+                </li>
+            </ul>
         </li>
     </ul>
-
-    <div class="sidebar-collapse" id="sidebar-collapse">
+    <div id="sidebar-collapse" class="sidebar-collapse">
         <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
     </div>
-
     <script type="text/javascript">
         try {
             ace.settings.check('sidebar', 'collapsed');
         } catch (e) {
-            
+            console.log(e);
         }
     </script>
 </div>
