@@ -4,17 +4,25 @@
             <h4 class="header red lighter bigger">
                 <i class="icon-key"></i><?php echo Yii::t('admin', 'Forgot password'); ?>
             </h4>
-            <div class="space-6"></div>
-            <form>
+            <?php if (!empty($message)) { ?>
+                <div class="alert alert-block alert-danger">
+                    <p>
+                        <strong>
+                            <?php echo $message; ?>
+                        </strong>
+                    </p>
+                </div>
+            <?php } ?>
+            <form action="/admin/manager/findpwd" method="post">
                 <fieldset>
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
-                            <input type="email" name="email" class="form-control" placeholder="<?php echo Yii::t('admin', 'Email'); ?>" />
+                            <input type="text" name="username" class="form-control" placeholder="<?php echo Yii::t('admin', 'Email'); ?>" />
                             <i class="icon-envelope"></i>
                         </span>
                     </label>
                     <div class="clearfix">
-                        <button type="button" class="width-35 pull-right btn btn-sm btn-danger"><i class="icon-lightbulb"></i>发送</button>
+                        <button type="submit" class="width-35 pull-right btn btn-sm btn-danger"><i class="icon-lightbulb"></i>发送</button>
                     </div>
                 </fieldset>
             </form>

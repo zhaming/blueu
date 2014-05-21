@@ -1,11 +1,11 @@
 <?php
 
 /*
- * 登录表单
+ * 重置密码表单
  */
 
 /**
- * 2014-5-21 0:00:27 UTF-8
+ * 2014-5-21 14:40:06 UTF-8
  * @package application.models
  * @version 3.0
  *
@@ -13,26 +13,27 @@
  * @copyright (c) 2011-2015
  * @license ()
  * 
- * ManagerLoginForm.php hugb
+ * ResetPwdForm.php hugb
  *
  */
-class ManagerLoginForm extends CFormModel {
+class ResetPwdForm extends BaseForm {
 
+    public $id;
     public $username;
     public $password;
-    public $rememberme;
+    public $newpassword;
+    public $repassword;
 
     public function rules() {
         return array(
-            array('username,password', 'required'),
-            array('username', 'email'),
-            array('rememberme', 'safe')
+            array('password,newpassword,repassword', 'required'),
+            array('username', 'email', 'allowEmpty' => true),
+            array('id', 'safe')
         );
     }
 
     public function beforeValidate() {
         parent::beforeValidate();
-        $this->username = trim($this->username);
         return true;
     }
 
@@ -40,7 +41,8 @@ class ManagerLoginForm extends CFormModel {
         return array(
             'username' => Yii::t('admin', 'Email'),
             'password' => Yii::t('admin', 'Password'),
-            'rememberme' => Yii::t('admin', 'Remember me')
+            'newpassword' => Yii::t('admin', 'New password'),
+            'repassword' => Yii::t('admin', 'Repeat password')
         );
     }
 
