@@ -45,38 +45,7 @@
         <script src="/statics/js/html5shiv.js"></script>
         <script src="/statics/js/respond.min.js"></script>
         <![endif]-->
-    </head>
-
-    <body>
-        <?php $this->widget('application.modules.admin.widgets.NavbarWidget'); ?>
-        <div class="main-container" id="main-container">
-            <script type="text/javascript">
-                try {
-                    ace.settings.check('main-container', 'fixed');
-                } catch (e) {
-                    console.log(e);
-                }
-            </script>
-            <div class="main-container-inner">
-                <a class="menu-toggler" id="menu-toggler" href="#">
-                    <span class="menu-text"></span>
-                </a>
-                <?php $this->widget('application.modules.admin.widgets.SidebarWidget'); ?>
-                <div class="main-content">
-                    <?php $this->widget('application.modules.admin.widgets.BreadcrumbsWidget'); ?>
-                    <div class="page-content">
-                        <?php echo $content; ?>
-                    </div>
-                </div>
-                <?php $this->widget('application.modules.admin.widgets.SettingWidget'); ?>
-            </div>
-
-            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-                <i class="icon-double-angle-up icon-only bigger-110"></i>
-            </a>
-        </div>
-
-        <!-- basic scripts -->
+          <!-- basic scripts -->
         <!--[if !IE]> -->
         <script src="/statics/js/jquery-2.0.3.min.js"></script>
         <!-- <![endif]-->
@@ -111,6 +80,38 @@
 
         <script src="/statics/js/ace-elements.min.js"></script>
         <script src="/statics/js/ace.min.js"></script>
+    </head>
+
+    <body>
+        <?php $this->widget('application.modules.admin.widgets.NavbarWidget'); ?>
+        <div class="main-container" id="main-container">
+            <script type="text/javascript">
+                try {
+                    ace.settings.check('main-container', 'fixed');
+                } catch (e) {
+                    console.log(e);
+                }
+            </script>
+            <div class="main-container-inner">
+                <a class="menu-toggler" id="menu-toggler" href="#">
+                    <span class="menu-text"></span>
+                </a>
+                <?php $this->widget('application.modules.admin.widgets.SidebarWidget'); ?>
+                <div class="main-content">
+                    <?php $this->widget('application.modules.admin.widgets.BreadcrumbsWidget'); ?>
+                    <div class="page-content">
+                        <?php echo $content; ?>
+                    </div>
+                </div>
+                <?php $this->widget('application.modules.admin.widgets.SettingWidget'); ?>
+            </div>
+
+            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                <i class="icon-double-angle-up icon-only bigger-110"></i>
+            </a>
+        </div>
+
+      
 
         <!-- inline scripts related to this page -->
 

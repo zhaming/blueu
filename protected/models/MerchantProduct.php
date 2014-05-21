@@ -1,19 +1,16 @@
 <?php
 /**
- *商铺model
+ *商品model
  *@author wzq
  */
-class MerchantShop extends CActiveRecord{
+class MerchantProduct extends  CActiveRecord{
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
     public function tableName() {
-        return '{{merchant_shop}}';
+        return '{{merchant_product}}';
     }
 
-    public function primaryKey() {
-        return "id";
-    }
     public function relations() {
         $relations = array(
             'merchant' => array(
@@ -21,15 +18,15 @@ class MerchantShop extends CActiveRecord{
                 'Merchant',
                 array("id"=>"merchantid")
             ),
-            // 'products' => array(
+            // 'shops' => array(
             //     self::MANY_MANY,
-            //     'MerchantProduct',
+            //     'MerchantShop',
             //     'merchant_shop_product(shopid，productid)',
             // ),
             'shop_product' =>array(
                 self::HAS_MANY,
                 "MerchantShopProduct",
-                "shopid"
+                "productid"
             )
         );
         return $relations;

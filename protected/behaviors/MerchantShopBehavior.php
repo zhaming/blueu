@@ -51,7 +51,11 @@ class MerchantShopBehavior extends BaseBehavior{
             $obj->setIsNewRecord(true);
             $obj->created =  time();
         }
-       return $obj->save();
+        $res =  $obj->save();
+        if($res)
+            return $obj;
+        else
+            return false;
     }
 
     public function getById($id){

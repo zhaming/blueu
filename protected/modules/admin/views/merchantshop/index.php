@@ -8,7 +8,6 @@
     <div class="col-xs-12">
         <p>
             <a href="/admin/merchantshop/create" class="btn btn-app btn-yellow btn-xs"><i class="icon-create bigger-120"></i>创建</a>
-            <a href="/admin/merchantshop/delete" id="shop-del" class="btn btn-app btn-danger btn-xs"><i class="icon-remove bigger-120"></i>删除</a>
         </p>
         <?php $this->widget("AlterMsgWidget")?>
         <div class="table-responsive">
@@ -34,12 +33,6 @@
             <table id="sample-table-1" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th width="40px" class="center" >
-                            <label>
-                                <input type="checkbox" class="ace" />
-                                <span class="lbl"></span>
-                            </label>
-                        </th>
                         <th>编号</th>
                         <th>店铺名</th>
                         <th>店主</th>
@@ -55,12 +48,6 @@
                 <?php if(!empty($data)):?>
                     <?php foreach ($data as $key => $value) :?>
                     <tr>
-                        <td class="center">
-                             <label>
-                                <input type="checkbox" class="ace" value="<?php echo $value->id?>" />
-                                <span class="lbl"></span>
-                            </label>
-                        </td>
                         <td><?php echo $value->id?></td>
                         <td><?php echo $value->name?></td>
                         <td><?php echo $value->owner?></td>

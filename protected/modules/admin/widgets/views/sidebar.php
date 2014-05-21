@@ -61,6 +61,20 @@
                 </li>
             </ul>
         </li>
+        <li<?php if (Yii::app()->controller->id == 'merchantproduct') { ?> class="active"<?php } ?>>
+            <a class="dropdown-toggle">
+                <i class="icon-home"></i>
+                <span class="menu-text">商品管理</span>
+            </a>
+            <ul class="submenu">
+                <li<?php if (Yii::app()->controller->getId() == 'merchantproduct' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
+                    <a href="/admin/merchantproduct/index"><i class="icon-double-angle-right"></i>商品列表</a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'merchantproduct' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
+                    <a href="/admin/merchantproduct/create"><i class="icon-double-angle-right"></i>添加商品</a>
+                </li>
+            </ul>
+        </li>
         <li<?php if (Yii::app()->controller->id == 'activity') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-list"></i>
