@@ -10,18 +10,19 @@ BlueU客户端接口文档
 
 
 
-接口名                      地址          类型
-[用户注册](#user)      /api/user/register PSOT
-[用户登录](#user)      /api/user/login    PSOT
-[重置密码](#user)      /api/user/resetpwd PSOT
-[用户登出](#user)      /api/user/logout   PSOT
-[编辑资料](#user)      /api/user/1/edit   PSOT
-[启用推送](#user)      /api/user/1/push   PSOT
-[用户详情](#user)      /api/user/1        GET
-[用户列表](#user)      /api/users         GET
-[商户详情](#merchant)  /api/merchant/1    GET
-[商户列表](#merchant)  /api/merchants     GET
-[广告详情](#ad)        /api/ad/1          GET
+接口名                |         地址        |    类型
+-------------------- | ------------------ | --------
+[用户注册](#user)     | /api/user/register  |  PSOT
+[用户登录](#user)     |  /api/user/login    |  PSOT
+[重置密码](#user)     |  /api/user/resetpwd |  PSOT
+[用户登出](#user)     |  /api/user/logout   |  PSOT
+[编辑资料](#user)     |  /api/user/1/edit   |  PSOT
+[启用推送](#user)     |  /api/user/1/push   |  PSOT
+[用户详情](#user)     |  /api/user/1        |  GET
+[用户列表](#user)     |  /api/users         |  GET
+[商户详情](#merchant) |  /api/merchant/1    |  GET
+[商户列表](#merchant) |  /api/merchants     |  GET
+[广告详情](#ad)       |  /api/ad/1          |  GET
 
 
 ## 约定  
@@ -99,12 +100,13 @@ BlueU客户端接口文档
 
 提交方式：POST
 
- 参数名     必填   类型     示例            说明
-username    是  string  zhansan@test.com 帐号
-password    是  string  123456           密码
-name        是  string  张三              昵称
-sex         否  int     0                0:保密 1:女 2:男
-period      否  string  70               年代
+ 参数名   | 必填 |   类型     示例             说明
+-------- | ---- | ----- | -------------- - | --------
+username |  是  | string | zhansan@test.com | 帐号
+password |  是  | string | 123456           | 密码
+name     |  是  | string | 张三              | 昵称
+sex      |  否  |  int   |  0               | 0:保密 1:女 2:男
+period   |  否  | string | 70               | 年代
 
 完整参数示例:
 <pre>
@@ -113,9 +115,10 @@ period      否  string  70               年代
 
 ###接口输出
 
-参数名      必有  类型    示例   说明
-error_code  是   int   见示例  返回数据
-error_msg   是  string 见示例  返回数据
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |  int    | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
 
 <pre>
 {
@@ -132,9 +135,10 @@ error_msg   是  string 见示例  返回数据
 
 提交方式：POST
 
- 参数名     必填   类型     示例            说明
-username    是  string  zhansan@test.com 帐号  
-password    是  string  123456           密码
+ 参数名   | 必填 |   类型     示例             说明
+-------- | ---- | ----- | -------------- - | --------
+username |  是  | string | zhansan@test.com | 帐号
+password |  是  | string | 123456           | 密码
 
 完整参数示例:
 <pre>
@@ -143,10 +147,11 @@ password    是  string  123456           密码
 
 ###接口输出
 
-参数名      必有   类型     示例    说明
-error_code  是    int    见示例  返回数据
-error_msg   是   string  见示例  返回数据
-data        是    map    见示例  返回数据
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |   int   | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
+data       |  是 |   map   | 见示例 | 返回数据
 
 <pre>
 {
@@ -179,9 +184,10 @@ newpassword  是  string  1234567890 新密码
 
 ###接口输出
 
-参数名      必有   类型     示例    说明
-error_code  是    int    见示例  返回数据
-error_msg   是   string  见示例  返回数据
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |  int    | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
 
 <pre>
 {
@@ -209,9 +215,10 @@ password    是  string  123456            密码
 
 ###接口输出
 
-参数名      必有   类型     示例    说明
-error_code  是    int    见示例  返回数据
-error_msg   是   string  见示例  返回数据
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |  int    | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
 
 <pre>
 {
@@ -238,9 +245,10 @@ name    否  string    张三   名称
 
 ###接口输出
 
-参数名      必有   类型     示例    说明
-error_code  是    int    见示例  返回数据
-error_msg   是   string  见示例  返回数据
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |  int    | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
 
 <pre>
 {
@@ -267,9 +275,10 @@ enable  是    int    1   是否开启
 
 ###接口输出
 
-参数名      必有   类型     示例    说明
-error_code  是    int    见示例  返回数据
-error_msg   是   string  见示例  返回数据
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |  int    | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
 
 <pre>
 {
@@ -286,7 +295,7 @@ error_msg   是   string  见示例  返回数据
 
 提交方式：GET
 
-参数名  必填   类型   示例   说明
+参数名 | 必填 | 类型 | 示例 | 说明
 
 完整参数示例:
 <pre>
@@ -295,10 +304,11 @@ error_msg   是   string  见示例  返回数据
 
 ###接口输出
 
-参数名      必有   类型     示例    说明
-error_code  是    int    见示例  返回数据
-error_msg   是   string  见示例  返回数据
-data        是    map    见示例  返回数据
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |  int    | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
+data       |  是 |   map   | 见示例 | 返回数据
 
 <pre>
 {
@@ -325,9 +335,10 @@ data        是    map    见示例  返回数据
 提交方式：GET
 
 查询参数
-参数名    必填   类型   示例    说明
-page      否    int    1    当前页码
-pagesize  否    int    2    每页显示的数据条数
+  参数名  | 必填 |  类型 |  示例 |  说明
+-------- | --- | ----- | ---- | --------
+page     |  否  |  int |   1  |  当前页码
+pagesize |  否  |  int |   2  |  每页显示的数据条数
 
 完整参数示例:
 <pre>
@@ -336,10 +347,11 @@ pagesize  否    int    2    每页显示的数据条数
 
 ###接口输出
 
-参数名      必有   类型     示例    说明
-error_code  是    int    见示例  返回数据
-error_msg   是   string  见示例  返回数据
-data        是    map    见示例  返回数据
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |  int    | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
+data       |  是 |   map   | 见示例 | 返回数据
 
 <pre>
 {
@@ -372,7 +384,7 @@ data        是    map    见示例  返回数据
 
 提交方式：GET
 
-参数名  必填   类型   示例   说明
+参数名 | 必填 | 类型 | 示例 | 说明
 
 完整参数示例:
 <pre>
@@ -381,10 +393,11 @@ data        是    map    见示例  返回数据
 
 ###接口输出
 
-参数名      必有   类型     示例    说明
-error_code  是    int    见示例  返回数据
-error_msg   是   string  见示例  返回数据
-data        是    map    见示例  返回数据
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |  int    | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
+data       |  是 |   map   | 见示例 | 返回数据
 
 <pre>
 {
@@ -411,9 +424,10 @@ data        是    map    见示例  返回数据
 提交方式：GET
 
 查询参数
-参数名    必填   类型   示例    说明
-page      否    int    1    当前页码
-pagesize  否    int    2    每页显示的数据条数
+参数名    | 必填 | 类型 |  示例 |   说明
+-------- | --- | ---- | ---- | --------
+page     | 否  |  int |   1   | 当前页码
+pagesize | 否  |  int |   2   | 每页显示的数据条数
 
 完整参数示例:
 <pre>
@@ -422,10 +436,11 @@ pagesize  否    int    2    每页显示的数据条数
 
 ###接口输出
 
-参数名      必有   类型     示例    说明
-error_code  是    int    见示例  返回数据
-error_msg   是   string  见示例  返回数据
-data        是    map    见示例  返回数据
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |  int    | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
+data       |  是 |   map   | 见示例 | 返回数据
 
 <pre>
 {
@@ -458,7 +473,7 @@ data        是    map    见示例  返回数据
 
 提交方式：GET
 
-参数名  必填   类型   示例   说明
+参数名 | 必填  | 类型 |  示例  | 说明
 
 完整参数示例:
 <pre>
@@ -467,10 +482,11 @@ data        是    map    见示例  返回数据
 
 ###接口输出
 
-参数名      必有   类型     示例    说明
-error_code  是    int    见示例  返回数据
-error_msg   是   string  见示例  返回数据
-data        是    map    见示例  返回数据
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |  int    | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
+data       |  是 |   map   | 见示例 | 返回数据
 
 <pre>
 {
