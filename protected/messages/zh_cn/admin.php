@@ -17,9 +17,12 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Logo' => '',
+  'Account' => '帐号',
+  'Logo' => 'Logo',
+  'Push' => '推送',
   'Two passwords do not match' => '',
   'Username already exists' => '',
+  'Normal' => '@@正常@@',
   'Accept' => '接受',
   'Activity manager' => '活动管理',
   'Administrator manager' => '管理员管理',
@@ -65,7 +68,6 @@ return array (
   'Mobile format error.' => '手机号格式错误',
   'Name' => '名称',
   'New password' => '新密码',
-  'Normal' => '正常',
   'Other' => '其他',
   'Password' => '密码',
   'Password invalid' => '密码无效',

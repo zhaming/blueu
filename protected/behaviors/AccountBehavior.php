@@ -61,4 +61,16 @@ class AccountBehavior extends BaseBehavior {
         return Account::model()->updateByPk($account->id, array('password' => md5($data['newpassword'])));
     }
 
+    
+    public function delete($id) {
+        return Account::model()->updateByPk($id, array("status" => 2));
+    }
+
+    public function disable($id) {
+        return Account::model()->updateByPk($id, array("status" => 1));
+    }
+
+    public function enable($id) {
+        return Account::model()->updateByPk($id, array("status" => 0));
+    }
 }

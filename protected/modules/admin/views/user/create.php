@@ -18,7 +18,7 @@
 <?php } ?>
 <div class="row">
     <div class="col-xs-12">
-        <form action="/admin/user/create" method="POST" class="form-horizontal">
+        <form action="/admin/user/create" method="POST" enctype="multipart/form-data" class="form-horizontal">
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="user[username]"><?php echo Yii::t('admin', 'Username'); ?></label>
                 <div class="col-sm-9">
@@ -47,6 +47,13 @@
                 <label class="col-sm-3 control-label no-padding-right" for="user[name]"><?php echo Yii::t('admin', 'Name'); ?></label>
                 <div class="col-sm-9">
                     <input type="text" name="user[name]" value="<?php echo $user['name'] ?>" placeholder="<?php echo Yii::t('admin', 'Name'); ?>" class="col-xs-10 col-sm-5" />
+                </div>
+            </div>
+            <div class="space-4"></div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="user[avatar]"><?php echo Yii::t('admin', 'Avatar'); ?></label>
+                <div class="col-sm-9">
+                    <input type="file" name="file" id="id-input-file-upload-logo" />
                 </div>
             </div>
             <div class="space-4"></div>

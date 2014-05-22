@@ -8,7 +8,7 @@
 <?php } ?>
 <div class="row">
     <div class="col-xs-12">
-        <form class="form-horizontal" role="form" action="/admin/merchant/create" method="POST" enctype="multipart/form-data">
+        <form action="/admin/merchant/create" method="POST" enctype="multipart/form-data" class="form-horizontal">
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="merchant[username]"><?php echo Yii::t('admin', 'Username'); ?></label>
                 <div class="col-sm-9">
@@ -43,7 +43,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="merchant[logo]"><?php echo Yii::t('admin', 'Logo'); ?></label>
                 <div class="col-sm-9">
-                    <input type="file" id="id-input-file-upload-logo" />
+                    <input type="file" name="file" id="id-input-file-upload-logo" />
                 </div>
             </div>
             <div class="space-4"></div>

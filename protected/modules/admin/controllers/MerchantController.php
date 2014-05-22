@@ -18,10 +18,12 @@
  */
 class MerchantController extends BController {
 
+    protected $accountBehavior;
     protected $merchantBehavior;
 
     public function init() {
         parent::init();
+        $this->accountBehavior = new AccountBehavior();
         $this->merchantBehavior = new MerchantBehavior();
     }
 
@@ -34,6 +36,28 @@ class MerchantController extends BController {
         $viewData = $this->merchantBehavior->getlist($filter);
         $viewData['name'] = $name;
         $this->render('index', $viewData);
+    }
+
+    public function actionRegister() {
+        $viewData = array();
+        $this->layout = 'simple';
+        $merchantCreateForm = new MerchantCreateForm();
+        if (!Yii::app()->request->isPostRequest) {
+            $viewData['merchant'] = $merchantCreateForm->getAttributes();
+            return $this->render("register", $viewData);
+        }
+        $merchantCreateForm->setAttributes(Yii::app()->request->getPost('merchant'));
+        if (!$merchantCreateForm->validate()) {
+            $viewData['message'] = $merchantCreateForm->getFirstError();
+            $viewData['merchant'] = $merchantCreateForm->getAttributes();
+            return $this->render("register", $viewData);
+        }
+        if (!$this->merchantBehavior->register($merchantCreateForm->getAttributes())) {
+            $viewData['message'] = $this->merchantBehavior->getError();
+            $viewData['merchant'] = $merchantCreateForm->getAttributes();
+            return $this->render("register", $viewData);
+        }
+        $this->redirect('/admin/manager/login');
     }
 
     public function actionCreate() {
@@ -55,26 +79,50 @@ class MerchantController extends BController {
             $viewData['merchant'] = $merchantCreateForm->getAttributes();
             return $this->render("create", $viewData);
         }
-        $this->redirect('/admin/merchant/index');
+        $this->redirect($this->createUrl('index'));
     }
 
-    public function actionRegister() {
-        $message = '';
-        $this->layout = 'simple';
-        $merchantCreateForm = new MerchantCreateForm();
-        if (Yii::app()->request->isPostRequest) {
-            $merchantCreateForm->attributes = Yii::app()->request->getPost('merchant');
-            if ($merchantCreateForm->save()) {
-                $this->redirect('/admin/manager/login');
+    public function actionDelete() {
+        $id = Yii::app()->request->getQuery('id');
+        if (!empty($id)) {
+            if ($this->accountBehavior->delete($id)) {
+                $this->showSuccess(Yii::t('admin', 'Delete Success'), $this->createUrl('index'));
             } else {
-                $message = $merchantCreateForm->getError();
+                $this->showError(Yii::t('admin', 'Delete Failure'), $this->createUrl('index'));
             }
         }
-        $viewData = array(
-            'message' => $message,
-            'merchant' => $merchantCreateForm->getAttributes()
-        );
-        $this->render('register', $viewData);
+        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
+    }
+
+    public function actionDisable() {
+        $id = Yii::app()->request->getQuery('id');
+        if (!empty($id)) {
+            if ($this->accountBehavior->disable($id)) {
+                $this->showSuccess(Yii::t('admin', 'Disable success'), $this->createUrl('index'));
+            } else {
+                $this->showError(Yii::t('admin', 'Disable failure'), $this->createUrl('index'));
+            }
+        }
+        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
+    }
+
+    public function actionEnable() {
+        $id = Yii::app()->request->getQuery('id');
+        if (!empty($id)) {
+            if ($this->accountBehavior->enable($id)) {
+                $this->showSuccess(Yii::t('admin', 'Restore success'), $this->createUrl('index'));
+            } else {
+                $this->showError(Yii::t('admin', 'Restore failure'), $this->createUrl('index'));
+            }
+        }
+        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
+    }
+
+    public function actionEdit() {
+        $viewData = array();
+        $userId = Yii::app()->request->getQuery('id');
+        $viewData['user'] = $this->merchantBehavior->detail($userId);
+        $this->render('edit', $viewData);
     }
 
     public function actionActivity() {
@@ -131,76 +179,4 @@ class MerchantController extends BController {
         $this->render('add', compact('id', 'name', 'describ', 'pic', 'blueid', 'rc_station'));
     }
 
-    public function actionEdit() {
-        $id = '';
-        $name = '';
-        $describ = '';
-        $pic = '';
-        if (Yii::app()->request->isPostRequest) {
-            $id = Yii::app()->request->getQuery('id');
-            $criteria = new CDbCriteria;
-            $criteria->addColumnCondition(array('id' => $id));
-            $model = Merchant::model()->find($criteria);
-            if (is_null($model)) {
-                $this->showError('非法操作', $this->createUrl('index'));
-            } else {
-                $name = Yii::app()->request->getPost('name');
-                $describ = Yii::app()->request->getPost('describ');
-                $blueid = Yii::app()->request->getPost('blueid');
-                if (!empty($name) && !empty($describ)) {
-                    $model->name = $name;
-                    $model->describ = $describ;
-                    $model->blueid = $blueid;
-                    $file_cpt = new FilesComponent;
-                    $upload_ret = $file_cpt->upload('pic');
-                    if ($upload_ret) {
-                        $model->pic = $upload_ret['hash'];
-                    }
-                    if ($model->save()) {
-                        $this->showSuccess('保存成功', $this->createUrl('edit?id=' . $id));
-                    } else {
-                        $this->showError('保存失败');
-                    }
-                } else {
-                    $this->showError('请填写完整信息');
-                }
-            }
-        } else {
-            $criteria = new CDbCriteria;
-            $id = Yii::app()->request->getQuery('id');
-            $criteria->addColumnCondition(array('id' => $id));
-            $model = Merchant::model()->find($criteria);
-            if (is_null($model)) {
-                $this->showError('非法操作', $this->createUrl('index'));
-            } else {
-                $id = $model->id;
-                $name = $model->name;
-                $describ = $model->describ;
-                $pic = $model->pic;
-                $blueid = $model->blueid;
-            }
-        }
-        $rc_station = BlueStation::model()->findAll();
-        $this->render('edit', compact('id', 'name', 'describ', 'pic', 'blueid', 'rc_station'));
-    }
-
-    public function actionDelete() {
-        $id = Yii::app()->request->getQuery('id');
-        if (!empty($id)) {
-            $criteria = new CDbCriteria;
-            $criteria->addColumnCondition(array('id' => $id));
-            $model = Merchant::model()->find($criteria);
-            if (!is_null($model)) {
-                if ($model->delete()) {
-                    $this->showSuccess('删除成功', $this->createUrl('index'));
-                } else {
-                    $this->showError('删除失败', $this->createUrl('index'));
-                }
-            }
-        }
-        $this->showError('非法操作', $this->createUrl('index'));
-    }
-
 }
-
-?>

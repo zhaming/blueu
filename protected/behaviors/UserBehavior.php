@@ -47,18 +47,6 @@ class UserBehavior extends BaseBehavior {
         return array('pager' => $pager, 'data' => $data);
     }
 
-    public function delete($id) {
-        return Account::model()->updateByPk($id, array("status" => 2));
-    }
-
-    public function disable($id) {
-        return Account::model()->updateByPk($id, array("status" => 1));
-    }
-
-    public function enable($id) {
-        return Account::model()->updateByPk($id, array("status" => 0));
-    }
-
     public function register($data) {
         $account = new Account();
         $user = new User();
@@ -71,6 +59,14 @@ class UserBehavior extends BaseBehavior {
         $user->sex = isset($data['sex']) ? $data['sex'] : 0;
         $user->century = isset($data['century']) ? $data['century'] : 'other';
         $user->mobile = isset($data['mobile']) ? $data['mobile'] : '';
+
+        $fileBehavior = new FileBehavior();
+        if ($fileBehavior->isHaveUploadFile()) {
+            $file = $fileBehavior->saveUploadAvatar();
+            if ($file) {
+                $user->avatar = $file['path'];
+            }
+        }
 
         $transaction = Yii::app()->db->beginTransaction();
         try {

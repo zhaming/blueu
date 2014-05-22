@@ -1,7 +1,4 @@
-<div class="page-header">
-    <h1>管理员信息</h1>
-</div>
-<div id="user-profile-3" class="user-profile row">
+<div class="user-profile row">
     <div class="col-sm-offset-1 col-sm-10">
         <div class="well well-sm">
             <button type="button" class="close" data-dismiss="alert">×</button>
@@ -23,7 +20,6 @@
                 </p>
             </div>
         <?php } ?>
-
         <div class="space"></div>
         <form action="/admin/manager/edit" method="post" class="form-horizontal">
             <div class="tabbable">
@@ -31,13 +27,13 @@
                     <li class="active">
                         <a data-toggle="tab" href="#edit-basic">
                             <i class="green icon-edit bigger-125"></i>
-                            基本信息
+                            <?php echo Yii::t('admin', 'Base information'); ?>
                         </a>
                     </li>
                     <li>
                         <a data-toggle="tab" href="#edit-password">
                             <i class="blue icon-key bigger-125"></i>
-                            密码
+                            <?php echo Yii::t('admin', 'Reset password'); ?>
                         </a>
                     </li>
                 </ul>

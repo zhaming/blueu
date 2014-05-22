@@ -19,10 +19,12 @@
 class UserController extends BController {
 
     protected $userBehavior;
+    protected $accountBehavior;
 
     public function init() {
         parent::init();
         $this->userBehavior = new UserBehavior();
+        $this->accountBehavior = new AccountBehavior();
     }
 
     public function actionIndex() {
@@ -58,7 +60,7 @@ class UserController extends BController {
     public function actionDelete() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
-            if ($this->userBehavior->delete($id)) {
+            if ($this->accountBehavior->delete($id)) {
                 $this->showSuccess(Yii::t('admin', 'Delete Success'), $this->createUrl('index'));
             } else {
                 $this->showError(Yii::t('admin', 'Delete Failure'), $this->createUrl('index'));
@@ -70,7 +72,7 @@ class UserController extends BController {
     public function actionDisable() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
-            if ($this->userBehavior->disable($id)) {
+            if ($this->accountBehavior->disable($id)) {
                 $this->showSuccess(Yii::t('admin', 'Disable success'), $this->createUrl('index'));
             } else {
                 $this->showError(Yii::t('admin', 'Disable failure'), $this->createUrl('index'));
@@ -82,7 +84,7 @@ class UserController extends BController {
     public function actionEnable() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
-            if ($this->userBehavior->enable($id)) {
+            if ($this->accountBehavior->enable($id)) {
                 $this->showSuccess(Yii::t('admin', 'Restore success'), $this->createUrl('index'));
             } else {
                 $this->showError(Yii::t('admin', 'Restore failure'), $this->createUrl('index'));
