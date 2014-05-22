@@ -10,19 +10,19 @@ BlueU客户端接口文档
 
 
 
-接口名                |         地址        |    类型
--------------------- | ------------------ | --------
-[用户注册](#user)     | /api/user/register  |  PSOT
-[用户登录](#user)     |  /api/user/login    |  PSOT
-[重置密码](#user)     |  /api/user/resetpwd |  PSOT
-[用户登出](#user)     |  /api/user/logout   |  PSOT
-[编辑资料](#user)     |  /api/user/1/edit   |  PSOT
-[启用推送](#user)     |  /api/user/1/push   |  PSOT
-[用户详情](#user)     |  /api/user/1        |  GET
-[用户列表](#user)     |  /api/users         |  GET
-[商户详情](#merchant) |  /api/merchant/1    |  GET
-[商户列表](#merchant) |  /api/merchants     |  GET
-[广告详情](#ad)       |  /api/ad/1          |  GET
+    接口名        |         地址         |    类型
+---------------- | ------------------- | --------
+[用户注册](#api1)  | /api/user/register  |  PSOT
+[用户登录](#api2)  |  /api/user/login    |  PSOT
+[重置密码](#api3)  |  /api/user/resetpwd |  PSOT
+[用户登出](#api4)  |  /api/user/logout   |  PSOT
+[编辑资料](#api5)  |  /api/user/1/edit   |  PSOT
+[启用推送](#api6)  |  /api/user/1/push   |  PSOT
+[用户详情](#api7)  |  /api/user/1        |  GET
+[用户列表](#api8)  |  /api/users         |  GET
+[商户详情](#api9)  |  /api/merchant/1    |  GET
+[商户列表](#api10) |  /api/merchants     |  GET
+[广告详情](#api11) |  /api/ad/1          |  GET
 
 
 ## 约定  
@@ -93,7 +93,7 @@ BlueU客户端接口文档
 </pre>
 
 
-## 用户注册 {#user}
+## 用户注册 {#api1}
 地址：/api/user/register
 
 ###接口输入
@@ -128,7 +128,7 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 </pre>
 
 
-## 用户登录 {#user}
+## 用户登录 {#api2}
 地址：/api/user/login
 
 ###接口输入
@@ -164,7 +164,7 @@ data       |  是 |   map   | 见示例 | 返回数据
 </pre>
 
 
-## 重置密码 {#user}
+## 重置密码 {#api3}
 地址：/api/user/resetpwd
 
 ###接口输入
@@ -197,7 +197,7 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 </pre>
 
 
-## 用户登出 {#user}
+## 用户登出 {#api4}
 地址：/api/user/logout
 
 ###接口输入
@@ -228,7 +228,7 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 </pre>
 
 
-## 用户修改资料 {#user}
+## 用户修改资料 {#api5}
 地址：/api/user/1/edit
 
 ###接口输入
@@ -258,7 +258,7 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 </pre>
 
 
-## 用户信息推送开关 {#user}
+## 用户信息推送开关 {#api6}
 地址：/api/user/1/push
 
 ###接口输入
@@ -288,7 +288,7 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 </pre>
 
 
-## 用户详情 {#user}
+## 用户详情 {#api7}
 地址：/api/user/1
 
 ###接口输入
@@ -327,7 +327,7 @@ data       |  是 |   map   | 见示例 | 返回数据
 
 
 
-## 用户列表 {#user}
+## 用户列表 {#api8}
 地址：/api/users
 
 ###接口输入
@@ -377,7 +377,7 @@ data       |  是 |   map   | 见示例 | 返回数据
 
 
 
-## 商户详情 {#merchant}
+## 商户详情 {#api9}
 地址：/api/merchant/1
 
 ###接口输入
@@ -416,7 +416,7 @@ data       |  是 |   map   | 见示例 | 返回数据
 
 
 
-## 商户列表 {#merchants}
+## 商户列表 {#api10}
 地址：/api/merchants
 
 ###接口输入
@@ -466,7 +466,7 @@ data       |  是 |   map   | 见示例 | 返回数据
 
 
 
-## 广告详情 {#ad}
+## 广告详情 {#api11}
 地址：/api/ad/1
 
 ###接口输入
