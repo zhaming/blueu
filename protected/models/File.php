@@ -13,17 +13,31 @@
  * @copyright (c) 2011-2015
  * @license ()
  * 
- * Files.php hugb
+ * File.php hugb
  *
  */
-class Files extends CActiveRecord {
+class File extends CActiveRecord {
+
+    public $id;
+    public $name;
+    public $type;
+    public $size;
+    public $extension;
+    public $ctime;
+    public $hash;
+    public $path;
+    public $deleted;
 
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
     public function tableName() {
-        return '{{files}}';
+        return '{{file}}';
+    }
+
+    public function primaryKey() {
+        return "id";
     }
 
 }

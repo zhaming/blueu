@@ -28,8 +28,9 @@
                                 <span class="lbl"></span>
                             </label>
                         </th>
-                        <th>编号</th>
-                        <th>名称</th>
+                        <th><?php echo Yii::t('admin', 'Id'); ?></th>
+                        <th><?php echo Yii::t('admin', 'Name'); ?></th>
+                        <th><?php echo Yii::t('admin', 'Status'); ?></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -46,19 +47,32 @@
                         <td><?php echo $item->id; ?></td>
                         <td><?php echo $item->name; ?></td>
                         <td>
-                            <a href="/admin/merchant/activity?id=<?php echo $item->id; ?>" title="<?php echo Yii::t('admin', 'Product'); ?>" class="btn btn-xs btn-success">
+                            <?php echo Yii::t('admin', 'Account'); ?>:
+                            <?php if ($item->account->status == 0) { echo Yii::t('admin', 'Enable'); } if ($item->account->status == 1) { echo Yii::t('admin', 'Disable'); } ?>
+                        </td>
+                        <td>
+                            <a href="<?php echo $this->createUrl('activity?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Product'); ?>" class="btn btn-xs btn-success">
                                 <i class="icon-coffee bigger-120"></i>
                             </a>
-                            <a href="/admin/merchant/stations?id=<?php echo $item->id; ?>" title="<?php echo Yii::t('admin', 'Bluetooth base station'); ?>" class="btn btn-xs btn-success">
+                            <a href="<?php echo $this->createUrl('stations?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Bluetooth base station'); ?>" class="btn btn-xs btn-success">
                                 <i class="icon-signal bigger-120"></i>
                             </a>
-                            <a href="/admin/merchant/mermber?id=<?php echo $item->id; ?>" title="<?php echo Yii::t('admin', 'Member'); ?>" class="btn btn-xs btn-success">
+                            <a href="<?php echo $this->createUrl('member?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Member'); ?>" class="btn btn-xs btn-success">
                                 <i class="icon-user bigger-120"></i>
                             </a>
-                            <a href="/admin/merchant/edit?id=<?php echo $item->id; ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
+                            <?php if ($item->account->status == 1) { ?>
+                            <a href="<?php echo $this->createUrl('enable?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="btn btn-xs btn-success">
+                                <i class="icon-unlock bigger-120"></i>
+                            </a>
+                            <?php } else { ?>
+                            <a href="<?php echo $this->createUrl('disable?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="btn btn-xs btn-warning">
+                                <i class="icon-lock bigger-120"></i>
+                            </a>
+                            <?php } ?>
+                            <a href="<?php echo $this->createUrl('edit?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
                                 <i class="icon-edit bigger-120"></i>
                             </a>
-                            <a href="" title="删除" class="btn btn-xs btn-danger">
+                            <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger">
                                 <i class="icon-trash bigger-120"></i>
                             </a>
                         </td>

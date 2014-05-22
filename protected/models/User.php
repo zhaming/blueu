@@ -23,6 +23,7 @@ class User extends CActiveRecord {
     public $sex;
     public $century;
     public $mobile;
+    public $avatar;
     public $pushable;
 
     public static function model($className = __CLASS__) {
