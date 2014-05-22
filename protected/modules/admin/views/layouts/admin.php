@@ -6,7 +6,7 @@
         <meta name="keywords" content="" />
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        
+
         <!-- basic styles -->
         <link rel="stylesheet" href="/statics/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/statics/css/font-awesome.min.css" />
@@ -45,7 +45,7 @@
         <script src="/statics/js/html5shiv.js"></script>
         <script src="/statics/js/respond.min.js"></script>
         <![endif]-->
-          <!-- basic scripts -->
+        <!-- basic scripts -->
         <!--[if !IE]> -->
         <script src="/statics/js/jquery-2.0.3.min.js"></script>
         <!-- <![endif]-->
@@ -111,7 +111,7 @@
             </a>
         </div>
 
-      
+
 
         <!-- inline scripts related to this page -->
 
@@ -147,7 +147,7 @@
                     {label: "direct traffic", data: 18.6, color: "#DA5430"},
                     {label: "other", data: 10, color: "#FEE074"}
                 ];
-                
+
 
 
 
@@ -191,7 +191,7 @@
 
 
                 var sales_charts = $('#sales-charts').css({'width': '100%', 'height': '220px'});
-               
+
 
 
                 $('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});
@@ -242,25 +242,54 @@
                 );
                 $('#tasks').disableSelection();
                 $('#tasks input:checkbox').removeAttr('checked').on('click', function() {
-                    if (this.checked)
+                    if (this.checked) {
                         $(this).closest('li').addClass('selected');
-                    else
+                    } else {
                         $(this).closest('li').removeClass('selected');
+                    }
                 });
-                $('#id-input-file-upload-logo').ace_file_input({
-        no_file:'请选择一张图片作为商户的Logo',
-        btn_choose:'Choose',
-        btn_change:'Change',
-        droppable:false,
-        onchange:null,
-        thumbnail:true, //| true | large
-        whitelist:'gif|png|jpg|jpeg'
-        //blacklist:'exe|php'
-        //onchange:''
-        //
-    });
 
-
+                $('table th input:checkbox').on('click', function() {
+                    var that = this;
+                    $(this).closest('table').find('tr > td:first-child input:checkbox').each(function() {
+                        this.checked = that.checked;
+                        $(this).closest('tr').toggleClass('selected');
+                    });
+                });
+                $('#id-input-file-single-upload').ace_file_input({
+                    //style: true,
+                    no_file: '',
+                    //no_icon: "icon-upload-alt",
+                    btn_choose: '选择',
+                    btn_change: '重新选择',
+                    icon_remove: "icon-remove",
+                    //droppable: false,
+                    thumbnail: true, //| true | large
+                    before_change: function(files, dropped) {
+                        var allowed_files = [];
+                        for (var i = 0; i < files.length; i++) {
+                            var file = files[i];
+                            if (typeof file === "string") {
+                                //IE8 and browsers that don't support File Object
+                                if (!(/\.(jpe?g|png|gif|bmp)$/i).test(file)) {
+                                    return false;
+                                }
+                            } else {
+                                var type = $.trim(file.type);
+                                if ((type.length > 0 && !(/^image\/(jpe?g|png|gif|bmp)$/i).test(type)) || (type.length === 0 && !(/\.(jpe?g|png|gif|bmp)$/i).test(file.name))) {//for android's default browser which gives an empty string for file.type
+                                    continue;
+                                }
+                            }
+                            allowed_files.push(file);
+                        }
+                        if (allowed_files.length === 0) {
+                            return false;
+                        }
+                        return allowed_files;
+                    }//,
+                    //before_remove: null,
+                    //preview_error: null
+                });
             });
         </script>
     </body>

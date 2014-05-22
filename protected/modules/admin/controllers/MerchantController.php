@@ -83,7 +83,7 @@ class MerchantController extends BController {
     }
 
     public function actionDelete() {
-        $id = Yii::app()->request->getQuery('id');
+        $id = Yii::app()->request->getParam('id');
         if (!empty($id)) {
             if ($this->accountBehavior->delete($id)) {
                 $this->showSuccess(Yii::t('admin', 'Delete Success'), $this->createUrl('index'));

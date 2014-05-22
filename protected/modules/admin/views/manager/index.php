@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-xs-12">
-        <form action="/admin/merchant/delete" method="POST">
+        <form action="/admin/manager/delete" method="POST">
             <p>
-                <a href="/admin/merchant/create" class="btn btn-app btn-success btn-xs">
+                <a href="/admin/manager/create" class="btn btn-app btn-success btn-xs">
                     <i class="icon-plus bigger-120"></i>
                     <?php echo Yii::t('admin', 'Create'); ?>
                 </a>
@@ -36,7 +36,7 @@
                                 </label>
                             </th>
                             <th><?php echo Yii::t('admin', 'Id'); ?></th>
-                            <th><?php echo Yii::t('admin', 'Name'); ?></th>
+                            <th><?php echo Yii::t('admin', 'Username'); ?></th>
                             <th><?php echo Yii::t('admin', 'Status'); ?></th>
                             <th></th>
                         </tr>
@@ -52,22 +52,13 @@
                                 </label>
                             </td>
                             <td><?php echo $item->id; ?></td>
-                            <td><?php echo $item->name; ?></td>
+                            <td><?php echo $item->username; ?></td>
                             <td>
                                 <?php echo Yii::t('admin', 'Account'); ?>:
-                                <?php if ($item->account->status == 0) { echo Yii::t('admin', 'Enable'); } if ($item->account->status == 1) { echo Yii::t('admin', 'Disable'); } ?>
+                                <?php if ($item->status == 0) { echo Yii::t('admin', 'Enable'); } if ($item->status == 1) { echo Yii::t('admin', 'Disable'); } ?>
                             </td>
                             <td>
-                                <a href="<?php echo $this->createUrl('activity?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Product'); ?>" class="btn btn-xs btn-success">
-                                    <i class="icon-coffee bigger-120"></i>
-                                </a>
-                                <a href="<?php echo $this->createUrl('stations?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Bluetooth base station'); ?>" class="btn btn-xs btn-success">
-                                    <i class="icon-signal bigger-120"></i>
-                                </a>
-                                <a href="<?php echo $this->createUrl('member?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Member'); ?>" class="btn btn-xs btn-success">
-                                    <i class="icon-user bigger-120"></i>
-                                </a>
-                                <?php if ($item->account->status == 1) { ?>
+                                <?php if ($item->status == 1) { ?>
                                 <a href="<?php echo $this->createUrl('enable?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="btn btn-xs btn-success">
                                     <i class="icon-unlock bigger-120"></i>
                                 </a>
@@ -87,7 +78,6 @@
                         <?php }} ?>
                     </tbody>
                 </table>
-                <?php $this->widget('application.modules.admin.widgets.BCLinkPager', array('pages' => $pager)); ?>
             </div>
         </form>
     </div>

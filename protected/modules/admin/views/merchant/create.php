@@ -8,6 +8,7 @@
 <?php } ?>
 <div class="row">
     <div class="col-xs-12">
+        <div class="space-8"></div>
         <form action="/admin/merchant/create" method="POST" enctype="multipart/form-data" class="form-horizontal">
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="merchant[username]"><?php echo Yii::t('admin', 'Username'); ?></label>

@@ -17,6 +17,10 @@
  *
  */
 class AccountBehavior extends BaseBehavior {
+    
+    public function getAllAdmin(){
+        return Account::model()->findAllByAttributes(array('roleid'=>1));
+    }
 
     public function isExist($username) {
         return Account::model()->countByAttributes(array('username' => $username)) > 0;
