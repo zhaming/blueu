@@ -13,6 +13,10 @@ return array(
     'host' => 'http://blueu2.dev/',
     'url_web' => 'statistics/',
     
+    'appid' => '2674298',
+    'apikey' => 'Tp3bIrUoG13eoE5GvwVRcI9W',
+    'secretkey' => 'ItaHRAXueuTwYPANjLtNcA4mRObGoi1e',
+    
 	'title' => '蓝友寻宝',
 	'title_separator' => '-',
 	'meta_keywords' => '手机客户端精准推广',
