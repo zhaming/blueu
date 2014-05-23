@@ -30,7 +30,7 @@
                     <div class="space"></div>
                     <div class="clearfix">
                         <label class="inline">
-                            <input type="checkbox" name="user[rememberme]" <?php if ($user['rememberme'] == 'on') { ?> checked<?php } ?> class="ace" />
+                            <input type="checkbox" name="user[rememberme]" value="1" <?php if ($user['rememberme'] == 'on') { ?> checked<?php } ?> class="ace" />
                             <span class="lbl">&nbsp;&nbsp;<?php echo Yii::t('admin', 'Remember me'); ?></span>
                         </label>
                         <button type="submit" class="width-35 pull-right btn btn-sm btn-primary"><i class="icon-key"></i><?php echo Yii::t('admin', 'Login'); ?></button>

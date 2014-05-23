@@ -1,12 +1,3 @@
-<div class="page-header">
-    <h1>
-        <?php echo Yii::t('admin', 'User manaer'); ?>
-        <small>
-            <i class="icon-double-angle-right"></i>
-            <?php echo Yii::t('admin', 'Create'); ?>
-        </small>
-    </h1>
-</div>
 <?php if (!empty($message)) { ?>
 <div class="alert alert-block alert-danger">
     <button type="button" class="close" data-dismiss="alert">
@@ -18,6 +9,7 @@
 <?php } ?>
 <div class="row">
     <div class="col-xs-12">
+        <div class="space-8"></div>
         <form action="/admin/user/create" method="POST" enctype="multipart/form-data" class="form-horizontal">
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="user[username]"><?php echo Yii::t('admin', 'Username'); ?></label>
@@ -53,7 +45,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="user[avatar]"><?php echo Yii::t('admin', 'Avatar'); ?></label>
                 <div class="col-sm-9">
-                    <input type="file" name="file" id="id-input-file-upload-logo" />
+                    <input type="file" name="file" id="id-input-file-single-upload" />
                 </div>
             </div>
             <div class="space-4"></div>

@@ -25,6 +25,10 @@ class ManagerController extends BController {
         $this->accountBehavior = new AccountBehavior();
     }
 
+    public function actionIndex() {
+        $this->render('index', array('data' => $this->accountBehavior->getAllAdmin()));
+    }
+
     public function actionLogin() {
         $viewData = array();
         $this->layout = 'simple';
@@ -46,7 +50,7 @@ class ManagerController extends BController {
             $viewData['user'] = $loginForm->getAttributes();
             return $this->render("login", $viewData);
         }
-        $duration = $loginForm->rememberme == 'on' ? 0 : 3600 * 24 * 1;
+        $duration = $loginForm->rememberme == '1' ? 0 : 3600 * 24 * 1;
         Yii::app()->user->login($identity, $duration);
         $this->redirect('/admin');
     }
