@@ -103,6 +103,26 @@ class MerchantproductController  extends BController {
         }
     }
     public function actionDelete(){
+
+        $id = Yii::app()->request->getParam("id");
+        if(empty($id)){
+            $this->showError("非法操作",$this->referer);
+        }
+
+        $product  = $this->productBehavior->getById($id);
+        if(empty($product)){
+            $this->showError("非法操作",$this->referer);
+        }
+        $res  = $product->delete();
+        //删除关联
+        MerchantShopProduct::model()->deleteAllByAttributes(
+            array(),"productid=:id",
+            array(":id"=>$id)
+        );
+        if($res)
+            $this->showSuccess("删除成功");
+        else
+            $this->showError("删除失败");
         $this->redirect($this->referer);
     }
 

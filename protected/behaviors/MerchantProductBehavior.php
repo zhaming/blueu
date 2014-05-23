@@ -47,7 +47,6 @@ class MerchantProductBehavior extends BaseBehavior{
 
         $res =  $obj->save();
         if($res){
-            
             return $obj;
         }
         else
