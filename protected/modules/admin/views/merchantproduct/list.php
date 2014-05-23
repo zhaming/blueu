@@ -48,15 +48,15 @@
                         <td><?php echo $value->discount?></td>
                         <td><?php if(!empty($value->shop_product)):?>
                             <?php foreach ($value->shop_product as $k => $v) :?>
-                                <?php  echo $v->shop->name;?>&emsp;
+                                <?php  echo empty($v->shop)?"":$v->shop->name;?>&emsp;
                             <?php endforeach;?>
                             <?php endif;?>
                         </td>
                         <td><?php echo !empty($value->merchant)?$value->merchant->name:"";?></td>
                         <td><?php echo $value->status?></td>
                         <td>
-                            <a href="#" >编辑</a>
-                            <a href="#" >删除</a>
+                            <a href="/admin/merchantproduct/edit/id/<?php echo $value->id;?>" >编辑</a>
+                            <a href="/admin/merchantproduct/delete/id/<?php echo $value->id;?>" >删除</a>
                         </td>
                     </tr>
                     <?php endforeach;?>

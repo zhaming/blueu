@@ -47,18 +47,6 @@ class MerchantProductBehavior extends BaseBehavior{
 
         $res =  $obj->save();
         if($res){
-            if(isset($param['shops']) && is_array($param['shops'])){
-                MerchantShopProduct::model()->deleteAllByAttributes(
-                    array(),"'productid' = :productid",
-                    array(':productid'=>$obj->id,)
-                );
-                foreach ($param['shops'] as $key => $value) {
-                    $data  = new MerchantShopProduct;
-                    $data->shopid= $value;
-                    $data->productid = $obj->id;
-                    $data->save();
-                }
-            }
             return $obj;
         }
         else

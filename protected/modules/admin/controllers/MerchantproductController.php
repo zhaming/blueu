@@ -33,6 +33,18 @@ class MerchantproductController  extends BController {
             $product['shops'] =  $shopid;
             $res =  $this->productBehavior->saveOrUpdate($product);
             //更新关联表
+            if(!empty($shopid)){
+                MerchantShopProduct::model()->deleteAllByAttributes(
+                    array(),"productid=:id",
+                    array(":id"=>$res->id)
+                );
+                foreach ($shopid as $key => $value) {
+                    $data  = new MerchantShopProduct;
+                    $data->shopid= $value;
+                    $data->productid = $res->id;
+                    $data->save();
+                }
+            }
             $this->showSuccess("添加成功");
             $this->redirect($this->referer);
         }else{
@@ -45,6 +57,73 @@ class MerchantproductController  extends BController {
 
             $this->render("create",$shop);
         }
+    }
+
+    public function actionEdit(){
+        if(Yii::app()->request->IsPostrequest){
+            $shopid  = Yii::app()->request->getPost("shopid");
+            $product = Yii::app()->request->getPost("product");
+            //TODO 图片处理
+
+            $product['merchantid'] = Yii::app()->user->getId();
+            $product['shops'] =  $shopid;
+            $res =  $this->productBehavior->saveOrUpdate($product);
+            //更新关联表
+                MerchantShopProduct::model()->deleteAllByAttributes(
+                    array(),"productid=:id",
+                    array(":id"=>$res->id)
+                );
+                foreach ($shopid as $key => $value) {
+                    $data  = new MerchantShopProduct;
+                    $data->shopid= $value;
+                    $data->productid = $res->id;
+                    $data->save();
+                }
+            $this->showSuccess("修改成功");
+            $this->redirect($this->referer);
+
+        }else{
+            $id = Yii::app()->request->getParam("id");
+            if(empty($id)){
+                $this->showError("非法操作",$this->referer);
+            }
+
+            $product  = $this->productBehavior->getById($id);
+            if(empty($product)){
+                $this->showError("非法操作",$this->referer);
+            }
+            $ar['merchantid'] = Yii::app()->user->getId();
+            $ar['selfid'] = Yii::app()->user->getId();
+            $shop = $this->shopBehavior->getList($ar);
+            $data =  $shop['data'];
+
+            $used_shop = $product->shop_product;
+
+            $this->render("edit",compact("product","data","used_shop"));
+        }
+    }
+    public function actionDelete(){
+
+        $id = Yii::app()->request->getParam("id");
+        if(empty($id)){
+            $this->showError("非法操作",$this->referer);
+        }
+
+        $product  = $this->productBehavior->getById($id);
+        if(empty($product)){
+            $this->showError("非法操作",$this->referer);
+        }
+        $res  = $product->delete();
+        //删除关联
+        MerchantShopProduct::model()->deleteAllByAttributes(
+            array(),"productid=:id",
+            array(":id"=>$id)
+        );
+        if($res)
+            $this->showSuccess("删除成功");
+        else
+            $this->showError("删除失败");
+        $this->redirect($this->referer);
     }
 
 }
