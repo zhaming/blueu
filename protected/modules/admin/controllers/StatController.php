@@ -20,14 +20,14 @@ class StatController extends BController {
     }
     
     public function actionUser() {
-        $this->render('index');
+        $this->render('user');
     }
     
     public function actionShop() {
-        $this->render('index');
+        $this->render('shop');
     }
 
     public function actionIndustry() {
-        $this->render('index');
+        $this->render('industry');
     }
 }
