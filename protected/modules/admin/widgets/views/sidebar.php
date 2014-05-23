@@ -96,11 +96,20 @@
                 </li>
             </ul>
         </li>
-        <li<?php if (Yii::app()->controller->id == 'statistics') { ?> class="active"<?php } ?>>
-            <a href="/admin/statistics">
-                <i class="icon-edit"></i>
-                <span class="menu-text">统计管理</span>
+        <li<?php if (Yii::app()->controller->id == 'stat') { ?> class="active"<?php } ?>>
+            <a class="dropdown-toggle">
+                <i class="icon-legal"></i>
+                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'Statistic Manager'); ?></span>
+                <b class="arrow icon-angle-down"></b>
             </a>
+            <ul class="submenu">
+                <li<?php if (Yii::app()->controller->getId() == 'stat' && Yii::app()->controller->getAction()->getId() == 'user') { ?> class="active"<?php } ?>>
+                    <a href="/admin/stat/user"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'User Analytics'); ?></a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'stat' && Yii::app()->controller->getAction()->getId() == 'industry') { ?> class="active"<?php } ?>>
+                    <a href="/admin/stat/industry"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Industry Analytics'); ?></a>
+                </li>
+            </ul>
         </li>
         <li<?php if (Yii::app()->controller->id == 'push') { ?> class="active"<?php } ?>>
             <a href="/admin/push">
