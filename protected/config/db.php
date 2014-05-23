@@ -12,11 +12,10 @@
 return array(
     'components' => array(
         'db' => array(
-            'class' => 'MSDbConnection',
             'emulatePrepare' => true,
             'enableParamLogging' => true,//false for production
             
-            'connectionString' => 'mysql:host=localhost;port=3306;dbname=blueu2',
+            'connectionString' => 'mysql:host=127.0.0.1;port=3306;dbname=blueu2',
             'username' => 'root',
             'password' => 'mysql',
             'tablePrefix' => '',
