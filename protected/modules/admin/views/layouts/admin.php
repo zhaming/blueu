@@ -80,6 +80,8 @@
 
         <script src="/statics/js/ace-elements.min.js"></script>
         <script src="/statics/js/ace.min.js"></script>
+        
+        <script src="/statics/js/esl/esl.js"></script>
     </head>
 
     <body>

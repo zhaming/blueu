@@ -105,9 +105,9 @@
 </div>
 
 <!--echarts demo-->
-<script src="/statics/js/esl/esl.js"></script>
 <script type="text/javascript">
     require.config({
+        baseUrl: '/statics/',
         packages: [
             {
                 name: 'echarts',
