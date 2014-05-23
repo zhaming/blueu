@@ -102,4 +102,6 @@ return array (
   'Username invalid' => '用户名无效',
   'Username is invalid' => '用户名无效',
   'century' => '年代',
+  'Statistic Manager' => '统计管理',
+  'Push Manager' => '推送管理',
 );
