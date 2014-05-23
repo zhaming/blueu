@@ -104,4 +104,6 @@ return array (
   'century' => '年代',
   'Statistic Manager' => '统计管理',
   'Push Manager' => '推送管理',
+  'User Analytics' => '用户分析',
+  'Industry Analytics' => '行业分析',
 );
