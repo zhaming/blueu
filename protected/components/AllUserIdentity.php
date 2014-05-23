@@ -5,7 +5,6 @@ class AllUserIdentity extends CUserIdentity {
     const ERROR_STATUS_INVALID = 3;
 
     private $id;
-    private $roleid;
 
     public function authenticate() {
         $accounts = Account::model()->findByAttributes(array('username' => $this->username));
@@ -23,19 +22,15 @@ class AllUserIdentity extends CUserIdentity {
             $this->errorMessage = Yii::t('admin', 'Password invalid');
         } else {
             $this->id = $accounts->id;
-            $this->roleid = $accounts->roleid;
             $this->errorCode = self::ERROR_NONE;
             Yii::app()->user->setState('status', $accounts->status);
+            Yii::app()->user->setState('roleid', $accounts->roleid);
         }
         return !$this->errorCode;
     }
 
     public function getId() {
         return $this->id;
-    }
-
-    public function getRoleid() {
-        return $this->roleid;
     }
 
 }

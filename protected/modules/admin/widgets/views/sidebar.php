@@ -35,6 +35,7 @@
                 <span class="menu-text"><?php echo Yii::t('admin', 'Console'); ?></span>
             </a>
         </li>
+        <?php if (HelpTemplate::isLoginAsAdmin()) { ?>
         <li<?php if (in_array(Yii::app()->controller->id, array('user', 'merchant', 'manager'))) { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-user"></i>
@@ -53,6 +54,7 @@
                 </li>
             </ul>
         </li>
+        <?php } ?>
         <li<?php if (Yii::app()->controller->id == 'merchantshop') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-home"></i>
@@ -117,6 +119,7 @@
                 <span class="menu-text">推送管理</span>
             </a>
         </li>
+        <?php if (HelpTemplate::isLoginAsAdmin()) { ?>
         <li<?php if (in_array(Yii::app()->controller->id, array('settings', 'log'))) { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-legal"></i>
@@ -132,6 +135,7 @@
                 </li>
             </ul>
         </li>
+        <?php } ?>
     </ul>
     <div id="sidebar-collapse" class="sidebar-collapse">
         <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>

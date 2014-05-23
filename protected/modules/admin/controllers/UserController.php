@@ -109,6 +109,7 @@ class UserController extends BController {
         $viewData = array();
         $userId = Yii::app()->request->getQuery('id');
         $viewData['user'] = $this->userBehavior->detail($userId);
+        $viewData['account'] = $this->accountBehavior->getAccount($userId);
         $this->render('edit', $viewData);
     }
 

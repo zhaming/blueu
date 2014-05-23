@@ -1,16 +1,6 @@
 <div class="user-profile row">
     <div class="col-sm-offset-1 col-sm-10">
-        <div class="well well-sm">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            &nbsp;
-            <div class="inline middle blue bigger-110"> 您的个人资料是完成70％ </div>
-
-            &nbsp; &nbsp; &nbsp;
-            <div style="width:200px;" data-percent="70%" class="inline middle no-margin progress progress-striped active">
-                <div class="progress-bar progress-bar-success" style="width:70%"></div>
-            </div>
-        </div>
-        <div class="space"></div>
+        
         <?php if (!empty($message)) { ?>
             <div class="alert alert-block alert-danger">
                 <p>
@@ -37,7 +27,7 @@
                         </a>
                     </li>
                 </ul>
-                <div class="tab-content profile-edit-tab-content">
+                <div class="tab-content no-border profile-edit-tab-content">
                     <div id="edit-basic" class="tab-pane in active">
                         <h4 class="header blue bolder smaller">一般</h4>
                         <div class="row">
