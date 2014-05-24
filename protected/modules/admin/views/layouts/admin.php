@@ -119,6 +119,9 @@
 
         <script type="text/javascript">
             jQuery(function($) {
+                $(".delete-confirm").click(function(){
+                    return confirm('Are you absolutely sure you want to delete?');
+                });
                 $('.easy-pie-chart.percentage').each(function() {
                     var $box = $(this).closest('.infobox');
                     var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');

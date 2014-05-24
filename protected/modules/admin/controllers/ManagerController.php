@@ -26,7 +26,8 @@ class ManagerController extends BController {
     }
 
     public function actionIndex() {
-        $this->render('index', array('data' => $this->accountBehavior->getAllAdmin()));
+        $allAdminUsers = $this->accountBehavior->getAllAdmin();
+        $this->render('index', array('data' => $allAdminUsers));
     }
 
     public function actionLogin() {
@@ -72,36 +73,51 @@ class ManagerController extends BController {
         }
     }
 
-    public function actionProfile() {
-        $viewData = array();
-        $viewData['account'] = $this->accountBehavior->getAccount(Yii::app()->user->getId());
-        $this->render('profile', $viewData);
+    public function actionResetpwd() {
+        $id = Yii::app()->request->getPost('id');
+        $viewData = array('userid' => $id);
+        if (!Yii::app()->request->isPostRequest) {
+            return $this->render("resetpwd", $viewData);
+        }
+        $resetPwd = new ResetPwdForm();
+        $resetPwd->id = $id;
+        $resetPwd->newpassword = Yii::app()->request->getPost('newpassword');
+        $resetPwd->repassword = Yii::app()->request->getPost('repassword');
+        if (!$resetPwd->validate()) {
+            $viewData['message'] = $resetPwd->getFirstError();
+            return $this->render('resetpwd', $viewData);
+        }
+        if (!$this->accountBehavior->resetPwd($resetPwd->getAttributes())) {
+            $viewData['message'] = $this->accountBehavior->getError();
+            return $this->render('resetpwd', $viewData);
+        }
+        $this->showSuccess(Yii::t('admin', 'Reset password success.'), $this->createUrl('index'));
     }
 
-    public function actionEdit() {
-        $viewData = array('message' => '');
+    public function actionProfile() {
+        $viewData = array('error' => false);
+        $userId = Yii::app()->user->getId();
+        $viewData['account'] = $this->accountBehavior->getAccount($userId);
         if (!Yii::app()->request->isPostRequest) {
-            return $this->render('edit', $viewData);
+            return $this->render('profile', $viewData);
         }
-        $password = Yii::app()->request->getPost('password');
-        $newPassword = Yii::app()->request->getPost('newpassword');
-        $rePassword = Yii::app()->request->getPost('repassword');
-        if (!empty($password) && !empty($newPassword) && !empty($rePassword)) {
-            $resetPwd = new ResetPwdForm();
-            $resetPwd->password = $password;
-            $resetPwd->newpassword = $newPassword;
-            $resetPwd->repassword = $rePassword;
-            if (!$resetPwd->validate()) {
-                $viewData['message'] = $resetPwd->getFirstError();
-                return $this->render('edit', $viewData);
-            }
-            $resetPwd->id = Yii::app()->user->getId();
-            if (!$this->accountBehavior->resetPwd($resetPwd->getAttributes())) {
-                $viewData['message'] = $this->accountBehavior->getError();
-                return $this->render('edit', $viewData);
-            }
+        $resetPwd = new ResetPwdForm();
+        $resetPwd->id = $userId;
+        $resetPwd->password = Yii::app()->request->getPost('password');
+        $resetPwd->newpassword = Yii::app()->request->getPost('newpassword');
+        $resetPwd->repassword = Yii::app()->request->getPost('repassword');
+        if (!$resetPwd->validate()) {
+            $viewData['error'] = true;
+            $viewData['message'] = $resetPwd->getFirstError();
+            return $this->render('profile', $viewData);
         }
-        $this->redirect('/admin/manager/profile');
+        if (!$this->accountBehavior->resetPwd($resetPwd->getAttributes())) {
+            $viewData['error'] = true;
+            $viewData['message'] = $this->accountBehavior->getError();
+            return $this->render('profile', $viewData);
+        }
+        $viewData['message'] = Yii::t('admin', 'Reset password success.');
+        $this->render('profile', $viewData);
     }
 
     public function actionLogout() {
@@ -109,90 +125,61 @@ class ManagerController extends BController {
         $this->redirect('/admin/manager/login');
     }
 
-    public function actionMypass() {
+    public function actionCreate() {
+        $viewData = array();
+        $adminCreateForm = new AdminCreateForm();
         if (!Yii::app()->request->isPostRequest) {
-            $this->setPageTitle('修改我的密码');
-            return $this->render('password');
+            $viewData['user'] = $adminCreateForm->getAttributes();
+            return $this->render('create', $viewData);
         }
-        $oldPwd = Yii::app()->request->getPost('oldpwd');
-        $newPwd = Yii::app()->request->getPost('newpwd');
-        $rePwd = Yii::app()->request->getPost('repwd');
-        if (empty($newPwd) || empty($oldPwd) || empty($rePwd)) {
-            $this->setPageTitle('修改我的密码');
-            return $this->render('password');
+        $adminCreateForm->setAttributes(Yii::app()->request->getPost('user'));
+        if (!$adminCreateForm->validate()) {
+            $viewData['message'] = $adminCreateForm->getFirstError();
+            $viewData['user'] = $adminCreateForm->getAttributes();
+            return $this->render("create", $viewData);
         }
-        if ($newPwd != $rePwd) {
-            $this->showError("密码和确认密码不相同");
-            return $this->render('password');
+        if (!$this->accountBehavior->addAdmin($adminCreateForm->getAttributes())) {
+            $viewData['message'] = $this->accountBehavior->getError();
+            $viewData['user'] = $adminCreateForm->getAttributes();
+            return $this->render("create", $viewData);
         }
-        $id = Yii::app()->user->getId();
-        if (Account::model()->changePass($id, $oldPwd, $newPwd)) {
-            $this->showSuccess("修改成功");
-            $this->actionLogout();
-        } else {
-            $this->showError("修改失败");
-            $this->render('password');
-        }
-    }
-
-    public function actionAddmanager() {
-        if (Yii::app()->request->isPostRequest) {
-            $manager = Yii::app()->request->getPost('manager');
-            $status = Manager::model()->addManager($manager);
-            if ($status > 0) {
-                $this->showSuccess('添加成功');
-            } else {
-                $this->showError('添加失败');
-            }
-            $this->redirect(array('/admin/manager/list'));
-        } else {
-            $roles = Role::model()->roles();
-            $this->render('add', array('roles' => $roles));
-        }
+        $this->redirect('/admin/manager/index');
     }
 
     public function actionDisable() {
         $id = Yii::app()->request->getQuery('id');
-        $status = Manager::model()->changeStatus($id, 'disable');
-        if ($status > 0) {
-            $this->showSuccess('禁用成功');
-        } else {
-            $this->showError('禁用失败');
+        if (!empty($id)) {
+            if ($this->accountBehavior->disable($id)) {
+                $this->showSuccess(Yii::t('admin', 'Disable success'), $this->createUrl('index'));
+            } else {
+                $this->showError(Yii::t('admin', 'Disable failure'), $this->createUrl('index'));
+            }
         }
-        $this->redirect('/admin/manager/list');
+        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
     }
 
     public function actionEnable() {
         $id = Yii::app()->request->getQuery('id');
-        $status = Manager::model()->changeStatus($id, 'enable');
-        if ($status > 0) {
-            $this->showSuccess('启用成功');
-        } else {
-            $this->showError('启用失败');
+        if (!empty($id)) {
+            if ($this->accountBehavior->enable($id)) {
+                $this->showSuccess(Yii::t('admin', 'Restore success'), $this->createUrl('index'));
+            } else {
+                $this->showError(Yii::t('admin', 'Restore failure'), $this->createUrl('index'));
+            }
         }
-        $this->redirect('/admin/manager/list');
+        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
     }
 
     public function actionDelete() {
-        $id = Yii::app()->request->getQuery('id');
-        print_r($id);
-        print_r(Yii::app()->session['manager_id']);
-        if ($id == Yii::app()->session['manager_id']) {
-            $this->showError('不能对自己进行该操作');
-        } else {
-            $status = Manager::model()->deleteById($id);
-            if ($status) {
-                $this->showSuccess('删除操作成功');
+        $id = Yii::app()->request->getParam('id');
+        if (!empty($id)) {
+            if ($this->accountBehavior->delete($id)) {
+                $this->showSuccess(Yii::t('admin', 'Delete Success'), $this->createUrl('index'));
             } else {
-                $this->showError('删除操作失败');
+                $this->showError(Yii::t('admin', 'Delete Failure'), $this->createUrl('index'));
             }
         }
-        $this->redirect('/admin/manager/list');
-    }
-
-    public function actionList() {
-        $data = Account::model()->managers();
-        $this->render('list', array('data' => $data));
+        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
     }
 
 }

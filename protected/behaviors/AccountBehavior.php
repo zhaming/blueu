@@ -17,9 +17,9 @@
  *
  */
 class AccountBehavior extends BaseBehavior {
-    
-    public function getAllAdmin(){
-        return Account::model()->findAllByAttributes(array('roleid'=>1));
+
+    public function getAllAdmin() {
+        return Account::model()->findAllByAttributes(array('roleid' => 1));
     }
 
     public function isExist($username) {
@@ -49,7 +49,7 @@ class AccountBehavior extends BaseBehavior {
 
     public function resetPwd($data) {
         if (empty($data['id']) && empty($data['username'])) {
-            $this->error = '用户id和username不能同时为空';
+            $this->error = Yii::t('admin', 'User id and username can not be empty.');
             return false;
         }
         $account = null;
@@ -58,14 +58,27 @@ class AccountBehavior extends BaseBehavior {
         } else {
             $account = Account::model()->findByAttributes(array('username' => $data['username']));
         }
-        if ($account->password != md5($data['password'])) {
-            $this->error = '密码不正确';
+        if (isset($data['password']) && $account->password != md5($data['password'])) {
+            $this->error = Yii::t('admin', 'Password is wrong.');
             return false;
         }
         return Account::model()->updateByPk($account->id, array('password' => md5($data['newpassword'])));
     }
 
-    
+    public function addAdmin($data) {
+        $account = new Account();
+        $account->username = $data['username'];
+        $account->password = md5($data['password']);
+        $account->roleid = 1;
+        $account->status = 0;
+        $account->registertime = time();
+        if (!$account->save()) {
+            $this->error = Yii::t('admin', 'Save failure.');
+            return false;
+        }
+        return $account->getAttributes();
+    }
+
     public function delete($id) {
         return Account::model()->updateByPk($id, array("status" => 2));
     }
@@ -77,4 +90,5 @@ class AccountBehavior extends BaseBehavior {
     public function enable($id) {
         return Account::model()->updateByPk($id, array("status" => 0));
     }
+
 }

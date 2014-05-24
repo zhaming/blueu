@@ -46,7 +46,7 @@
                 <div class="col-xs-12 col-sm-3 center">
                     <div>
                         <span class="profile-picture">
-                            <img id="avatar" class="editable img-responsive editable-click editable-empty" alt="Alex's Avatar" src="assets/avatars/profile-pic.jpg" style="display: block;"></img>
+                            <img id="avatar" class="editable img-responsive editable-click editable-empty" alt="Alex's Avatar" src="/statics/upload/default/profile-pic.jpg" style="display: block;"></img>
                         </span>
 
                         <div class="space-4"></div>
@@ -564,7 +564,7 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-3 center">
                                     <span class="profile-picture">
-                                        <img class="editable img-responsive" alt="Alex's Avatar" id="avatar2" src="assets/avatars/profile-pic.jpg">
+                                        <img class="editable img-responsive" alt="Alex's Avatar" id="avatar2" src="/statics/upload/default/profile-pic.jpg">
                                     </span>
 
                                     <div class="space space-4"></div>
@@ -1144,7 +1144,7 @@
                                     <div class="inline position-relative">
                                         <div class="user">
                                             <a href="#">
-                                                <img src="assets/avatars/avatar.png" alt="Jim Doe's avatar">
+                                                <img src="/statics/upload/default/avatar.png" alt="Jim Doe's avatar">
                                             </a>
                                         </div>
 
