@@ -58,24 +58,42 @@ class AccountBehavior extends BaseBehavior {
     }
 
     public function sendResetPwdMail($email) {
+        $account = Account::model()->findByAttributes(array('username' => $email));
+        if (!$account) {
+            $this->error = Yii::t('admin', 'Username is not exist.');
+            return false;
+        }
+        $key = McryptComponent::encryption($email . ' ' . time());
         $mailer = Yii::createComponent('application.extensions.mailer.MailerHelp');
         $mailer->Host = 'smtp.163.com';
         $mailer->IsSMTP();
         $mailer->SMTPAuth = true;
-        $mailer->From = 'admin@blueu.com';
-        $mailer->AddReplyTo('admin@blueu.com');
+        $mailer->From = 'hu198021688500@163.com';
+        $mailer->AddReplyTo('hu198021688500@163.com');
         $mailer->AddAddress($email);
         $mailer->FromName = 'admin@blueu.com';
         $mailer->Username = 'hu198021688500';
         $mailer->Password = '198502021';
         $mailer->CharSet = 'UTF-8';
         $mailer->Subject = Yii::t('admin', 'Reset password');
-        $mailer->Body = 'xxxxx';
-        return $mailer->Send();
+        $mailer->Body = Yii::app()->params['host'] . 'user/resetpwd/key/' . $key;
+        if (!$mailer->Send()) {
+            $this->error = Yii::t('admin', 'Send email failure.');
+            return false;
+        }
+        return Account::model()->updateByPk($account->id, array('resetpwdkey' => $key));
     }
 
     public function getAccount($id) {
         return Account::model()->findByPk($id);
+    }
+
+    public function getAccountByUsername($uername) {
+        return Account::model()->findByAttributes(array('username' => $uername));
+    }
+
+    public function getAccountByKey($key) {
+        return Account::model()->findByAttributes(array('resetpwdkey' => $key));
     }
 
     public function resetPwd($data) {
@@ -93,8 +111,8 @@ class AccountBehavior extends BaseBehavior {
             $this->error = Yii::t('admin', 'Password is wrong.');
             return false;
         }
-        
-        $this->error =  Account::model()->updateByPk($account->id, array('password' => md5($data['newpassword'])));
+
+        $this->error = Account::model()->updateByPk($account->id, array('password' => md5($data['newpassword']), 'resetpwdkey' => ''));
         return true;
     }
 
