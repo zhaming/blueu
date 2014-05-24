@@ -40,9 +40,9 @@ class MerchantshopController extends BController {
 
             $res = $this->shopBehavior->saveOrUpdate($shop);
             if($res){
-                $this->showSuccess('创建成功', $this->createUrl('create'));
+                $this->showSuccess(Yii::t("comment","Create Success"), $this->createUrl('create'));
             }else{
-                $this->showError('创建失败', $this->createUrl('create'));
+                $this->showError(Yii::t("comment","Create Failure"), $this->createUrl('create'));
             }
 
         }else{
@@ -69,16 +69,16 @@ class MerchantshopController extends BController {
                     $shop['ismain'] =0;
                 $res = $this->shopBehavior->saveOrUpdate($shop);
                 if($res){
-                    $this->showSuccess("修改成功");
+                    $this->showSuccess(Yii::t("comment","Modify Success"));
                 }else{
-                    $this->showError("修改失败");
+                    $this->showError(Yii::t("comment","Modify Failure"));
                 }
                 $this->redirect($this->referer);
         }else{
             $shopid  =  Yii::app()->request->getParam("id");
             if(empty($shopid))
             {
-                $this->showError("非法操作",$this->referer);
+                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
                 Yii::app()->end();
             }
             $shop = $this->shopBehavior->getById($shopid);
@@ -129,7 +129,7 @@ class MerchantshopController extends BController {
             $shopid  = Yii::app()->request->getParam("id");
             if(empty($shopid))
             {
-                $this->showError("非法操作",$this->referer);
+                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
                 Yii::app()->end();
             }
             $shop = $this->shopBehavior->getById($shopid);
@@ -152,7 +152,7 @@ class MerchantshopController extends BController {
         $shopid  = Yii::app()->request->getParam("id");
         if(empty($shopid))
         {
-            $this->showError("非法操作",$this->referer);
+            $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
             Yii::app()->end();
         }
         $shop = $this->shopBehavior->getById($shopid);
