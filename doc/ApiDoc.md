@@ -25,10 +25,12 @@ BlueU客户端接口文档
 [商户详情](#api9)  |  /api/merchant/1    |  GET
 [商户列表](#api10) |  /api/merchants     |  GET
 [广告详情](#api11) |  /api/ad/1          |  GET
-[商铺列表](#api12) |  /api/merchantshop/list| GET
-[商铺详情](#api13) |  /api/merchantshop/detail| GET
-[商品列表](#api14) |  /api/merchantshop/products| GET
-[商品详情](#api15) |  /api/merchantshop/productdetail| GET
+[到店状态](#api12) |  /api/push/toshop   |  POST
+[推送点击](#api13) |  /api/push/click    |  POST
+[商铺列表](#api14) |  /api/merchantshop/list| GET
+[商铺详情](#api15) |  /api/merchantshop/detail| GET
+[商品列表](#api16) |  /api/merchantshop/products| GET
+[商品详情](#api17) |  /api/merchantshop/productdetail| GET
 
 
 ## 约定  
@@ -508,8 +510,72 @@ data       |  是 |   map   | 见示例 | 返回数据
     }
 }
 </pre>
+## 到店状态 {#api12}
+地址：/api/push/toshop
 
-##商铺列表{#api12}
+###接口输入
+
+提交方式：POST
+
+ 参数名   | 必填 |   类型     示例                                   说明
+-------- | ---- | ----- | -----------------------------------  | --------
+userid   |  是  | int    | 6                                   | 用户ID
+uuid     |  是  | string | 991CC36-C8DB-96DB-1A32-AB756C6BC5A9 | 密码
+param    |  否  | string | {"distance":"7.00"}                 | 基站扩展信息
+left     |  否  | int    | 1                                   | 是否离开 0否 1是
+
+完整参数示例:
+<pre>
+    curl -X POST -H "Accept:application/json" -d '{"userid":"2","uuid":"991CC36-C8DB-96DB-1A32-AB756C6BC5A9","left":"0"}' http://domain/api/push/toshop
+</pre>
+
+###接口输出
+
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |   int   | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success"，
+}
+</pre>
+
+
+## 推送点击 {#api13}
+地址：/api/push/click
+
+###接口输入
+
+提交方式：POST
+
+ 参数名   | 必填 |   类型     示例          说明
+-------- | ---- | ----- | --------  | --------
+pushid   |  是  | int    | 6        | 推送ID
+
+完整参数示例:
+<pre>
+    curl -X POST -H "Accept:application/json" -d '{"pushid":"6"}' http://domain/api/push/click
+</pre>
+
+###接口输出
+
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |   int   | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success"，
+}
+</pre>
+
+
+##商铺列表{#api14}
 地址 /api/merchantshop/list
 ###接口输入
 
@@ -545,7 +611,7 @@ data       |  是 |   map   | 见示例 | 返回数据
 }
 </pre>
 
-##商铺列表{#api13}
+##商铺列表{#api15}
 地址  /api/merchantshop/detail
 
 ### 接口输入
@@ -591,7 +657,7 @@ data       |  是 |   map   | 见示例 | 返回数据
 }
 </pre>
 
-##商品列表{#api14}
+##商品列表{#api16}
 
 地址 /api/merchantshop/products
 
@@ -623,9 +689,12 @@ data       |  是 |   map   | 见示例 | 返回数据
     }
 </pre>
 
-##商品详情{#api15} 
+##商品详情{#api17}
+
 地址 /api/merchantshop/productdetail
+
 ###接口输入
+
 提交方式 GET | POST
 
   参数名    | 必有   |   类型  |  示例   | 说明
