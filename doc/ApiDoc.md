@@ -1,3 +1,5 @@
+
+
 BlueU客户端接口文档
 ========================
 
@@ -23,6 +25,8 @@ BlueU客户端接口文档
 [商户详情](#api9)  |  /api/merchant/1    |  GET
 [商户列表](#api10) |  /api/merchants     |  GET
 [广告详情](#api11) |  /api/ad/1          |  GET
+[商铺列表](#api12) |  /api/merchantshop/list| GET
+[商铺详情](#api13) |  /api/merchantshop/detail| GET
 
 
 ## 约定  
@@ -499,6 +503,88 @@ data       |  是 |   map   | 见示例 | 返回数据
 	"telephone":"",
 	"bank":"",
 	"shopnum":"0"
+    }
+}
+</pre>
+
+##商铺列表{#api12}
+地址 /api/merchantshop/list
+###接口输入
+
+提交方式：GET|POST
+
+  参数名    | 必填  | 类型  |  示例  | 说明
+---------- | --    | -----| ----  | --------
+merchantid | 是    |int   | 14     |商户ID
+page       | 否    |int   | 1      | 页数 默认1
+pagesize   | 否    |int   |10      |每页条数 默认10
+
+完整参数示例:
+<pre>
+    curl -X GET -H "Accept:application/json" http://api.blueu.com/api/merchantshop/list?merchantid=19&page=1$&pagesize=10
+</pre>
+
+###接口输出
+
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |  int    | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
+data       |  是 |   map   | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success",
+    "data":[
+        {"id":"8","merchantid":"14","name":"qwerq","owner":"qwer","selfid":null,"telephone":"qwer","address":"","url":"qwer","catid":"5","districtid":"1","marketplace":"qew","floorer":"0","created":"1400658222","status":"1","ismain":"0","isonly":"0","longitude":"0","latitude":"0","stations":"0"}
+        {"id":"7","merchantid":"14","name":"14\u53f7\u5e97","owner":"14\u53f7\u5e97","selfid":null,"telephone":"14\u53f7\u5e9714\u53f7\u5e97","address":"14\u53f7\u5e97","url":"14\u53f7\u5e97","catid":"4","districtid":"3","marketplace":"14\u53f7\u5e97","floor":"12","created":"1400642941","status":"1","ismain":"1","isonly":"1","longitude":"0","latitude":"0","stations":"0"}
+    ]
+}
+</pre>
+
+##商铺列表{#api13}
+地址  /api/merchantshop/detail
+
+### 接口输入
+提交方式  GET|POST
+
+  参数名    | 必有 |   类型  |  示例
+---------- | --- | ------- | ----
+id         |  是 |  int    | 7
+
+### 接口输出
+
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |  int    | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
+data       |  是 |   map   | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"Success",
+    "data":{
+          "id":"7",
+          "merchantid":"14",
+          "name":"14\u53f7\u5e97",
+          "owner":"14\u53f7\u5e97",
+          "selfid":null,
+          "telephone":"14\u53f7\u5e9714\u53f7\u5e97",
+          "address":"14\u53f7\u5e97",
+          "url":"14\u53f7\u5e97",
+          "catid":"4",
+          "districtid":"3",
+          "marketplace":"14\u53f7\u5e97",
+          "floor":"12",
+          "created":"1400642941",
+          "status":"1",
+          "ismain":"1",
+          "isonly":"1",
+          "longitude":"0",
+          "latitude":"0",
+          "stations":"0"
     }
 }
 </pre>

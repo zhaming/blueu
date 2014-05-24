@@ -79,7 +79,7 @@ class IController extends CController {
         if (!empty($this->data)) {
             $data['data'] = $this->data;
         }
-        exit(json_encode($data));
+        exit(CJSON::encode($data));
     }
 
     protected function getJsonFormData() {
