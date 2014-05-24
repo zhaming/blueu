@@ -2,11 +2,10 @@
 
 class BController extends CController {
 
+    public $pagename;
     public $controller_id;
     public $action_id;
     public $referer;
-    public $pageTitle = '新三版 - 后台';
-    public $pageName = '后台';
     public $menu = array();
     public $breadcrumbs = array();
     protected $error;
@@ -89,4 +88,23 @@ class BController extends CController {
         }
     }
 
+    public function setPageTitle($pageName)
+	{
+		if(is_array($pageName)) $pageName = implode(Yii::app()->params->title_separator, $pageName);
+		parent::setPageTitle(Yii::t('application', '{appName}{separator}{pageName}', array(
+			'{appName}' => Yii::app()->params->title,
+			'{separator}' => Yii::app()->params->title_separator,
+			'{pageName}' => $pageName,
+		)));
+		$this->pagename = $pageName;
+	}
+
+	public function getPageTitle()
+	{
+		if(parent::getPageTitle()!==null)
+		{
+			return parent::getPageTitle();
+		}
+		return $this->pageTitle = empty(Yii::app()->name) ? Yii::app()->params->title : Yii::app()->name;
+	}
 }

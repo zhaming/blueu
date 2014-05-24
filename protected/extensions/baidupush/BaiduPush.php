@@ -1,6 +1,6 @@
 <?php
 /**
- *	控制台入口
+ *	百度云推送
  *	@author		zham <zha_ming@163.com>
  *	@copyright	2014-2016
  *	@version	1.0

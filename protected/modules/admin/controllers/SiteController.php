@@ -3,6 +3,7 @@
 class SiteController extends BController {
 
     public function actionIndex() {
+        $this->setPageTitle(array('首页'));
         $this->render('index');
     }
 
@@ -83,18 +84,14 @@ class SiteController extends BController {
         }
     }
 
-    public function actionError() {
-        if ($error = Yii::app()->errorHandler->error) {
-            if (Yii::app()->request->isAjaxRequest) {
-                echo json_encode($error);
-            } else {
-                echo "<pre>";
-                print_r($error);
-                //$this->render('error', $error);
-            }
-        }
-    }
-
+    public function actionError()
+	{
+	    if($error=Yii::app()->errorHandler->error)
+	    {
+	    	if(Yii::app()->request->isAjaxRequest)
+	    		echo $error['message'];
+	    	else
+	        	$this->render('error', $error);
+	    }
+	}
 }
-
-?>

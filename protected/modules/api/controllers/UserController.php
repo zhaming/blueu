@@ -79,7 +79,14 @@ class UserController extends IController {
             $this->message = $this->tokenBehavior->getError();
             return;
         }
-        $this->data = array('token_id' => $tokenId);
+        $this->data = array(
+            'userid' => $user['id'],
+            'token_id' => $tokenId,
+        );
+        
+        //绑定设备信息
+        $pushBehavoir = new PushBehavior();
+        $pushBehavoir->bindDeviceInfo($user['id'], $data);
     }
 
     public function actionList() {
