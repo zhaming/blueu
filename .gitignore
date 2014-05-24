@@ -1,9 +1,17 @@
 .DS_Store
+<<<<<<< HEAD
 /nbproject
 /nbproject/private
 /protected/runtime
+=======
+/protected/runtime/
+>>>>>>> 65f9cbef2e1d0b1884389437eca0a310b5fdd0ee
 /protected/config/db.php
 /statics/upload/logo
 /statics/upload/original
 /statics/upload/avatar
+<<<<<<< HEAD
+=======
+.DS_Store
+>>>>>>> 65f9cbef2e1d0b1884389437eca0a310b5fdd0ee
 /doc/api.html

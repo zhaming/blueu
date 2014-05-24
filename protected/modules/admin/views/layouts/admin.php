@@ -116,9 +116,6 @@
         </a>
     </div>
 
-
-
-    <!-- inline scripts related to this page -->
     <script type="text/javascript">
         jQuery(function($) {
             $(".delete-confirm").click(function(){
@@ -139,166 +136,167 @@
                     size: size
                 });
             });
+        });
 
-            $('.sparkline').each(function() {
-                var $box = $(this).closest('.infobox');
-                var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
-                $(this).sparkline('html', {tagValuesAttribute: 'data-values', type: 'bar', barColor: barColor, chartRangeMin: $(this).data('min') || 0});
-            });
+        $('.sparkline').each(function() {
+            var $box = $(this).closest('.infobox');
+            var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
+            $(this).sparkline('html', {tagValuesAttribute: 'data-values', type: 'bar', barColor: barColor, chartRangeMin: $(this).data('min') || 0});
+        });
 
-            var placeholder = $('#piechart-placeholder').css({'width': '90%', 'min-height': '150px'});
-            var data = [
-                {label: "social networks", data: 38.7, color: "#68BC31"},
-                {label: "search engines", data: 24.5, color: "#2091CF"},
-                {label: "ad campaigns", data: 8.2, color: "#AF4E96"},
-                {label: "direct traffic", data: 18.6, color: "#DA5430"},
-                {label: "other", data: 10, color: "#FEE074"}
-            ];
-
-
+        var placeholder = $('#piechart-placeholder').css({'width': '90%', 'min-height': '150px'});
+        var data = [
+            {label: "social networks", data: 38.7, color: "#68BC31"},
+            {label: "search engines", data: 24.5, color: "#2091CF"},
+            {label: "ad campaigns", data: 8.2, color: "#AF4E96"},
+            {label: "direct traffic", data: 18.6, color: "#DA5430"},
+            {label: "other", data: 10, color: "#FEE074"}
+        ];
 
 
-            var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
-            var previousPoint = null;
 
-            placeholder.on('plothover', function(event, pos, item) {
-                if (item) {
-                    if (previousPoint !== item.seriesIndex) {
-                        previousPoint = item.seriesIndex;
-                        var tip = item.series['label'] + " : " + item.series['percent'] + '%';
-                        $tooltip.show().children(0).text(tip);
-                    }
-                    $tooltip.css({top: pos.pageY + 10, left: pos.pageX + 10});
-                } else {
-                    $tooltip.hide();
-                    previousPoint = null;
+
+        var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
+        var previousPoint = null;
+
+        placeholder.on('plothover', function(event, pos, item) {
+            if (item) {
+                if (previousPoint !== item.seriesIndex) {
+                    previousPoint = item.seriesIndex;
+                    var tip = item.series['label'] + " : " + item.series['percent'] + '%';
+                    $tooltip.show().children(0).text(tip);
                 }
+                $tooltip.css({top: pos.pageY + 10, left: pos.pageX + 10});
+            } else {
+                $tooltip.hide();
+                previousPoint = null;
+            }
 
+        });
+
+
+
+
+
+
+        var d1 = [];
+        for (var i = 0; i < Math.PI * 2; i += 0.5) {
+            d1.push([i, Math.sin(i)]);
+        }
+
+        var d2 = [];
+        for (var i = 0; i < Math.PI * 2; i += 0.5) {
+            d2.push([i, Math.cos(i)]);
+        }
+
+        var d3 = [];
+        for (var i = 0; i < Math.PI * 2; i += 0.2) {
+            d3.push([i, Math.tan(i)]);
+        }
+
+
+        var sales_charts = $('#sales-charts').css({'width': '100%', 'height': '220px'});
+
+
+
+        $('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+        function tooltip_placement(context, source) {
+            var $source = $(source);
+            var $parent = $source.closest('.tab-content');
+            var off1 = $parent.offset();
+            var w1 = $parent.width();
+
+            var off2 = $source.offset();
+            var w2 = $source.width();
+
+            if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2))
+                return 'right';
+            return 'left';
+        }
+
+
+        $('.dialogs,.comments').slimScroll({
+            height: '300px'
+        });
+
+
+        //Android's default browser somehow is confused when tapping on label which will lead to dragging the task
+        //so disable dragging when clicking on label
+        var agent = navigator.userAgent.toLowerCase();
+        if ("ontouchstart" in document && /applewebkit/.test(agent) && /android/.test(agent))
+            $('#tasks').on('touchstart', function(e) {
+                var li = $(e.target).closest('#tasks li');
+                if (li.length === 0)
+                    return;
+                var label = li.find('label.inline').get(0);
+                if (label === e.target || $.contains(label, e.target))
+                    e.stopImmediatePropagation();
             });
 
-
-
-
-
-
-            var d1 = [];
-            for (var i = 0; i < Math.PI * 2; i += 0.5) {
-                d1.push([i, Math.sin(i)]);
+        $('#tasks').sortable({
+            opacity: 0.8,
+            revert: true,
+            forceHelperSize: true,
+            placeholder: 'draggable-placeholder',
+            forcePlaceholderSize: true,
+            tolerance: 'pointer',
+            stop: function(event, ui) {//just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved
+                $(ui.item).css('z-index', 'auto');
             }
-
-            var d2 = [];
-            for (var i = 0; i < Math.PI * 2; i += 0.5) {
-                d2.push([i, Math.cos(i)]);
+        }
+        );
+        $('#tasks').disableSelection();
+        $('#tasks input:checkbox').removeAttr('checked').on('click', function() {
+            if (this.checked) {
+                $(this).closest('li').addClass('selected');
+            } else {
+                $(this).closest('li').removeClass('selected');
             }
+        });
 
-            var d3 = [];
-            for (var i = 0; i < Math.PI * 2; i += 0.2) {
-                d3.push([i, Math.tan(i)]);
-            }
-
-
-            var sales_charts = $('#sales-charts').css({'width': '100%', 'height': '220px'});
-
-
-
-            $('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-            function tooltip_placement(context, source) {
-                var $source = $(source);
-                var $parent = $source.closest('.tab-content');
-                var off1 = $parent.offset();
-                var w1 = $parent.width();
-
-                var off2 = $source.offset();
-                var w2 = $source.width();
-
-                if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2))
-                    return 'right';
-                return 'left';
-            }
-
-
-            $('.dialogs,.comments').slimScroll({
-                height: '300px'
-            });
-
-
-            //Android's default browser somehow is confused when tapping on label which will lead to dragging the task
-            //so disable dragging when clicking on label
-            var agent = navigator.userAgent.toLowerCase();
-            if ("ontouchstart" in document && /applewebkit/.test(agent) && /android/.test(agent))
-                $('#tasks').on('touchstart', function(e) {
-                    var li = $(e.target).closest('#tasks li');
-                    if (li.length === 0)
-                        return;
-                    var label = li.find('label.inline').get(0);
-                    if (label === e.target || $.contains(label, e.target))
-                        e.stopImmediatePropagation();
-                });
-
-            $('#tasks').sortable({
-                opacity: 0.8,
-                revert: true,
-                forceHelperSize: true,
-                placeholder: 'draggable-placeholder',
-                forcePlaceholderSize: true,
-                tolerance: 'pointer',
-                stop: function(event, ui) {//just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved
-                    $(ui.item).css('z-index', 'auto');
-                }
-            }
-            );
-            $('#tasks').disableSelection();
-            $('#tasks input:checkbox').removeAttr('checked').on('click', function() {
-                if (this.checked) {
-                    $(this).closest('li').addClass('selected');
-                } else {
-                    $(this).closest('li').removeClass('selected');
-                }
-            });
-
-            $('table th input:checkbox').on('click', function() {
-                var that = this;
-                $(this).closest('table').find('tr > td:first-child input:checkbox').each(function() {
-                    this.checked = that.checked;
-                    $(this).closest('tr').toggleClass('selected');
-                });
-            });
-            $('#id-input-file-single-upload').ace_file_input({
-                //style: true,
-                no_file: '',
-                //no_icon: "icon-upload-alt",
-                btn_choose: '选择',
-                btn_change: '重新选择',
-                icon_remove: "icon-remove",
-                //droppable: false,
-                thumbnail: true, //| true | large
-                before_change: function(files, dropped) {
-                    var allowed_files = [];
-                    for (var i = 0; i < files.length; i++) {
-                        var file = files[i];
-                        if (typeof file === "string") {
-                            //IE8 and browsers that don't support File Object
-                            if (!(/\.(jpe?g|png|gif|bmp)$/i).test(file)) {
-                                return false;
-                            }
-                        } else {
-                            var type = $.trim(file.type);
-                            if ((type.length > 0 && !(/^image\/(jpe?g|png|gif|bmp)$/i).test(type)) || (type.length === 0 && !(/\.(jpe?g|png|gif|bmp)$/i).test(file.name))) {//for android's default browser which gives an empty string for file.type
-                                continue;
-                            }
-                        }
-                        allowed_files.push(file);
-                    }
-                    if (allowed_files.length === 0) {
-                        return false;
-                    }
-                    return allowed_files;
-                }//,
-                //before_remove: null,
-                //preview_error: null
+        $('table th input:checkbox').on('click', function() {
+            var that = this;
+            $(this).closest('table').find('tr > td:first-child input:checkbox').each(function() {
+                this.checked = that.checked;
+                $(this).closest('tr').toggleClass('selected');
             });
         });
-    </script>
+        $('#id-input-file-single-upload').ace_file_input({
+            //style: true,
+            no_file: '',
+            //no_icon: "icon-upload-alt",
+            btn_choose: '选择',
+            btn_change: '重新选择',
+            icon_remove: "icon-remove",
+            //droppable: false,
+            thumbnail: true, //| true | large
+            before_change: function(files, dropped) {
+                var allowed_files = [];
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    if (typeof file === "string") {
+                        //IE8 and browsers that don't support File Object
+                        if (!(/\.(jpe?g|png|gif|bmp)$/i).test(file)) {
+                            return false;
+                        }
+                    } else {
+                        var type = $.trim(file.type);
+                        if ((type.length > 0 && !(/^image\/(jpe?g|png|gif|bmp)$/i).test(type)) || (type.length === 0 && !(/\.(jpe?g|png|gif|bmp)$/i).test(file.name))) {//for android's default browser which gives an empty string for file.type
+                            continue;
+                        }
+                    }
+                    allowed_files.push(file);
+                }
+                if (allowed_files.length === 0) {
+                    return false;
+                }
+                return allowed_files;
+            }//,
+            //before_remove: null,
+            //preview_error: null
+        });
+    });
+</script>
 </body>
 </html>
 
