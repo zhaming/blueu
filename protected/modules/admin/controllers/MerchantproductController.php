@@ -85,12 +85,12 @@ class MerchantproductController  extends BController {
         }else{
             $id = Yii::app()->request->getParam("id");
             if(empty($id)){
-                $this->showError("非法操作",$this->referer);
+                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
             }
 
             $product  = $this->productBehavior->getById($id);
             if(empty($product)){
-                $this->showError("非法操作",$this->referer);
+                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
             }
             $ar['merchantid'] = Yii::app()->user->getId();
             $ar['selfid'] = Yii::app()->user->getId();
@@ -106,12 +106,12 @@ class MerchantproductController  extends BController {
 
         $id = Yii::app()->request->getParam("id");
         if(empty($id)){
-            $this->showError("非法操作",$this->referer);
+            $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
         }
 
         $product  = $this->productBehavior->getById($id);
         if(empty($product)){
-            $this->showError("非法操作",$this->referer);
+            $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
         }
         $res  = $product->delete();
         //删除关联
