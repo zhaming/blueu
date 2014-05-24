@@ -79,7 +79,7 @@
                                 <a href="<?php echo $this->createUrl('edit?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
                                     <i class="icon-edit bigger-120"></i>
                                 </a>
-                                <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger">
+                                <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger delete-confirm">
                                     <i class="icon-trash bigger-120"></i>
                                 </a>
                             </td>

@@ -35,7 +35,7 @@ class HelpTemplate extends CComponent {
         );
         return $map[$index];
     }
-    
+
     public static function role($index) {
         $map = array(
             1 => Yii::t('admin', 'Administrator'),
@@ -43,6 +43,21 @@ class HelpTemplate extends CComponent {
             5 => Yii::t('admin', 'Client user')
         );
         return $map[$index];
+    }
+
+    public static function logginRole() {
+        $roleId = Yii::app()->user->getState('roleid');
+        if ($roleId == 1) {
+            if (Yii::app()->user->getId() == 1) {
+                return Yii::t('admin', 'Super admin');
+            } else {
+                return Yii::t('admin', 'Administrator');
+            }
+        }
+        if ($roleId == 4) {
+            return Yii::t('admin', 'Merchant');
+        }
+        return '';
     }
 
     public static function isLoginAsAdmin() {

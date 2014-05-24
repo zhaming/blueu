@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-3 center">
                                 <span class="profile-picture">
-                                    <img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="/statics/upload/avatar/profile-pic.jpg"></img>
+                                    <img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="/statics/upload/default/profile-pic.jpg"></img>
 
                                 </span>
                             </div>

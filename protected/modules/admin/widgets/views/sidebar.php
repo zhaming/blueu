@@ -49,9 +49,11 @@
                 <li<?php if (Yii::app()->controller->getId() == 'user') { ?> class="active"<?php } ?>>
                     <a href="/admin/user"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Client user'); ?></a>
                 </li>
+                <?php if (Yii::app()->user->getId() == 1) { ?>
                 <li<?php if (Yii::app()->controller->getId() == 'manager') { ?> class="active"<?php } ?>>
                     <a href="/admin/manager"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Administrator manager'); ?></a>
                 </li>
+                <?php } ?>
             </ul>
         </li>
         <?php } ?>
