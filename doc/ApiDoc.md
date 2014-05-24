@@ -28,6 +28,7 @@ BlueU客户端接口文档
 [商铺列表](#api12) |  /api/merchantshop/list| GET
 [商铺详情](#api13) |  /api/merchantshop/detail| GET
 [商品列表](#api14) |  /api/merchantshop/products| GET
+[商品详情](#api15) |  /api/merchantshop/productdetail| GET
 
 
 ## 约定  
@@ -619,5 +620,41 @@ data       |  是 |   map   | 见示例 | 返回数据
               {"id":"24","name":"adsf","pic":"","intro":"asdf","price":"0.00","discount":"1.00","shopid":"0","merchantid":"14","created":"1400664947","status":"1"},
               {"id":"26","name":"adsf","pic":"","intro":"asdf","price":"0.00","discount":"1.00","shopid":"0","merchantid":"18","created":"1400665183","status":"1"},
             ]
+    }
+</pre>
+
+##商品详情{#api15} 
+地址 /api/merchantshop/productdetail
+###接口输入
+提交方式 GET | POST
+
+  参数名    | 必有   |   类型  |  示例   | 说明
+---------- | ---   |------- | ----    |
+productid  | 是    |  int    | 29     | 商品ID
+
+### 接口输出
+
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |  int    | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
+data       |  是 |   map   | 见示例 | 返回数据
+
+<pre>
+    {
+        "error_code":0,
+        "error_msg":"Success",
+        "data":{
+            "id":"29",
+            "name":"adsf",
+            "pic":"",
+            "intro":"asdf",
+            "price":"0.00",
+            "discount":"1.00",
+            "shopid":"0",
+            "merchantid":"14",
+            "created":"1400664755",
+            "status":"1"
+        }
     }
 </pre>

@@ -56,4 +56,18 @@ class MerchantshopController  extends IController {
         }
         $this->data = $res['data'];
     }
+
+    public function actionProductDetail(){
+        $id = Yii::app()->request->getParam("productid");
+        if(empty($id)){
+            $this->error_code = self::ERROR_REQUEST_PARAMS;
+            return;
+        }
+        $res  =  $this->productBehavior->getById($id);
+        if(empty($res)){
+            $this->error_code = self::ERROR_NOT_FOUNT;
+            return;
+        }
+        $this->data = $res;
+    }
 }
