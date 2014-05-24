@@ -16,7 +16,7 @@
  * Stations.php hugb
  *
  */
-class Stations extends CActiveRecord {
+class Station extends CActiveRecord {
 
     public $id;
     public $uuid;
@@ -28,7 +28,7 @@ class Stations extends CActiveRecord {
     }
 
     public function tableName() {
-        return '{{stations}}';
+        return '{{station}}';
     }
 
     public function primaryKey() {

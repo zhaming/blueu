@@ -40,4 +40,5 @@ return array (
   'Token has expired' => 'Token已过期',
   'Token is not exist' => 'Token不存在',
   'Station Illegal' => '基站无效',
+  'Repeat Request' => '重复请求',
 );

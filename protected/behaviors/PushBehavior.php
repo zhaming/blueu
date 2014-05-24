@@ -55,22 +55,34 @@ class PushBehavior extends BaseBehavior {
      * @return mixed
      */
     public function userToShop($data) {
-        $stationR = Stations::model()->findByAttributes(array('uuid' => $data['uuid']));
-        if(!empty($stationR)) $stationR->updateByPk($stationR->id, array('param' => $data['param']));
+        $stationR = Station::model()->findByAttributes(array('uuid' => $data['uuid']));
+        if(!empty($stationR)) $stationR->updateByPk($stationR->id, array('param' => json_encode($data['param'])));
         if(empty($stationR) || $stationR->disabled != 0 || empty($stationR->shopid)) {
             $this->errorLog(Yii::t('api', 'Station Illegal'));
             return false;
         }
         
-        $shopUserT = new ShopUser();
-        $shopUserT->userid = $data['userid'];
-        $shopUserT->station = $data['uuid'];
-        $shopUserT->shopid = $stationR->shopid;
-        if($data['left'] == 0)
-            $shopUserT->come_time = time();
-        else
-            $shopUserT->go_time = time();
-        return $shopUserT->save();
+        $rs = false;
+        $shopUserR = ShopUser::model()->findByAttributes(array('userid' => $data['userid'], 'station' => $data['uuid']));
+        if($data['left'] == 0) {
+            if(empty($shopUserR) || (!empty($shopUserR->come_time) && !empty($shopUserR->go_time))) {
+                $shopUserT = new ShopUser();
+                $shopUserT->userid = $data['userid'];
+                $shopUserT->station = $data['uuid'];
+                $shopUserT->shopid = $stationR->shopid;
+                $shopUserT->come_time = time();
+                $rs = $shopUserT->save();
+            } else {
+                $this->errorLog(Yii::t('api', 'Repeat Request'));
+            }
+        } else {
+            if(!empty($shopUserR->come_time) && empty($shopUserR->go_time)) {
+                $rs = ShopUser::model()->updateByPk($shopUserR->id, array('go_time' => time()));
+            } else {
+                $this->errorLog(Yii::t('api', 'Repeat Request'));
+            }
+        }
+        return $rs;
     }
     
     /**

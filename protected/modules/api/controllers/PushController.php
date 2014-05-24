@@ -15,7 +15,7 @@ class PushController extends IController {
         parent::init();
     }
 
-    public function actionToShop() {
+    public function actionToshop() {
         if (!Yii::app()->request->getIsPostRequest()) {
             $this->error_code = self::ERROR_REQUEST_METHOD;
             $this->message = Yii::t('api', 'Please use POST method');
