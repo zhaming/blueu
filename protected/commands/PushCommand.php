@@ -24,4 +24,3 @@ class PushCommand extends CConsoleCommand
         echo 'push';
     }
 }
-?>

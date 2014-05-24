@@ -13,22 +13,40 @@ class MerchantproductController  extends BController {
         $page = Yii::app()->request->getParam("page",1);
         $name = Yii::app()->request->getParam('name');
 
-        $param["pageSize"] =2;
+        $param["pageSize"] =20;
         $param["page"] = $page;
         if(!empty($name))
             $param['name'] =$name;
+        //fix 我发布的和我建立的分店账号发布的
+        $merchantid = Yii::app()->user->getId();
+        $ids =array($merchantid);
+
+        $result   = $this->shopBehavior->getList(array("merchantid"=>$merchantid));
+        if(!empty($result['data'])){
+            foreach ($result['data'] as $key => $value) {
+                if(!empty($value->selfid)){
+                    array_push($ids, $value->selfid);
+                }
+            }
+        }
+
+        $param['in']= array("merchantid"=> $ids );
         $res  = $this->productBehavior->getList($param);
 
         $data = array_merge($param,$res);
         $this->render("list",$data);
     }
 
+
     public function actionCreate(){
         if(Yii::app()->request->IsPostrequest){
             $shopid  = Yii::app()->request->getPost("shopid");
             $product = Yii::app()->request->getPost("product");
             //TODO 图片处理
-
+            if(empty($shopid)){
+                $this->showError("请为该商品至少关联一个商铺",$this->referer);
+                Yii::app()->end();
+            }
             $product['merchantid'] = Yii::app()->user->getId();
             $product['shops'] =  $shopid;
             $res =  $this->productBehavior->saveOrUpdate($product);
@@ -85,12 +103,12 @@ class MerchantproductController  extends BController {
         }else{
             $id = Yii::app()->request->getParam("id");
             if(empty($id)){
-                $this->showError("非法操作",$this->referer);
+                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
             }
 
             $product  = $this->productBehavior->getById($id);
             if(empty($product)){
-                $this->showError("非法操作",$this->referer);
+                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
             }
             $ar['merchantid'] = Yii::app()->user->getId();
             $ar['selfid'] = Yii::app()->user->getId();
@@ -106,12 +124,12 @@ class MerchantproductController  extends BController {
 
         $id = Yii::app()->request->getParam("id");
         if(empty($id)){
-            $this->showError("非法操作",$this->referer);
+            $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
         }
 
         $product  = $this->productBehavior->getById($id);
         if(empty($product)){
-            $this->showError("非法操作",$this->referer);
+            $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
         }
         $res  = $product->delete();
         //删除关联

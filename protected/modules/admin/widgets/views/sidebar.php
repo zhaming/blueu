@@ -49,9 +49,11 @@
                 <li<?php if (Yii::app()->controller->getId() == 'user') { ?> class="active"<?php } ?>>
                     <a href="/admin/user"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Client user'); ?></a>
                 </li>
+                <?php if (Yii::app()->user->getId() == 1) { ?>
                 <li<?php if (Yii::app()->controller->getId() == 'manager') { ?> class="active"<?php } ?>>
                     <a href="/admin/manager"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Administrator manager'); ?></a>
                 </li>
+                <?php } ?>
             </ul>
         </li>
         <?php } ?>
@@ -62,27 +64,42 @@
             </a>
             <ul class="submenu">
                 <li<?php if (Yii::app()->controller->getId() == 'merchantshop' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchantshop/index"><i class="icon-double-angle-right"></i>商铺列表</a>
+                    <a href="/admin/merchantshop/index"><i class="icon-double-angle-right"></i><?php echo  Yii::t("shop","Shop List")?></a>
                 </li>
                 <li<?php if (Yii::app()->controller->getId() == 'merchantshop' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchantshop/create"><i class="icon-double-angle-right"></i>创建商铺</a>
+                    <a href="/admin/merchantshop/create"><i class="icon-double-angle-right"></i><?php echo  Yii::t("shop","Shop Create")?></a>
                 </li>
             </ul>
         </li>
         <li<?php if (Yii::app()->controller->id == 'merchantproduct') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-home"></i>
-                <span class="menu-text">商品管理</span>
+                <span class="menu-text"><?php echo Yii::t("shop","Product Manager")?></span>
             </a>
             <ul class="submenu">
                 <li<?php if (Yii::app()->controller->getId() == 'merchantproduct' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchantproduct/index"><i class="icon-double-angle-right"></i>商品列表</a>
+                    <a href="/admin/merchantproduct/index"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Product List")?></a>
                 </li>
                 <li<?php if (Yii::app()->controller->getId() == 'merchantproduct' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchantproduct/create"><i class="icon-double-angle-right"></i>添加商品</a>
+                    <a href="/admin/merchantproduct/create"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Product Create")?></a>
                 </li>
             </ul>
         </li>
+        <li<?php if (Yii::app()->controller->id == 'merchantcoupon') { ?> class="active"<?php } ?>>
+            <a class="dropdown-toggle">
+                <i class=" icon-gift"></i>
+                <span class="menu-text"><?php echo Yii::t("shop","Coupon Manager")?></span>
+            </a>
+            <ul class="submenu">
+                <li<?php if (Yii::app()->controller->getId() == 'merchantcoupon' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
+                    <a href="/admin/merchantcoupon/index"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Coupon List")?></a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'merchantcoupon' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
+                    <a href="/admin/merchantcoupon/create"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Coupon Create")?></a>
+                </li>
+            </ul>
+        </li>
+
         <li<?php if (Yii::app()->controller->id == 'activity') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-list"></i>

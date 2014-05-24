@@ -83,46 +83,6 @@ class UserBehavior extends BaseBehavior {
         return false;
     }
 
-    public function apiLogin($data) {
-        $account = Account::model()->findByAttributes(array('username' => $data['username'], 'roleid' => 5));
-        if (empty($account)) {
-            $this->error = Yii::t('admin', 'Username is invalid');
-            return false;
-        }
-        if (md5($data['password']) != $account->password) {
-            $this->error = Yii::t('admin', 'Password is not correct');
-            return false;
-        }
-        Account::model()->updateByPk($account->id, array('logintime' => time()));
-        return array('id' => $account['id'], 'username' => $account['username']);
-    }
-
-    public function apiLogout($data) {
-        $token = Token::model()->findByPk($data['token_id']);
-        if ($token == null) {
-            $this->error = Yii::t('api', 'Token is not exist');
-            return false;
-        }
-        $userData = CJSON::decode($token->data);
-        if ($userData['username'] != $data['username']) {
-            $this->error = Yii::t('api', 'Illegal identity');
-            return false;
-        }
-        return Token::model()->deleteByPk($data['token_id']);
-    }
-
-    public function resetpwd($data) {
-        $account = Account::model()->findByAttributes(array('username' => $data['username']));
-        if (empty($account)) {
-            $this->error = Yii::t('admin', 'Username is invalid');
-        } else if (md5($data['password']) != $account->password) {
-            $this->error = Yii::t('admin', 'Password is not correct');
-        } else {
-            return Account::model()->updateByPk($account->id, array("password" => md5($data['newpassword'])));
-        }
-        return false;
-    }
-
     public function edit($userId, $data) {
         $enableEdit = array(
             'name'

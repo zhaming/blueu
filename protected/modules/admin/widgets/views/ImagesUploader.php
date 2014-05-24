@@ -1,4 +1,3 @@
-<!--
 <div class="demo">
 	<form id="uploadForm" action="/files/upload" method="post" enctype="multipart/form-data">
         <div class="upload_box">

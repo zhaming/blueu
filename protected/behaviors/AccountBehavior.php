@@ -17,9 +17,40 @@
  *
  */
 class AccountBehavior extends BaseBehavior {
-    
-    public function getAllAdmin(){
-        return Account::model()->findAllByAttributes(array('roleid'=>1));
+
+    const DEFAULT_EXPIRE_DELTA = 3600;
+
+    public function login($data, $fromAPI = false) {
+        $account = Account::model()->findByAttributes(array('username' => $data['username'], 'roleid' => 5));
+        if (empty($account)) {
+            $this->error = Yii::t('admin', 'Username is invalid');
+            return false;
+        }
+        if (md5($data['password']) != $account->password) {
+            $this->error = Yii::t('admin', 'Password is not correct');
+            return false;
+        }
+        $account->logintime = time();
+        if ($fromAPI) {
+            $account->token = HelpTemplate::UUID();
+        }
+        if (!$account->save()) {
+            $this->error = Yii::t('admin', 'Login failure.');
+            return false;
+        }
+        return $account;
+    }
+
+    public function logout($userId) {
+        return Account::model()->updateByPk($userId, array('token' => ''));
+    }
+
+    public function getByToken($tokenId) {
+        return Account::model()->findByAttributes(array('token' => $tokenId));
+    }
+
+    public function getAllAdmin() {
+        return Account::model()->findAllByAttributes(array('roleid' => 1));
     }
 
     public function isExist($username) {
@@ -27,6 +58,12 @@ class AccountBehavior extends BaseBehavior {
     }
 
     public function sendResetPwdMail($email) {
+        $account = Account::model()->findByAttributes(array('username' => $email));
+        if (!$account) {
+            $this->error = Yii::t('admin', 'Username is not exist.');
+            return false;
+        }
+        $key = McryptComponent::encryption($email . ' ' . time());
         $mailer = Yii::createComponent('application.extensions.mailer.MailerHelp');
         $mailer->Host = 'smtp.163.com';
         $mailer->IsSMTP();
@@ -38,18 +75,30 @@ class AccountBehavior extends BaseBehavior {
         $mailer->Username = 'hu198021688500';
         $mailer->Password = '198502021';
         $mailer->CharSet = 'UTF-8';
-        $mailer->Subject = '密码重置';
-        $mailer->Body = 'xxxxx';
-        return $mailer->Send();
+        $mailer->Subject = Yii::t('admin', 'Reset password');
+        $mailer->Body = Yii::app()->params['host'] . 'user/resetpwd/key/' . $key;
+        if (!$mailer->Send()) {
+            $this->error = Yii::t('admin', 'Send email failure.');
+            return false;
+        }
+        return Account::model()->updateByPk($account->id, array('resetpwdkey' => $key));
     }
 
     public function getAccount($id) {
         return Account::model()->findByPk($id);
     }
 
+    public function getAccountByUsername($uername) {
+        return Account::model()->findByAttributes(array('username' => $uername));
+    }
+
+    public function getAccountByKey($key) {
+        return Account::model()->findByAttributes(array('resetpwdkey' => $key));
+    }
+
     public function resetPwd($data) {
         if (empty($data['id']) && empty($data['username'])) {
-            $this->error = '用户id和username不能同时为空';
+            $this->error = Yii::t('admin', 'User id and username can not be empty.');
             return false;
         }
         $account = null;
@@ -58,14 +107,29 @@ class AccountBehavior extends BaseBehavior {
         } else {
             $account = Account::model()->findByAttributes(array('username' => $data['username']));
         }
-        if ($account->password != md5($data['password'])) {
-            $this->error = '密码不正确';
+        if (isset($data['password']) && $account->password != md5($data['password'])) {
+            $this->error = Yii::t('admin', 'Password is wrong.');
             return false;
         }
-        return Account::model()->updateByPk($account->id, array('password' => md5($data['newpassword'])));
+
+        $this->error = Account::model()->updateByPk($account->id, array('password' => md5($data['newpassword']), 'resetpwdkey' => ''));
+        return true;
     }
 
-    
+    public function addAdmin($data) {
+        $account = new Account();
+        $account->username = $data['username'];
+        $account->password = md5($data['password']);
+        $account->roleid = 1;
+        $account->status = 0;
+        $account->registertime = time();
+        if (!$account->save()) {
+            $this->error = Yii::t('admin', 'Save failure.');
+            return false;
+        }
+        return $account->getAttributes();
+    }
+
     public function delete($id) {
         return Account::model()->updateByPk($id, array("status" => 2));
     }
@@ -77,4 +141,5 @@ class AccountBehavior extends BaseBehavior {
     public function enable($id) {
         return Account::model()->updateByPk($id, array("status" => 0));
     }
+
 }

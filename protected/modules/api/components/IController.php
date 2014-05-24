@@ -31,7 +31,7 @@ class IController extends CController {
     const ERROR_NOT_IMPLEMENTED = 11;
 
     protected $userBehavior;
-    protected $tokenBehavior;
+    protected $accountBehavior;
 
     /* */
     protected $error_code = 0;
@@ -58,7 +58,7 @@ class IController extends CController {
     public function init() {
         parent::init();
         $this->userBehavior = new UserBehavior();
-        $this->tokenBehavior = new TokenBehavior();
+        $this->accountBehavior = new AccountBehavior();
     }
 
     protected function beforeAction($action) {
@@ -79,7 +79,7 @@ class IController extends CController {
         if (!empty($this->data)) {
             $data['data'] = $this->data;
         }
-        exit(json_encode($data));
+        exit(CJSON::encode($data));
     }
 
     protected function getJsonFormData() {
@@ -105,18 +105,18 @@ class IController extends CController {
             $this->message = Yii::t('api', 'Token not set');
             return false;
         }
-        $token = $this->tokenBehavior->get($tokenId);
-        if ($token == null) {
+        $user = $this->accountBehavior->getByToken($tokenId);
+        if ($user == null) {
             $this->error_code = self::ERROR_TOKEN_INVALID;
             $this->message = Yii::t('api', 'Token not exist');
             return false;
         }
-        if (time() > $token->expires_at) {
+        if (time() > $user->logintime + AccountBehavior::DEFAULT_EXPIRE_DELTA) {
             $this->error_code = self::ERROR_TOKEN_INVALID;
             $this->message = Yii::t('api', 'Token has expired');
             return false;
         }
-        return CJSON::decode($token->data);
+        return $user;
     }
 
     protected function getHeader($key, $default = '') {

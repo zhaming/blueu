@@ -93,6 +93,6 @@
                     <button class="btn" type="reset"><i class="icon-undo bigger-110"></i><?php echo Yii::t('admin', 'Reset'); ?></button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
