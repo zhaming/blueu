@@ -12,16 +12,17 @@ class MerchantshopController  extends IController {
     public function actionList(){
 
         $page = Yii::app()->request->getParam('page', 1);
-        $pagesize = Yii::app()->request->getParam('pagesize', 2);
+        $pagesize = Yii::app()->request->getParam('pagesize', 10);
         $id =  Yii::app()->request->getParam("merchantid");
-        if(empty($id)){
-            $this->error_code = self::ERROR_REQUEST_PARAMS;
-            return;
+        if(!empty($id)){
+            // $this->error_code = self::ERROR_REQUEST_PARAMS;
+            // return;
+            $param['merchantid'] = $id;
+            $param['selfid'] = $id;
         }
         $param['page'] = $page;
         $param['pageSize'] =$pagesize;
-        $param['merchantid'] = $id;
-        $param['selfid'] = $id;
+
         $data = $this->shopBehavior->getlist($param);
         $this->data = $data['data'] ;
     }

@@ -516,7 +516,7 @@ data       |  是 |   map   | 见示例 | 返回数据
 
   参数名    | 必填  | 类型  |  示例  | 说明
 ---------- | --    | -----| ----  | --------
-merchantid | 是    |int   | 14     |商户ID
+merchantid | 否    |int   | 14     |商户ID
 page       | 否    |int   | 1      | 页数 默认1
 pagesize   | 否    |int   |10      |每页条数 默认10
 
