@@ -1,4 +1,6 @@
 .DS_Store
+/nbproject
+nbproject/private
 /protected/runtime
 /protected/config/db.php
 /statics/upload
