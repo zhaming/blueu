@@ -36,6 +36,7 @@
                                 </label>
                             </th>
                             <th><?php echo Yii::t('admin', 'Id'); ?></th>
+                            <th><?php echo Yii::t('admin', 'Username'); ?></th>
                             <th><?php echo Yii::t('admin', 'Name'); ?></th>
                             <th><?php echo Yii::t('admin', 'Status'); ?></th>
                             <th></th>
@@ -52,6 +53,7 @@
                                 </label>
                             </td>
                             <td><?php echo $item->id; ?></td>
+                            <td><?php echo $item->account->username; ?></td>
                             <td><?php echo $item->name; ?></td>
                             <td>
                                 <?php echo Yii::t('admin', 'Account'); ?>:
