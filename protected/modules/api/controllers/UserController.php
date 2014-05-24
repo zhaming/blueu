@@ -67,19 +67,13 @@ class UserController extends IController {
             $this->message = 'password' . Yii::t('api', ' is not set');
             return;
         }
-        $user = $this->userBehavior->apiLogin($data);
-        if (!$user) {
+        $account = $this->accountBehavior->login($data, true);
+        if (!$account) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
-            $this->message = $this->userBehavior->getError();
+            $this->message = $this->accountBehavior->getError();
             return;
         }
-        $tokenId = $this->tokenBehavior->save($user);
-        if (!$tokenId) {
-            $this->error_code = self::ERROR_REQUEST_FAILURE;
-            $this->message = $this->tokenBehavior->getError();
-            return;
-        }
-        $this->data = array('token_id' => $tokenId);
+        $this->data = array('token_id' => $account['token']);
     }
 
     public function actionList() {
@@ -88,8 +82,9 @@ class UserController extends IController {
             $this->message = Yii::t('api', 'Please use GET method');
             return;
         }
+
         $page = Yii::app()->request->getQuery('page', 1);
-        $pagesize = Yii::app()->request->getQuery('pagesize', 2);
+        $pagesize = Yii::app()->request->getQuery('pagesize', 10);
         $data = $this->userBehavior->getlist(array(), $page, $pagesize);
         $this->data = $data['data'];
     }
@@ -106,8 +101,8 @@ class UserController extends IController {
             $this->message = 'userid' . Yii::t('api', ' is not set');
             return;
         }
-        $userData = $this->checkToken();
-        if (!$userData) {
+        $account = $this->checkToken();
+        if (!$account) {
             return;
         }
         $user = $this->userBehavior->detail($userId);
@@ -136,14 +131,14 @@ class UserController extends IController {
             $this->message = 'newpassword' . Yii::t('api', ' is not set');
             return;
         }
-        $userData = $this->checkToken();
-        if (!$userData) {
+        $account = $this->checkToken();
+        if (!$account) {
             return;
         }
-        $data['username'] = $userData['username'];
-        if (!$this->userBehavior->resetpwd($data)) {
+        $data['id'] = $account['id'];
+        if (!$this->accountBehavior->resetpwd($data)) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
-            $this->message = $this->userBehavior->getError();
+            $this->message = $this->accountBehavior->getError();
         }
     }
 
@@ -159,17 +154,13 @@ class UserController extends IController {
             $this->message = 'username' . Yii::t('api', ' is not set');
             return;
         }
-        $userData = $this->checkToken();
-        if (!$userData) {
+        $account = $this->checkToken();
+        if (!$account) {
             return;
         }
-        if (!isset($userData['token_id'])) {
-            return;
-        }
-        $data['token_id'] = $userData['token_id'];
-        if (!$this->userBehavior->apiLogout($data)) {
+        if (!$this->accountBehavior->logout($account['id'])) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
-            $this->message = $this->userBehavior->getError();
+            $this->message = $this->accountBehavior->getError();
         }
     }
 
@@ -186,16 +177,16 @@ class UserController extends IController {
             return;
         }
         $data = $this->getJsonFormData();
-        $userData = $this->checkToken();
-        if (!$userData) {
+        $account = $this->checkToken();
+        if (!$account) {
             return;
         }
-        if ($userId != $userData['id']) {
+        if ($userId != $account['id']) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = Yii::t('api', 'Illegal request');
             return;
         }
-        if (!$this->userBehavior->edit($userData['id'], $data)) {
+        if (!$this->userBehavior->edit($account['id'], $data)) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->userBehavior->getError();
         }
@@ -231,16 +222,16 @@ class UserController extends IController {
             $this->message = 'enable' . Yii::t('api', ' is not correct');
             return;
         }
-        $userData = $this->checkToken();
-        if (!$userData) {
+        $account = $this->checkToken();
+        if (!$account) {
             return;
         }
-        if ($userId != $userData['id']) {
+        if ($userId != $account['id']) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = Yii::t('api', 'Illegal request');
             return;
         }
-        if (!$this->userBehavior->push($userData['id'], $enable)) {
+        if (!$this->userBehavior->push($account['id'], $enable)) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->userBehavior->getError();
         }
@@ -263,11 +254,11 @@ class UserController extends IController {
             $this->message = 'sid' . Yii::t('api', ' is not set');
             return;
         }
-        $userData = $this->checkToken();
-        if (!$userData) {
+        $account = $this->checkToken();
+        if (!$account) {
             return;
         }
-        $data['userid'] = $userData['id'];
+        $data['userid'] = $account['id'];
         if (!$this->userBehavior->like($data)) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->userBehavior->getError();

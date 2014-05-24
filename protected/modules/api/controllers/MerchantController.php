@@ -49,8 +49,8 @@ class MerchantController extends IController {
             $this->message = 'merchantid' . Yii::t('api', ' is not set');
             return;
         }
-        $userData = $this->checkToken();
-        if (!$userData) {
+        $account = $this->checkToken();
+        if (!$account) {
             return;
         }
         $merchant = $this->merchantBehavior->detail($merchantId);

@@ -23,6 +23,8 @@ class Account extends CActiveRecord {
     public $password;
     public $roleid;
     public $status;
+    public $token;
+    public $resetpwdkey;
     public $registertime;
     public $logintime;
 
@@ -45,14 +47,6 @@ class Account extends CActiveRecord {
             ),
         );
         return $relations;
-    }
-
-    public function changePass($id, $oldpwd, $newPwd) {
-        return true;
-    }
-
-    public function managers() {
-        return $this->findByAttributes(array('type' => 0));
     }
 
 }
