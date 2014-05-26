@@ -3,7 +3,7 @@
 class SiteController extends Controller {
 
     public function actionIndex() {
-        $this->render('index');
+        $this->redirect('/html/home.html');
     }
 
     public function actionError() {
