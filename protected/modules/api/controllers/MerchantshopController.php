@@ -1,6 +1,14 @@
 <?php
 class MerchantshopController  extends IController {
 
+    private $order_array  = array(
+        "TIME_DESC" =>"created desc",
+        "TIME_ASC"  =>"created asc",
+        "SHOP_DESC" =>"id desc",
+        "SHOP_ASC"  =>"id asc"
+    );
+
+
     private $shopBehavior ;
     private $productBehavior;
     public function init(){
@@ -14,6 +22,9 @@ class MerchantshopController  extends IController {
         $page = Yii::app()->request->getParam('page', 1);
         $pagesize = Yii::app()->request->getParam('pagesize', 10);
         $id =  Yii::app()->request->getParam("merchantid");
+        $catid = Yii::app()->request->getParam("catid");
+        $districtid = Yii::app()->request->getParam("districtid");
+        $order = Yii::app()->request->getParam("order");
         if(!empty($id)){
             // $this->error_code = self::ERROR_REQUEST_PARAMS;
             // return;
@@ -22,7 +33,13 @@ class MerchantshopController  extends IController {
         }
         $param['page'] = $page;
         $param['pageSize'] =$pagesize;
-
+        if(!empty($catid))
+            $param['catid'] =$catid;
+        if(!empty($districtid))
+            $param['districtid'] = $districtid;
+        if(!empty($order) && array_key_exists($order,$this->order_array)){
+            $param['order'] =  $this->order_array[$order];
+        }
         $data = $this->shopBehavior->getlist($param);
         $this->data = $data['data'] ;
     }

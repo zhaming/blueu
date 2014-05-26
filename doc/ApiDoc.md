@@ -581,11 +581,23 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 
 提交方式：GET|POST
 
-  参数名    | 必填  | 类型  |  示例  | 说明
----------- | --    | -----| ----  | --------
-merchantid | 否    |int   | 14     |商户ID
-page       | 否    |int   | 1      | 页数 默认1
-pagesize   | 否    |int   |10      |每页条数 默认10
+  参数名    | 必填  | 类型    |  示例     | 说明
+---------- | --   | -----  | ----      | --------
+merchantid | 否    |int    | 14        |商户ID
+page       | 否    |int    | 1         | 页数 默认1
+pagesize   | 否    |int    |10         |每页条数 默认10
+catid      | 否    | int   | 1         | 店铺分类ＩＤ，行业
+districtid | 否    | int   | 1         | 商圈ＩＤ
+order      | 否    | string| TIME_DESC | 排序。参数见说明
+
+#### order 参数说明
+  参数        |  说明
+-------------|----
+  TIME_DESC  | 按照创建时间倒序
+  TIME_ASC   | 创建时间顺序
+  SHOP_DESC  | 店铺ID倒序
+  SHOP_ASC   | 店铺ＩＤ　顺序
+
 
 完整参数示例:
 <pre>
