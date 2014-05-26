@@ -118,7 +118,7 @@ period   |  否  | string | 70               | 年代
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" -d '{"username":"zhansan@test.com","password":"123456","name":"张三"}' http://api.blueu.com/api/user/register
+    curl -X POST -H "Accept:application/json" -d '{"username":"zhansan@test.com","password":"123456","name":"张三"}' http://{domain}/api/user/register
 </pre>
 
 ###接口输出
@@ -143,14 +143,14 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 
 提交方式：POST
 
- 参数名   | 必填 |   类型     示例             说明
+ 参数名   | 必填 |   类型  |   示例            | 说明
 -------- | ---- | ----- | -------------- - | --------
 username |  是  | string | zhansan@test.com | 帐号
 password |  是  | string | 123456           | 密码
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" -d '{"username":"zhansan@test.com","password":"123456"}' http://api.blueu.com/api/user/login
+    curl -X POST -H "Accept:application/json" -d '{"username":"zhansan@test.com","password":"123456"}' http://{domain}/api/user/login
 </pre>
 
 ###接口输出
@@ -185,9 +185,9 @@ newpassword  是  string  1234567890 新密码
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"password":"123456","newpassword":"1234567890"}' http://api.blueu.com/api/user/resetpwd
+    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"password":"123456","newpassword":"1234567890"}' http://{domain}/api/user/resetpwd
     or
-    curl -X POST -H "Accept:application/json" -H "X-Auth-Username:zhangsan" -H "X-Auth-Password:zhangsan" -d '{"password":"123456","newpassword":"1234567890"}' http://api.blueu.com/api/user/resetpwd
+    curl -X POST -H "Accept:application/json" -H "X-Auth-Username:zhangsan" -H "X-Auth-Password:zhangsan" -d '{"password":"123456","newpassword":"1234567890"}' http://{domain}/api/user/resetpwd
 </pre>
 
 ###接口输出
@@ -218,7 +218,7 @@ password    是  string  123456            密码
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"username":"zhansan@test.com","password":"123456"}' http://api.blueu.com/api/user/logout
+    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"username":"zhansan@test.com","password":"123456"}' http://{domain}/api/user/logout
 </pre>
 
 ###接口输出
@@ -248,7 +248,7 @@ name    否  string    张三   名称
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"name":"张三"}' http://api.blueu.com/api/user/1/edit
+    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"name":"张三"}' http://{domain}/api/user/1/edit
 </pre>
 
 ###接口输出
@@ -278,7 +278,7 @@ enable  是    int    1   是否开启
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"enable":1}' http://api.blueu.com/api/user/1/push
+    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"enable":1}' http://{domain}/api/user/1/push
 </pre>
 
 ###接口输出
@@ -307,7 +307,7 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" http://api.blueu.com/api/user/1
+    curl -X POST -H "Accept:application/json" http://{domain}/api/user/1
 </pre>
 
 ###接口输出
@@ -350,7 +350,7 @@ pagesize |  否  |  int |   2  |  每页显示的数据条数
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" http://api.blueu.com/api/users?page=1&pagesize=2
+    curl -X POST -H "Accept:application/json" http://api.blueu.cn/api/users?page=1&pagesize=2
 </pre>
 
 ###接口输出
@@ -396,7 +396,7 @@ data       |  是 |   map   | 见示例 | 返回数据
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" http://api.blueu.com/api/merchant/1
+    curl -X POST -H "Accept:application/json" http://{domain}/api/merchant/1
 </pre>
 
 ###接口输出
@@ -439,7 +439,7 @@ pagesize | 否  |  int |   2   | 每页显示的数据条数
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" http://api.blueu.com/api/merchants?page=1&pagesize=2
+    curl -X POST -H "Accept:application/json" http://{domain}/api/merchants?page=1&pagesize=2
 </pre>
 
 ###接口输出
@@ -485,7 +485,7 @@ data       |  是 |   map   | 见示例 | 返回数据
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" http://api.blueu.com/api/ad/1
+    curl -X POST -H "Accept:application/json" http://{domain}/api/ad/1
 </pre>
 
 ###接口输出
@@ -517,7 +517,7 @@ data       |  是 |   map   | 见示例 | 返回数据
 
 提交方式：POST
 
- 参数名   | 必填 |   类型     示例                                   说明
+ 参数名   | 必填 |   类型  |   示例                                |   说明
 -------- | ---- | ----- | -----------------------------------  | --------
 userid   |  是  | int    | 6                                   | 用户ID
 uuid     |  是  | string | 991CC36-C8DB-96DB-1A32-AB756C6BC5A9 | 密码
@@ -526,7 +526,7 @@ left     |  否  | int    | 1                                   | 是否离开 0
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" -d '{"userid":"2","uuid":"991CC36-C8DB-96DB-1A32-AB756C6BC5A9","left":"0"}' http://domain/api/push/toshop
+    curl -X POST -H "Accept:application/json" -d '{"userid":"2","uuid":"991CC36-C8DB-96DB-1A32-AB756C6BC5A9","left":"0"}' http://{domain}/api/push/toshop
 </pre>
 
 ###接口输出
@@ -551,13 +551,13 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 
 提交方式：POST
 
- 参数名   | 必填 |   类型     示例          说明
+ 参数名   | 必填 |   类型  |   示例     |    说明
 -------- | ---- | ----- | --------  | --------
 pushid   |  是  | int    | 6        | 推送ID
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" -d '{"pushid":"6"}' http://domain/api/push/click
+    curl -X POST -H "Accept:application/json" -d '{"pushid":"6"}' http://{domain}/api/push/click
 </pre>
 
 ###接口输出
@@ -601,7 +601,7 @@ order      | 否    | string| TIME_DESC | 排序。参数见说明
 
 完整参数示例:
 <pre>
-    curl -X GET -H "Accept:application/json" http://api.blueu.com/api/merchantshop/list?merchantid=19&page=1$&pagesize=10
+    curl -X GET -H "Accept:application/json" http://{domain}/api/merchantshop/list?merchantid=19&page=1$&pagesize=10
 </pre>
 
 ###接口输出
