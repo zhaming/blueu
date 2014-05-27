@@ -45,4 +45,8 @@ class MerchantCouponBehavior extends BaseBehavior{
         else
             return false;
     }
+
+   public function getById($id){
+        return MerchantCoupon::model()->findByPK($id);
+    }
 }

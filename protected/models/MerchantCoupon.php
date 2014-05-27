@@ -15,7 +15,10 @@ class MerchantCoupon  extends  CActiveRecord{
         return array(
             'coupon' => array(
                 self::HAS_ONE, 'MerchantCode', array('id'=>'codeid')
-            )
+            ),
+            'shop' =>array(
+                self::HAS_ONE,"MerchantShop",array('id'=>"shopid")
+            ),
         );
     }
 }

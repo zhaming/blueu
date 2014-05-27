@@ -86,16 +86,60 @@ class MerchantcouponController extends BController {
     }
     public function actionEdit(){
         if(Yii::app()->request->isPostRequest){
+            $data = Yii::app()->request->getPost("coupon");
+
             $fileBehavior = new FileBehavior();
             if ($fileBehavior->isHaveUploadFile('coupon[pic]')) {
 
                 $file = $fileBehavior->saveUploadFile('coupon[pic]');
                 if ($file) {
-                    $product['pic'] = $file['hash'];
+                    $data['pic'] = $file['hash'];
                 }
             }
+            if(empty($data['validity_end']) || empty($data['validity_end'])){
+                $this->showError(Yii::t("comment","Pelease select a date"),$this->referer);
+                die();
+            }else{
+                $data['validity_start'] = strtotime($data['validity_start']);
+                $data['validity_end'] = strtotime($data['validity_end']);
+            }
+
+             $transaction = Yii::app()->db->beginTransaction();
+             try {
+                $this->couponBehavior->saveOrUpdate($data);
+                $code = MerchantCode::model()->findByPk($data['codeid']);
+                $code->validity_start=$data['validity_start'];
+                $code->validity_end=$data['validity_end'];
+                $code->total=$data['total'];
+                $code->save();
+
+            } catch (Exception $e) {
+                $transaction->rollback();
+                $this->showError(Yii::t("shop","Edit Failure"),$this->referer);
+                Yii::app()->end();
+            }
+            $transaction->commit();
+
+            $this->showSuccess(Yii::t("comment","Edit Success"),$this->referer);
         }else{
-            $this->render("edit");
+            $id = Yii::app()->request->getParam("id");
+            if(empty($id)){
+                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
+                Yii::app()->end;
+            }
+
+            $coupon = $this->couponBehavior->getById($id);
+
+            if(empty($coupon)){
+                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
+                Yii::app()->end;
+            }
+            $shopBehavior = new MerchantShopBehavior;
+            $ar['merchantid'] = Yii::app()->user->getId();
+            $ar['selfid'] = Yii::app()->user->getId();
+            $shop = $shopBehavior->getList($ar);
+            $shop['coupon'] = $coupon;
+            $this->render("edit",$shop);
         }
 
     }
