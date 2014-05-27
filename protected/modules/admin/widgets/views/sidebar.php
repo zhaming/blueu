@@ -121,7 +121,7 @@
         </li>
         <li<?php if (Yii::app()->controller->id == 'stat') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
-                <i class="icon-group"></i>
+                <i class="icon-bar-chart"></i>
                 <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'Statistic Manager'); ?></span>
                 <b class="arrow icon-angle-down"></b>
             </a>
