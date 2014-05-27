@@ -27,4 +27,17 @@ return array(
     "Coupon Manager" =>"优惠券管理",
     "Coupon Create" =>"添加优惠券",
     "Coupon List" =>"优惠券列表",
+    "Coupon Name"=>"优惠券名称",
+    "Coupon validity start"=>"有效期开始时间",
+    "Coupon validity end"=>"有效期结束时间",
+    "Coupon total"=>"总量",
+    "Coupon used"=>"使用量",
+    "Pelase input coupon name"=>"请输入优惠券名称",
+    "Pelase input coupon price"=>"请输入优惠券价格",
+    "Pelase choose  a shop"=>"请选择一个店铺",
+    ""=>"",
+    ""=>"",
+    ""=>"",
+    ""=>"",
+
 );

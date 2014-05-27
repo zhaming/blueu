@@ -75,6 +75,10 @@
     <script src="/statics/js/jquery.slimscroll.min.js"></script>
     <script src="/statics/js/jquery.easy-pie-chart.min.js"></script>
     <script src="/statics/js/jquery.sparkline.min.js"></script>
+    <script src="/statics/js/date-time/bootstrap-timepicker.min.js"></script>
+    <script src="/statics/js/date-time/bootstrap-datepicker.min.js"></script>
+    <script src="/statics/js/jquery.maskedinput.min.js"></script>
+
     <!--<script src="/statics/js/flot/jquery.flot.min.js"></script>-->
     <!--<script src="/statics/js/flot/jquery.flot.pie.min.js"></script>-->
     <!--script src="/statics/js/flot/jquery.flot.resize.min.js"></script>-->
@@ -295,7 +299,6 @@
             //before_remove: null,
             //preview_error: null
         });
-    });
 </script>
 </body>
 </html>

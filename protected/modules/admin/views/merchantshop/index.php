@@ -11,7 +11,7 @@
         </p>
         <?php $this->widget("AlterMsgWidget")?>
         <div class="table-responsive">
-            <form  action="#" method="get" class="well form-inline">
+            <form  action="/admin/merchantshop/index" method="get" class="well form-inline">
                 <label class="inline">
                     商铺名：
                     <input type="text" name="name" value="<?php echo !empty($name)?$name:'' ;?>" />&emsp;

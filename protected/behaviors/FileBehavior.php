@@ -18,8 +18,8 @@
  */
 class FileBehavior extends BaseBehavior {
 
-    public function saveUploadFile() {
-        $fileInstance = CUploadedFile::getInstanceByName('file');
+    public function saveUploadFile($filename="file") {
+        $fileInstance = CUploadedFile::getInstanceByName($filename);
 
         $file = new File();
         $file->deleted = 0;
@@ -73,8 +73,8 @@ class FileBehavior extends BaseBehavior {
         return $file;
     }
 
-    public function isHaveUploadFile() {
-        return CUploadedFile::getInstanceByName('file') != null;
+    public function isHaveUploadFile($filename="file") {
+        return CUploadedFile::getInstanceByName($filename) != null;
     }
 
     public function getAvatarDirectory() {

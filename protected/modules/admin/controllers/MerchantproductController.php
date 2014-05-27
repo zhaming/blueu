@@ -47,6 +47,18 @@ class MerchantproductController  extends BController {
                 $this->showError("请为该商品至少关联一个商铺",$this->referer);
                 Yii::app()->end();
             }
+            // $file = new FilesComponent;
+            // $result = $file->mUpload('product[pic]');
+            // $product['pic'] = $result["hash"];
+            //
+            $fileBehavior = new FileBehavior();
+            if ($fileBehavior->isHaveUploadFile('product[pic]')) {
+
+                $file = $fileBehavior->saveUploadFile('product[pic]');
+                if ($file) {
+                    $product['pic'] = $file['hash'];
+                }
+            }
             $product['merchantid'] = Yii::app()->user->getId();
             $product['shops'] =  $shopid;
             $res =  $this->productBehavior->saveOrUpdate($product);
@@ -83,6 +95,14 @@ class MerchantproductController  extends BController {
             $product = Yii::app()->request->getPost("product");
             //TODO 图片处理
 
+            $fileBehavior = new FileBehavior();
+            if ($fileBehavior->isHaveUploadFile('product[pic]')) {
+                $file = $fileBehavior->saveUploadFile('product[pic]');
+                if ($file) {
+                    $product['pic'] = $file['hash'];
+                }
+            }else{
+            }
             $product['merchantid'] = Yii::app()->user->getId();
             $product['shops'] =  $shopid;
             $res =  $this->productBehavior->saveOrUpdate($product);

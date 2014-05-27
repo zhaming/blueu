@@ -19,12 +19,12 @@ class MerchantshopController  extends IController {
 
     public function actionList(){
 
-        $page = Yii::app()->request->getParam('page', 1);
-        $pagesize = Yii::app()->request->getParam('pagesize', 10);
-        $id =  Yii::app()->request->getParam("merchantid");
-        $catid = Yii::app()->request->getParam("catid");
+        $page       = Yii::app()->request->getParam('page', 1);
+        $pagesize   = Yii::app()->request->getParam('pagesize', 10);
+        $id         = Yii::app()->request->getParam("merchantid");
+        $catid      = Yii::app()->request->getParam("catid");
         $districtid = Yii::app()->request->getParam("districtid");
-        $order = Yii::app()->request->getParam("order");
+        $order      = Yii::app()->request->getParam("order");
         if(!empty($id)){
             // $this->error_code = self::ERROR_REQUEST_PARAMS;
             // return;

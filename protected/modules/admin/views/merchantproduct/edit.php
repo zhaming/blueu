@@ -22,7 +22,14 @@
                 <textarea name="product[intro]" placeholder="请输入简介" class=" col-xs-10 col-sm-5  " style="height:100px;"><?php echo $product->intro;?></textarea>
                 </div>
             </div>
-
+            <?php if(!empty($product['pic'])):?>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="product[intro]"> </label>
+                <div class="col-sm-9">
+                <img src="/images/<?php echo $product['pic']?>">
+                </div>
+            </div>
+            <?php endif;?>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="product[pic]">图片</label>
                 <div class="col-sm-9">

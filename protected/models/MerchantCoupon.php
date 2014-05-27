@@ -8,6 +8,14 @@ class MerchantCoupon  extends  CActiveRecord{
         return parent::model($className);
     }
     public function tableName() {
-        return '{{merchant_merchant_coupon}}';
+        return '{{merchant_coupon}}';
+    }
+
+    public function relations(){
+        return array(
+            'coupon' => array(
+                self::HAS_ONE, 'MerchantCode', array('id'=>'codeid')
+            )
+        );
     }
 }
