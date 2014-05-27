@@ -14,7 +14,6 @@ return array(
         'db' => array(
             'emulatePrepare' => true,
             'enableParamLogging' => true,//false for production
-            
             'connectionString' => 'mysql:host=218.244.140.41;port=3306;dbname=blueu2',
             'username' => 'blueu2',
             'password' => 'blueu2blueu2',
