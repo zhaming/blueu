@@ -1,5 +1,3 @@
-
-
 BlueU客户端接口文档
 ========================
 
@@ -9,7 +7,6 @@ BlueU客户端接口文档
 报文编码:*utf-8*  
 正式接口:*待发布*  
 测试接口:*mocky.shifang.info*  
-
 
 
     接口名        |         地址         |    类型
@@ -41,22 +38,25 @@ BlueU客户端接口文档
 3.如果服务端状态正常,并且需要返回数据, 将数据报文放入data字段, 不需要返回时或访问失败, 服务端不保持该字段;  
 
 示例1, 接口访问成功, 服务端不带数据:
+
 <pre>
 {
     "error_code":0,
     "error_msg":"success"
 }
 </pre>
-
+ 
 示例2, 接口访问失败:
+
 <pre>
 {
     "error_code":101,
     "error_msg":"用户没有权限访问"
 }
 </pre>
-
+ 
 示例3, 服务端返回单条数据:
+
 <pre>
 {
     "error_code":0,
@@ -69,6 +69,7 @@ BlueU客户端接口文档
 </pre>
 
 示例4, 服务端返回多组数据:
+
 <pre>
 {
     "error_code":0,
@@ -84,24 +85,26 @@ BlueU客户端接口文档
 </pre>
 
 示例5, 服务端返回多组字典数据:
+
 <pre>
 {
-  "error_code":0,
-  "error_msg":"success",
-  "data":{
-      "user":{
-        "id":1
-        "name":"name"
-      },
-      "privilege":{
-        "id":2
-        "name":"name2"
-      }
+    "error_code":0,
+    "error_msg":"success",
+    "data":{
+        "user":{
+            "id":1
+            "name":"name"
+        },
+        "privilege":{
+            "id":2
+            "name":"name2"
+        }
     }
 }
 </pre>
-
-
+ 
+ 
+ 
 ## 用户注册 {#api1}
 地址：/api/user/register
 
@@ -109,25 +112,26 @@ BlueU客户端接口文档
 
 提交方式：POST
 
- 参数名   | 必填 |   类型     示例             说明
--------- | ---- | ----- | -------------- - | --------
-username |  是  | string | zhansan@test.com | 帐号
-password |  是  | string | 123456           | 密码
+参数名   | 必填 |  类型  |       示例        | 说明
+-------- | ---- | ------ | ----------------- | --------
+username |  是  | string | zhansan@test.com  | 帐号
+password |  是  | string | 123456            | 密码
 name     |  是  | string | 张三              | 昵称
-sex      |  否  |  int   |  0               | 0:保密 1:女 2:男
-period   |  否  | string | 70               | 年代
+sex      |  否  |  int   |  0                | 0:保密 1:女 2:男
+period   |  否  | string | 70                | 年代
 
 完整参数示例:
+
 <pre>
-    curl -X POST -H "Accept:application/json" -d '{"username":"zhansan@test.com","password":"123456","name":"张三"}' http://{domain}/api/user/register
+curl -X POST -H "Accept:application/json" -d '{"username":"zhansan@test.com","password":"123456","name":"张三"}' http://{domain}/api/user/register
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
-error_code |  是 |  int    | 见示例 | 返回数据
-error_msg  |  是 |  string | 见示例 | 返回数据
+  参数名   | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |   int   | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
 
 <pre>
 {
@@ -144,23 +148,24 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 
 提交方式：POST
 
- 参数名   | 必填 |   类型  |   示例            | 说明
--------- | ---- | ----- | -------------- - | --------
+参数名   | 必填 |   类型 |        示例      | 说明
+-------- | ---- | ------ | ---------------- | -------
 username |  是  | string | zhansan@test.com | 帐号
 password |  是  | string | 123456           | 密码
 
 完整参数示例:
+
 <pre>
-    curl -X POST -H "Accept:application/json" -d '{"username":"zhansan@test.com","password":"123456"}' http://{domain}/api/user/login
+curl -X POST -H "Accept:application/json" -d '{"username":"zhansan@test.com","password":"123456"}' http://{domain}/api/user/login
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
-error_code |  是 |   int   | 见示例 | 返回数据
-error_msg  |  是 |  string | 见示例 | 返回数据
-data       |  是 |   map   | 见示例 | 返回数据
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |   int   | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       |  是  |   map   | 见示例 | 返回数据
 
 <pre>
 {
@@ -180,23 +185,29 @@ data       |  是 |   map   | 见示例 | 返回数据
 
 提交方式：POST
 
- 参数名      必填   类型     示例      说明
-password     是  string  123456     密码
-newpassword  是  string  1234567890 新密码
+参数名      | 必填 |   类型 |    示例    |说明
+----------- | ---- | ------ | ---------- | ------
+password    |  是  | string | 123456     | 密码
+newpassword |  是  | string | 1234567890 | 新密码
 
 完整参数示例:
+
 <pre>
-    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"password":"123456","newpassword":"1234567890"}' http://{domain}/api/user/resetpwd
-    or
-    curl -X POST -H "Accept:application/json" -H "X-Auth-Username:zhangsan" -H "X-Auth-Password:zhangsan" -d '{"password":"123456","newpassword":"1234567890"}' http://{domain}/api/user/resetpwd
+curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"password":"123456","newpassword":"1234567890"}' http://{domain}/api/user/resetpwd
+</pre>
+
+或者
+
+<pre>
+curl -X POST -H "Accept:application/json" -H "X-Auth-Username:zhangsan" -H "X-Auth-Password:zhangsan" -d '{"password":"123456","newpassword":"1234567890"}' http://{domain}/api/user/resetpwd
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
-error_code |  是 |  int    | 见示例 | 返回数据
-error_msg  |  是 |  string | 见示例 | 返回数据
+参数名     | 必有 |  类型  |  示例  |  说明
+---------- | ---- | ------ | ------ | --------
+error_code |  是  |   int  | 见示例 | 返回数据
+error_msg  |  是  | string | 见示例 | 返回数据
 
 <pre>
 {
@@ -213,21 +224,23 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 
 提交方式：POST
 
- 参数名     必填   类型     示例            说明
-username    是  string  zhansan@test.com  帐号  
-password    是  string  123456            密码
+参数名    |  必填 |  类型  |       示例          说明
+--------- | ----- | ------ | ---------------- | ------
+username  |  是   | string | zhansan@test.com | 帐号  
+password  |  是   | string | 123456           | 密码
 
 完整参数示例:
+
 <pre>
-    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"username":"zhansan@test.com","password":"123456"}' http://{domain}/api/user/logout
+curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"username":"zhansan@test.com","password":"123456"}' http://{domain}/api/user/logout
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
-error_code |  是 |  int    | 见示例 | 返回数据
-error_msg  |  是 |  string | 见示例 | 返回数据
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |   int   | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
 
 <pre>
 {
@@ -244,20 +257,22 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 
 提交方式：POST
 
-参数名  必填   类型     示例   说明
-name    否  string    张三   名称
+参数名 | 必填 |  类型   |  示例 |  说明
+------ | ---- | ------- | ----- | --------
+name   |  否  | string  |  张三 |  名称
 
 完整参数示例:
+
 <pre>
-    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"name":"张三"}' http://{domain}/api/user/1/edit
+curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"name":"张三"}' http://{domain}/api/user/1/edit
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
-error_code |  是 |  int    | 见示例 | 返回数据
-error_msg  |  是 |  string | 见示例 | 返回数据
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
 
 <pre>
 {
@@ -274,20 +289,22 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 
 提交方式：POST
 
-参数名  必填   类型   示例   说明
-enable  是    int    1   是否开启
+参数名 | 必填 | 类型 | 示例 |  说明
+------ | ---- | ---- | ---- | -----
+enable |  是  | int  |   1  |是否开启
 
 完整参数示例:
+
 <pre>
-    curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"enable":1}' http://{domain}/api/user/1/push
+curl -X POST -H "Accept:application/json" -H "X-Auth-Token:00320d40-89f8-4b28-d18e-fe12abefcf47" -d '{"enable":1}' http://{domain}/api/user/1/push
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
-error_code |  是 |  int    | 见示例 | 返回数据
-error_msg  |  是 |  string | 见示例 | 返回数据
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
 
 <pre>
 {
@@ -305,31 +322,33 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 提交方式：GET
 
 参数名 | 必填 | 类型 | 示例 | 说明
+------ | ---- | ---- | ---- | ----
 
 完整参数示例:
+
 <pre>
-    curl -X POST -H "Accept:application/json" http://{domain}/api/user/1
+curl -X POST -H "Accept:application/json" http://{domain}/api/user/1
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
-error_code |  是 |  int    | 见示例 | 返回数据
-error_msg  |  是 |  string | 见示例 | 返回数据
-data       |  是 |   map   | 见示例 | 返回数据
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       |  是  |   map   | 见示例 | 返回数据
 
 <pre>
 {
     "error_code":0,
     "error_msg":"success",
-    "data":{
-	"id":"4",
-	"name":"王五",
-	"sex":"1",
-	"century":null,
-	"mobile":null,
-	"pushable":"1"
+    "data":{ 
+	    "id":"4",
+	    "name":"王五",
+	    "sex":"1",
+	    "century":null,
+        "mobile":null,
+        "pushable":"1"
     }
 }
 </pre>
@@ -344,22 +363,24 @@ data       |  是 |   map   | 见示例 | 返回数据
 提交方式：GET
 
 查询参数
-  参数名  | 必填 |  类型 |  示例 |  说明
--------- | --- | ----- | ---- | --------
-page     |  否  |  int |   1  |  当前页码
-pagesize |  否  |  int |   2  |  每页显示的数据条数
+
+参数名   | 必填 |  类型 | 示例 |  说明
+-------- | ---- | ----- | ---- | --------
+page     |  否  |  int  |   1  |  当前页码
+pagesize |  否  |  int  |   2  |  每页显示的数据条数
 
 完整参数示例:
+
 <pre>
-    curl -X POST -H "Accept:application/json" http://api.blueu.cn/api/users?page=1&pagesize=2
+curl -X POST -H "Accept:application/json" http://api.blueu.cn/api/users?page=1&pagesize=2
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
-error_code |  是 |  int    | 见示例 | 返回数据
-error_msg  |  是 |  string | 见示例 | 返回数据
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |   int   | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
 data       |  是 |   map   | 见示例 | 返回数据
 
 <pre>
@@ -367,19 +388,19 @@ data       |  是 |   map   | 见示例 | 返回数据
     "error_code":0,
     "error_msg":"success",
     "data":[{
-	"id":"5",
-	"name":"刘六",
-	"sex":"0",
-	"century":null,
-	"mobile":null,
-	"pushable":"1"
+	    "id":"5",
+	    "name":"刘六",
+	    "sex":"0",
+	    "century":null,
+	    "mobile":null,
+	    "pushable":"1"
     },{
-	"id":"4",
-	"name":"王五",
-	"sex":"1",
-	"century":null,
-	"mobile":null,
-	"pushable":"1"
+	    "id":"4",
+	    "name":"王五",
+	    "sex":"1",
+	    "century":null,
+	    "mobile":null,
+	    "pushable":"1"
     }]
 }
 </pre>
@@ -394,31 +415,33 @@ data       |  是 |   map   | 见示例 | 返回数据
 提交方式：GET
 
 参数名 | 必填 | 类型 | 示例 | 说明
+------ | ---- | ---- | ---- | ---- 
 
 完整参数示例:
+
 <pre>
-    curl -X POST -H "Accept:application/json" http://{domain}/api/merchant/1
+curl -X POST -H "Accept:application/json" http://{domain}/api/merchant/1
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
-error_code |  是 |  int    | 见示例 | 返回数据
-error_msg  |  是 |  string | 见示例 | 返回数据
-data       |  是 |   map   | 见示例 | 返回数据
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       |  是  |   map   | 见示例 | 返回数据
 
 <pre>
 {
     "error_code":0,
     "error_msg":"success",
     "data":{
-	"id":"8",
-	"name":"360",
-	"legal":null,
-	"telephone":"",
-	"bank":"",
-	"shopnum":"0"
+    	"id":"8",
+    	"name":"360",
+    	"legal":null,
+    	"telephone":"",
+    	"bank":"",
+    	"shopnum":"0"
     }
 }
 </pre>
@@ -433,42 +456,44 @@ data       |  是 |   map   | 见示例 | 返回数据
 提交方式：GET
 
 查询参数
-参数名    | 必填 | 类型 |  示例 |   说明
--------- | --- | ---- | ---- | --------
-page     | 否  |  int |   1   | 当前页码
-pagesize | 否  |  int |   2   | 每页显示的数据条数
+
+参数名   | 必填 | 类型 |  示例 |  说明
+-------- | ---- | ---- | ----- | --------
+page     |  否  |  int |   1   | 当前页码
+pagesize |  否  |  int |   2   | 每页显示的数据条数
 
 完整参数示例:
+
 <pre>
-    curl -X POST -H "Accept:application/json" http://{domain}/api/merchants?page=1&pagesize=2
+curl -X POST -H "Accept:application/json" http://{domain}/api/merchants?page=1&pagesize=2
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
-error_code |  是 |  int    | 见示例 | 返回数据
-error_msg  |  是 |  string | 见示例 | 返回数据
-data       |  是 |   map   | 见示例 | 返回数据
+参数名     | 必有 |   类型  |  示例  | 说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       |  是  |   map   | 见示例 | 返回数据
 
 <pre>
 {
     "error_code":0,
     "error_msg":"success",
     "data":[{
-	"id":"9",
-	"name":"麻辣空间",
-	"legal":null,
-	"telephone":"",
-	"bank":"",
-	"shopnum":"0"
+    	"id":"9",
+    	"name":"麻辣空间",
+    	"legal":null,
+    	"telephone":"",
+    	"bank":"",
+    	"shopnum":"0"
     },{
-	"id":"8",
-	"name":"360",
-	"legal":null,
-	"telephone":"",
-	"bank":"",
-	"shopnum":"0"
+    	"id":"8",
+    	"name":"360",
+    	"legal":null,
+    	"telephone":"",
+    	"bank":"",
+    	"shopnum":"0"
     }]
 }
 </pre>
@@ -488,17 +513,18 @@ page     | 否  |  int |   1   | 当前页码，默认1
 pagesize | 否  |  int |   2   | 每页显示的数据条数
 
 完整参数示例:
+
 <pre>
     curl -X POST -H "Accept:application/json" http://{domain}/api/ad
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
-error_code |  是 |  int    | 见示例 | 返回数据
-error_msg  |  是 |  string | 见示例 | 返回数据
-data       |  是 |   map   | 见示例 | 返回数据
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       |  是  |   map   | 见示例 | 返回数据
 
 <pre>
 {
@@ -555,22 +581,23 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 
 提交方式：POST
 
- 参数名   | 必填 |   类型  |   示例                                |   说明
--------- | ---- | ----- | -----------------------------------  | --------
+参数名   | 必填 |   类型 |   示例                              | 说明
+-------- | ---- | ------ | ----------------------------------- | --------
 userid   |  是  | int    | 6                                   | 用户ID
 uuid     |  是  | string | 991CC36-C8DB-96DB-1A32-AB756C6BC5A9 | 密码
 param    |  否  | string | {"distance":"7.00"}                 | 基站扩展信息
 left     |  否  | int    | 1                                   | 是否离开 0否 1是
 
 完整参数示例:
+
 <pre>
-    curl -X POST -H "Accept:application/json" -d '{"userid":"2","uuid":"991CC36-C8DB-96DB-1A32-AB756C6BC5A9","left":"0"}' http://{domain}/api/push/toshop
+curl -X POST -H "Accept:application/json" -d '{"userid":"2","uuid":"991CC36-C8DB-96DB-1A32-AB756C6BC5A9","left":"0"}' http://{domain}/api/push/toshop
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
+参数名     | 必有|   类型  |  示例  |  说明
+---------- | --- | ------- | ------ | --------
 error_code |  是 |   int   | 见示例 | 返回数据
 error_msg  |  是 |  string | 见示例 | 返回数据
 
@@ -589,19 +616,20 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 
 提交方式：POST
 
- 参数名   | 必填 |   类型  |   示例     |    说明
--------- | ---- | ----- | --------  | --------
-pushid   |  是  | int    | 6        | 推送ID
+参数名   | 必填 | 类型 |示例|  说明
+-------- | ---- | ---- | -- | --------
+pushid   |  是  | int  | 6  | 推送ID
 
 完整参数示例:
+
 <pre>
-    curl -X POST -H "Accept:application/json" -d '{"pushid":"6"}' http://{domain}/api/push/click
+curl -X POST -H "Accept:application/json" -d '{"pushid":"6"}' http://{domain}/api/push/click
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
+参数名     | 必有|   类型  |  示例  |  说明
+---------- | --- | ------- | ------ | --------
 error_code |  是 |   int   | 见示例 | 返回数据
 error_msg  |  是 |  string | 见示例 | 返回数据
 
@@ -619,11 +647,11 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 
 提交方式：GET|POST
 
-  参数名    | 必填  | 类型    |  示例     | 说明
----------- | --   | -----  | ----      | --------
+参数名     | 必填  | 类型  |    示例   | 说明
+---------- | ----- | ----- | --------- | --------
 merchantid | 否    |int    | 14        |商户ID
 page       | 否    |int    | 1         | 页数 默认1
-pagesize   | 否    |int    |10         |每页条数 默认10
+pagesize   | 否    |int    | 10        |每页条数 默认10
 catid      | 否    | int   | 1         | 店铺分类ＩＤ，行业
 districtid | 否    | int   | 1         | 商圈ＩＤ
 order      | 否    | string| TIME_DESC | 排序。参数见说明
@@ -638,14 +666,15 @@ order      | 否    | string| TIME_DESC | 排序。参数见说明
 
 
 完整参数示例:
+
 <pre>
-    curl -X GET -H "Accept:application/json" http://{domain}/api/merchantshop/list?merchantid=19&page=1$&pagesize=10
+curl -X GET -H "Accept:application/json" http://{domain}/api/merchantshop/list?merchantid=19&page=1$&pagesize=10
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
+参数名     | 必有|   类型  |  示例  |  说明
+---------- | --- | ------- | ------ | --------
 error_code |  是 |  int    | 见示例 | 返回数据
 error_msg  |  是 |  string | 见示例 | 返回数据
 data       |  是 |   map   | 见示例 | 返回数据
@@ -667,17 +696,17 @@ data       |  是 |   map   | 见示例 | 返回数据
 ### 接口输入
 提交方式  GET|POST
 
-  参数名    | 必有 |   类型  |  示例
----------- | --- | ------- | ----
-id         |  是 |  int    | 7
+参数名| 必有 |   类型  |  示例
+----- | ---- | ------- | ----
+id    |  是  |  int    | 7
 
 ### 接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
-error_code |  是 |  int    | 见示例 | 返回数据
-error_msg  |  是 |  string | 见示例 | 返回数据
-data       |  是 |   map   | 见示例 | 返回数据
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       |  是  |   map   | 见示例 | 返回数据
 
 <pre>
 {
@@ -716,29 +745,29 @@ data       |  是 |   map   | 见示例 | 返回数据
 ### 接口输入
 提交方式 GET|POST
 
-  参数名    | 必有   |   类型  |  示例   | 说明
----------- | ---   |------- | ----    |
-shopid     | 否    |  int    | 7       | 店铺ID
-page       | 否    |int      | 1      | 页数 默认1
-pagesize   | 否    |int      |10      |每页条数 默认10
+参数名     | 必有 | 类型  | 示例 | 说明
+---------- | ---- |------ | ---- |
+shopid     | 否   | int   |  7   | 店铺ID
+page       | 否   | int   |  1   | 页数 默认1
+pagesize   | 否   | int   |  10  |每页条数 默认10
 
 ### 接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
-error_code |  是 |  int    | 见示例 | 返回数据
-error_msg  |  是 |  string | 见示例 | 返回数据
-data       |  是 |   map   | 见示例 | 返回数据
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |    int  | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       |  是  |   map   | 见示例 | 返回数据
 
 <pre>
-    {
-      "error_code":0,
-      "error_msg":"Success",
-      "data":[
-              {"id":"24","name":"adsf","pic":"","intro":"asdf","price":"0.00","discount":"1.00","shopid":"0","merchantid":"14","created":"1400664947","status":"1"},
-              {"id":"26","name":"adsf","pic":"","intro":"asdf","price":"0.00","discount":"1.00","shopid":"0","merchantid":"18","created":"1400665183","status":"1"},
-            ]
-    }
+{
+  "error_code":0,
+  "error_msg":"Success",
+  "data":[
+          {"id":"24","name":"adsf","pic":"","intro":"asdf","price":"0.00","discount":"1.00","shopid":"0","merchantid":"14","created":"1400664947","status":"1"},
+          {"id":"26","name":"adsf","pic":"","intro":"asdf","price":"0.00","discount":"1.00","shopid":"0","merchantid":"18","created":"1400665183","status":"1"},
+        ]
+}
 </pre>
 
 
@@ -751,33 +780,33 @@ data       |  是 |   map   | 见示例 | 返回数据
 
 提交方式 GET | POST
 
-  参数名    | 必有   |   类型  |  示例   | 说明
----------- | ---   |------- | ----    |
-productid  | 是    |  int    | 29     | 商品ID
+参数名     | 必有  | 类型 | 示例| 说明
+---------- | ---   |----- | --- | -----
+productid  | 是    | int  | 29  | 商品ID
 
 ### 接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
+参数名     | 必有|   类型  |  示例  |  说明
+---------- | --- | ------- | ------ | --------
 error_code |  是 |  int    | 见示例 | 返回数据
 error_msg  |  是 |  string | 见示例 | 返回数据
 data       |  是 |   map   | 见示例 | 返回数据
 
 <pre>
-    {
-        "error_code":0,
-        "error_msg":"Success",
-        "data":{
-            "id":"29",
-            "name":"adsf",
-            "pic":"",
-            "intro":"asdf",
-            "price":"0.00",
-            "discount":"1.00",
-            "shopid":"0",
-            "merchantid":"14",
-            "created":"1400664755",
-            "status":"1"
-        }
+{
+    "error_code":0,
+    "error_msg":"Success",
+    "data":{
+        "id":"29",
+        "name":"adsf",
+        "pic":"",
+        "intro":"asdf",
+        "price":"0.00",
+        "discount":"1.00",
+        "shopid":"0",
+        "merchantid":"14",
+        "created":"1400664755",
+        "status":"1"
     }
+}
 </pre>
