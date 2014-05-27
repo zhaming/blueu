@@ -24,13 +24,14 @@ BlueU客户端接口文档
 [用户列表](#api8)  |  /api/users         |  GET
 [商户详情](#api9)  |  /api/merchant/1    |  GET
 [商户列表](#api10) |  /api/merchants     |  GET
-[广告详情](#api11) |  /api/ad/1          |  GET
-[到店状态](#api12) |  /api/push/toshop   |  POST
-[推送点击](#api13) |  /api/push/click    |  POST
-[商铺列表](#api14) |  /api/merchantshop/list| GET
-[商铺详情](#api15) |  /api/merchantshop/detail| GET
-[商品列表](#api16) |  /api/merchantshop/products| GET
-[商品详情](#api17) |  /api/merchantshop/productdetail| GET
+[广告列表](#api11) |  /api/ad            |  GET
+[广告点击](#api12) |  /api/ad/click      |  POST
+[到店状态](#api13) |  /api/push/toshop   |  POST
+[推送点击](#api14) |  /api/push/click    |  POST
+[商铺列表](#api15) |  /api/merchantshop/list| GET
+[商铺详情](#api16) |  /api/merchantshop/detail| GET
+[商品列表](#api17) |  /api/merchantshop/products| GET
+[商品详情](#api18) |  /api/merchantshop/productdetail| GET
 
 
 ## 约定  
@@ -474,18 +475,21 @@ data       |  是 |   map   | 见示例 | 返回数据
 
 
 
-## 广告详情 {#api11}
-地址：/api/ad/1
+## 广告列表 {#api11}
+地址：/api/ad
 
 ###接口输入
 
 提交方式：GET
 
-参数名 | 必填  | 类型 |  示例  | 说明
+参数名    | 必填 | 类型  |  示例 | 说明
+placetag | 是  |string|  top  | 广告位 top:上方 right:右侧
+page     | 否  |  int |   1   | 当前页码，默认1
+pagesize | 否  |  int |   2   | 每页显示的数据条数
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" http://{domain}/api/ad/1
+    curl -X POST -H "Accept:application/json" http://{domain}/api/ad
 </pre>
 
 ###接口输出
@@ -501,16 +505,50 @@ data       |  是 |   map   | 见示例 | 返回数据
     "error_code":0,
     "error_msg":"success",
     "data":{
-	"id":"8",
-	"name":"360",
-	"legal":null,
-	"telephone":"",
-	"bank":"",
-	"shopnum":"0"
+        "id":"8",
+        "pic":"http://domain/upload/ad/123.jpg",
+        "url":"http://www.baidu.com/",
+        "source":"2",
+        "sid":"123"
     }
 }
 </pre>
-## 到店状态 {#api12}
+
+
+
+## 广告点击 {#api12}
+地址：/api/ad/click
+
+###接口输入
+
+提交方式：POST
+
+ 参数名   | 必填 |   类型  |   示例     |    说明
+-------- | ---- | ----- | --------  | --------
+id       |  是  | int   | 6          | 广告ID
+
+完整参数示例:
+<pre>
+    curl -X POST -H "Accept:application/json" -d '{"id":"6"}' http://{domain}/api/ad/click
+</pre>
+
+###接口输出
+
+  参数名    | 必有 |   类型  |  示例 |  说明
+---------- | --- | ------- | ---- | --------
+error_code |  是 |   int   | 见示例 | 返回数据
+error_msg  |  是 |  string | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success"，
+}
+</pre>
+
+
+
+## 到店状态 {#api13}
 地址：/api/push/toshop
 
 ###接口输入
@@ -544,7 +582,7 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 </pre>
 
 
-## 推送点击 {#api13}
+## 推送点击 {#api14}
 地址：/api/push/click
 
 ###接口输入
@@ -575,7 +613,7 @@ error_msg  |  是 |  string | 见示例 | 返回数据
 </pre>
 
 
-##商铺列表{#api14}
+##商铺列表{#api15}
 地址 /api/merchantshop/list
 ###接口输入
 
@@ -623,7 +661,7 @@ data       |  是 |   map   | 见示例 | 返回数据
 }
 </pre>
 
-##商铺列表{#api15}
+##商铺列表{#api16}
 地址  /api/merchantshop/detail
 
 ### 接口输入
@@ -669,7 +707,9 @@ data       |  是 |   map   | 见示例 | 返回数据
 }
 </pre>
 
-##商品列表{#api16}
+
+
+##商品列表{#api17}
 
 地址 /api/merchantshop/products
 
@@ -701,7 +741,9 @@ data       |  是 |   map   | 见示例 | 返回数据
     }
 </pre>
 
-##商品详情{#api17}
+
+
+##商品详情{#api18}
 
 地址 /api/merchantshop/productdetail
 
