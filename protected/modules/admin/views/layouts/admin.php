@@ -136,7 +136,7 @@
                     size: size
                 });
             });
-        });
+        
 
         $('.sparkline').each(function() {
             var $box = $(this).closest('.infobox');
