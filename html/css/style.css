@@ -776,30 +776,6 @@ h3.platform {
   height: 325px;
 }
 
-#social {
-  background: #62947A;
-  /*height: 100px;*/
-  padding: 140px 0 40px;
-  text-align: center;
-}
-
-#social .or {
-  margin: 0 20px;
-}
-
-#social span {
-  display: inline-block;
-}
-
-#social .btn {
-  font-size: 16px;
-  text-transform: uppercase;
-}
-
-#social .fb-like {
-  margin: 80px auto 0;
-}
-
 #footer {
   background: #62947A;
   padding: 40px 0;
