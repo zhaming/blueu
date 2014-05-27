@@ -155,6 +155,12 @@
                 </li>
             </ul>
         </li>
+        <li<?php if (Yii::app()->controller->id == 'advertisement') { ?> class="active"<?php } ?>>
+            <a href="/admin/advertisement/index">
+                <i class="icon-film"></i>
+                <span class="menu-text"><?php echo Yii::t('admin', 'Advertisement manager'); ?></span>
+            </a>
+        </li>
         <li<?php if (in_array(Yii::app()->controller->id, array('settings', 'log'))) { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-legal"></i>

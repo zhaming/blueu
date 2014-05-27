@@ -23,6 +23,7 @@ class UserController extends BController {
 
     public function init() {
         parent::init();
+        $this->setPageTitle(Yii::t('admin', 'Client user'));
         $this->userBehavior = new UserBehavior();
         $this->accountBehavior = new AccountBehavior();
     }

@@ -26,6 +26,8 @@ return array (
   'Not editable' => '',
   'Please use GET method' => '',
   'Please use POST method' => '',
+  'Repeat Request' => '',
+  'Station Illegal' => '',
   'Token has expired' => '',
   'Token is not exist' => '',
   'Token not exist' => '',

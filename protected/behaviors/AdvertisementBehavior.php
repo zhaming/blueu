@@ -57,4 +57,32 @@ class AdvertisementBehavior extends BaseBehavior {
         return Advertisement::model()->findAll($criteria);
     }
 
+    public function getList1($filter = array(), $page = null, $pagesize = null) {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('disabled=0');
+        $criteria->order = 'created desc';
+        foreach ($filter as $key => $value) {
+            switch ($key) {
+                case 'search':
+                    foreach ($value as $column => $keyword) {
+                        $criteria->addSearchCondition($column, $keyword);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        $count = Advertisement::model()->count($criteria);
+
+        $pager = new CPagination($count);
+        $page != null && $pager->setCurrentPage($page - 1);
+        $pagesize != null && $pager->setPageSize($pagesize);
+        $pager->applyLimit($criteria);
+
+        $data = Advertisement::model()->findAll($criteria);
+        return array('pager' => $pager, 'data' => $data);
+    }
+
 }

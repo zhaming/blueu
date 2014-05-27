@@ -14,6 +14,7 @@ class BreadcrumbsWidget extends CWidget {
             'merchant' => Yii::t('admin', 'Merchant manager'),
             'manager' => Yii::t('admin', 'Administrator manager'),
             'log' => Yii::t('admin', 'Log manager'),
+            'advertisement' => Yii::t('admin', 'Advertisement manager'),
             'settings' => Yii::t('admin', 'System settings')
         );
         $controllerName = Yii::app()->controller->id;

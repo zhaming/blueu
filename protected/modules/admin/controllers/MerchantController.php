@@ -23,6 +23,7 @@ class MerchantController extends BController {
 
     public function init() {
         parent::init();
+        $this->setPageTitle(Yii::t('admin', 'Merchant manager'));
         $this->accountBehavior = new AccountBehavior();
         $this->merchantBehavior = new MerchantBehavior();
     }

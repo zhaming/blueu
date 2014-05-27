@@ -17,6 +17,11 @@
  *
  */
 class SettingsController extends BController {
+    
+    public function init() {
+        parent::init();
+        $this->setPageTitle(Yii::t('admin', 'System settings'));
+    }
 
     public function actionIndex() {
         $this->render('index');

@@ -18,6 +18,10 @@
  */
 class SysController extends BController {
 
+    public function init() {
+        parent::init();
+    }
+
     public function actionIndex() {
         $this->render('index');
     }
