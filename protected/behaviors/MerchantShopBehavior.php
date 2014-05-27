@@ -27,7 +27,12 @@ class MerchantShopBehavior extends BaseBehavior{
             $criteria->addSearchCondition("owner",$param['owner']);
         if(isset($param['isonly']) && is_numeric($param['isonly']))
             $criteria->addColumnCondition(array("isonly"=>$param['isonly']));
-
+        if(isset($param['catid']) && is_numeric($param['catid']))
+            $criteria->addColumnCondition(array("catid"=>$param['catid']));
+        if(isset($param['districtid']) && is_numeric($param['districtid']))
+            $criteria->addColumnCondition(array("districtid"=>$param['districtid']));
+        if(!empty($param['order']))
+            $criteria->order = $param['order'];
         if(-1 != $page){
             $count=MerchantShop::model()->count($criteria);
             $pager = new CPagination($count);
