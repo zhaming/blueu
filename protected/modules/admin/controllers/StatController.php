@@ -23,11 +23,11 @@ class StatController extends BController {
         $this->render('user');
     }
     
-    public function actionShop() {
-        $this->render('shop');
-    }
-
     public function actionIndustry() {
         $this->render('industry');
+    }
+    
+    public function actionShop() {
+        $this->render('shop');
     }
 }

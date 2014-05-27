@@ -21,5 +21,12 @@ class PushController extends BController {
     public function actionIndex() {
         $this->render('index');
     }
+    
+    public function actionList() {
+        $this->render('index');
+    }
 
+    public function actionActive() {
+        $this->render('index');
+    }
 }

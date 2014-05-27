@@ -9,26 +9,26 @@ BlueU客户端接口文档
 测试接口:*mocky.shifang.info*  
 
 
-    接口名        |         地址         |    类型
----------------- | ------------------- | --------
-[用户注册](#api1)  | /api/user/register  |  POST
-[用户登录](#api2)  |  /api/user/login    |  POST
-[重置密码](#api3)  |  /api/user/resetpwd |  POST
-[用户登出](#api4)  |  /api/user/logout   |  POST
-[编辑资料](#api5)  |  /api/user/1/edit   |  POST
-[启用推送](#api6)  |  /api/user/1/push   |  POST
-[用户详情](#api7)  |  /api/user/1        |  GET
-[用户列表](#api8)  |  /api/users         |  GET
-[商户详情](#api9)  |  /api/merchant/1    |  GET
-[商户列表](#api10) |  /api/merchants     |  GET
-[广告列表](#api11) |  /api/ad            |  GET
-[广告点击](#api12) |  /api/ad/click      |  POST
-[到店状态](#api13) |  /api/push/toshop   |  POST
-[推送点击](#api14) |  /api/push/click    |  POST
-[商铺列表](#api15) |  /api/merchantshop/list| GET
-[商铺详情](#api16) |  /api/merchantshop/detail| GET
-[商品列表](#api17) |  /api/merchantshop/products| GET
-[商品详情](#api18) |  /api/merchantshop/productdetail| GET
+接口名             |                 地址              |  类型
+------------------ | --------------------------------- | --------
+[用户注册](#api1)  |  /api/user/register               |  POST
+[用户登录](#api2)  |  /api/user/login                  |  POST
+[重置密码](#api3)  |  /api/user/resetpwd               |  POST
+[用户登出](#api4)  |  /api/user/logout                 |  POST
+[编辑资料](#api5)  |  /api/user/1/edit                 |  POST
+[启用推送](#api6)  |  /api/user/1/push                 |  POST
+[用户详情](#api7)  |  /api/user/1                      |  GET
+[用户列表](#api8)  |  /api/users                       |  GET
+[商户详情](#api9)  |  /api/merchant/1                  |  GET
+[商户列表](#api10) |  /api/merchants                   |  GET
+[广告详情](#api11) |  /api/advertisement/list          |  GET
+[广告点击](#api12) |  /api/advertisement/click         |  POST
+[到店状态](#api13) |  /api/push/toshop                 |  POST
+[推送点击](#api14) |  /api/push/click                  |  POST
+[商铺列表](#api15) |  /api/merchantshop/list           |  GET
+[商铺详情](#api16) |  /api/merchantshop/detail         |  GET
+[商品列表](#api17) |  /api/merchantshop/products       |  GET
+[商品详情](#api18) |  /api/merchantshop/productdetail  |  GET
 
 
 ## 约定  
@@ -501,13 +501,13 @@ data       |  是  |   map   | 见示例 | 返回数据
 
 
 ## 广告列表 {#api11}
-地址：/api/ad
+地址：/api/advertisement/list
 
 ###接口输入
 
 提交方式：GET
 
-参数名    | 必填 | 类型  |  示例 | 说明
+参数名   | 必填| 类型 |  示例 | 说明
 placetag | 是  |string|  top  | 广告位 top:上方 right:右侧
 page     | 否  |  int |   1   | 当前页码，默认1
 pagesize | 否  |  int |   2   | 每页显示的数据条数
@@ -515,7 +515,7 @@ pagesize | 否  |  int |   2   | 每页显示的数据条数
 完整参数示例:
 
 <pre>
-    curl -X POST -H "Accept:application/json" http://{domain}/api/ad
+curl -X POST -H "Accept:application/json" http://{domain}/api/advertisement/list
 </pre>
 
 ###接口输出
@@ -543,25 +543,25 @@ data       |  是  |   map   | 见示例 | 返回数据
 
 
 ## 广告点击 {#api12}
-地址：/api/ad/click
+地址：/api/advertisement/click
 
 ###接口输入
 
 提交方式：POST
 
- 参数名   | 必填 |   类型  |   示例     |    说明
--------- | ---- | ----- | --------  | --------
-id       |  是  | int   | 6          | 广告ID
+参数名 | 必填 | 类型  | 示例|  说明
+------ | ---- | ----- | --- | -------
+id     |  是  | int   |  6  | 广告ID
 
 完整参数示例:
 <pre>
-    curl -X POST -H "Accept:application/json" -d '{"id":"6"}' http://{domain}/api/ad/click
+    curl -X POST -H "Accept:application/json" -d '{"id":"6"}' http://{domain}/api/advertisement/click
 </pre>
 
 ###接口输出
 
-  参数名    | 必有 |   类型  |  示例 |  说明
----------- | --- | ------- | ---- | --------
+参数名     | 必有|   类型  |  示例  |  说明
+---------- | --- | ------- | ------ | --------
 error_code |  是 |   int   | 见示例 | 返回数据
 error_msg  |  是 |  string | 见示例 | 返回数据
 
@@ -657,8 +657,9 @@ districtid | 否    | int   | 1         | 商圈ＩＤ
 order      | 否    | string| TIME_DESC | 排序。参数见说明
 
 #### order 参数说明
-  参数        |  说明
--------------|----
+
+参数         |  说明
+-------------|-----------------
   TIME_DESC  | 按照创建时间倒序
   TIME_ASC   | 创建时间顺序
   SHOP_DESC  | 店铺ID倒序

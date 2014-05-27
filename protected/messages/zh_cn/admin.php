@@ -46,6 +46,7 @@ return array (
   'Disable push success' => '禁用推送成功',
   'Disable success' => '禁用成功',
   'Edit' => '编辑',
+  'Search' => '查询',
   'Email' => '邮箱',
   'Email send failure.' => '邮件发送失败',
   'Email send success.' => '邮件发送成功',
@@ -128,4 +129,7 @@ return array (
   'Username is invalid' => '用户名无效',
   'Welcome,' => '欢迎光临，',
   'century' => '年代',
+  'TaskDefinition' => '定时任务说明',
+  'SearchForm' => '搜索表单',
+  'Log' => '日志',
 );

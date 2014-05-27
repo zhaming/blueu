@@ -14,6 +14,7 @@ return array_merge_recursive(array(
         'application.behaviors.*',
         'application.widgets.*',
         'application.extensions.*',
+        'application.extensions.helpers.*',
     ),
     
     'modules' => array(
