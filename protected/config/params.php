@@ -11,11 +11,13 @@
 
 return array(
     'host' => 'http://blueu2.dev/',
-    'url_web' => 'statistics/',
+    'url_web' => 'statics/',
     
     'appid' => '2674298',
     'apikey' => 'Tp3bIrUoG13eoE5GvwVRcI9W',
     'secretkey' => 'ItaHRAXueuTwYPANjLtNcA4mRObGoi1e',
+    'pem-dev' => 'statics/assets/APNs-dev.pem',
+    'pem-pro' => 'statics/assets/APNs-pro.pem',
     
 	'title' => '蓝友寻宝',
 	'title_separator' => '-',
