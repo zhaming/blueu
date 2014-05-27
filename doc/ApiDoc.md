@@ -24,7 +24,7 @@ BlueU客户端接口文档
 [用户列表](#api8)  |  /api/users                       |  GET
 [商户详情](#api9)  |  /api/merchant/1                  |  GET
 [商户列表](#api10) |  /api/merchants                   |  GET
-[广告详情](#api11) |  /api/ad/1                        |  GET
+[广告详情](#api11) |  /api/ads                         |  GET
 [到店状态](#api12) |  /api/push/toshop                 |  POST
 [推送点击](#api13) |  /api/push/click                  |  POST
 [商铺列表](#api14) |  /api/merchantshop/list           |  GET
@@ -515,7 +515,7 @@ data       |  是  |   map   | 见示例 | 返回数据
 完整参数示例:
 
 <pre>
-curl -X POST -H "Accept:application/json" http://{domain}/api/ad/1
+curl -X POST -H "Accept:application/json" http://{domain}/api/ads
 </pre>
 
 ###接口输出
