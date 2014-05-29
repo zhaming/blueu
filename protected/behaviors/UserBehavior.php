@@ -39,6 +39,7 @@ class UserBehavior extends BaseBehavior {
         $count = User::model()->with('account')->count($criteria);
 
         $pager = new CPagination($count);
+        $pager->validateCurrentPage = false;
         $page != null && $pager->setCurrentPage($page - 1);
         $pagesize != null && $pager->setPageSize($pagesize);
         $pager->applyLimit($criteria);
@@ -118,9 +119,10 @@ class UserBehavior extends BaseBehavior {
      * @param integer $userid
      * @return array 
      */
-    public function getPushSetting($userid){
+    public function getPushSetting($userid) {
         $userExtR = UserExt::model()->with('user')->findByPk($userid);
-        if(empty($userExtR)) return false;
+        if (empty($userExtR))
+            return false;
         $userR = $userExtR->user;
         $setting = array(
             'pushable' => $userR->pushable,
@@ -131,4 +133,5 @@ class UserBehavior extends BaseBehavior {
         );
         return $setting;
     }
+
 }
