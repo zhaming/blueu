@@ -120,6 +120,7 @@ class UserBehavior extends BaseBehavior {
      */
     public function getPushSetting($userid){
         $userExtR = UserExt::model()->with('user')->findByPk($userid);
+        if(empty($userExtR)) return false;
         $userR = $userExtR->user;
         $setting = array(
             'pushable' => $userR->pushable,
