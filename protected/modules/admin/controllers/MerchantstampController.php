@@ -1,11 +1,11 @@
 <?php
 
-class MerchantcouponController extends BController {
+class MerchantstampController extends BController {
 
-    private $couponBehavior;
+    private $stampBehavior;
     public function init(){
         parent::init();
-        $this->couponBehavior = new MerchantCouponBehavior;
+        $this->stampBehavior = new MerchantStampBehavior;
     }
 
     public function actionIndex(){
@@ -15,7 +15,7 @@ class MerchantcouponController extends BController {
         $param['page'] = $page;
         $param['name'] = $name;
         $param['pageSize'] =4;
-        $res = $this->couponBehavior->getList($param);
+        $res = $this->stampBehavior->getList($param);
 
         $res['name'] = $name;
         $this->render("list",$res);
@@ -23,7 +23,7 @@ class MerchantcouponController extends BController {
     public function actionCreate(){
 
         if(Yii::app()->request->isPostRequest){
-            $coupon = Yii::app()->request->getPost("coupon");
+            $stamp = Yii::app()->request->getPost("stamp");
             $shopid = Yii::app()->request->getParam("shopid");
 
             if(empty($shopid)){
@@ -31,40 +31,40 @@ class MerchantcouponController extends BController {
                 Yii::app()->end;
             }
 
-            if(empty($coupon['validity_end']) || empty($coupon['validity_end'])){
+            if(empty($stamp['validity_end']) || empty($stamp['validity_end'])){
                 $this->showError(Yii::t("comment","Pelease select a date"),$this->referer);
             }else{
-                $coupon['validity_start'] = strtotime($coupon['validity_start']);
-                $coupon['validity_end'] = strtotime($coupon['validity_end']);
+                $stamp['validity_start'] = strtotime($stamp['validity_start']);
+                $stamp['validity_end'] = strtotime($stamp['validity_end']);
             }
 
              $transaction = Yii::app()->db->beginTransaction();
             try {
                 $code = new MerchantCode;
                 $code->type=3;
-                $code->validity_start=$coupon['validity_start'];
-                $code->validity_end=$coupon["validity_end"];
+                $code->validity_start=$stamp['validity_start'];
+                $code->validity_end=$stamp["validity_end"];
                 $code->code =MerchantCode::model()->getNewCode();
-                $code->total=$coupon['total'];
+                $code->total=$stamp['total'];
                 $code->used=0;
                 $code->save();
 
-                $coupon['codeid'] = $code->id;
-                $coupon["merchantid"] = Yii::app()->user->getId();
+                $stamp['codeid'] = $code->id;
+                $stamp["merchantid"] = Yii::app()->user->getId();
 
 
                 $fileBehavior = new FileBehavior();
-                if ($fileBehavior->isHaveUploadFile('coupon[pic]')) {
+                if ($fileBehavior->isHaveUploadFile('stamp[pic]')) {
 
-                    $file = $fileBehavior->saveUploadFile('coupon[pic]');
+                    $file = $fileBehavior->saveUploadFile('stamp[pic]');
                     if ($file) {
-                        $coupon['pic'] = $file['hash'];
+                        $stamp['pic'] = $file['hash'];
                     }
                 }
 
                 foreach ($shopid as $key => $value) {
-                    $coupon['shopid'] = $value;
-                    $this->couponBehavior->saveOrUpdate($coupon);
+                    $stamp['shopid'] = $value;
+                    $this->stampBehavior->saveOrUpdate($stamp);
                 }
 
             } catch (Exception $e) {
@@ -86,12 +86,12 @@ class MerchantcouponController extends BController {
     }
     public function actionEdit(){
         if(Yii::app()->request->isPostRequest){
-            $data = Yii::app()->request->getPost("coupon");
+            $data = Yii::app()->request->getPost("stamp");
 
             $fileBehavior = new FileBehavior();
-            if ($fileBehavior->isHaveUploadFile('coupon[pic]')) {
+            if ($fileBehavior->isHaveUploadFile('stamp[pic]')) {
 
-                $file = $fileBehavior->saveUploadFile('coupon[pic]');
+                $file = $fileBehavior->saveUploadFile('stamp[pic]');
                 if ($file) {
                     $data['pic'] = $file['hash'];
                 }
@@ -106,7 +106,7 @@ class MerchantcouponController extends BController {
 
              $transaction = Yii::app()->db->beginTransaction();
              try {
-                $this->couponBehavior->saveOrUpdate($data);
+                $this->stampBehavior->saveOrUpdate($data);
                 $code = MerchantCode::model()->findByPk($data['codeid']);
                 $code->validity_start=$data['validity_start'];
                 $code->validity_end=$data['validity_end'];
@@ -128,9 +128,9 @@ class MerchantcouponController extends BController {
                 Yii::app()->end;
             }
 
-            $coupon = $this->couponBehavior->getById($id);
+            $stamp = $this->stampBehavior->getById($id);
 
-            if(empty($coupon)){
+            if(empty($stamp)){
                 $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
                 Yii::app()->end;
             }
@@ -138,7 +138,7 @@ class MerchantcouponController extends BController {
             $ar['merchantid'] = Yii::app()->user->getId();
             $ar['selfid'] = Yii::app()->user->getId();
             $shop = $shopBehavior->getList($ar);
-            $shop['coupon'] = $coupon;
+            $shop['stamp'] = $stamp;
             $this->render("edit",$shop);
         }
 
@@ -150,7 +150,7 @@ class MerchantcouponController extends BController {
             $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
             Yii::app()->end();
         }
-        MerchantCoupon::model()->deleteAllByAttributes(
+        MerchantStamp::model()->deleteAllByAttributes(
                     array(),"id=:id",
                     array(":id"=>$id)
         );

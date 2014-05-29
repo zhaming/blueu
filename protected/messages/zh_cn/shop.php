@@ -19,8 +19,7 @@
 return array (
   'Create Failure' => '',
   'Edit Failure' => '',
-  'Pelase input coupon total' => '',
-  '' => '@@@@',
+  'Pelase input coupon total' => '请输入优惠券数量',
   'Product Manager' => '@@商品管理@@',
   'Coupon Create' => '添加优惠券',
   'Coupon List' => '优惠券列表',
@@ -56,4 +55,14 @@ return array (
   'Shop Owner' => '店主名',
   'Shop URL' => '商铺网址',
   'Telephone' => '联系电话',
+
+  'Stamp Manager'=>"印花管理",
+  "Stamp List"=>"印花列表",
+  "Stamp Create"=>"创建印花",
+  "Stamp Edit"=>"编辑印花",
+  "Stamp Name"=>"印花名称",
+  "Stamp Edit"=>"编辑印花",
+  'Pelase input stamp name' => '请输入印花名称',
+  'Pelase input stamp total' => '请输入印花数量',
+
 );

@@ -18,7 +18,7 @@
  */
 return array (
   'Edit Success' => '',
-  'Total' => '',
+  'Total' => '总量',
   'Delete Failure' => '@@删除失败@@',
   'Param Error' => '@@参数错误@@',
   'Add' => '添加',
@@ -39,4 +39,5 @@ return array (
   'Reset' => '重置',
   'Select' => '查询',
   'Submit' => '提交',
+  'Operate'=>'操作',
 );

@@ -10,7 +10,7 @@
  */
 
 return array(
-    'host' => 'http://blueu.hugb.com/',
+    'host' => 'http://blueu2.dev/',
     'url_web' => 'statics/',
     
     'appid' => '2674298',
