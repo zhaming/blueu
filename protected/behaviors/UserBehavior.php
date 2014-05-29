@@ -113,4 +113,21 @@ class UserBehavior extends BaseBehavior {
         return true;
     }
 
+    /**
+     * 获取用户推送相关配置
+     * @param integer $userid
+     * @return array 
+     */
+    public function getPushSetting($userid){
+        $userExtR = UserExt::model()->with('user')->findByPk($userid);
+        $userR = $userExtR->user;
+        $setting = array(
+            'pushable' => $userR->pushable,
+            'likepush' => $userR->likepush,
+            'user_id' => $userExtR->user_id,
+            'channel_id' => $userExtR->channel_id,
+            'platform' => $userExtR->platform,
+        );
+        return $setting;
+    }
 }
