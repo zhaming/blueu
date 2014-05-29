@@ -18,6 +18,11 @@
  */
 class LogController extends BController {
 
+    public function init() {
+        parent::init();
+        $this->setPageTitle(Yii::t('admin', 'Log manager'));
+    }
+
     public function actionIndex() {
         $this->render('index');
     }

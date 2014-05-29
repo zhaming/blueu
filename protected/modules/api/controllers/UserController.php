@@ -44,10 +44,17 @@ class UserController extends IController {
             $this->message = 'name' . Yii::t('api', ' is not set');
             return;
         }
-        if (!$this->userBehavior->register($data)) {
+        $user = $this->userBehavior->register($data);
+        if (!$user) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->userBehavior->getError();
         }
+        $account = $this->accountBehavior->login($data, true);
+        $this->data = array(
+            'id' => $account['id'],
+            'name' => $user['name'],
+            'token' => $account['token']
+        );
     }
 
     public function actionLogin() {
@@ -74,13 +81,13 @@ class UserController extends IController {
             return;
         }
         $this->data = array(
-            'userid' => $user['id'],
-            'token_id' => $tokenId,
+            'id' => $account['id'],
+            'token' => $account['token'],
         );
-        
+
         //绑定设备信息
         $pushBehavoir = new PushBehavior();
-        $pushBehavoir->bindDeviceInfo($user['id'], $data);
+        $pushBehavoir->bindDeviceInfo($account['id'], $data);
     }
 
     public function actionList() {

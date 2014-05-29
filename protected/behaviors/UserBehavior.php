@@ -74,7 +74,7 @@ class UserBehavior extends BaseBehavior {
             $user->id = $account->id;
             $user->save();
             $transaction->commit();
-            return true;
+            return $user;
         } catch (Exception $e) {
             $transaction->rollback();
             $this->error = $e->getMessage();

@@ -20,7 +20,6 @@ return array (
   'Create Failure' => '',
   'Edit Failure' => '',
   'Pelase input coupon total' => '',
-  '' => '@@@@',
   'Product Manager' => '@@商品管理@@',
   'Coupon Create' => '添加优惠券',
   'Coupon List' => '优惠券列表',

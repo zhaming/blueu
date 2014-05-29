@@ -17,7 +17,10 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Advertisement manager' => '广告管理',
+  'Picture' => '',
+  'Place tag' => '',
+  'Tag' => '',
+  'Url' => '',
   'Advertisement' => '@@广告@@',
   'Detail' => '@@详情@@',
   'Push Manager' => '@@推送管理@@',
@@ -26,6 +29,7 @@ return array (
   'Activity manager' => '活动管理',
   'Administrator' => '管理员',
   'Administrator manager' => '管理员管理',
+  'Advertisement manager' => '广告管理',
   'Agreement' => '协议',
   'Avatar' => '头像',
   'Base information' => '基本信息',
