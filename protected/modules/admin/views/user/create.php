@@ -12,9 +12,9 @@
         <div class="space-8"></div>
         <form action="/admin/user/create" method="POST" enctype="multipart/form-data" class="form-horizontal">
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="user[username]"><?php echo Yii::t('admin', 'Username'); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-username"><?php echo Yii::t('admin', 'Username'); ?></label>
                 <div class="col-sm-9">
-                    <input type="text" name="user[username]" value="<?php echo $user['username'] ?>" placeholder="<?php echo Yii::t('admin', 'Username'); ?>" class="col-xs-10 col-sm-5" />
+                    <input id="form-field-username" type="text" name="user[username]" value="<?php echo $user['username'] ?>" placeholder="<?php echo Yii::t('admin', 'Username'); ?>" class="col-xs-10 col-sm-5" />
                     <span class="help-inline col-xs-12 col-sm-7">
                         <span class="middle"><?php echo Yii::t('admin', 'Pelase input email'); ?></span>
                     </span>
@@ -22,35 +22,35 @@
             </div>
             <div class="space-4"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="user[password]"><?php echo Yii::t('admin', 'Password'); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-password"><?php echo Yii::t('admin', 'Password'); ?></label>
                 <div class="col-sm-9">
-                    <input type="password" name="user[password]" value="<?php echo $user['password'] ?>" placeholder="<?php echo Yii::t('admin', 'Password'); ?>" class="col-xs-10 col-sm-5" />
+                    <input id="form-field-password" type="password" name="user[password]" value="<?php echo $user['password'] ?>" placeholder="<?php echo Yii::t('admin', 'Password'); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="space-4"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="user[repassword]"><?php echo Yii::t('admin', 'Repeat password'); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-repassword"><?php echo Yii::t('admin', 'Repeat password'); ?></label>
                 <div class="col-sm-9">
-                    <input type="password" name="user[repassword]" value="<?php echo $user['repassword'] ?>" placeholder="<?php echo Yii::t('admin', 'Repeat password'); ?>" class="col-xs-10 col-sm-5" />
+                    <input id="form-field-repassword" type="password" name="user[repassword]" value="<?php echo $user['repassword'] ?>" placeholder="<?php echo Yii::t('admin', 'Repeat password'); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="space-4"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="user[name]"><?php echo Yii::t('admin', 'Name'); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-name"><?php echo Yii::t('admin', 'Name'); ?></label>
                 <div class="col-sm-9">
-                    <input type="text" name="user[name]" value="<?php echo $user['name'] ?>" placeholder="<?php echo Yii::t('admin', 'Name'); ?>" class="col-xs-10 col-sm-5" />
+                    <input id="form-field-name" type="text" name="user[name]" value="<?php echo $user['name'] ?>" placeholder="<?php echo Yii::t('admin', 'Name'); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="space-4"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="user[avatar]"><?php echo Yii::t('admin', 'Avatar'); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="id-input-file-single-upload"><?php echo Yii::t('admin', 'Avatar'); ?></label>
                 <div class="col-sm-9">
-                    <input type="file" name="file" id="id-input-file-single-upload" />
+                    <input id="id-input-file-single-upload" type="file" name="file" />
                 </div>
             </div>
             <div class="space-4"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="user[sex]"><?php echo Yii::t('admin', 'Sex'); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-sex"><?php echo Yii::t('admin', 'Sex'); ?></label>
                 <div class="col-sm-9">
                     <label>
                         <input name="user[sex]" value="0" type="radio"<?php if ($user['sex']==0) { ?> checked="checked"<?php } ?> class="ace" />
@@ -68,16 +68,16 @@
             </div>
             <div class="space-4"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="user[mobile]"><?php echo Yii::t('admin', 'Mobile'); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-mask-2"><?php echo Yii::t('admin', 'Mobile'); ?></label>
                 <div class="input-group col-sm-9">
-                    <input type="text" name="user[mobile]" class="col-xs-10 col-sm-5" id="form-field-mask-2" />
+                    <input id="form-field-mask-2" type="text" name="user[mobile]" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="space-4"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="user[century]"><?php echo Yii::t('admin', 'Century'); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-century"><?php echo Yii::t('admin', 'Century'); ?></label>
                 <div class="col-sm-9">
-                    <select name="user[century]" class="col-sm-5">
+                    <select id="form-field-century" name="user[century]" class="col-sm-5">
                         <option value="other"><?php echo Yii::t('admin', 'Other'); ?></option>
                         <option value="00">00</option>
                         <option value="90">90</option>

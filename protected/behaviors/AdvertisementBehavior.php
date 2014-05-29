@@ -85,4 +85,16 @@ class AdvertisementBehavior extends BaseBehavior {
         return array('pager' => $pager, 'data' => $data);
     }
 
+    public function create($data) {
+        return true;
+    }
+
+    public function disable($id) {
+        return Advertisement::model()->updateByPk($id, array("disabled" => 1));
+    }
+
+    public function enable($id) {
+        return Advertisement::model()->updateByPk($id, array("disabled" => 0));
+    }
+
 }
