@@ -39,6 +39,7 @@ class UserBehavior extends BaseBehavior {
         $count = User::model()->with('account')->count($criteria);
 
         $pager = new CPagination($count);
+        $pager->validateCurrentPage = false;
         $page != null && $pager->setCurrentPage($page - 1);
         $pagesize != null && $pager->setPageSize($pagesize);
         $pager->applyLimit($criteria);
@@ -74,7 +75,7 @@ class UserBehavior extends BaseBehavior {
             $user->id = $account->id;
             $user->save();
             $transaction->commit();
-            return true;
+            return $user;
         } catch (Exception $e) {
             $transaction->rollback();
             $this->error = $e->getMessage();
@@ -111,6 +112,26 @@ class UserBehavior extends BaseBehavior {
 
     public function like($data) {
         return true;
+    }
+
+    /**
+     * 获取用户推送相关配置
+     * @param integer $userid
+     * @return array 
+     */
+    public function getPushSetting($userid) {
+        $userExtR = UserExt::model()->with('user')->findByPk($userid);
+        if (empty($userExtR))
+            return false;
+        $userR = $userExtR->user;
+        $setting = array(
+            'pushable' => $userR->pushable,
+            'likepush' => $userR->likepush,
+            'user_id' => $userExtR->user_id,
+            'channel_id' => $userExtR->channel_id,
+            'platform' => $userExtR->platform,
+        );
+        return $setting;
     }
 
 }

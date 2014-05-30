@@ -24,8 +24,8 @@ class TaskController extends BController
         '1' => '禁用',
     );
     static $types = array(
-        'push' => '推送广告',
-        'grab' => '数据挖掘',
+        'push' => '推送通知',
+        'stat' => '数据统计',
     );
     static $command = '/opt/server/php/bin/php %s/console.php %s %s';
     private $_task;

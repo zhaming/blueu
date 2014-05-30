@@ -338,8 +338,16 @@ class MingString {
         return @file_get_contents($remote, false, null, -1, 1);
     }
 
-    public static function url($url)
+    /**
+     * 判断两个时间是否同一天
+     * @param integer $first 时间戳
+     * @param integer $second 时间戳
+     * @return boolean 
+     */
+    public static function sameDay($first, $second)
     {
-        return "/admin/$url";
+        $firstD = date('Y-m-d', $first);
+        $secondD = date('Y-m-d', $second);
+        return $firstD == $secondD;
     }
 }

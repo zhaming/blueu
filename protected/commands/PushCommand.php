@@ -17,10 +17,10 @@ class PushCommand extends CConsoleCommand
     
     public function run($args)
     {
-        /*$taskid = isset($args[0]) ? $args[0] : 0;
+        $immediately = isset($args[0]) ? $args[0] : 0;
+        $params = isset($args[1]) ? $args[1] : '';
         $_push = new PushBehavior();
-        $result = $_push->push($taskid);
-        echo $result;*/
-        echo 'push';
+        $result = $_push->push($immediately, $params);
+        echo $result;
     }
 }

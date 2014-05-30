@@ -19,6 +19,7 @@ return array_merge_recursive(array(
 		'application.behaviors.*',
 		'application.extensions.*',
         'application.extensions.baidupush.*',
+        'application.extensions.helpers.*',
 	),
 
 	'components' => array(

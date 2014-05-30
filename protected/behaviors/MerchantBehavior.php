@@ -39,6 +39,7 @@ class MerchantBehavior extends BaseBehavior {
         $count = Merchant::model()->with('account')->count($criteria);
 
         $pager = new CPagination($count);
+        $pager->validateCurrentPage = false;
         $page != null && $pager->setCurrentPage($page - 1);
         $pagesize != null && $pager->setPageSize($pagesize);
         $pager->applyLimit($criteria);

@@ -41,7 +41,7 @@ class MerchantstampController extends BController {
              $transaction = Yii::app()->db->beginTransaction();
             try {
                 $code = new MerchantCode;
-                $code->type=3;
+                $code->type=4;
                 $code->validity_start=$stamp['validity_start'];
                 $code->validity_end=$stamp["validity_end"];
                 $code->code =MerchantCode::model()->getNewCode();
