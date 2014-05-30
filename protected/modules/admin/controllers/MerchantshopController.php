@@ -17,8 +17,11 @@ class MerchantshopController extends BController {
 
         $param['pageSize'] =2;
         $param['page'] =$page;
-        $param['merchantid'] = Yii::app()->user->getId();
-        $param['selfid'] = Yii::app()->user->getId();
+        $isadmin = HelpTemplate::isLoginAsAdmin();
+        if(!$isadmin){
+            $param['merchantid'] = Yii::app()->user->getId();
+            $param['selfid'] = Yii::app()->user->getId();
+        }
         if(!empty($name))
             $param['name']   =  $name;
         if(!empty($isonly))
@@ -87,7 +90,9 @@ class MerchantshopController extends BController {
                 $this->showError("没有查询到该店铺",$this->referer);
                 Yii::app()->end();
             }
-            if($shop->merchantid != Yii::app()->user->getId()){
+            $admin = HelpTemplate::isLoginAsAdmin();
+
+            if($shop->merchantid != Yii::app()->user->getId() && !$admin){
                 $this->showError("这不是你的店铺",$this->referer);
                 Yii::app()->end();
             }

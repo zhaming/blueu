@@ -29,10 +29,12 @@ class MerchantproductController  extends BController {
                 }
             }
         }
+        $isadmin = HelpTemplate::isLoginAsAdmin();
+        if(!$isadmin){
+            $param['in']= array("merchantid"=> $ids );
+        }
 
-        $param['in']= array("merchantid"=> $ids );
         $res  = $this->productBehavior->getList($param);
-
         $data = array_merge($param,$res);
         $this->render("list",$data);
     }
@@ -80,8 +82,12 @@ class MerchantproductController  extends BController {
         }else{
 
             //我能管理的店铺
-            $ar['merchantid'] = Yii::app()->user->getId();
-            $ar['selfid'] = Yii::app()->user->getId();
+            $ar = array();
+            $isadmin = HelpTemplate::isLoginAsAdmin();
+            if(!$isadmin){
+                $ar['merchantid'] = Yii::app()->user->getId();
+                $ar['selfid'] = Yii::app()->user->getId();
+            }
             $shop = $this->shopBehavior->getList($ar);
 
 
@@ -130,8 +136,12 @@ class MerchantproductController  extends BController {
             if(empty($product)){
                 $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
             }
-            $ar['merchantid'] = Yii::app()->user->getId();
-            $ar['selfid'] = Yii::app()->user->getId();
+              $ar = array();
+            $isadmin = HelpTemplate::isLoginAsAdmin();
+            if(!$isadmin){
+                $ar['merchantid'] = Yii::app()->user->getId();
+                $ar['selfid'] = Yii::app()->user->getId();
+            }
             $shop = $this->shopBehavior->getList($ar);
             $data =  $shop['data'];
 

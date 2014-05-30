@@ -51,7 +51,7 @@
                         <td><?php echo $value->coupon->used;?></td>
                         <td>
                             <a href="/admin/merchantcoupon/edit/id/<?php echo $value->id;?>" ><?php echo Yii::t("comment","Edit");?></a>
-                            <a href="/admin/merchantcoupon/delete/id/<?php echo $value->id;?>" ><?php echo Yii::t("comment","Delete");?></a>
+                            <a href="/admin/merchantcoupon/delete/id/<?php echo $value->id;?>" class="delete-confirm" ><?php echo Yii::t("comment","Delete");?></a>
                         </td>
                     </tr>
                     <?php endforeach;?>

@@ -49,7 +49,7 @@
                         <td><?php echo $value->code->used;?></td>
                         <td>
                             <a href="/admin/merchantstamp/edit/id/<?php echo $value->id;?>" ><?php echo Yii::t("comment","Edit");?></a>
-                            <a href="/admin/merchantstamp/delete/id/<?php echo $value->id;?>" ><?php echo Yii::t("comment","Delete");?></a>
+                            <a href="/admin/merchantstamp/delete/id/<?php echo $value->id;?>" class="delete-confirm" ><?php echo Yii::t("comment","Delete");?></a>
                         </td>
                     </tr>
                     <?php endforeach;?>

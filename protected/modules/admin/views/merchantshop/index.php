@@ -56,7 +56,7 @@
                         <td><?php echo $value->ismain ==1?"Y":"N";?></td>
                         <td><?php echo $value->isonly ==1?"Y":"N";?></td>
                         <td>
-                            <a href="/admin/merchantshop/delete/id/<?php echo $value->id;?>"><i class="icon-remove red"></i>删除</a>
+                            <a href="/admin/merchantshop/delete/id/<?php echo $value->id;?>" class="delete-confirm"><i class="icon-remove red "></i>删除</a>
                             <a href="/admin/merchantshop/edit/id/<?php echo $value->id;?>"><i class="icon-edit"></i>详情</a>
                             <?php if(empty($value->selfid)): ?>
                             <a href="/admin/merchantshop/addshopaccount/id/<?php echo $value->id;?>"><i class="icon-plus"></i>开通分店账户</a>

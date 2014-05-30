@@ -77,8 +77,12 @@ class MerchantcouponController extends BController {
 
         }else{
             $shopBehavior = new MerchantShopBehavior;
-            $ar['merchantid'] = Yii::app()->user->getId();
-            $ar['selfid'] = Yii::app()->user->getId();
+             $ar = array();
+            $isadmin = HelpTemplate::isLoginAsAdmin();
+            if(!$isadmin){
+                $ar['merchantid'] = Yii::app()->user->getId();
+                $ar['selfid'] = Yii::app()->user->getId();
+            }
             $shop = $shopBehavior->getList($ar);
 
             $this->render("create",$shop);
@@ -135,8 +139,12 @@ class MerchantcouponController extends BController {
                 Yii::app()->end;
             }
             $shopBehavior = new MerchantShopBehavior;
-            $ar['merchantid'] = Yii::app()->user->getId();
-            $ar['selfid'] = Yii::app()->user->getId();
+            $ar = array();
+            $isadmin = HelpTemplate::isLoginAsAdmin();
+            if(!$isadmin){
+                $ar['merchantid'] = Yii::app()->user->getId();
+                $ar['selfid'] = Yii::app()->user->getId();
+            }
             $shop = $shopBehavior->getList($ar);
             $shop['coupon'] = $coupon;
             $this->render("edit",$shop);
