@@ -10,14 +10,16 @@
  */
 
 return array(
-    'host' => 'http://blueu.hugb.com/',
+    'host' => 'http://blueu2.dev/',
     'url_web' => 'statics/',
     
     'appid' => '2674298',
     'apikey' => 'Tp3bIrUoG13eoE5GvwVRcI9W',
     'secretkey' => 'ItaHRAXueuTwYPANjLtNcA4mRObGoi1e',
-    'pem-dev' => 'statics/assets/APNs-dev.pem',
-    'pem-pro' => 'statics/assets/APNs-pro.pem',
+    'pem_dev' => '/../statics/assets/APNs-dev.pem',
+    'pem_pro' => '/../statics/assets/APNs-pro.pem',
+    'message_type' => 1,
+    'deployed' => false,
     
 	'title' => '蓝友寻宝',
 	'title_separator' => '-',
