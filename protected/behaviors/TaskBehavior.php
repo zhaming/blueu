@@ -34,13 +34,15 @@ class TaskBehavior extends BaseBehavior
      * @param boolean $iswaiting
      * @return array 
      */
-    public function tasks($isdisabled = false, $iswaiting = true, $type = '')
+    public function tasks($type = '', $isdisabled = false, $iswaiting = true, $immediately = 0)
     {
         $type = strtolower($type);
         $criteria = new CDbCriteria();
+        if(!empty($type)) $criteria->addCondition("type = '$type'");
         if($isdisabled == false) $criteria->addCondition('disabled = 0');
         if($iswaiting == true) $criteria->addCondition('runtime = 0');
-        if(!empty($type)) $criteria->addCondition("type = '$type'");
+        $criteria->addCondition("immediately = '$immediately'");
+        $criteria->order = 'priority ASC';
         return Task::model()->findAll($criteria);
     }
     
