@@ -21,7 +21,7 @@ BlueU客户端接口文档
 [用户列表](#api8)  |  /api/users                       |  GET
 [商户详情](#api9)  |  /api/merchant/1                  |  GET
 [商户列表](#api10) |  /api/merchants                   |  GET
-[广告详情](#api11) |  /api/advertisement/list          |  GET
+[广告列表](#api11) |  /api/advertisement/list          |  GET
 [广告点击](#api12) |  /api/advertisement/click         |  POST
 [到店状态](#api13) |  /api/push/toshop                 |  POST
 [推送点击](#api14) |  /api/push/click                  |  POST
@@ -507,7 +507,7 @@ data       |  是  |   map   | 见示例 | 返回数据
 
 提交方式：GET
 
-参数名   | 必填| 类型 |  示例 | 说明
+参数名    | 必填| 类型 |  示例 | 说明
 placetag | 是  |string|  top  | 广告位 top:上方 right:右侧
 page     | 否  |  int |   1   | 当前页码，默认1
 pagesize | 否  |  int |   2   | 每页显示的数据条数
