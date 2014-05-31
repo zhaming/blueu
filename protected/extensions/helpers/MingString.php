@@ -346,6 +346,7 @@ class MingString {
      */
     public static function sameDay($first, $second)
     {
+        date_default_timezone_set('Asia/Chongqing');
         $firstD = date('Y-m-d', $first);
         $secondD = date('Y-m-d', $second);
         return $firstD == $secondD;
