@@ -71,4 +71,24 @@ class AdvertisementController extends IController {
         $this->data = $this->advertisementBehavior->getList($filter, $page, $pageSize);
     }
 
+    public function actionStation() {
+        if (Yii::app()->request->getRequestType() != 'GET') {
+            $this->error_code = self::ERROR_REQUEST_METHOD;
+            $this->message = Yii::t('api', 'Please use GET method');
+            return;
+        }
+        $uuid = Yii::app()->request->getQuery('uuid', 1);
+        if (empty($uuid)) {
+            $this->error_code = self::ERROR_REQUEST_PARAMS;
+            $this->message = 'uuid' . Yii::t('api', ' is not set');
+            return;
+        }
+        $rs = $this->advertisementBehavior->getStationAds($uuid);
+        if (!$rs) {
+            $this->error_code = self::ERROR_REQUEST_FAILURE;
+            $this->message = $this->advertisementBehavior->getError();
+        } else {
+            $this->data = $rs;
+        }
+    }
 }

@@ -128,4 +128,7 @@ class AdvertisementBehavior extends BaseBehavior {
         return Advertisement::model()->updateByPk($id, array("disabled" => 0));
     }
 
+    public function getStationAds($uuid){
+        return StationAds::model()->findAllByAttributes(array('uuid' => $uuid));
+    }
 }

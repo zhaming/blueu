@@ -23,7 +23,7 @@ class Advertisement extends CActiveRecord {
     }
 
     public function tableName() {
-        return '{{advertisment}}';
+        return '{{advertisement}}';
     }
 
     public function primaryKey() {

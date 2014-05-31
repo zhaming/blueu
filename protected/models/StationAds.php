@@ -9,29 +9,20 @@
  *	$Id$
  */
 
-class Station extends CActiveRecord {
-
-    public $id;
-    public $uuid;
-    public $mid;
-    public $name;
+class StationAds extends CActiveRecord {
 
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
     public function tableName() {
-        return '{{station}}';
-    }
-
-    public function primaryKey() {
-        return "id";
+        return '{{station_ads}}';
     }
 
     public function relations() {
         $relations = array(
-            'merchant' => array(
-                self::HAS_ONE, 'Merchant', 'blueid'
+            'station' => array(
+                self::HAS_ONE, 'Station', 'id'
             ),
         );
         return $relations;
