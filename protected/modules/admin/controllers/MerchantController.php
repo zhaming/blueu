@@ -29,14 +29,16 @@ class MerchantController extends BController {
     }
 
     public function actionIndex() {
-        $filter = array();
+        $filter = array('search' => array());
         $name = Yii::app()->request->getQuery('name');
+        $username = Yii::app()->request->getQuery('username');
         if (!empty($name)) {
-            $filter['search'] = array('t.name' => $name);
+            $filter['search']['t.name'] = $name;
         }
-        $viewData = $this->merchantBehavior->getlist($filter);
-        $viewData['name'] = $name;
-        $this->render('index', $viewData);
+        if (!empty($username)) {
+            $filter['search']['account.username'] = $username;
+        }
+        $this->render('index', $this->merchantBehavior->getlist($filter));
     }
 
     public function actionDetail() {
@@ -166,60 +168,6 @@ class MerchantController extends BController {
             }
         }
         $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
-    }
-
-    public function actionActivity() {
-        $this->render('activity');
-    }
-
-    public function actionStations() {
-        $this->render('stations');
-    }
-
-    public function actionMember() {
-        $this->render('member');
-    }
-
-    public function actionAdd() {
-        $id = '';
-        $name = '';
-        $describ = '';
-        $pic = '';
-        if (Yii::app()->request->isPostRequest) {
-            $id = Yii::app()->request->getPost('id');
-            $name = Yii::app()->request->getPost('name');
-            $describ = Yii::app()->request->getPost('describ');
-            // $pic = Yii::app()->request->getPost('pic');
-            $blueid = Yii::app()->request->getPost('blueid');
-            if (!empty($id) && !empty($name) && !empty($describ) && !empty($blueid)) {
-                $criteria = new CDbCriteria;
-                $criteria->addColumnCondition(array('id' => $id));
-                if (Merchant::model()->exists($criteria)) {
-                    $this->showError('商户编号已存在, 请重新指定');
-                } else {
-                    $model = new Merchant;
-                    $model->id = $id;
-                    $model->name = $name;
-                    $model->describ = $describ;
-                    $model->blueid = $blueid;
-                    $file_cpt = new FilesComponent;
-                    $upload_ret = $file_cpt->upload('pic');
-                    if ($upload_ret) {
-                        $model->pic = $upload_ret['hash'];
-                    }
-                    if ($model->save()) {
-                        $this->showSuccess('保存成功', $this->createUrl('edit?id=' . $id));
-                    } else {
-                        $this->showError('保存失败');
-                    }
-                }
-            } else {
-                $this->showError('请填写完整信息');
-            }
-        }
-        $blueid = Yii::app()->request->getQuery('blueid');
-        $rc_station = BlueStation::model()->findAll();
-        $this->render('add', compact('id', 'name', 'describ', 'pic', 'blueid', 'rc_station'));
     }
 
 }

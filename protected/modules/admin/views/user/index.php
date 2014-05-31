@@ -1,28 +1,38 @@
 <div class="row">
     <div class="col-xs-12">
+        <form action="/admin/user/index" method="get" class="well form-inline">
+            <label class="inline">
+                <?php echo Yii::t('admin', 'Username'); ?>
+                <input type="text" name="username" value="<?php if(!empty($_GET['username'])) { echo $_GET['username']; } ?>"> 
+            </label>
+            <label class="inline">
+                <?php echo Yii::t('admin', 'Name'); ?>
+                <input type="text" name="name" value="<?php if(!empty($_GET['name'])) { echo $_GET['name']; } ?>"> 
+            </label>
+            <label class="inline ">
+                <input name="isonly" type="checkbox" class="ace" value="1">
+                <span class="lbl"><?php echo Yii::t('admin', 'Normal'); ?></span>
+            </label>
+            <label class="inline" >
+                <button type="submit" class="btn btn-xs btn-info">
+                    <i class="icon-search"></i><?php echo Yii::t('admin', 'Search'); ?>
+                </button>
+            </label>
+        </form>
         <form action="/admin/user/delete" method="POST">
             <p>
                 <a href="/admin/user/create" class="btn btn-app btn-success btn-xs">
                     <i class="icon-plus bigger-120"></i>
                     <?php echo Yii::t('admin', 'Create'); ?>
                 </a>
-                <button type="submit" class="btn btn-app btn-danger btn-xs">
+                <button type="submit" class="btn btn-app btn-danger btn-xs delete-confirm">
                     <i class="icon-remove bigger-120"></i>
                     <?php echo Yii::t('admin', 'Delete'); ?>
                 </button>
             </p>
             <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
-            <div class="alert alert-block alert-success">
-                <button type="button" class="close" data-dismiss="alert">
-                    <i class="icon-remove"></i>
-                </button>
-                <p>
-                    <strong>
-                        <?php if ($message['type'] == 'success') { ?><i class="icon-ok"></i><?php } ?>
-                        <?php if ($message['type'] == 'error') { ?><i class="icon-remove"></i><?php } ?>
-                        <?php echo $message['msg']; ?>
-                    </strong>
-                </p>
+            <div class="alert alert-block<?php if ($message['type'] == 'success') { ?> alert-success<?php } ?><?php if ($message['type'] == 'error') { ?> alert-danger<?php } ?>">
+                <p><strong><?php echo $message['msg']; ?></strong></p>
             </div>
             <?php } ?>
             <div class="table-responsive">

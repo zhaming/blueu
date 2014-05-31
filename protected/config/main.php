@@ -65,8 +65,8 @@ return array_merge_recursive(array(
                     'class' => 'CWebLogRoute',
                     'levels' => 'error,warning',
                     'categories' => 'system.db.*',
-                #'showInFireBug' => true,
-                #'ignoreAjaxInFireBug' => true,
+                    'showInFireBug' => true,
+                    'ignoreAjaxInFireBug' => true,
                 ),
                 array(
                     'class' => 'CDbLogRoute',

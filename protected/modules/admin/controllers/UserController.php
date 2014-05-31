@@ -29,10 +29,14 @@ class UserController extends BController {
     }
 
     public function actionIndex() {
-        $filter = array();
+        $filter = array('search' => array());
         $name = Yii::app()->request->getQuery('name');
+        $username = Yii::app()->request->getQuery('username');
         if (!empty($name)) {
-            $filter['search'] = array('t.name' => $name);
+            $filter['search']['t.name'] = $name;
+        }
+        if (!empty($username)) {
+            $filter['search']['account.username'] = $username;
         }
         $this->render('index', $this->userBehavior->getList($filter));
     }

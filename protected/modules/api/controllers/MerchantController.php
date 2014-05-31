@@ -31,10 +31,18 @@ class MerchantController extends IController {
             $this->message = Yii::t('api', 'Please use GET method');
             return;
         }
+
+        $this->data = array();
         $page = Yii::app()->request->getQuery('page', 1);
-        $pagesize = Yii::app()->request->getQuery('pagesize', 2);
-        $data = $this->merchantBehavior->getlist(array(), $page, $pagesize);
-        $this->data = $data['data'];
+        $pagesize = Yii::app()->request->getQuery('pagesize', 10);
+        $data = $this->merchantBehavior->apiGetList($page, $pagesize);
+
+        foreach ($data as $value) {
+            $this->data[] = array(
+                'id' => $value['id'],
+                'name' => $value['name']
+            );
+        }
     }
 
     public function ActionDetail() {
@@ -49,17 +57,23 @@ class MerchantController extends IController {
             $this->message = 'merchantid' . Yii::t('api', ' is not set');
             return;
         }
+        
         $account = $this->checkToken();
         if (!$account) {
             return;
         }
+        
         $merchant = $this->merchantBehavior->detail($merchantId);
         if (!$merchant) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->merchantBehavior->getError();
             return;
         }
-        $this->data = $merchant;
+        
+        $this->data = array(
+            'id' => $merchant['id'],
+            'name' => $merchant['name']
+        );
     }
 
 }

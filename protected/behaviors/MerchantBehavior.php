@@ -18,6 +18,23 @@
  */
 class MerchantBehavior extends BaseBehavior {
 
+    /**
+     * 客户端获取商户列表
+     * @param integer $page
+     * @param integer $pagesize
+     * @return array
+     */
+    public function apiGetList($page = 1, $pagesize = 10) {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('account.roleid=4');
+        $criteria->addCondition('account.status=0');
+        $criteria->order = 't.id desc';
+        $criteria->limit = $pagesize;
+        $criteria->offset = ($page - 1) * $pagesize;
+
+        return Merchant::model()->with('account')->findAll($criteria);
+    }
+
     public function getlist($filter = array(), $page = null, $pagesize = null) {
         $criteria = new CDbCriteria();
         $criteria->addCondition('account.roleid=4');

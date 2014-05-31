@@ -12,17 +12,8 @@
                 </button>
             </p>
             <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
-            <div class="alert alert-block alert-success">
-                <button type="button" class="close" data-dismiss="alert">
-                    <i class="icon-remove"></i>
-                </button>
-                <p>
-                    <strong>
-                        <?php if ($message['type'] == 'success') { ?><i class="icon-ok"></i><?php } ?>
-                        <?php if ($message['type'] == 'error') { ?><i class="icon-remove"></i><?php } ?>
-                        <?php echo $message['msg']; ?>
-                    </strong>
-                </p>
+            <div class="alert alert-block<?php if ($message['type'] == 'success') { ?> alert-success<?php } ?><?php if ($message['type'] == 'error') { ?> alert-danger<?php } ?>">
+                <p><strong><?php echo $message['msg']; ?></strong></p>
             </div>
             <?php } ?>
             <div class="table-responsive">

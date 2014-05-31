@@ -18,6 +18,11 @@
  */
 class FileBehavior extends BaseBehavior {
 
+    /**
+     * 保存用户上传的原始图片
+     * @param string $filename
+     * @return boolean or array
+     */
     public function saveUploadFile($filename = "file") {
         $fileInstance = CUploadedFile::getInstanceByName($filename);
 
@@ -85,18 +90,35 @@ class FileBehavior extends BaseBehavior {
         return $this->saveUploadFile();
     }
 
+    /**
+     * 是否有文件上传
+     * @param string $filename
+     * @return blooean
+     */
     public function isHaveUploadFile($filename = "file") {
         return CUploadedFile::getInstanceByName($filename) != null;
     }
 
+    /**
+     * 用户头像根目录
+     * @return string
+     */
     public function getAvatarDirectory() {
         return YiiBase::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . 'statics' . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR . 'avatar';
     }
 
+    /**
+     * 商户Logo根目录
+     * @return string
+     */
     public function getLogoDirectory() {
         return YiiBase::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . 'statics' . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR . 'logo';
     }
 
+    /**
+     * 用户上传的原始图片根目录
+     * @return string
+     */
     public function getOriginalDirectory() {
         return YiiBase::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . 'statics' . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR . 'original';
     }
