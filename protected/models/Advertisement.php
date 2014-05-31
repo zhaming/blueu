@@ -30,5 +30,14 @@ class Advertisement extends CActiveRecord {
         return "id";
     }
 
+    public function relations() {
+        $relations = array(
+            'account' => array(
+                self::BELONGS_TO, 'Account', 'owner'
+            )
+        );
+        return $relations;
+    }
+
 }
 

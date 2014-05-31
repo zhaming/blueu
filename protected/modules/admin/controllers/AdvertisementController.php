@@ -27,6 +27,7 @@ class AdvertisementController extends BController {
     }
 
     public function actionIndex() {
+        Yii::log('get ad list', 'info', 'savetodb');
         $filter = array();
         $this->render('index', $this->advertisementBehavior->getList1($filter));
     }

@@ -33,6 +33,8 @@
                             </th>
                             <th><?php echo Yii::t('admin', 'Id'); ?></th>
                             <th><?php echo Yii::t('admin', 'Tag'); ?></th>
+                            <th><?php echo Yii::t('admin', 'Description'); ?></th>
+                            <th><?php echo Yii::t('admin', 'Owner'); ?></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -42,19 +44,21 @@
                         <tr>
                             <td class="center">
                                 <label>
-                                    <input type="checkbox" name="id[]" value="<?php echo $item->id; ?>" class="ace" />
+                                    <input type="checkbox" name="id[]" value="<?php echo $item['id']; ?>" class="ace" />
                                     <span class="lbl"></span>
                                 </label>
                             </td>
-                            <td><?php echo $item->id; ?></td>
-                            <td><?php echo $item->placetag; ?></td>
+                            <td><?php echo $item['id']; ?></td>
+                            <td><?php echo $item['placetag']; ?></td>
+                            <td><?php echo $item['desc']; ?></td>
+                            <td><?php echo $item['account']['username']; ?></td>
                             <td>
                                 <?php if ($item->disabled == 1) { ?>
-                                <a href="<?php echo $this->createUrl('enable?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="btn btn-xs btn-success">
+                                <a href="<?php echo $this->createUrl('enable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="btn btn-xs btn-success">
                                     <i class="icon-unlock bigger-120"></i>
                                 </a>
                                 <?php } else { ?>
-                                <a href="<?php echo $this->createUrl('disable?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="btn btn-xs btn-warning">
+                                <a href="<?php echo $this->createUrl('disable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="btn btn-xs btn-warning">
                                     <i class="icon-lock bigger-120"></i>
                                 </a>
                                 <?php } ?>

@@ -18,7 +18,7 @@
  */
 class FileBehavior extends BaseBehavior {
 
-    public function saveUploadFile($filename="file") {
+    public function saveUploadFile($filename = "file") {
         $fileInstance = CUploadedFile::getInstanceByName($filename);
 
         $file = new File();
@@ -51,6 +51,10 @@ class FileBehavior extends BaseBehavior {
         return $file->getAttributes();
     }
 
+    /**
+     * 保存用户头像
+     * @return array or boolean
+     */
     public function saveUploadAvatar() {
         $file = $this->saveUploadFile();
         if (!$file) {
@@ -73,7 +77,15 @@ class FileBehavior extends BaseBehavior {
         return $file;
     }
 
-    public function isHaveUploadFile($filename="file") {
+    /**
+     * 保存广告图片
+     * @return array or boolean
+     */
+    public function saveUploadAd() {
+        return $this->saveUploadFile();
+    }
+
+    public function isHaveUploadFile($filename = "file") {
         return CUploadedFile::getInstanceByName($filename) != null;
     }
 

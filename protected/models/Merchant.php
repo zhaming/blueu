@@ -40,10 +40,10 @@ class Merchant extends CActiveRecord {
     public function relations() {
         $relations = array(
             'station' => array(
-                self::HAS_MANY, 'BlueStation', 'id'
+                self::HAS_MANY, 'MerchantShop', 'merchantid'
             ),
             'account' => array(
-                self::HAS_ONE, 'Account', 'id'
+                self::BELONGS_TO, 'Account', 'id'
             )
         );
         return $relations;

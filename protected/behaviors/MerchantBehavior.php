@@ -49,7 +49,7 @@ class MerchantBehavior extends BaseBehavior {
     }
 
     public function detail($merchantId) {
-        $merchant = User::model()->findByPk($merchantId);
+        $merchant = Merchant::model()->findByPk($merchantId);
         if ($merchant == null) {
             $this->error = Yii::t('api', 'Merchant is no exist');
             return false;
@@ -78,6 +78,12 @@ class MerchantBehavior extends BaseBehavior {
             $this->error = $e->getMessage();
         }
         return false;
+    }
+
+    public function edit($data) {
+        $merchantId = $data['id'];
+        unset($data['id']);
+        return Merchant::model()->updateByPk($merchantId, $data);
     }
 
 }

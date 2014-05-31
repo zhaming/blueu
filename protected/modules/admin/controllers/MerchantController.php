@@ -39,6 +39,40 @@ class MerchantController extends BController {
         $this->render('index', $viewData);
     }
 
+    public function actionDetail() {
+        $viewData = array();
+        $merchantId = Yii::app()->request->getQuery('id');
+        $viewData['merchant'] = $this->merchantBehavior->detail($merchantId);
+        $this->render('detail', $viewData);
+    }
+
+    public function actionEdit() {
+        $viewData = array();
+        if (!Yii::app()->request->isPostRequest) {
+            $merchantId = Yii::app()->request->getQuery('id');
+            $viewData['merchant'] = $this->merchantBehavior->detail($merchantId);
+            return $this->render('edit', $viewData);
+        }
+        $merchantEditForm = new MerchantEditForm();
+        $merchantEditForm->setAttributes(Yii::app()->request->getPost('merchant'));
+        if (!$merchantEditForm->validate()) {
+            $viewData['message'] = $merchantEditForm->getFirstError();
+            $viewData['merchant'] = $merchantEditForm->getAttributes();
+            return $this->render('edit', $viewData);
+        }
+        $this->merchantBehavior->edit($merchantEditForm->getAttributes());
+        $this->redirect($this->createUrl('detail?id=' . $merchantEditForm->id));
+    }
+
+    public function actionResetpwd() {
+        $viewData = array();
+        if (!Yii::app()->request->isPostRequest) {
+            $merchantId = Yii::app()->request->getQuery('id');
+            $viewData['merchant'] = $this->merchantBehavior->detail($merchantId);
+            return $this->render('resetpwd', $viewData);
+        }
+    }
+
     public function actionRegister() {
         $viewData = array();
         $this->layout = 'simple';
@@ -117,13 +151,6 @@ class MerchantController extends BController {
             }
         }
         $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
-    }
-
-    public function actionEdit() {
-        $viewData = array();
-        $userId = Yii::app()->request->getQuery('id');
-        $viewData['user'] = $this->merchantBehavior->detail($userId);
-        $this->render('edit', $viewData);
     }
 
     public function actionActivity() {

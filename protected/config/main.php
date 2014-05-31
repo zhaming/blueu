@@ -1,10 +1,10 @@
 <?php
+
 return array_merge_recursive(array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'language' => 'zh_cn',
     'sourceLanguage' => 'en_us',
     'name' => '',
-    
     // preloading 'log' component
     'preload' => array('log'),
     // autoloading model and component classes
@@ -16,7 +16,6 @@ return array_merge_recursive(array(
         'application.extensions.*',
         'application.extensions.helpers.*',
     ),
-    
     'modules' => array(
         'admin' => array(
             'class' => 'application.modules.admin.AdminModule'
@@ -25,7 +24,6 @@ return array_merge_recursive(array(
             'class' => 'application.modules.api.ApiModule'
         ), // uncomment the following to enable the Gii tool
     ),
-    
     // application components
     'components' => array(
         'user' => array(
@@ -56,21 +54,29 @@ return array_merge_recursive(array(
         'errorHandler' => array(
             'errorAction' => 'site/error',
         ),
-		'log' => array(
-			'class' => 'CLogRouter',
-			'routes' => array(
-				array(
-					'class' => 'CFileLogRoute',
-					'levels' => 'error,warning,trace',
-				),
-				array(
-					'class' => 'CWebLogRoute',
+        'log' => array(
+            'class' => 'CLogRouter',
+            'routes' => array(
+                array(
+                    'class' => 'CFileLogRoute',
+                    'levels' => 'error,warning,trace',
+                ),
+                array(
+                    'class' => 'CWebLogRoute',
                     'levels' => 'error,warning',
-					'showInFireBug' => true,
-					'ignoreAjaxInFireBug' => true,
-				),
-			),
-		),
-	),
-	'params'=>require('params.php'),
-), require('db.php'));
+                    'categories' => 'system.db.*',
+                #'showInFireBug' => true,
+                #'ignoreAjaxInFireBug' => true,
+                ),
+                array(
+                    'class' => 'CDbLogRoute',
+                    'connectionID' => 'db',
+                    'levels' => 'info, warning, error, profile, debug',
+                    'logTableName' => 'syslog',
+                    'categories' => 'savetodb'
+                ),
+            ),
+        ),
+    ),
+    'params' => require('params.php'),
+        ), require('db.php'));

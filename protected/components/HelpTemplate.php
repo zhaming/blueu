@@ -78,4 +78,8 @@ class HelpTemplate extends CComponent {
         return Yii::app()->user->getState('roleid') == 4;
     }
 
+    public static function getAdUrl($path) {
+        return Yii::app()->params['host'] . Yii::app()->params['url_web'] . 'upload/original/' . $path;
+    }
+
 }
