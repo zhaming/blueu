@@ -18,6 +18,30 @@
  */
 class UserBehavior extends BaseBehavior {
 
+    public function apiGetList($page = 1, $pagesize = 10) {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('account.roleid=5');
+        $criteria->addCondition('account.status=0');
+        $criteria->order = 't.id desc';
+        $criteria->limit = $pagesize;
+        $criteria->offset = ($page - 1) * $pagesize;
+
+        $list = User::model()->with('account')->findAll($criteria);
+
+        $data = array();
+        foreach ($list as $value) {
+            $data[] = array(
+                'id' => $value->id,
+                'name' => $value->name,
+                'avatar' => HelpTemplate::getAvatarUrl($value->avatar),
+                'sex' => $value->sex,
+                'century' => $value->century,
+                'mobile' => $value->mobile
+            );
+        }
+        return $data;
+    }
+
     public function getList($filter = array(), $page = null, $pagesize = null) {
         $criteria = new CDbCriteria();
         $criteria->addCondition('account.roleid=5');
@@ -30,7 +54,11 @@ class UserBehavior extends BaseBehavior {
                         $criteria->addSearchCondition($column, $keyword);
                     }
                     break;
-
+                case 'where':
+                    foreach ($value as $k => $v) {
+                        $criteria->addCondition($k . '=:' . $k);
+                        $criteria->params[':' . $k] = $v;
+                    }
                 default:
                     break;
             }
@@ -84,7 +112,13 @@ class UserBehavior extends BaseBehavior {
         return false;
     }
 
-    public function edit($userId, $data) {
+    public function edit($data) {
+        if (!isset($data['id'])) {
+            $this->error = 'id' . Yii::t('api', ' is not set');
+            return false;
+        }
+        $userId = $data['id'];
+        unset($data['id']);
         $enableEdit = array(
             'name'
         );
@@ -94,7 +128,8 @@ class UserBehavior extends BaseBehavior {
                 return false;
             }
         }
-        return User::model()->updateByPk($userId, $data);
+        User::model()->updateByPk($userId, $data);
+        return true;
     }
 
     public function push($userId, $enable = 1) {

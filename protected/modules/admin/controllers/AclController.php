@@ -18,6 +18,11 @@
  */
 class AclController extends BController {
 
+    public function init() {
+        parent::init();
+        $this->setPageTitle(Yii::t('admin', 'Access control'));
+    }
+
     public function actionIndex() {
         $this->render('index');
     }

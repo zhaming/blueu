@@ -99,8 +99,7 @@ class UserController extends IController {
 
         $page = Yii::app()->request->getQuery('page', 1);
         $pagesize = Yii::app()->request->getQuery('pagesize', 10);
-        $data = $this->userBehavior->getlist(array(), $page, $pagesize);
-        $this->data = $data['data'];
+        $this->data = $this->userBehavior->apiGetList($page, $pagesize);
     }
 
     public function actionDetail() {
@@ -200,7 +199,8 @@ class UserController extends IController {
             $this->message = Yii::t('api', 'Illegal request');
             return;
         }
-        if (!$this->userBehavior->edit($account['id'], $data)) {
+        $data['id'] = $account[id];
+        if (!$this->userBehavior->edit($data)) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->userBehavior->getError();
         }

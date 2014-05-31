@@ -48,11 +48,11 @@
                         <tr>
                             <td class="center">
                                 <label>
-                                    <input type="checkbox" name="id[]" value="<?php echo $item->id; ?>" class="ace" />
+                                    <input type="checkbox" name="id[]" value="<?php echo $item['id']; ?>" class="ace" />
                                     <span class="lbl"></span>
                                 </label>
                             </td>
-                            <td><?php echo $item->id; ?></td>
+                            <td><?php echo $item['id']; ?></td>
                             <td><?php echo $item->account->username; ?></td>
                             <td><?php echo $item->name; ?></td>
                             <td>
@@ -64,27 +64,27 @@
                             <td>
                                 <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
                                     <?php if ($item->account->status == 1) { ?>
-                                    <a href="<?php echo $this->createUrl('enable?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="btn btn-xs btn-success">
+                                    <a href="<?php echo $this->createUrl('enable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="btn btn-xs btn-success">
                                         <i class="icon-unlock bigger-120"></i>
                                     </a>
                                     <?php } else { ?>
-                                    <a href="<?php echo $this->createUrl('disable?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="btn btn-xs btn-warning">
+                                    <a href="<?php echo $this->createUrl('disable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="btn btn-xs btn-warning">
                                         <i class="icon-lock bigger-120"></i>
                                     </a>
                                     <?php } ?>
                                     <?php if ($item->pushable) { ?>
-                                    <a href="<?php echo $this->createUrl('disablepush?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Disable push'); ?>" class="btn btn-xs btn-danger">
+                                    <a href="<?php echo $this->createUrl('disablepush?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Disable push'); ?>" class="btn btn-xs btn-danger">
                                         <i class="icon-download-alt bigger-120"></i>
                                     </a>
                                     <?php } else { ?>
-                                    <a href="<?php echo $this->createUrl('enablepush?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Enable push'); ?>" class="btn btn-xs btn-success">
+                                    <a href="<?php echo $this->createUrl('enablepush?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable push'); ?>" class="btn btn-xs btn-success">
                                         <i class="icon-download-alt bigger-120"></i>
                                     </a>
                                     <?php } ?>
-                                    <a href="/admin/user/edit?id=<?php echo $item->id; ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
+                                    <a href="/admin/user/detail?id=<?php echo $item['id']; ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
                                         <i class="icon-edit bigger-120"></i>
                                     </a>
-                                    <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger delete-confirm">
+                                    <a href="<?php echo $this->createUrl('delete?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger delete-confirm">
                                         <i class="icon-trash bigger-120"></i>
                                     </a>
                                 </div>

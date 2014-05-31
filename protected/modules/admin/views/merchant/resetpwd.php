@@ -5,44 +5,43 @@
             <div class="tabbable">
                 <ul class="nav nav-tabs padding-16">
                     <li>
-                        <a href="<?php echo $this->createUrl('detail?id=' . $merchant['id']); ?>">
+                        <a href="<?php echo $this->createUrl('detail?id=' . $id); ?>">
                             <i class="green icon-user bigger-125"></i>
                             <?php echo Yii::t('admin', 'Overview'); ?>
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo $this->createUrl('edit?id=' . $merchant['id']); ?>">
+                        <a href="<?php echo $this->createUrl('edit?id=' . $id); ?>">
                             <i class="green icon-edit bigger-125"></i>
                             <?php echo Yii::t('admin', 'Edit information'); ?>
                         </a>
                     </li>
                     <li class="active">
-                        <a href="<?php echo $this->createUrl('resetpwd?id=' . $merchant['id']); ?>">
-                            <i class="blue icon-key bigger-125"></i>
+                        <a href="<?php echo $this->createUrl('resetpwd?id=' . $id); ?>">
+                            <i class="green icon-key bigger-125"></i>
                             <?php echo Yii::t('admin', 'Reset password'); ?>
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content no-border padding-24">
                     <div id="edit-password" class="tab-pane in active">
-                        <div class="space-10"></div>
                         <?php if (!empty($message)) { ?>
                         <div class="alert alert-block alert-danger">
                             <p><strong><?php echo $message; ?></strong></p>
                         </div>
                         <?php } ?>
-                        <input type="hidden" name="merchant[id]" value="<?php echo $merchant['id']; ?>" />
+                        <input type="hidden" name="merchant[id]" value="<?php echo $id; ?>" />
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-pass1"><?php echo Yii::t('admin', 'New password'); ?></label>
                             <div class="col-sm-9">
-                                <input type="password" name="newpassword" id="form-field-pass1">
+                                <input type="password" name="merchant[newpassword]" id="form-field-pass1">
                             </div>
                         </div>
                         <div class="space-4"></div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-pass2"><?php echo Yii::t('admin', 'Repeat password'); ?></label>
                             <div class="col-sm-9">
-                                <input type="password" name="repassword" id="form-field-pass2">
+                                <input type="password" name="merchant[repassword]" id="form-field-pass2">
                             </div>
                         </div>
                     </div>

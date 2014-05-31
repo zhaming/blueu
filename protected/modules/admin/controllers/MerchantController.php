@@ -60,17 +60,32 @@ class MerchantController extends BController {
             $viewData['merchant'] = $merchantEditForm->getAttributes();
             return $this->render('edit', $viewData);
         }
-        $this->merchantBehavior->edit($merchantEditForm->getAttributes());
-        $this->redirect($this->createUrl('detail?id=' . $merchantEditForm->id));
+        if (!$this->merchantBehavior->edit($merchantEditForm->getAttributes())) {
+            $viewData['message'] = Yii::t('admin', 'Save failure.');
+            $viewData['merchant'] = $merchantEditForm->getAttributes();
+            return $this->render('edit', $viewData);
+        }
+        $this->showSuccess(Yii::t('admin', 'Save success.'), $this->createUrl('detail?id=' . $merchantEditForm->id));
     }
 
     public function actionResetpwd() {
         $viewData = array();
         if (!Yii::app()->request->isPostRequest) {
-            $merchantId = Yii::app()->request->getQuery('id');
-            $viewData['merchant'] = $this->merchantBehavior->detail($merchantId);
+            $viewData['id'] = Yii::app()->request->getQuery('id');
             return $this->render('resetpwd', $viewData);
         }
+        $resetPwdForm = new ResetPwdForm();
+        $resetPwdForm->setAttributes(Yii::app()->request->getPost('merchant'));
+        $viewData['id'] = $resetPwdForm->id;
+        if (!$resetPwdForm->validate()) {
+            $viewData['message'] = $resetPwdForm->getFirstError();
+            return $this->render('resetpwd', $viewData);
+        }
+        if (!$this->accountBehavior->resetPwd($resetPwdForm->getAttributes())) {
+            $viewData['message'] = Yii::t('admin', 'Reset password failure.');
+            return $this->render('resetpwd', $viewData);
+        }
+        $this->redirect($this->createUrl('detail?id=' . $resetPwdForm->id));
     }
 
     public function actionRegister() {

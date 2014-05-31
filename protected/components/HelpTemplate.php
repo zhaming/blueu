@@ -82,4 +82,8 @@ class HelpTemplate extends CComponent {
         return Yii::app()->params['host'] . Yii::app()->params['url_web'] . 'upload/original/' . $path;
     }
 
+    public static function getAvatarUrl($path) {
+        return Yii::app()->params['host'] . Yii::app()->params['url_web'] . 'upload/avatar/' . $path;
+    }
+
 }
