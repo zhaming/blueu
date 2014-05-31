@@ -29,6 +29,7 @@ BlueU客户端接口文档
 [商铺详情](#api16) |  /api/merchantshop/detail         |  GET
 [商品列表](#api17) |  /api/merchantshop/products       |  GET
 [商品详情](#api18) |  /api/merchantshop/productdetail  |  GET
+[基站广告](#api19) |  /api/advertisement/station       |  GET
 
 
 ## 约定  
@@ -808,6 +809,45 @@ data       |  是 |   map   | 见示例 | 返回数据
         "merchantid":"14",
         "created":"1400664755",
         "status":"1"
+    }
+}
+</pre>
+
+
+## 基站广告 {#api19}
+地址：/api/advertisement/station
+
+###接口输入
+
+提交方式：GET
+
+参数名    | 必填 | 类型  |  示例  | 说明
+uuid     | 是  |string|  xxx  | 基站识别码
+
+完整参数示例:
+
+<pre>
+curl -X POST -H "Accept:application/json" http://{domain}/api/advertisement/station
+</pre>
+
+###接口输出
+
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       |  是  |   map   | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success",
+    "data":{
+        "stationid":"8",
+        "uuid":"991CC36-C8DB-96DB-1A32-AB756C6BC5A9",
+        "shopid":"2",
+        "source":"2",
+        "sid":"123"
     }
 }
 </pre>

@@ -1,44 +1,28 @@
 <?php
-
-/*
- * 蓝牙基站model
- */
-
 /**
- * 2014-5-13 16:46:08 UTF-8
- * @package application.models
- * @version 3.0
+ *	蓝牙基站model
+ *	@author		hugb <hu198021688500@163.com>
+ *	@copyright	2014-2016
+ *	@version	1.0
+ *	@package	models
  *
- * @author hugb <hu198021688500@163.com>
- * @copyright (c) 2011-2015
- * @license ()
- * 
- * Stations.php hugb
- *
+ *	$Id$
  */
-class Station extends CActiveRecord {
 
-    public $id;
-    public $uuid;
-    public $mid;
-    public $name;
+class StationAds extends CActiveRecord {
 
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
     public function tableName() {
-        return '{{station}}';
-    }
-
-    public function primaryKey() {
-        return "id";
+        return '{{station_ads}}';
     }
 
     public function relations() {
         $relations = array(
-            'merchant' => array(
-                self::HAS_ONE, 'Merchant', 'blueid'
+            'station' => array(
+                self::HAS_ONE, 'Station', 'id'
             ),
         );
         return $relations;
