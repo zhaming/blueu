@@ -1,7 +1,14 @@
 <?php
 
 class StationController extends BController {
+	
+	private $bhv;
 
+    public function init() {
+        parent::init();
+        $this->bhv = new StationBehavior();
+    }
+	
     public function actionIndex() {
         $filters = Yii::app()->request->getQuery('filters');
         $listData = Station::model()->findAll();
@@ -11,10 +18,9 @@ class StationController extends BController {
     public function actionCreate(){
         if(Yii::app()->request->IsPostRequest){
 
-            $shop = Yii::app()->request->getPost("shop");
-            $shop['merchantid']=Yii::app()->user->getId();
+            $station = Yii::app()->request->getPost("station");
 
-            $res = $this->shopBehavior->saveOrUpdate($shop);
+            $res = $this->bhv->create($station);
             if($res){
                 $this->showSuccess(Yii::t("comment","Create Success"), $this->createUrl('create'));
             }else{
@@ -22,16 +28,9 @@ class StationController extends BController {
             }
 
         }else{
-
-            //商圈
-            $district  = District::model()->findAll();
-            $result['district'] = $district;
-            //行业-分类
-            $categoryBehavior = new CategoryBehavior();
-            $category = $categoryBehavior->getAll();
-            $result['category'] = $category;
-
-            $this->render("create",$result);
+			//店铺
+            $shop  = MerchantShop::model()->findAll();
+            $this->render("create",compact('shop'));
         }
     }
 
