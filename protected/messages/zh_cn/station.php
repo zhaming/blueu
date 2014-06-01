@@ -29,4 +29,5 @@ return array (
   'positionY'=>'定位坐标Y',
   'Pelase input positionY' => '请输入设备坐标Y',
   'Station Disabled' => '设备禁用',
+  'Shop' => '商铺',
 );
