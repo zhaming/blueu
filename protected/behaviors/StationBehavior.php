@@ -37,22 +37,18 @@ class StationBehavior extends BaseBehavior{
            $page = $param['page'];
         if(isset($param['pageSize']) && is_numeric($param['pageSize']))
            $pageSize = $param['pageSize'];
+
+/*
         if(isset($param['merchantid']) && is_numeric($param['merchantid'])){
             $criteria->addColumnCondition(array("merchantid"=>$param['merchantid']));
             if(isset($param['selfid']) && is_numeric($param['selfid']))
                $criteria->addCondition('selfid='.$param['selfid'],'OR');
         }
+*/
         if(isset($param['name']) && !empty($param['name']))
             $criteria->addSearchCondition("name",$param['name']);
-        if(isset($param['owner']) && !empty($param['owner']))
-            $criteria->addSearchCondition("owner",$param['owner']);
-        if(isset($param['isonly']) && is_numeric($param['isonly']))
-            $criteria->addColumnCondition(array("isonly"=>$param['isonly']));
-        if(isset($param['catid']) && is_numeric($param['catid']))
-            $criteria->addColumnCondition(array("catid"=>$param['catid']));
-        if(isset($param['districtid']) && is_numeric($param['districtid']))
-            $criteria->addColumnCondition(array("districtid"=>$param['districtid']));
-        if(!empty($param['order']))
+        
+		if(!empty($param['order']))
             $criteria->order = $param['order'];
         if(-1 != $page){
             $count=MerchantShop::model()->count($criteria);
@@ -62,7 +58,7 @@ class StationBehavior extends BaseBehavior{
             $pager->applyLimit($criteria);
         }
 
-        $data = MerchantShop::model()->findAll($criteria);
+        $data = Station::model()->findAll($criteria);
 
         return compact('data','pager');
     }

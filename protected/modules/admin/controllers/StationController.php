@@ -10,9 +10,20 @@ class StationController extends BController {
     }
 	
     public function actionIndex() {
-        $filters = Yii::app()->request->getQuery('filters');
-        $listData = Station::model()->findAll();
-        $this->render('index', array('listData' => $listData));
+
+        $params['name'] = Yii::app()->request->getParam("name");
+        $params['page'] = Yii::app()->request->getParam("page",1);
+
+
+        $params['pageSize'] =10;
+//        $params['merchantid'] = Yii::app()->user->getId();
+ //       $params['selfid'] = Yii::app()->user->getId();
+
+        $res = $this->bhv->getList($params);
+
+        $result =  array_merge($params,$res);
+
+        $this->render('index', $result);
     }
 
     public function actionCreate(){

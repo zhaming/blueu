@@ -1,40 +1,63 @@
-<!-- <form class="well form-inline" action="/admin/user/index" method="get">
-    <p>
-    <label>邮件：<input type="text" value="<?php if(!empty($filters['email'])) {echo $filters['email']; } ?>" name="filters[email]" /></label>
-    <label>姓名：<input type="text" value="<?php if(!empty($filters['name'])) { echo $filters['name']; } ?>" name="filters[name]" /></label>
-    <label>电话：<input type="text" value="<?php if(!empty($filters['phone'])) { echo $filters['phone']; } ?>" name="filters[phone]" /></label>
-    <button class="btn" type="submit"><i class='icon-search'></i>查询</button>
-    </p>
-</form> -->
+<div class="page-header">
+    <h1>
+        <?php echo Yii::t('station', 'Station Manager');?>
+        <small><i class="icon-double-angle-right"></i><?php echo Yii::t('station', 'Station List');?></small>
+    </h1>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <p>
+            <a href="/admin/station/create" class="btn btn-app btn-yellow btn-xs"><i class="icon-create bigger-120"></i>创建</a>
+        </p>
+        <?php $this->widget("AlterMsgWidget")?>
+        <div class="table-responsive">
+            <form  action="" method="get" class="well form-inline">
+                <label class="inline">
+                    <?php echo Yii::t('station', 'Station Name');?>：
+                    <input type="text" name="name" value="<?php echo !empty($name)?$name:'' ;?>" />&emsp;
+                </label>
+                <label class="inline" >
+                    <button type="submit" class="btn btn-xs btn-info">
+                        <i class="icon-search"></i> 查询
+                    </button>
+                </label>
+            </form>
+            <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th><?php echo Yii::t('station', 'Station UUID');?></th>
+                        <th><?php echo Yii::t('station', 'Station Name');?></th>
+                        <th><?php echo Yii::t('station', 'Shop');?></th>
+                        <th><?php echo Yii::t('station', 'positionX');?></th>
+                        <th><?php echo Yii::t('station', 'positionY');?></th>
+                        <th><?php echo Yii::t('station', 'Station Disabled');?></th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
 
-<table class='table table-bordered table-striped'>
-    <tr>
-        <th>编号</th>
-        <th>名称</th>
-        <th>绑定商户</th>
-        <th>基站描述信息</th>
-        <th>操作</th>
-    </tr>
-    <?php if(!empty($listData)): ?>
-        <?php foreach ($listData as $item): ?>
-            <tr>
-                <td><?php echo $item['id']; ?></td>
-                <td><?php echo $item['name']; ?></td>
-                <td><?php echo $item['name']; ?></td>
-                <td><?php echo $item['describ']; ?></td>
-                <td>
-                    <?php if (!is_null($item->merchant)): ?>
-                        <?php $item->merchant->name; ?>
-                    <?php else: ?>
-                        未绑定
-                    <?php endif; ?>
-                <td>
-                    <a href="<?php echo $this->createUrl('merchant/add?blueid='. $item['id']); ?>">绑定商户</a>
-                    <a href="<?php echo $this->createUrl('edit?id='. $item['id']); ?>">编辑</a>
-                    <a href="<?php echo $this->createUrl('delete?id='. $item['id']); ?>">删除</a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    <?php endif; ?>
-</table>
-<?php //$this->widget('application.modules.admin.widgets.BCLinkPager', array('pages'=>$listData['pages']));?>
+                <tbody>
+                <?php if(!empty($data)):?>
+                    <?php foreach ($data as $key => $value) :?>
+                    <tr>
+                        <td><?php echo $value->id?></td>
+                        <td><?php echo $value->uuid?></td>
+                        <td><?php echo $value->name?></td>
+                        <td><?php echo $value->shopid?></td>
+                        <td><?php echo $value->positionX?></td>
+                        <td><?php echo $value->positionY;?></td>
+                        <td><?php echo $value->disabled ==1?"Yes":"No";?></td>
+                         <td>
+                            <a onclick="return confirm('确定要删除吗？');" href="/admin/merchantshop/delete/id/<?php echo $value->id;?>"><i class="icon-remove red"></i>删除</a>
+                            <a href="/admin/merchantshop/edit/id/<?php echo $value->id;?>"><i class="icon-edit"></i>详情</a>
+                            <a href="/admin/merchantshop/addshopaccount/id/<?php echo $value->id;?>"><i class="icon-plus"></i>基站广告</a>
+                        </td>
+                    </tr>
+                    <?php endforeach;?>
+                <?php endif;?>
+                </tbody>
+            </table>
+            <?php $this->widget('application.modules.admin.widgets.BCLinkPager', array('pages' => $pager)); ?>
+        </div>
+    </div>
+</div>
