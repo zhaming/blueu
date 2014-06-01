@@ -72,7 +72,7 @@ class FileBehavior extends BaseBehavior {
         $originalPath = $this->getOriginalDirectory() . DIRECTORY_SEPARATOR . $file['path'];
         $destPath = $this->getAvatarDirectory() . DIRECTORY_SEPARATOR . $file['path'];
         if (!file_exists(dirname($destPath))) {
-            mkdir($destPath, 0777, true);
+            mkdir(dirname($destPath), 0777, true);
         }
 
         if (!$thumb->create($originalPath)->resize(100, 100)->save($destPath)) {
