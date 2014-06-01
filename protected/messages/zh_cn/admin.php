@@ -51,6 +51,7 @@ return array (
     'Console' => '控制台',
     'Content' => '内容',
     'CouponManager' => '优惠券管理',
+	'StationManager'=>'基站管理',
     'Create' => '创建',
     'Delete' => '删除',
     'Delete Failure' => '删除失败',
