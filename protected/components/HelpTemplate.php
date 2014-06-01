@@ -18,6 +18,8 @@
  */
 class HelpTemplate extends CComponent {
 
+    const ENABLED = 0;
+    const DISABLED = 1;
     const ADMIN_ROLE = 1;
     const USER_ROLE = 5;
     const MERCHANT_ROLE = 4;
