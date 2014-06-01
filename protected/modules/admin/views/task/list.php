@@ -45,14 +45,14 @@
                             <label><input type="checkbox" class="ace" /><span class="lbl"></span></label>
                         </th>
                         <th>名称/类型</th>
-                        <th>参数</th>
-                        <th class="hidden-480">其他</th>
-                        <th>
+                        <th>消息模板</th>
+                        <th style="width:12%">其他</th>
+                        <th style="width:16%">
                             <i class="icon-time bigger-110 hidden-480"></i>
                             创建/执行时间
                         </th>
-                        <th class="hidden-480">运行情况</th>
-                        <th></th>
+                        <th style="width:14%">状态</th>
+                        <th style="width:14%"></th>
                     </tr>
                 </thead>
 
@@ -63,18 +63,16 @@
                         <td class="center">
                             <label><input type="checkbox" class="ace" /><span class="lbl"></span></label>
                         </td>
-                        
                         <td title="<?php echo $value->memo; ?>">
                             <?php echo $value->name; ?><br>
-                            <span style="font-style:italic"><?php echo $types[$value->type]; ?></span>
+                            <span style="font-style:italic"><?php echo $value->type; ?>:<?php echo $value->item; ?></span>
+                        </td>
+                        <td title="<?php echo $value->msg; ?>">
+                            <?php echo MingString::str_cut($value->msg, 60); ?>
                         </td>
                         <td>
-                            <?php echo MingString::str_cut($value->sql, 30); ?><br>
-                            <?php echo $value->ext; ?>
-                        </td>
-                        <td>
-                            是否有效:<strong><?php echo $value->disabled==0?'<font color=green>正常</font>':'<font color=red>禁用</font>'; ?></strong><br>
-                            处理限制:<strong><?php echo $value->count==0?'无限制':$value->count; ?></strong>
+                            任务类型:<strong><?php echo $value->immediately==1?'<font color=green>即时</font>':'<font color=blue>定时</font>'; ?></strong><br>
+                            优先级:<strong><?php echo $value->priority; ?>级</strong>
                         </td>
                         <td>
                             <?php echo date('Y-m-d H:i:s', $value->created); ?><br>
@@ -82,16 +80,16 @@
                         </td>
                         <td>
                             运行状态:<strong><?php echo $value->runtime==1?'<font color=green>运行中</font>':'<font color=blue>等待中</font>'; ?></strong><br>
-                            成功处理条数:<strong><?php echo $value->exec_times; ?></strong>
+                            是否有效:<strong><?php echo $value->disabled==0?'<font color=green>正常</font>':'<font color=red>禁用</font>'; ?></strong>
                         </td>
                         <td>
-                            <a href="<?php echo $this->createUrl('log?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Log'); ?>" class="btn btn-xs btn-success">
+                            <a href="<?php echo $this->createUrl('log?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Log'); ?>" class="btn btn-xs btn-success">
                                 <i class="icon-external-link bigger-120"></i>
                             </a>
-                            <a href="<?php echo $this->createUrl('edit?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
+                            <a href="<?php echo $this->createUrl('edit?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
                                 <i class="icon-edit bigger-120"></i>
                             </a>
-                            <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger delete-confirm">
+                            <a href="<?php echo $this->createUrl('delete?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger delete-confirm">
                                 <i class="icon-trash bigger-120"></i>
                             </a>
                         </td>

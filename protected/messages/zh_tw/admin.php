@@ -139,6 +139,7 @@ return array (
   'Username invalid' => '',
   'Username is invalid' => '',
   'Username is not exist.' => '',
+  'VTaskList' => '',
   'Welcome,' => '',
   'century' => '',
   'Advertisement' => '@@@@',

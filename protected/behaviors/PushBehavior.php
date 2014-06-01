@@ -162,11 +162,15 @@ class PushBehavior extends BaseBehavior {
         return PushManual::model()->findAllBySql($sql);
     }
     
-    public function plusManual($id)
+    /**
+     * 人工推送成功次数递增
+     * @param integer $id
+     * @param integer $cnt
+     * @return mixed 
+     */
+    public function plusManual($id, $cnt = 1)
     {
-        $manualR = PushManual::model()->findByPk($id);
-        $manualR->count += 1;
-        return $manualR->save();
+        return PushManual::model()->updateCounters(array('count' => $cnt), "id = '$id'");
     }
     
     /**
@@ -177,7 +181,7 @@ class PushBehavior extends BaseBehavior {
     {
         $params = json_encode($params);
         $command = sprintf(Yii::app()->params->pushCmd, realpath(Yii::app()->basePath.DIRECTORY_SEPARATOR.'..'), 1, $params);
-        exec($command);
+        return exec($command);
     }
     
     
