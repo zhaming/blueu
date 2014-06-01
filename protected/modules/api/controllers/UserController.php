@@ -104,13 +104,15 @@ class UserController extends IController {
             $this->message = Yii::t('api', 'Please use GET method to get data.');
             return;
         }
-        $this->data = array();
         $page = Yii::app()->request->getQuery('page', 1);
         $pagesize = Yii::app()->request->getQuery('pagesize', 10);
         $users = $this->userBehavior->apiGetList($page, $pagesize);
         if (empty($users)) {
+            $this->error_code = self::ERROR_NO_DATA;
+            $this->message = Yii::t('admin', 'No data.');
             return;
         }
+        $this->data = array();
         foreach ($users as $user) {
             $this->data[] = array(
                 'id' => $user['id'],
