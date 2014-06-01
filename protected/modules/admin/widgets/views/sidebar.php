@@ -60,7 +60,7 @@
         <li<?php if (Yii::app()->controller->getId() == 'station') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-rss"></i>
-                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'StationManager'); ?></span>
+                <span class="menu-text cursor-default"><?php echo Yii::t('station', 'Station Manager'); ?></span>
                 <b class="arrow icon-angle-down"></b>
             </a>
             <ul class="submenu">
