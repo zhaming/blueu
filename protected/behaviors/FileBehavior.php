@@ -91,6 +91,14 @@ class FileBehavior extends BaseBehavior {
     }
 
     /**
+     * 保存地图图片
+     * @return array or boolean
+     */
+    public function saveUploadMap() {
+        return $this->saveUploadFile();
+    }
+
+    /**
      * 是否有文件上传
      * @param string $filename
      * @return blooean

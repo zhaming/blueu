@@ -39,19 +39,19 @@
         <li<?php if (in_array(Yii::app()->controller->id, array('user', 'merchant', 'manager', 'acl'))) { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-user"></i>
-                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'User manaer'); ?></span>
+                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'User'); ?></span>
                 <b class="arrow icon-angle-down"></b>
             </a>
             <ul class="submenu">
                 <li<?php if (Yii::app()->controller->getId() == 'merchant') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchant"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Merchant manager'); ?></a>
+                    <a href="/admin/merchant"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Merchant'); ?></a>
                 </li>
                 <li<?php if (Yii::app()->controller->getId() == 'user') { ?> class="active"<?php } ?>>
-                    <a href="/admin/user"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Client user'); ?></a>
+                    <a href="/admin/user"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Client'); ?></a>
                 </li>
                 <?php if (Yii::app()->user->getId() == 1) { ?>
                 <li<?php if (Yii::app()->controller->getId() == 'manager') { ?> class="active"<?php } ?>>
-                    <a href="/admin/manager"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Administrator manager'); ?></a>
+                    <a href="/admin/manager"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Administrator'); ?></a>
                 </li>
                 <?php } ?>
                 <li<?php if (Yii::app()->controller->getId() == 'acl') { ?> class="active"<?php } ?>>
@@ -160,13 +160,19 @@
         <li<?php if (Yii::app()->controller->id == 'advertisement') { ?> class="active"<?php } ?>>
             <a href="/admin/advertisement/index">
                 <i class="icon-film"></i>
-                <span class="menu-text"><?php echo Yii::t('admin', 'Advertisement manager'); ?></span>
+                <span class="menu-text"><?php echo Yii::t('admin', 'Advertisement'); ?></span>
+            </a>
+        </li>
+        <li<?php if (Yii::app()->controller->id == 'map') { ?> class="active"<?php } ?>>
+            <a href="/admin/map">
+                <i class="icon-map-marker"></i>
+                <span class="menu-text"><?php echo Yii::t('admin', 'Map'); ?></span>
             </a>
         </li>
         <li<?php if (in_array(Yii::app()->controller->id, array('settings', 'task', 'log', 'feedback'))) { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-legal"></i>
-                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'System manager'); ?></span>
+                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'System'); ?></span>
                 <b class="arrow icon-angle-down"></b>
             </a>
             <ul class="submenu">
@@ -174,10 +180,10 @@
                     <a href="/admin/task/list"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'TaskManager'); ?></a>
                 </li>
                 <li<?php if (Yii::app()->controller->getId() == 'settings') { ?> class="active"<?php } ?>>
-                    <a href="/admin/settings"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'System settings'); ?></a>
+                    <a href="/admin/settings"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Settings'); ?></a>
                 </li>
                 <li<?php if (Yii::app()->controller->getId() == 'log') { ?> class="active"<?php } ?>>
-                    <a href="/admin/log"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Log manager'); ?></a>
+                    <a href="/admin/log"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Log'); ?></a>
                 </li>
                 <li<?php if (Yii::app()->controller->getId() == 'feedback') { ?> class="active"<?php } ?>>
                     <a href="/admin/feedback"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Feedback'); ?></a>

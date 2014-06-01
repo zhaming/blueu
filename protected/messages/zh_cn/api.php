@@ -17,13 +17,19 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  ' is already taken.' => '',
+  ' is not set.' => '',
   'Advertisement is no exist' => '',
   'Illegal identity' => '',
   'Illegal request' => '',
+  'Illegal request.' => '',
   'Merchant is no exist' => '',
   'Not editable' => '',
   'Please use GET method' => '',
+  'Please use GET method to get data.' => '',
   'Please use POST method' => '',
+  'Please use POST method to submit data.' => '',
+  'Please use POST method to submit data. to submit data.' => '',
   'Token not exist' => '',
   'Token not set' => '',
   'User is no exist' => '',
