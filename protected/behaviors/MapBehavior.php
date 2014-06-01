@@ -31,7 +31,16 @@ class MapBehavior extends BaseBehavior {
         $data = Map::model()->findAll($criteria);
         return array('pager' => $pager, 'data' => $data);
     }
-    
+
+    public function getApiDetail($marketPlace, $floor) {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('marketplace=:marketplace');
+        $criteria->params[':marketplace'] = $marketPlace;
+        $criteria->addCondition('floor=:floor');
+        $criteria->params[':floor'] = $floor;
+        return Map::model()->find($criteria);
+    }
+
     public function disable($id) {
         return Map::model()->updateByPk($id, array("disabled" => 1));
     }
