@@ -1,6 +1,6 @@
 <?php
 /**
- *	推送表
+ *	人工推送表
  *	@author		zham <zha_ming@163.com>
  *	@copyright	2014-2016
  *	@version	1.0
@@ -9,7 +9,7 @@
  *	$Id$
  */
 
-class Push extends CActiveRecord {
+class PushManual extends CActiveRecord {
 
     public $id;
 
@@ -18,7 +18,7 @@ class Push extends CActiveRecord {
     }
 
     public function tableName() {
-        return '{{push}}';
+        return '{{push_manual}}';
     }
 
     public function primaryKey() {
