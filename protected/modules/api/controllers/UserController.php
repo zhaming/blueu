@@ -53,6 +53,9 @@ class UserController extends IController {
         $this->data = array(
             'id' => $account['id'],
             'name' => $user['name'],
+            'avatar' => HelpTemplate::getAvatarUrl($user['avatar']),
+            'sex' => $user['sex'],
+            'century' => $user['century'],
             'token' => $account['token']
         );
     }
@@ -97,10 +100,20 @@ class UserController extends IController {
             return;
         }
 
+        $this->data = array();
         $page = Yii::app()->request->getQuery('page', 1);
         $pagesize = Yii::app()->request->getQuery('pagesize', 10);
-        $data = $this->userBehavior->getlist(array(), $page, $pagesize);
-        $this->data = $data['data'];
+        $data = $this->userBehavior->apiGetList($page, $pagesize);
+
+        foreach ($data as $value) {
+            $this->data[] = array(
+                'id' => $value['id'],
+                'name' => $value['name'],
+                'avatar' => HelpTemplate::getAvatarUrl($value['avatar']),
+                'sex' => $value['sex'],
+                'century' => $value['century']
+            );
+        }
     }
 
     public function actionDetail() {
@@ -115,17 +128,26 @@ class UserController extends IController {
             $this->message = 'userid' . Yii::t('api', ' is not set');
             return;
         }
+
         $account = $this->checkToken();
         if (!$account) {
             return;
         }
+
         $user = $this->userBehavior->detail($userId);
         if (!$user) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->userBehavior->getError();
             return;
         }
-        $this->data = $user;
+
+        $this->data = array(
+            'id' => $user['id'],
+            'name' => $user['name'],
+            'avatar' => HelpTemplate::getAvatarUrl($user['avatar']),
+            'sex' => $user['sex'],
+            'century' => $user['century']
+        );
     }
 
     public function actionResetpwd() {
@@ -200,7 +222,8 @@ class UserController extends IController {
             $this->message = Yii::t('api', 'Illegal request');
             return;
         }
-        if (!$this->userBehavior->edit($account['id'], $data)) {
+        $data['id'] = $account[id];
+        if (!$this->userBehavior->edit($data)) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->userBehavior->getError();
         }

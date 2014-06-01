@@ -142,4 +142,29 @@ class AccountBehavior extends BaseBehavior {
         return Account::model()->updateByPk($id, array("status" => 0));
     }
 
+    public function edit($data) {
+        if (!isset($data['id'])) {
+            $this->error = 'id' . Yii::t('api', ' is not set');
+            return false;
+        }
+
+        $userId = $data['id'];
+        unset($data['id']);
+
+        $enableEdit = array(
+            'status'
+        );
+
+        while (list($key, ) = each($data)) {
+            if (!in_array($key, $enableEdit)) {
+                $this->error = $key . ' ' . Yii::t('api', 'Not editable');
+                return false;
+            }
+        }
+
+        Account::model()->updateByPk($userId, $data);
+
+        return true;
+    }
+
 }

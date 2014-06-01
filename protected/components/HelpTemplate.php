@@ -78,4 +78,16 @@ class HelpTemplate extends CComponent {
         return Yii::app()->user->getState('roleid') == 4;
     }
 
+    public static function getAdUrl($path) {
+        return Yii::app()->params['host'] . Yii::app()->params['url_web'] . 'upload/original/' . $path;
+    }
+
+    public static function getAvatarUrl($path, $size = '100_200') {
+        if (empty($path)) {
+            return Yii::app()->params['host'] . Yii::app()->params['url_web'] . 'upload/default/avatar_180_200.jpg';
+        } else {
+            return Yii::app()->params['host'] . Yii::app()->params['url_web'] . 'upload/avatar/' . $path;
+        }
+    }
+
 }

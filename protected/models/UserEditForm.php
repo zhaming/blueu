@@ -1,11 +1,11 @@
 <?php
 
 /*
- * 广告创建表单
+ * 用户编辑表单
  */
 
 /**
- * 2014-5-29 8:40:11 UTF-8
+ * 2014-5-31 15:30:51 UTF-8
  * @package application.models
  * @version 3.0
  *
@@ -13,19 +13,18 @@
  * @copyright (c) 2011-2015
  * @license ()
  * 
- * AdCreateForm.php hugb
+ * UserEditForm.php hugb
  *
  */
-class AdCreateForm extends BaseForm {
+class UserEditForm extends BaseForm {
 
-    public $url;
-    public $placetag;
-    public $desc;
+    public $id;
+    public $name;
+    public $status;
 
     public function rules() {
         return array(
-            array('url,placetag', 'required'),
-            array('desc', 'safe')
+            array('id,name,status', 'required')
         );
     }
 
@@ -36,9 +35,9 @@ class AdCreateForm extends BaseForm {
 
     public function attributeLabels() {
         return array(
-            'url' => Yii::t('admin', 'Url'),
-            'placetag' => Yii::t('admin', 'Place tag'),
-            'desc' => Yii::t('admin', 'Description')
+            'id' => Yii::t('admin', 'Id'),
+            'name' => Yii::t('admin', 'Name'),
+            'status' => Yii::t('admin', 'Status')
         );
     }
 

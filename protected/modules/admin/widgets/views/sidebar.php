@@ -37,7 +37,7 @@
             </a>
         </li>
         <?php if (HelpTemplate::isLoginAsAdmin()) { ?>
-        <li<?php if (in_array(Yii::app()->controller->id, array('user', 'merchant', 'manager'))) { ?> class="active"<?php } ?>>
+        <li<?php if (in_array(Yii::app()->controller->id, array('user', 'merchant', 'manager', 'acl'))) { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-user"></i>
                 <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'User manaer'); ?></span>
@@ -55,6 +55,9 @@
                     <a href="/admin/manager"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Administrator manager'); ?></a>
                 </li>
                 <?php } ?>
+                <li<?php if (Yii::app()->controller->getId() == 'acl') { ?> class="active"<?php } ?>>
+                    <a href="/admin/acl"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Access control'); ?></a>
+                </li>
             </ul>
         </li>
         <?php } ?>

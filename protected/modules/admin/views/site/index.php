@@ -6,7 +6,8 @@
             </button>
             <i class="icon-ok green"></i>
             欢迎使用
-            <strong class="green">
+            <strong class="green"><?php echo Yii::app()->user->getState('roleid');?>
+                <?php echo Yii::app()->user->getName();?>
                 BLUEU后台管理系统
                 <small>(v0.1)</small>
             </strong>

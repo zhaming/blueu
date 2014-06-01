@@ -18,7 +18,12 @@
  */
 class FileBehavior extends BaseBehavior {
 
-    public function saveUploadFile($filename="file") {
+    /**
+     * 保存用户上传的原始图片
+     * @param string $filename
+     * @return boolean or array
+     */
+    public function saveUploadFile($filename = "file") {
         $fileInstance = CUploadedFile::getInstanceByName($filename);
 
         $file = new File();
@@ -51,6 +56,10 @@ class FileBehavior extends BaseBehavior {
         return $file->getAttributes();
     }
 
+    /**
+     * 保存用户头像
+     * @return array or boolean
+     */
     public function saveUploadAvatar() {
         $file = $this->saveUploadFile();
         if (!$file) {
@@ -63,7 +72,7 @@ class FileBehavior extends BaseBehavior {
         $originalPath = $this->getOriginalDirectory() . DIRECTORY_SEPARATOR . $file['path'];
         $destPath = $this->getAvatarDirectory() . DIRECTORY_SEPARATOR . $file['path'];
         if (!file_exists(dirname($destPath))) {
-            mkdir($destPath, 0777, true);
+            mkdir(dirname($destPath), 0777, true);
         }
 
         if (!$thumb->create($originalPath)->resize(100, 100)->save($destPath)) {
@@ -73,18 +82,43 @@ class FileBehavior extends BaseBehavior {
         return $file;
     }
 
-    public function isHaveUploadFile($filename="file") {
+    /**
+     * 保存广告图片
+     * @return array or boolean
+     */
+    public function saveUploadAd() {
+        return $this->saveUploadFile();
+    }
+
+    /**
+     * 是否有文件上传
+     * @param string $filename
+     * @return blooean
+     */
+    public function isHaveUploadFile($filename = "file") {
         return CUploadedFile::getInstanceByName($filename) != null;
     }
 
+    /**
+     * 用户头像根目录
+     * @return string
+     */
     public function getAvatarDirectory() {
         return YiiBase::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . 'statics' . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR . 'avatar';
     }
 
+    /**
+     * 商户Logo根目录
+     * @return string
+     */
     public function getLogoDirectory() {
         return YiiBase::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . 'statics' . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR . 'logo';
     }
 
+    /**
+     * 用户上传的原始图片根目录
+     * @return string
+     */
     public function getOriginalDirectory() {
         return YiiBase::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . 'statics' . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR . 'original';
     }

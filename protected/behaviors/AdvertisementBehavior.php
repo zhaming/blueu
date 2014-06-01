@@ -54,7 +54,7 @@ class AdvertisementBehavior extends BaseBehavior {
             }
         }
 
-        return Advertisement::model()->findAll($criteria);
+        return Advertisement::model()->with('account')->findAll($criteria);
     }
 
     public function getList1($filter = array(), $page = null, $pagesize = null) {
@@ -85,14 +85,45 @@ class AdvertisementBehavior extends BaseBehavior {
         return array('pager' => $pager, 'data' => $data);
     }
 
+    /**
+     * 添加广告
+     * @param array $data
+     * @return boolean
+     */
     public function create($data) {
-        return true;
+        $fileBehavior = new FileBehavior();
+        if (!$fileBehavior->isHaveUploadFile()) {
+            $this->error = Yii::t('admin', 'Please upload picture.');
+            return false;
+        }
+        $file = $fileBehavior->saveUploadAd();
+        if (!$file) {
+            $this->error = Yii::t('admin', 'Save picture failure.');
+            return false;
+        }
+        $advertisement = new Advertisement();
+        $advertisement->pic = $file['path'];
+        $advertisement->url = $data['url'];
+        $advertisement->desc = $data['desc'];
+        $advertisement->placetag = $data['placetag'];
+        $advertisement->owner = Yii::app()->user->getId();
+        return $advertisement->save();
     }
 
+    /**
+     * 禁用广告
+     * @param mixed $id primary key value(s).
+     * @return integer the number of rows being updated
+     */
     public function disable($id) {
         return Advertisement::model()->updateByPk($id, array("disabled" => 1));
     }
 
+    /**
+     * 启用广告
+     * @param mixed $id primary key value(s).
+     * @return integer the number of rows being updated
+     */
     public function enable($id) {
         return Advertisement::model()->updateByPk($id, array("disabled" => 0));
     }
