@@ -31,16 +31,23 @@ class MerchantController extends IController {
             $this->message = Yii::t('api', 'Please use GET method');
             return;
         }
-
-        $this->data = array();
         $page = Yii::app()->request->getQuery('page', 1);
         $pagesize = Yii::app()->request->getQuery('pagesize', 10);
-        $data = $this->merchantBehavior->apiGetList($page, $pagesize);
-
-        foreach ($data as $value) {
+        $merchants = $this->merchantBehavior->apiGetList($page, $pagesize);
+        if (empty($merchants)) {
+            $this->error_code = self::ERROR_NO_DATA;
+            $this->message = Yii::t('admin', 'No data.');
+            return;
+        }
+        $this->data = array();
+        foreach ($merchants as $merchant) {
             $this->data[] = array(
-                'id' => $value['id'],
-                'name' => $value['name']
+                'id' => $merchant['id'],
+                'name' => $merchant['name'],
+                "legal" => $merchant['legal'],
+                "telephone" => $merchant['telephone'],
+                "bank" => $merchant['bank'],
+                "shopnum" => $merchant['shopnum']
             );
         }
     }
@@ -57,22 +64,23 @@ class MerchantController extends IController {
             $this->message = 'merchantid' . Yii::t('api', ' is not set');
             return;
         }
-        
         $account = $this->checkToken();
-        if (!$account) {
+        if (empty($account)) {
             return;
         }
-        
         $merchant = $this->merchantBehavior->detail($merchantId);
-        if (!$merchant) {
-            $this->error_code = self::ERROR_REQUEST_FAILURE;
+        if (empty($merchant)) {
+            $this->error_code = self::ERROR_NO_DATA;
             $this->message = $this->merchantBehavior->getError();
             return;
         }
-        
         $this->data = array(
             'id' => $merchant['id'],
-            'name' => $merchant['name']
+            'name' => $merchant['name'],
+            "legal" => $merchant['legal'],
+            "telephone" => $merchant['telephone'],
+            "bank" => $merchant['bank'],
+            "shopnum" => $merchant['shopnum']
         );
     }
 

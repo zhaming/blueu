@@ -45,11 +45,17 @@ class UserController extends IController {
             return;
         }
         $user = $this->userBehavior->register($data);
-        if (!$user) {
+        if (empty($user)) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->userBehavior->getError();
+            return;
         }
         $account = $this->accountBehavior->login($data, true);
+        if (empty($account)) {
+            $this->error_code = self::ERROR_REQUEST_FAILURE;
+            $this->message = $this->accountBehavior->getError();
+            return;
+        }
         $this->data = array(
             'id' => $account['id'],
             'name' => $user['name'],
@@ -78,7 +84,7 @@ class UserController extends IController {
             return;
         }
         $account = $this->accountBehavior->login($data, true);
-        if (!$account) {
+        if (empty($account)) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->accountBehavior->getError();
             return;
@@ -98,20 +104,22 @@ class UserController extends IController {
             $this->message = Yii::t('api', 'Please use GET method to get data.');
             return;
         }
-        $this->data = array();
         $page = Yii::app()->request->getQuery('page', 1);
         $pagesize = Yii::app()->request->getQuery('pagesize', 10);
-        $data = $this->userBehavior->apiGetList($page, $pagesize);
-        if (empty($data)) {
+        $users = $this->userBehavior->apiGetList($page, $pagesize);
+        if (empty($users)) {
+            $this->error_code = self::ERROR_NO_DATA;
+            $this->message = Yii::t('admin', 'No data.');
             return;
         }
-        foreach ($data as $value) {
+        $this->data = array();
+        foreach ($users as $user) {
             $this->data[] = array(
-                'id' => $value['id'],
-                'name' => $value['name'],
-                'avatar' => HelpTemplate::getAvatarUrl($value['avatar']),
-                'sex' => $value['sex'],
-                'century' => $value['century']
+                'id' => $user['id'],
+                'name' => $user['name'],
+                'avatar' => HelpTemplate::getAvatarUrl($user['avatar']),
+                'sex' => $user['sex'],
+                'century' => $user['century']
             );
         }
     }
@@ -133,7 +141,7 @@ class UserController extends IController {
             return;
         }
         $user = $this->userBehavior->detail($userId);
-        if (!$user) {
+        if (empty($user)) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->userBehavior->getError();
             return;
@@ -188,7 +196,7 @@ class UserController extends IController {
             return;
         }
         $account = $this->checkToken();
-        if (!$account) {
+        if (empty($account)) {
             return;
         }
         if (!$this->accountBehavior->logout($account['id'])) {
@@ -211,7 +219,7 @@ class UserController extends IController {
         }
         $data = $this->getJsonFormData();
         $account = $this->checkToken();
-        if (!$account) {
+        if (empty($account)) {
             return;
         }
         if ($userId != $account['id']) {
@@ -257,7 +265,7 @@ class UserController extends IController {
             return;
         }
         $account = $this->checkToken();
-        if (!$account) {
+        if (empty($account)) {
             return;
         }
         if ($userId != $account['id']) {
@@ -289,7 +297,7 @@ class UserController extends IController {
             return;
         }
         $account = $this->checkToken();
-        if (!$account) {
+        if (empty($account)) {
             return;
         }
         $data['userid'] = $account['id'];
