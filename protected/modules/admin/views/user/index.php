@@ -67,9 +67,9 @@
                             <td><?php echo $item->name; ?></td>
                             <td>
                                 <?php echo Yii::t('admin', 'Account'); ?>:
-                                <?php if ($item->account->status == 0) {echo Yii::t('admin', 'Enable');} if ($item->account->status == 1) {echo Yii::t('admin', 'Disable');} ?>,
+                                <?php if ($item->account->status == 0) { ?><font class="green"><?php echo Yii::t('admin', 'Enable'); ?></font><?php } if ($item->account->status == 1) {?><font class="red"><?php echo Yii::t('admin', 'Disable'); ?></font><?php } ?>,
                                 <?php echo Yii::t('admin', 'Push'); ?>:
-                                <?php if ($item->pushable) {echo Yii::t('admin', 'Enable');} else {echo Yii::t('admin', 'Disable');} ?>
+                                <?php if ($item->pushable) { ?><font class="green"><?php echo Yii::t('admin', 'Enable'); ?></font><?php } else {?><font class="red"><?php echo Yii::t('admin', 'Disable'); ?></font><?php } ?>
                             </td>
                             <td>
                                 <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">

@@ -39,7 +39,7 @@ class UserController extends IController {
             $this->message = 'password' . Yii::t('api', ' is not set');
             return;
         }
-        if($this->accountBehavior->isExist($data['username'])){
+        if ($this->accountBehavior->isExist($data['username'])) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
             $this->message = 'username' . Yii::t('api', ' is exist');
             return;
