@@ -45,10 +45,10 @@
                             <td><?php echo $item->username; ?></td>
                             <td>
                                 <?php echo Yii::t('admin', 'Account'); ?>:
-                                <?php if ($item->status == 0) { echo Yii::t('admin', 'Enable'); } if ($item->status == 1) { echo Yii::t('admin', 'Disable'); } ?>
+                                <?php if ($item->status == HelpTemplate::USER_STATUS_NORMAL) { echo Yii::t('admin', 'Enable'); } if ($item->status == HelpTemplate::USER_STATUS_DISABLED) { echo Yii::t('admin', 'Disable'); } ?>
                             </td>
                             <td>
-                                <?php if ($item->status == 1) { ?>
+                                <?php if ($item->status == HelpTemplate::USER_STATUS_DISABLED) { ?>
                                 <a href="<?php echo $this->createUrl('enable?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="btn btn-xs btn-success">
                                     <i class="icon-unlock bigger-120"></i>
                                 </a>

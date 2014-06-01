@@ -1,17 +1,9 @@
 <div class="row">
     <div class="col-xs-12">
-        <form action="/admin/user/index" method="get" class="well form-inline">
-            <label class="inline">
-                <?php echo Yii::t('admin', 'Username'); ?>
-                <input type="text" name="username" value="<?php if(!empty($_GET['username'])) { echo $_GET['username']; } ?>"> 
-            </label>
+        <form action="/admin/map/index" method="get" class="well form-inline">
             <label class="inline">
                 <?php echo Yii::t('admin', 'Name'); ?>
                 <input type="text" name="name" value="<?php if(!empty($_GET['name'])) { echo $_GET['name']; } ?>"> 
-            </label>
-            <label class="inline ">
-                <input name="isonly" type="checkbox" class="ace" value="1">
-                <span class="lbl"><?php echo Yii::t('admin', 'Normal'); ?></span>
             </label>
             <label class="inline" >
                 <button type="submit" class="btn btn-xs btn-info">
@@ -19,9 +11,9 @@
                 </button>
             </label>
         </form>
-        <form action="/admin/user/delete" method="POST">
+        <form action="/admin/map/delete" method="POST">
             <p>
-                <a href="/admin/user/create" class="btn btn-app btn-success btn-xs">
+                <a href="/admin/map/upload" class="btn btn-app btn-success btn-xs">
                     <i class="icon-plus bigger-120"></i>
                     <?php echo Yii::t('admin', 'Create'); ?>
                 </a>
@@ -46,9 +38,10 @@
                                 </label>
                             </th>
                             <th><?php echo Yii::t('admin', 'Id'); ?></th>
-                            <th><?php echo Yii::t('admin', 'Username'); ?></th>
                             <th><?php echo Yii::t('admin', 'Name'); ?></th>
-                            <th><?php echo Yii::t('admin', 'Status'); ?></th>
+                            <th><?php echo Yii::t('admin', 'Market place'); ?></th>
+                            <th><?php echo Yii::t('admin', 'Floor'); ?></th>
+                            <th><?php echo Yii::t('admin', 'Created'); ?></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -63,17 +56,13 @@
                                 </label>
                             </td>
                             <td><?php echo $item['id']; ?></td>
-                            <td><?php echo $item->account->username; ?></td>
-                            <td><?php echo $item->name; ?></td>
-                            <td>
-                                <?php echo Yii::t('admin', 'Account'); ?>:
-                                <?php if ($item->account->status == HelpTemplate::USER_STATUS_NORMAL) { ?><font class="green"><?php echo Yii::t('admin', 'Enable'); ?></font><?php } if ($item->account->status == HelpTemplate::USER_STATUS_DISABLED) {?><font class="red"><?php echo Yii::t('admin', 'Disable'); ?></font><?php } ?>,
-                                <?php echo Yii::t('admin', 'Push'); ?>:
-                                <?php if ($item->pushable) { ?><font class="green"><?php echo Yii::t('admin', 'Enable'); ?></font><?php } else {?><font class="red"><?php echo Yii::t('admin', 'Disable'); ?></font><?php } ?>
-                            </td>
+                            <td><?php echo $item['name']; ?></td>
+                            <td><?php echo $item['marketplace']; ?></td>
+                            <td><?php echo $item['floor']; ?></td>
+                            <td><?php echo date('y-m-d H:i:s', $item['created']); ?></td>
                             <td>
                                 <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-                                    <?php if ($item->account->status == HelpTemplate::USER_STATUS_DISABLED) { ?>
+                                    <?php if ($item['disabled'] == HelpTemplate::USER_STATUS_DISABLED) { ?>
                                     <a href="<?php echo $this->createUrl('enable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="btn btn-xs btn-success">
                                         <i class="icon-unlock bigger-120"></i>
                                     </a>
@@ -82,21 +71,6 @@
                                         <i class="icon-lock bigger-120"></i>
                                     </a>
                                     <?php } ?>
-                                    <?php if ($item->pushable) { ?>
-                                    <a href="<?php echo $this->createUrl('disablepush?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Disable push'); ?>" class="btn btn-xs btn-danger">
-                                        <i class="icon-download-alt bigger-120"></i>
-                                    </a>
-                                    <?php } else { ?>
-                                    <a href="<?php echo $this->createUrl('enablepush?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable push'); ?>" class="btn btn-xs btn-success">
-                                        <i class="icon-download-alt bigger-120"></i>
-                                    </a>
-                                    <?php } ?>
-                                    <a href="/admin/user/detail?id=<?php echo $item['id']; ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
-                                        <i class="icon-edit bigger-120"></i>
-                                    </a>
-                                    <a href="<?php echo $this->createUrl('delete?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger delete-confirm">
-                                        <i class="icon-trash bigger-120"></i>
-                                    </a>
                                 </div>
                             </td>
                         </tr>

@@ -29,6 +29,7 @@ class IController extends CController {
     const ERROR_NOT_FOUNT = 9;
     const ERROR_INTERNAL_SERVER_ERROR = 10;
     const ERROR_NOT_IMPLEMENTED = 11;
+    const ERROR_NO_DATA = 11;
 
     protected $userBehavior;
     protected $accountBehavior;
@@ -53,6 +54,7 @@ class IController extends CController {
         self::ERROR_NOT_FOUNT => 'Not Found',
         self::ERROR_INTERNAL_SERVER_ERROR => 'Internal Server Error',
         self::ERROR_NOT_IMPLEMENTED => 'Not Implemented',
+        self::ERROR_NO_DATA => 'Not data'
     );
 
     public function init() {

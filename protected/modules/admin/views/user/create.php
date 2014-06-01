@@ -53,15 +53,15 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-sex"><?php echo Yii::t('admin', 'Sex'); ?></label>
                 <div class="col-sm-9">
                     <label>
-                        <input name="user[sex]" value="0" type="radio"<?php if ($user['sex']==0) { ?> checked="checked"<?php } ?> class="ace" />
+                        <input name="user[sex]" value="0" type="radio"<?php if ($user['sex']==HelpTemplate::USER_SEX_UNKNOWN) { ?> checked="checked"<?php } ?> class="ace" />
                         <span class="lbl"><?php echo Yii::t('admin', 'Unknown'); ?></span>
                     </label>&nbsp;&nbsp;&nbsp;&nbsp;
                     <label>
-                        <input name="user[sex]" value="1" type="radio"<?php if ($user['sex']==1) { ?> checked="checked"<?php } ?> class="ace" />
+                        <input name="user[sex]" value="1" type="radio"<?php if ($user['sex']==HelpTemplate::USER_SEX_FEMALE) { ?> checked="checked"<?php } ?> class="ace" />
                         <span class="lbl"><?php echo Yii::t('admin', 'Female'); ?></span>
                     </label>&nbsp;&nbsp;&nbsp;&nbsp;
                     <label>
-                        <input name="user[sex]" value="2" type="radio"<?php if ($user['sex']==2) { ?> checked="checked"<?php } ?> class="ace" />
+                        <input name="user[sex]" value="2" type="radio"<?php if ($user['sex']==HelpTemplate::USER_SEX_MALE) { ?> checked="checked"<?php } ?> class="ace" />
                         <span class="lbl"><?php echo Yii::t('admin', 'Male'); ?></span>
                     </label>
                 </div>

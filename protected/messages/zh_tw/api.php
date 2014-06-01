@@ -17,15 +17,23 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  ' is already taken.' => '',
   ' is not correct' => '',
   ' is not set' => '',
+  ' is not set.' => '',
   'Advertisement is no exist' => '',
   'Illegal identity' => '',
   'Illegal request' => '',
+  'Illegal request.' => '',
+  'Map is not exist.' => '',
   'Merchant is no exist' => '',
   'Not editable' => '',
   'Please use GET method' => '',
+  'Please use GET method to get data.' => '',
   'Please use POST method' => '',
+  'Please use POST method to post data.' => '',
+  'Please use POST method to submit data.' => '',
+  'Please use POST method to submit data. to submit data.' => '',
   'Repeat Request' => '',
   'Station Illegal' => '',
   'Token has expired' => '',

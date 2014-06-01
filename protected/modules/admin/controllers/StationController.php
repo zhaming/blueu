@@ -1,12 +1,39 @@
 <?php
 
 class StationController extends BController {
+	
+	private $bhv;
 
+    public function init() {
+        parent::init();
+        $this->bhv = new StationBehavior();
+    }
+	
     public function actionIndex() {
         $filters = Yii::app()->request->getQuery('filters');
-        $listData = BlueStation::model()->findAll();
+        $listData = Station::model()->findAll();
         $this->render('index', array('listData' => $listData));
     }
+
+    public function actionCreate(){
+        if(Yii::app()->request->IsPostRequest){
+
+            $station = Yii::app()->request->getPost("station");
+
+            $res = $this->bhv->create($station);
+            if($res){
+                $this->showSuccess(Yii::t("comment","Create Success"), $this->createUrl('create'));
+            }else{
+                $this->showError(Yii::t("comment","Create Failure"), $this->createUrl('create'));
+            }
+
+        }else{
+			//店铺
+            $shop  = MerchantShop::model()->findAll();
+            $this->render("create",compact('shop'));
+        }
+    }
+
 
     public function actionAdd() {
         $id = '';

@@ -30,6 +30,8 @@ BlueU客户端接口文档
 [商品列表](#api17) |  /api/merchantshop/products       |  GET
 [商品详情](#api18) |  /api/merchantshop/productdetail  |  GET
 [基站广告](#api19) |  /api/advertisement/station       |  GET
+[地图](#api20)     |  /api/map/detail                  |  POST
+[意见反馈](#api21) |  /api/feedback/create             |  POST
 
 
 ## 约定  
@@ -849,5 +851,77 @@ data       |  是  |   map   | 见示例 | 返回数据
         "source":"2",
         "sid":"123"
     }
+}
+</pre>
+
+
+## 地图 {#api20}
+地址：/api/map/detail
+
+###接口输入
+
+提交方式：POST
+
+参数名       | 必填| 类型  | 示例| 说明
+marketplace  | 是  |string | xxx | 商场
+floor	     | 是  |string | 1   | 楼层
+
+完整参数示例:
+
+<pre>
+curl -X POST -H "Accept:application/json" -d '{"marketplace":"xxx", "floor":"xxx"}' http://{domain}/api/map/detail
+</pre>
+
+###接口输出
+
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       |  是  |   map   | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success",
+    "data": {
+        "id": "1",
+        "name": "dfsd",
+        "marketplace": "ddd",
+        "floor": "12",
+        "map": "http://blueu.hugb.com/statics/upload/original/14/05/31/6cf0d999a3e156999b61269b451a692c.jpg",
+        "created": "1401609871"
+    }
+}
+</pre>
+
+
+## 意见反馈 {#api21}
+地址：/api/feedback/create
+
+###接口输入
+
+提交方式：POST
+
+参数名  | 必填| 类型  | 示例| 说明
+content | 是  |string | xxx | 内容
+
+完整参数示例:
+
+<pre>
+curl -X POST -H "Accept:application/json" -d '{"content":"xxx"}' http://{domain}/api/feedback/create
+</pre>
+
+###接口输出
+
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success"
 }
 </pre>
