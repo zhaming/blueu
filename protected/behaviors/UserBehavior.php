@@ -86,13 +86,11 @@ class UserBehavior extends BaseBehavior {
         $user = new User();
         $account->username = $data['username'];
         $account->password = md5($data['password']);
-        $account->roleid = 5;
+        $account->roleid = HelpTemplate::USER_ROLE;
         $account->registertime = time();
 
-        if (isset($data['name'])) {
-            $user->name = $data['name'];
-        }
-        $user->sex = isset($data['sex']) ? $data['sex'] : 0;
+        $user->name = isset($data['name']) ? $data['name'] : $data['username'];
+        $user->sex = isset($data['sex']) ? $data['sex'] : HelpTemplate::USER_SEX_UNKNOWN;
         $user->century = isset($data['century']) ? $data['century'] : 'other';
         $user->mobile = isset($data['mobile']) ? $data['mobile'] : '';
 
@@ -110,7 +108,7 @@ class UserBehavior extends BaseBehavior {
             $user->id = $account->id;
             $user->save();
             $transaction->commit();
-            return $user;
+            return $user->getAttributes();
         } catch (Exception $e) {
             $transaction->rollback();
             $this->error = $e->getMessage();
