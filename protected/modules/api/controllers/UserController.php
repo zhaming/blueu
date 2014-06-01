@@ -102,6 +102,9 @@ class UserController extends IController {
         $page = Yii::app()->request->getQuery('page', 1);
         $pagesize = Yii::app()->request->getQuery('pagesize', 10);
         $data = $this->userBehavior->apiGetList($page, $pagesize);
+        if (empty($data)) {
+            return;
+        }
         foreach ($data as $value) {
             $this->data[] = array(
                 'id' => $value['id'],

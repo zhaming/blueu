@@ -23,8 +23,8 @@ class AllUserIdentity extends CUserIdentity {
         } else {
             $this->id = $accounts->id;
             $this->errorCode = self::ERROR_NONE;
-            Yii::app()->user->setState('status', $accounts->status);
-            Yii::app()->user->setState('roleid', $accounts->roleid);
+            $this->setState('status', $accounts->status);
+            $this->setState('roleid', $accounts->roleid);
         }
         return !$this->errorCode;
     }
