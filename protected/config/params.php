@@ -10,7 +10,7 @@
  */
 
 return array(
-    'host' => 'http://blueu.hugb.com/',
+    'host' => 'http://blueu2.dev/',
     'url_web' => 'statics/',
     
     'appid' => '2674298',
@@ -20,6 +20,8 @@ return array(
     'pem_pro' => '/../statics/assets/APNs-pro.pem',
     'message_type' => 1,
     'deployed' => false,
+    'pushCmd' => '/usr/bin/php %s/console.php push %s %s',
+    'statCmd' => '/usr/bin/php %s/console.php stat %s',
     
 	'title' => '蓝友寻宝',
 	'title_separator' => '-',

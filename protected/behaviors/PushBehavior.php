@@ -16,22 +16,16 @@ class PushBehavior extends BaseBehavior {
     const ERROR_CMD_PARAM = 2;
     const ERROR_CMD_USER = 3;
     const ERROR_CMD_BIND = 4;
-    const ERROR_CMD_REPEAT = 5;
+    const ERROR_CMD_LIMIT = 5;
     const ERROR_CMD_PUSH = 6;
     const ERROR_CMD_DB = 7;
-    
-    const ERROR_CMD_SHOP = 6;
-    const ERROR_CMD_TPL = 3;
-    const ERROR_CMD_URL = 4;
-    const ERROR_CMD_API = 6;
-    const ERROR_CMD_IV = 7;
-    const ERROR_CMD_IA = 8;
-    const ERROR_CMD_SNS = 9;
-    
-    static $sleep = 5;
+    const ERROR_CMD_LIKE = 8;
+    const ERROR_CMD_MANUAL = 9;
     
     private $total = 0;
     private $success = 0;
+    
+    static $sleep = 5;
     
     
     /**
@@ -97,6 +91,14 @@ class PushBehavior extends BaseBehavior {
                 $shopUserT->shopid = $stationR->shopid;
                 $shopUserT->come_time = time();
                 $rs = $shopUserT->save();
+                if($rs){
+                    $params = array(
+                        'userid' => $data['userid'],
+                        'uuid' => $data['uuid'],
+                        'shopid' => $stationR->shopid,
+                    );
+                    $this->runCommand($params);
+                }
             } else {
                 $this->errorLog(Yii::t('api', 'Repeat Request'));
             }
@@ -140,6 +142,44 @@ class PushBehavior extends BaseBehavior {
         return $push->save();
 	}
     
+    /**
+     * 获取关注列表
+     * @param string $sql
+     * @return mixed
+     */
+    public function getLikeBySql($sql)
+    {
+        return Like::model()->findAllBySql($sql);
+    }
+    
+    /**
+     * 获取人工推送列表
+     * @param string $sql
+     * @return mixed
+     */
+    public function getManualBySql($sql)
+    {
+        return PushManual::model()->findAllBySql($sql);
+    }
+    
+    public function plusManual($id)
+    {
+        $manualR = PushManual::model()->findByPk($id);
+        $manualR->count += 1;
+        return $manualR->save();
+    }
+    
+    /**
+     * 调用后台命令
+     * @param array $params
+     */
+    private function runCommand($params)
+    {
+        $params = json_encode($params);
+        $command = sprintf(Yii::app()->params->pushCmd, realpath(Yii::app()->basePath.DIRECTORY_SEPARATOR.'..'), 1, $params);
+        exec($command);
+    }
+    
     
     /**
      * 控制台推送信息
@@ -166,23 +206,37 @@ class PushBehavior extends BaseBehavior {
     
     /**
      * 即时推送
-     * @param array $row 
+     * @param record $tasks 
+     * @param array $params
+     * @return string
      */
     private function pushImmediately($tasks, $params)
     {
         if(empty($tasks)) return self::ERROR_CMD_TASK;
         if(!isset($params['userid']) || !isset($params['uuid'])) return self::ERROR_CMD_PARAM;
         $params = $this->pushImmediatelyBefore($params);
+        if(!is_array($params)) return $params;
         
         $_task = new TaskBehavior();
         $result = '';
         foreach($tasks as $v){
             $method = 'do'.ucfirst($v['item']);
             if(!method_exists($this, $method)) continue;
-            $result .= $this->$method($v, $params);
+            $logId = $_task->logAdd($v['id'], array('start' => time()));
+            
+            $rs = $this->$method($v, $params);
+            $result .= $rs;
+            
             $_task->edit($v['id'], array('lasttime' => time()));
+            $info = array(
+                'end' => time(),
+                'total' => $this->total,
+                'success' => $this->success,
+                'result' => $rs,
+            );
+            $_task->logEdit($logId, $info);
         }
-        return $result;
+        return $result === '' ? self::ERROR_CMD_TASK : $result;
     }
     
     /**
@@ -191,7 +245,7 @@ class PushBehavior extends BaseBehavior {
      */
     private function pushCrontab($tasks, $params)
     {
-        if(empty($tasks)) return self::ERROR_CMD_TASK;
+        /*if(empty($tasks)) return self::ERROR_CMD_TASK;
         if(!isset($params['userid']) || !isset($params['uuid'])) return self::ERROR_CMD_PARAM;
         $params = $this->pushImmediatelyBefore($params);
         
@@ -200,16 +254,18 @@ class PushBehavior extends BaseBehavior {
         foreach($tasks as $v){
             $method = 'do'.ucfirst($v['item']);
             if(!method_exists($this, $method)) continue;
+            
             $_task->setRuntime($v['id'], 1);
             $result .= $this->$method($v, $params);
             $_task->edit($v['id'], array('runtime' => 0, 'lasttime' => time()));
-        }
+            
+        }*/
     }
     
     /**
      * 即时推送预处理
      * @param array $params
-     * @return array 
+     * @return mixed 
      */
     private function pushImmediatelyBefore($params)
     {
@@ -235,48 +291,109 @@ class PushBehavior extends BaseBehavior {
      */
     private function doWelcome($tasks, $params)
     {
+        $this->total = 1;
+        $this->success = 0;
         $checkRs = $this->doWelcomeCheck($params['userid'], $params['shopid'], $tasks['item']);
-        if(!$checkRs) return self::ERROR_CMD_REPEAT;
-        $msg = $this->getMsg($tasks['msg'], $params['shopname']);
+        if(!$checkRs) return self::ERROR_CMD_LIMIT;
+        $msg = $this->getMsg($tasks['msg'], $params);
         $messages = $this->getMessages($msg, $params['platform']);
-        $_task = new TaskBehavior();
-        $logId = $_task->logAdd($tasks['id'], array('start' => time()));
         $pushRs = $this->bdPush($params['platform'], $params['user_id'], $messages);
+        if(!$pushRs) return self::ERROR_CMD_PUSH;
+        $this->success = 1;
         
-        if($pushRs){
-            $success = 1;
-            $result = self::ERROR_CMD_NONE;
+        $info = array(
+            'to' => $params['userid'],
+            'shopid' => $params['shopid'],
+            'type' => $tasks['item'],
+            'message' => json_encode($messages),
+        );
+        if(!$this->add($info)) return self::ERROR_CMD_DB;
+        return self::ERROR_CMD_NONE;
+    }
+    
+    /**
+     * 推送关注通知
+     * @param record $tasks
+     * @param array $params
+     * @return integer
+     */
+    private function doLike($tasks, $params)
+    {
+        $this->total = 1;
+        $this->success = 0;
+        $checkRs = $this->doLikeCheck($tasks['sql'], $tasks['ext'], $tasks['item'], $params);
+        if($checkRs !== true) return $checkRs;
+        $msg = $this->getMsg($tasks['msg'], $params);
+        $messages = $this->getMessages($msg, $params['platform'], array('shopid' => $params['shopid']));
+        $pushRs = $this->bdPush($params['platform'], $params['user_id'], $messages);
+        if(!$pushRs) return self::ERROR_CMD_PUSH;
+        $this->success = 1;
+        
+        $info = array(
+            'to' => $params['userid'],
+            'shopid' => $params['shopid'],
+            'type' => $tasks['item'],
+            'message' => json_encode($messages),
+        );
+        if(!$this->add($info)) return self::ERROR_CMD_DB;
+        return self::ERROR_CMD_NONE;
+    }
+    
+    /**
+     * 推送人工通知
+     * @param record $tasks
+     * @param array $params
+     * @return integer
+     */
+    private function doManual($tasks, $params)
+    {
+        $this->total = $this->success = 0;
+        $manualRs = $this->doManualCheck($tasks['sql'], $tasks['ext'], $params);
+        if(is_int($manualRs)) return $manualRs;
+        
+        $result = '';
+        foreach($manualRs as $v){
+            $this->total++;
+            if($v->limit > 0 && $v->limit <= $v->count){
+                $result .= self::ERROR_CMD_LIMIT;
+                continue;
+            }
+            $msgtpl = empty($v->msg) ? $tasks['msg'] : $v->msg;
+            $msg = $this->getMsg($msgtpl, array_merge($params, array('name' => $v->name)));
+            $extra = array(
+                'shopid' => $v->shopid,
+                'source' => $v->source,
+                'sid' => $v->sid,
+            );
+            $messages = $this->getMessages($msg, $params['platform'], $extra);
+            $pushRs = $this->bdPush($params['platform'], $params['user_id'], $messages);
+            if(!$pushRs){
+                $result .= self::ERROR_CMD_PUSH;
+                continue;
+            }
+            $this->plusManual($v->id);
+            $this->success++;
             
             $info = array(
                 'to' => $params['userid'],
                 'shopid' => $params['shopid'],
                 'type' => $tasks['item'],
-                'message' => json_encode($messages, true),
+                'message' => json_encode($messages),
             );
-            if(!$this->add($info)) $result = self::ERROR_CMD_DB;
-        }else{
-            $success = 0;
-            $result = self::ERROR_CMD_PUSH;
+            if(!$this->add($info))
+                $result .= self::ERROR_CMD_DB;
+            else
+                $result .= self::ERROR_CMD_NONE;
         }
-        $info = array(
-            'end' => time(),
-            'success' => $success,
-            'result' => $result,
-        );
-        $_task->logEdit($logId, $info);
         return $result;
     }
     
-    /*private function doLike()
-    {
-        //
-    }*/
-    
     /**
      * 一天内一家店仅推送一条欢迎通知给用户
-     * @param array $data 
-     *    pushid: 推送ID
-     * @return mixed
+     * @param integer $userid
+     * @param integer $shopid
+     * @param string $type
+     * @return boolean
      */
     private function doWelcomeCheck($userid, $shopid, $type) {
         $criteria = new CDbCriteria();
@@ -288,6 +405,62 @@ class PushBehavior extends BaseBehavior {
         $pushR = Push::model()->find($criteria);
         if(!empty($pushR) && MingString::sameDay($pushR->created, time())) return false;
         return true;
+    }
+    
+    /**
+     * 基于用户关注推送
+     * 基于用户接收关注推送频率推送
+     * @param string $sql
+     * @param string $ext
+     * @param string $type
+     * @param array $params
+     * @return mixed
+     */
+    private function doLikeCheck($sql, $ext, $type, $params) {
+        if(strpos($sql, '%') === false) return self::ERROR_CMD_TASK;
+        $ext = json_decode($ext, true);
+        if(empty($ext)) return false;
+        $arr = array();
+        foreach($ext as $v){
+            $arr[] = $params[$v];
+        }
+        $sql = vsprintf($sql, $arr);
+        $rs = $this->getLikeBySql($sql);
+        if(empty($rs)) return self::ERROR_CMD_LIKE;
+        
+        if($params['likepush'] == '1'){
+            $userid = $params['userid'];
+            $shopid = $params['shopid'];
+            $criteria = new CDbCriteria();
+            $criteria->select = 'created';
+            $criteria->addCondition("`to` = '$userid'");
+            $criteria->addCondition("`shopid` = '$shopid'");
+            $criteria->addCondition("`type` = '$type'");
+            $pushR = Push::model()->find($criteria);
+            if(!empty($pushR)) return self::ERROR_CMD_LIMIT;
+        }
+        return true;
+    }
+    
+    /**
+     * 基于人工推送列表推送
+     * @param string $sql
+     * @param string $ext
+     * @param array $params
+     * @return mixed
+     */
+    private function doManualCheck($sql, $ext, $params) {
+        if(strpos($sql, '%') === false) return self::ERROR_CMD_TASK;
+        $ext = json_decode($ext, true);
+        if(empty($ext)) return self::ERROR_CMD_TASK;
+        $arr = array();
+        foreach($ext as $v){
+            $arr[] = $params[$v];
+        }
+        $sql = vsprintf($sql, $arr);
+        $rs = $this->getManualBySql($sql);
+        if(empty($rs)) return self::ERROR_CMD_MANUAL;
+        return $rs;
     }
     
     /**
@@ -340,13 +513,19 @@ class PushBehavior extends BaseBehavior {
     /**
      * 获取推送消息主体内容
      * @param string $msgtpl
-     * @param mixed $param
+     * @param mixed $params
      * @return string
      */
-    private function getMsg($msgtpl, $param)
+    private function getMsg($msgtpl, $params)
     {
-        if(strpos($msgtpl, '%') === false) return $msgtpl;
-        return vsprintf($msgtpl, $param);
+        $matches = array();
+        $cnt = preg_match_all('/({.*?})/ui', $msgtpl, $matches);
+        if(empty($cnt)) return $msgtpl;
+        foreach($matches[0] as $v){
+            $k = substr($v, 1, -1);
+            $msgtpl = str_replace($v, $params[$k], $msgtpl);
+        }
+        return $msgtpl;
     }
     
     /**
@@ -371,108 +550,5 @@ class PushBehavior extends BaseBehavior {
             );
         }
         return $_baiduPush->pushMessage2($platform, 1, $user_id, $messages, Yii::app()->params->deployed);
-    }
-    
-    
-    /**
-     * 循环调用方法doPush方法
-     * @param array $row 
-     */
-    private function _push($row)
-    {
-        $ext = MingString::json2arr($row['ext']);
-        
-        $this->total = 0;
-        $i = 0;
-        $affectedRows = $ext['pageSize'];
-        $result = '';
-        $_sns = new AdminSnsBehavior();
-        
-        $_task = new AdminTaskBehavior();
-        $logId = $_task->logAdd($row['id'], array('start' => time()));
-        
-        while(true)
-        {
-            if($row['count'] > 0)
-                if($this->total > $row['count'] - 1) break;
-            else
-                if($affectedRows < $ext['pageSize']) break;
-
-            $pageStart = $ext['pageStart'] + (++$i - 1) * $ext['pageSize'];
-            $sql = sprintf($row['sql'], $pageStart, $ext['pageSize']);
-            $rs = $_sns->getBySql($sql);
-            if(empty($rs)){
-                $result .= self::ERROR_CMD_SNS;
-                break;
-            }
-            $affectedRows = count($rs);
-            $this->total += $affectedRows;
-            foreach($rs as $v)
-            {
-                $rs = $this->doPush($v, $row['actor']);
-                if($rs == self::ERROR_CMD_NONE){
-                    $this->success++;
-                    $_sns->setStatus($v['id'], 1);
-                }
-                if(strpos($rs, self::ERROR_CMD_IV) !== false) $_sns->setStatus($v['id'], 2);
-                $result .= $rs;
-                sleep(self::$sleep);
-            }
-        }
-        $_task->plusExecTimes($row['id'], $this->success);
-        
-        $info = array(
-            'end' => time(),
-            'total' => $this->total,
-            'success' => $this->success,
-            'result' => $result,
-        );
-        $_task->logEdit($logId, $info);
-        $this->success = 0;
-        
-        return $result;
-    }
-    
-    /**
-     * 实际执行推送，并返回状态码
-     * @param array $row
-     * @param integer $actor
-     * @return integer 
-     */
-    private function doPush($row, $actor)
-    {
-        $keywords = $this->getKeyword($row['key_words']);
-        if(empty($keywords)) return self::ERROR_CMD_KW;
-        
-        $tpls = $this->getTpl($keywords['tpl_id']);
-        if(empty($tpls)) return self::ERROR_CMD_TPL;
-        
-        $tokens = $this->getActorParams($row['platform'], $actor);
-        if(empty($tokens)) return self::ERROR_CMD_ACTOR;
-        
-        $urls = $this->getUrl($keywords['rule_id'], array('platform' => $row['platform'], 'weibo_id' => $row['weibo_id']));
-        if(empty($urls)) return self::ERROR_CMD_URL;
-
-        $result = '';
-        $params['nick'] = $row['user_name'];
-        $params['keyword'] = current(explode(' ', $keywords['key_words']));
-        //$fields = $row['platform'] == 'qq' ? array('keyword', 'url') : array();
-        foreach($urls as $url)
-        {
-            $params['url'] = $url;
-            $content = $this->getCommentContent($tpls['template'], $params);
-            
-            //$rs = $this->_doPush($row['platform'], $tokens, array($row['weibo_id'], $row['user_id']), $content);
-            $rs = $this->_doPush($row['platform'], $tokens, $row['weibo_id'], $content);
-            $result .= $rs;
-        }
-        
-        if( $result == str_repeat(true, count($urls)) ){
-            return self::ERROR_CMD_NONE;
-        }elseif(strpos($result, self::ERROR_CMD_IA) !== false){
-            $_app = new AdminAppBehavior();
-            $_app->setAuthStatus($tokens, 0);
-        }
-        return $result;
     }
 }
