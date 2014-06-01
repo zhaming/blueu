@@ -14,7 +14,14 @@ class StationBehavior extends BaseBehavior{
 		$model->shopid = $params['shopid'];
 		if(!empty($params['disabled']))
 			$model->disabled = 1;
-        return $model->save();
+        if($model->save())
+		{
+			$shop = MerchantShop::model()->findByPk($model->shopid);
+			$shop->stations = $shop->stations+1;
+			return $shop->save();
+		}else
+			return false;
+		
 	}
 
 
