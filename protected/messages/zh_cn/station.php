@@ -20,4 +20,13 @@ return array (
   'Station Create' => '创建基站',
   'Station List' => '基站列表',
   'Station Manager' => '基站管理',
+  'Station UUID'=>'设备标识',
+  'Pelase input station uuid' => '请输入设备唯一标识',
+  'Station Name'=>'设备名称',
+  'Pelase input station name' => '请输入设备名称',
+  'positionX'=>'定位坐标X',
+  'Pelase input positionX' => '请输入设备坐标X',
+  'positionY'=>'定位坐标Y',
+  'Pelase input positionY' => '请输入设备坐标Y',
+  'Station Disabled' => '设备禁用',
 );

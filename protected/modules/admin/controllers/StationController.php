@@ -4,9 +4,37 @@ class StationController extends BController {
 
     public function actionIndex() {
         $filters = Yii::app()->request->getQuery('filters');
-        $listData = BlueStation::model()->findAll();
+        $listData = Station::model()->findAll();
         $this->render('index', array('listData' => $listData));
     }
+
+    public function actionCreate(){
+        if(Yii::app()->request->IsPostRequest){
+
+            $shop = Yii::app()->request->getPost("shop");
+            $shop['merchantid']=Yii::app()->user->getId();
+
+            $res = $this->shopBehavior->saveOrUpdate($shop);
+            if($res){
+                $this->showSuccess(Yii::t("comment","Create Success"), $this->createUrl('create'));
+            }else{
+                $this->showError(Yii::t("comment","Create Failure"), $this->createUrl('create'));
+            }
+
+        }else{
+
+            //商圈
+            $district  = District::model()->findAll();
+            $result['district'] = $district;
+            //行业-分类
+            $categoryBehavior = new CategoryBehavior();
+            $category = $categoryBehavior->getAll();
+            $result['category'] = $category;
+
+            $this->render("create",$result);
+        }
+    }
+
 
     public function actionAdd() {
         $id = '';

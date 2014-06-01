@@ -56,7 +56,29 @@
                 <?php } ?>
             </ul>
         </li>
+
+        <li<?php if (Yii::app()->controller->getId() == 'station') { ?> class="active"<?php } ?>>
+            <a class="dropdown-toggle">
+                <i class="icon-rss"></i>
+                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'StationManager'); ?></span>
+                <b class="arrow icon-angle-down"></b>
+            </a>
+            <ul class="submenu">
+                <li<?php if (Yii::app()->controller->getId() == 'station' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
+                    <a href="/admin/station/index"><i class="icon-double-angle-right"></i><?php echo Yii::t("station","Station List")?></a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'station' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
+                    <a href="/admin/station/create"><i class="icon-double-angle-right"></i><?php echo Yii::t("station","Station Create")?></a>
+                </li>
+            </ul>
+        </li>
+
+
+
         <?php } ?>
+
+
+
         <li<?php if (Yii::app()->controller->id == 'merchantshop') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-shopping-cart"></i>
@@ -69,22 +91,6 @@
                 </li>
                 <li<?php if (Yii::app()->controller->getId() == 'merchantshop' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
                     <a href="/admin/merchantshop/create"><i class="icon-double-angle-right"></i><?php echo  Yii::t("shop","Shop Create")?></a>
-                </li>
-            </ul>
-        </li>
-
-        <li<?php if (Yii::app()->controller->id == 'station') { ?> class="active"<?php } ?>>
-            <a class="dropdown-toggle">
-                <i class="icon-rss"></i>
-                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'StationManager'); ?></span>
-                <b class="arrow icon-angle-down"></b>
-            </a>
-            <ul class="submenu">
-                <li<?php if (Yii::app()->controller->getId() == 'station' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
-                    <a href="/admin/station/index"><i class="icon-double-angle-right"></i><?php echo Yii::t("station","Station List")?></a>
-                </li>
-                <li<?php if (Yii::app()->controller->getId() == 'station' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
-                    <a href="/admin/station/create"><i class="icon-double-angle-right"></i><?php echo Yii::t("station","Station Create")?></a>
                 </li>
             </ul>
         </li>
