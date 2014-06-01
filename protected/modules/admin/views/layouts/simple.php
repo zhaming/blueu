@@ -23,7 +23,7 @@
 
         <!-- page specific plugin styles -->
         <!-- fonts -->
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet" />
+        <!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet" />-->
 
         <!-- ace styles -->
         <link href="/statics/css/ace.min.css" rel="stylesheet" />
@@ -69,11 +69,11 @@
         <!-- basic scripts -->
 
         <!--[if !IE]> -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script src="/statics/js/jquery-2.0.3.min.js"></script>
         <!-- <![endif]-->
 
         <!--[if IE]>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="/statics/jquery-1.10.2.min.js"></script>
         <![endif]-->
 
         <!--[if !IE]> -->

@@ -67,13 +67,13 @@
                             <td><?php echo $item->name; ?></td>
                             <td>
                                 <?php echo Yii::t('admin', 'Account'); ?>:
-                                <?php if ($item->account->status == 0) { ?><font class="green"><?php echo Yii::t('admin', 'Enable'); ?></font><?php } if ($item->account->status == 1) {?><font class="red"><?php echo Yii::t('admin', 'Disable'); ?></font><?php } ?>,
+                                <?php if ($item->account->status == HelpTemplate::USER_STATUS_NORMAL) { ?><font class="green"><?php echo Yii::t('admin', 'Enable'); ?></font><?php } if ($item->account->status == HelpTemplate::USER_STATUS_DISABLED) {?><font class="red"><?php echo Yii::t('admin', 'Disable'); ?></font><?php } ?>,
                                 <?php echo Yii::t('admin', 'Push'); ?>:
                                 <?php if ($item->pushable) { ?><font class="green"><?php echo Yii::t('admin', 'Enable'); ?></font><?php } else {?><font class="red"><?php echo Yii::t('admin', 'Disable'); ?></font><?php } ?>
                             </td>
                             <td>
                                 <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-                                    <?php if ($item->account->status == 1) { ?>
+                                    <?php if ($item->account->status == HelpTemplate::USER_STATUS_DISABLED) { ?>
                                     <a href="<?php echo $this->createUrl('enable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="btn btn-xs btn-success">
                                         <i class="icon-unlock bigger-120"></i>
                                     </a>

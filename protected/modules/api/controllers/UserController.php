@@ -25,23 +25,23 @@ class UserController extends IController {
     public function actionRegister() {
         if (!Yii::app()->request->getIsPostRequest()) {
             $this->error_code = self::ERROR_REQUEST_METHOD;
-            $this->message = Yii::t('api', 'Please use POST method');
+            $this->message = Yii::t('api', 'Please use POST method to submit data. to submit data.');
             return;
         }
         $data = $this->getJsonFormData();
         if (!isset($data['username'])) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'username' . Yii::t('api', ' is not set');
+            $this->message = 'username' . Yii::t('api', ' is not set.');
             return;
         }
         if (!isset($data['password'])) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'password' . Yii::t('api', ' is not set');
+            $this->message = 'password' . Yii::t('api', ' is not set.');
             return;
         }
         if ($this->accountBehavior->isExist($data['username'])) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'username' . Yii::t('api', ' is exist');
+            $this->message = $data['username'] . Yii::t('api', ' is already taken.');
             return;
         }
         $user = $this->userBehavior->register($data);
@@ -63,18 +63,18 @@ class UserController extends IController {
     public function actionLogin() {
         if (!Yii::app()->request->getIsPostRequest()) {
             $this->error_code = self::ERROR_REQUEST_METHOD;
-            $this->message = Yii::t('api', 'Please use POST method');
+            $this->message = Yii::t('api', 'Please use POST method to submit data.');
             return;
         }
         $data = $this->getJsonFormData();
         if (!isset($data['username'])) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'username' . Yii::t('api', ' is not set');
+            $this->message = 'username' . Yii::t('api', ' is not set.');
             return;
         }
         if (!isset($data['password'])) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'password' . Yii::t('api', ' is not set');
+            $this->message = 'password' . Yii::t('api', ' is not set.');
             return;
         }
         $account = $this->accountBehavior->login($data, true);
@@ -85,10 +85,9 @@ class UserController extends IController {
         }
         $this->data = array(
             'id' => $account['id'],
-            'token' => $account['token'],
+            'token' => $account['token']
         );
-
-        //绑定设备信息
+        // 绑定设备信息
         $pushBehavoir = new PushBehavior();
         $pushBehavoir->bindDeviceInfo($account['id'], $data);
     }
@@ -96,15 +95,16 @@ class UserController extends IController {
     public function actionList() {
         if (Yii::app()->request->getRequestType() != 'GET') {
             $this->error_code = self::ERROR_REQUEST_METHOD;
-            $this->message = Yii::t('api', 'Please use GET method');
+            $this->message = Yii::t('api', 'Please use GET method to get data.');
             return;
         }
-
         $this->data = array();
         $page = Yii::app()->request->getQuery('page', 1);
         $pagesize = Yii::app()->request->getQuery('pagesize', 10);
         $data = $this->userBehavior->apiGetList($page, $pagesize);
-
+        if (empty($data)) {
+            return;
+        }
         foreach ($data as $value) {
             $this->data[] = array(
                 'id' => $value['id'],
@@ -119,28 +119,25 @@ class UserController extends IController {
     public function actionDetail() {
         if (Yii::app()->request->getRequestType() != 'GET') {
             $this->error_code = self::ERROR_REQUEST_METHOD;
-            $this->message = Yii::t('api', 'Please use GET method');
+            $this->message = Yii::t('api', 'Please use GET method to get data.');
             return;
         }
         $userId = Yii::app()->request->getQuery('id');
-        if ($userId == null) {
+        if (empty($userId)) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'userid' . Yii::t('api', ' is not set');
+            $this->message = 'userid' . Yii::t('api', ' is not set.');
             return;
         }
-
         $account = $this->checkToken();
         if (!$account) {
             return;
         }
-
         $user = $this->userBehavior->detail($userId);
         if (!$user) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->userBehavior->getError();
             return;
         }
-
         $this->data = array(
             'id' => $user['id'],
             'name' => $user['name'],
@@ -153,18 +150,18 @@ class UserController extends IController {
     public function actionResetpwd() {
         if (!Yii::app()->request->getIsPostRequest()) {
             $this->error_code = self::ERROR_REQUEST_METHOD;
-            $this->message = Yii::t('api', 'Please use POST method');
+            $this->message = Yii::t('api', 'Please use POST method to submit data.');
             return;
         }
         $data = $this->getJsonFormData();
         if (!isset($data['password'])) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'password' . Yii::t('api', ' is not set');
+            $this->message = 'password' . Yii::t('api', ' is not set.');
             return;
         }
         if (!isset($data['newpassword'])) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'newpassword' . Yii::t('api', ' is not set');
+            $this->message = 'newpassword' . Yii::t('api', ' is not set.');
             return;
         }
         $account = $this->checkToken();
@@ -181,13 +178,13 @@ class UserController extends IController {
     public function actionLogout() {
         if (!Yii::app()->request->getIsPostRequest()) {
             $this->error_code = self::ERROR_REQUEST_METHOD;
-            $this->message = Yii::t('api', 'Please use POST method');
+            $this->message = Yii::t('api', 'Please use POST method to submit data.');
             return;
         }
         $data = $this->getJsonFormData();
         if (!isset($data['username'])) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'username' . Yii::t('api', ' is not set');
+            $this->message = 'username' . Yii::t('api', ' is not set.');
             return;
         }
         $account = $this->checkToken();
@@ -203,13 +200,13 @@ class UserController extends IController {
     public function actionEdit() {
         if (!Yii::app()->request->getIsPostRequest()) {
             $this->error_code = self::ERROR_REQUEST_METHOD;
-            $this->message = Yii::t('api', 'Please use POST method');
+            $this->message = Yii::t('api', 'Please use POST method to submit data.');
             return;
         }
         $userId = Yii::app()->request->getQuery('id');
         if ($userId == null) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'userid' . Yii::t('api', ' is not set');
+            $this->message = 'userid' . Yii::t('api', ' is not set.');
             return;
         }
         $data = $this->getJsonFormData();
@@ -219,7 +216,7 @@ class UserController extends IController {
         }
         if ($userId != $account['id']) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
-            $this->message = Yii::t('api', 'Illegal request');
+            $this->message = Yii::t('api', 'Illegal request.');
             return;
         }
         $data['id'] = $account[id];
@@ -232,19 +229,19 @@ class UserController extends IController {
     public function actionPush() {
         if (!Yii::app()->request->getIsPostRequest()) {
             $this->error_code = self::ERROR_REQUEST_METHOD;
-            $this->message = Yii::t('api', 'Please use POST method');
+            $this->message = Yii::t('api', 'Please use POST method to submit data.');
             return false;
         }
         $userId = Yii::app()->request->getQuery('id');
         if ($userId == null) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'userid' . Yii::t('api', ' is not set');
+            $this->message = 'userid' . Yii::t('api', ' is not set.');
             return;
         }
         $data = $this->getJsonFormData();
         if (!isset($data['enable'])) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'enable' . Yii::t('api', ' is not set');
+            $this->message = 'enable' . Yii::t('api', ' is not set.');
             return;
         }
         $enable = null;
@@ -277,18 +274,18 @@ class UserController extends IController {
     public function actionLike() {
         if (!Yii::app()->request->getIsPostRequest()) {
             $this->error_code = self::ERROR_REQUEST_METHOD;
-            $this->message = Yii::t('api', 'Please use POST method');
+            $this->message = Yii::t('api', 'Please use POST method to submit data.');
             return false;
         }
         $data = $this->getJsonFormData();
         if (!isset($data['source'])) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'source' . Yii::t('api', ' is not set');
+            $this->message = 'source' . Yii::t('api', ' is not set.');
             return;
         }
         if (!isset($data['sid'])) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'sid' . Yii::t('api', ' is not set');
+            $this->message = 'sid' . Yii::t('api', ' is not set.');
             return;
         }
         $account = $this->checkToken();

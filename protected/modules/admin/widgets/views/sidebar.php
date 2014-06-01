@@ -8,19 +8,18 @@
     </script>
     <div class="sidebar-shortcuts" id="sidebar-shortcuts">
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-            <button class="btn btn-success">
-                <i class="icon-signal"></i>
-            </button>
-            <button class="btn btn-info">
-                <i class="icon-pencil"></i>
-            </button>
-            <button class="btn btn-warning">
-                <i class="icon-group"></i>
-            </button>
-
-            <button class="btn btn-danger">
-                <i class="icon-cogs"></i>
-            </button>
+            <a href="/admin/user/index" title="<?php echo Yii::t('admin', 'Client user'); ?>" class="btn btn-success">
+                <i class="icon-user"></i>
+            </a>
+            <a href="/admin/merchantshop/create" title="<?php echo Yii::t('admin', 'Create shop'); ?>" class="btn btn-info">
+                <i class="icon-shopping-cart"></i>
+            </a>
+            <a href="/admin/stat/user" title="<?php echo Yii::t('admin', 'User stat'); ?>" class="btn btn-warning">
+                <i class="icon-bar-chart"></i>
+            </a>
+            <a href="/admin/log/index" title="<?php echo Yii::t('admin', 'Log'); ?>" class="btn btn-danger">
+                <i class="icon-time"></i>
+            </a>
         </div>
         <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
             <span class="btn btn-success"></span>

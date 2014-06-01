@@ -28,13 +28,13 @@ class AdvertisementController extends IController {
     public function actionDetail() {
         if (Yii::app()->request->getRequestType() != 'GET') {
             $this->error_code = self::ERROR_REQUEST_METHOD;
-            $this->message = Yii::t('api', 'Please use GET method');
+            $this->message = Yii::t('api', 'Please use GET method to get data.');
             return;
         }
         $adId = Yii::app()->request->getQuery('id');
         if ($adId == null) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'advertisementid' . Yii::t('api', ' is not set');
+            $this->message = 'advertisementid' . Yii::t('api', ' is not set.');
             return;
         }
         $advertisement = $this->advertisementBehavior->detail($adId);
@@ -49,26 +49,35 @@ class AdvertisementController extends IController {
     public function actionList() {
         if (Yii::app()->request->getRequestType() != 'GET') {
             $this->error_code = self::ERROR_REQUEST_METHOD;
-            $this->message = Yii::t('api', 'Please use GET method');
+            $this->message = Yii::t('api', 'Please use GET method to get data.');
             return;
         }
-
         $page = Yii::app()->request->getQuery('page', 1);
         $pageSize = Yii::app()->request->getQuery('pagesize', 10);
-        $tag = Yii::app()->request->getQuery('tag', 'top');
-
+        $tag = Yii::app()->request->getQuery('placetag');
         if (empty($tag)) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'tag' . Yii::t('api', ' is not set');
+            $this->message = 'placetag' . Yii::t('api', ' is not set.');
             return;
         }
-
+        $this->data = array();
         $filter = array(
             'where' => array('placetag' => $tag),
             'order' => 'created desc'
         );
-
-        $this->data = $this->advertisementBehavior->getList($filter, $page, $pageSize);
+        $data = $this->advertisementBehavior->getList($filter, $page, $pageSize);
+        if (empty($data)) {
+            return;
+        }
+        foreach ($data as $value) {
+            $this->data[] = array(
+                'id' => $value['id'],
+                'pic' => HelpTemplate::getAdUrl($value['pic']),
+                'desc' => $value['desc'],
+                'url' => $value['url'],
+                'placetag' => $value['placetag']
+            );
+        }
     }
 
     public function actionStation() {
@@ -91,4 +100,5 @@ class AdvertisementController extends IController {
             $this->data = $rs;
         }
     }
+
 }
