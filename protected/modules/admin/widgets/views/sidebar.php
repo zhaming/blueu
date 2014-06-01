@@ -36,7 +36,7 @@
             </a>
         </li>
         <?php if (HelpTemplate::isLoginAsAdmin()) { ?>
-        <li<?php if (in_array(Yii::app()->controller->id, array('user', 'merchant', 'manager', 'acl'))) { ?> class="active"<?php } ?>>
+        <li<?php if (in_array(Yii::app()->controller->id, array('user', 'merchant', 'manager'))) { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-user"></i>
                 <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'User'); ?></span>
@@ -54,12 +54,31 @@
                     <a href="/admin/manager"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Administrator'); ?></a>
                 </li>
                 <?php } ?>
-                <li<?php if (Yii::app()->controller->getId() == 'acl') { ?> class="active"<?php } ?>>
-                    <a href="/admin/acl"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Access control'); ?></a>
+            </ul>
+        </li>
+
+        <li<?php if (Yii::app()->controller->getId() == 'station') { ?> class="active"<?php } ?>>
+            <a class="dropdown-toggle">
+                <i class="icon-rss"></i>
+                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'StationManager'); ?></span>
+                <b class="arrow icon-angle-down"></b>
+            </a>
+            <ul class="submenu">
+                <li<?php if (Yii::app()->controller->getId() == 'station' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
+                    <a href="/admin/station/index"><i class="icon-double-angle-right"></i><?php echo Yii::t("station","Station List")?></a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'station' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
+                    <a href="/admin/station/create"><i class="icon-double-angle-right"></i><?php echo Yii::t("station","Station Create")?></a>
                 </li>
             </ul>
         </li>
+
+
+
         <?php } ?>
+
+
+
         <li<?php if (Yii::app()->controller->id == 'merchantshop') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-shopping-cart"></i>
@@ -75,6 +94,8 @@
                 </li>
             </ul>
         </li>
+
+
         <li<?php if (Yii::app()->controller->id == 'merchantproduct') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-list"></i>
@@ -121,6 +142,7 @@
                 </li>
             </ul>
         </li>
+
         <li<?php if (Yii::app()->controller->id == 'stat') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-bar-chart"></i>
@@ -169,7 +191,7 @@
                 <span class="menu-text"><?php echo Yii::t('admin', 'Map'); ?></span>
             </a>
         </li>
-        <li<?php if (in_array(Yii::app()->controller->id, array('settings', 'task', 'log', 'feedback'))) { ?> class="active"<?php } ?>>
+        <li<?php if (in_array(Yii::app()->controller->id, array('settings', 'log'))) { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-legal"></i>
                 <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'System'); ?></span>
@@ -184,9 +206,6 @@
                 </li>
                 <li<?php if (Yii::app()->controller->getId() == 'log') { ?> class="active"<?php } ?>>
                     <a href="/admin/log"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Log'); ?></a>
-                </li>
-                <li<?php if (Yii::app()->controller->getId() == 'feedback') { ?> class="active"<?php } ?>>
-                    <a href="/admin/feedback"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Feedback'); ?></a>
                 </li>
             </ul>
         </li>
