@@ -37,6 +37,12 @@ class FeedbackController extends IController {
             $this->message = 'content' . Yii::t('api', ' is not set');
             return;
         }
+
+        $account = $this->checkToken();
+        if ($account) {
+            $data['userid'] = $account['id'];
+        }
+
         if (!$this->feedbackBehavior->create($data)) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->feedbackBehavior->getError();

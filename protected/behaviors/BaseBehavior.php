@@ -21,6 +21,8 @@ class BaseBehavior {
     public $errcode;
     public $error;
 
+    const DEFAULT_PAGE_SIZE = 10;
+
     public function errorLog($error) {
         if (empty($this->error))
             $this->error = $error;

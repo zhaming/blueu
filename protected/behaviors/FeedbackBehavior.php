@@ -18,12 +18,28 @@
  */
 class FeedbackBehavior extends BaseBehavior {
 
-    public function getList($filter = array(), $page = null, $pagesize = null) {
-        return array();
+    public function getList() {
+        $criteria = new CDbCriteria();
+        $count = Feedback::model()->count($criteria);
+
+        $pager = new CPagination($count);
+        $pager->setPageSize(self::DEFAULT_PAGE_SIZE);
+        $pager->applyLimit($criteria);
+
+        $data = Feedback::model()->findAll($criteria);
+
+        return array('pager' => $pager, 'data' => $data);
     }
 
     public function create($data) {
-        return true;
+        $feedback = new Feedback();
+        $feedback->content = $data['content'];
+        $feedback->contact = $data['contact'];
+        if (isset($data['userid'])) {
+            $feedback->userid = $data['userid'];
+        }
+        $feedback->created = time();
+        return $feedback->save();
     }
 
 }

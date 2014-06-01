@@ -14,6 +14,7 @@ class BreadcrumbsWidget extends CWidget {
             'merchant' => Yii::t('admin', 'Merchant manager'),
             'acl' => Yii::t('admin', 'Access control'),
             'manager' => Yii::t('admin', 'Administrator manager'),
+            'feedback' => Yii::t('admin', 'Feedback'),
             'log' => Yii::t('admin', 'Log manager'),
             'advertisement' => Yii::t('admin', 'Advertisement manager'),
             'settings' => Yii::t('admin', 'System settings')

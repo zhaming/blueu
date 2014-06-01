@@ -39,11 +39,6 @@ class UserController extends IController {
             $this->message = 'password' . Yii::t('api', ' is not set');
             return;
         }
-        if (!isset($data['name'])) {
-            $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'name' . Yii::t('api', ' is not set');
-            return;
-        }
         $user = $this->userBehavior->register($data);
         if (!$user) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;

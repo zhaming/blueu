@@ -89,7 +89,9 @@ class UserBehavior extends BaseBehavior {
         $account->roleid = 5;
         $account->registertime = time();
 
-        $user->name = $data['name'];
+        if (isset($data['name'])) {
+            $user->name = $data['name'];
+        }
         $user->sex = isset($data['sex']) ? $data['sex'] : 0;
         $user->century = isset($data['century']) ? $data['century'] : 'other';
         $user->mobile = isset($data['mobile']) ? $data['mobile'] : '';
