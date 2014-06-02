@@ -125,6 +125,11 @@
                 $(".delete-confirm").click(function() {
                     return confirm('Are you absolutely sure you want to delete?');
                 });
+                $(".batch-delete-confirm").click(function() {
+                    if (confirm('Are you absolutely sure you want to delete?')) {
+                        $(".batch-delete-form").submit();
+                    }
+                });
                 $('.easy-pie-chart.percentage').each(function() {
                     var $box = $(this).closest('.infobox');
                     var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');

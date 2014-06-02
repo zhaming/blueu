@@ -1,27 +1,27 @@
 <div class="row">
     <div class="col-xs-12">
-        <form action="/admin/advertisement/delete" method="POST">
+        <p>
+            <a href="/admin/advertisement/create" class="btn btn-app btn-success btn-xs">
+                <i class="icon-plus bigger-120"></i>
+                <?php echo Yii::t('admin', 'Create'); ?>
+            </a>
+        </p>
+        <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
+        <div class="alert alert-block alert-success">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="icon-remove"></i>
+            </button>
             <p>
-                <a href="/admin/advertisement/create" class="btn btn-app btn-success btn-xs">
-                    <i class="icon-plus bigger-120"></i>
-                    <?php echo Yii::t('admin', 'Create'); ?>
-                </a>
+                <strong>
+                    <?php if ($message['type'] == 'success') { ?><i class="icon-ok"></i><?php } ?>
+                    <?php if ($message['type'] == 'error') { ?><i class="icon-remove"></i><?php } ?>
+                    <?php echo $message['msg']; ?>
+                </strong>
             </p>
-            <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
-            <div class="alert alert-block alert-success">
-                <button type="button" class="close" data-dismiss="alert">
-                    <i class="icon-remove"></i>
-                </button>
-                <p>
-                    <strong>
-                        <?php if ($message['type'] == 'success') { ?><i class="icon-ok"></i><?php } ?>
-                        <?php if ($message['type'] == 'error') { ?><i class="icon-remove"></i><?php } ?>
-                        <?php echo $message['msg']; ?>
-                    </strong>
-                </p>
-            </div>
-            <?php } ?>
-            <div class="table-responsive">
+        </div>
+        <?php } ?>
+        <div class="table-responsive">
+            <form action="/admin/advertisement/delete" method="POST" class="batch-delete-form">
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
@@ -67,8 +67,8 @@
                         <?php }} ?>
                     </tbody>
                 </table>
-                <?php $this->widget('application.modules.admin.widgets.BCLinkPager', array('pages' => $pager)); ?>
-            </div>
-        </form>
+            </form>
+            <?php $this->widget('application.modules.admin.widgets.BCLinkPager', array('pages' => $pager)); ?>
+        </div>
     </div>
 </div>

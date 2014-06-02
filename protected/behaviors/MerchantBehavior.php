@@ -82,6 +82,9 @@ class MerchantBehavior extends BaseBehavior {
         $account->roleid = 4;
 
         $merchant->name = $data['name'];
+        $merchant->legal = isset($data['legal']) ? $data['legal'] : '';
+        $merchant->telephone = isset($data['telephone']) ? $data['telephone'] : '';
+        $merchant->bank = isset($data['bank']) ? $data['bank'] : '';
 
         $transaction = Yii::app()->db->beginTransaction();
         try {

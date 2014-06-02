@@ -21,12 +21,6 @@
                 <i class="icon-time"></i>
             </a>
         </div>
-        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-            <span class="btn btn-success"></span>
-            <span class="btn btn-info"></span>
-            <span class="btn btn-warning"></span>
-            <span class="btn btn-danger"></span>
-        </div>
     </div>
     <ul class="nav nav-list">
         <li<?php if (Yii::app()->controller->id == 'site') { ?> class="active"<?php } ?>>
@@ -72,13 +66,7 @@
                 </li>
             </ul>
         </li>
-
-
-
         <?php } ?>
-
-
-
         <li<?php if (Yii::app()->controller->id == 'merchantshop') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-shopping-cart"></i>
@@ -94,8 +82,6 @@
                 </li>
             </ul>
         </li>
-
-
         <li<?php if (Yii::app()->controller->id == 'merchantproduct') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-list"></i>
@@ -126,7 +112,6 @@
                 </li>
             </ul>
         </li>
-
         <li<?php if (Yii::app()->controller->id == 'activity') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-adjust"></i>
@@ -142,7 +127,6 @@
                 </li>
             </ul>
         </li>
-
         <li<?php if (Yii::app()->controller->id == 'stat') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-bar-chart"></i>
