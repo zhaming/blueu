@@ -53,6 +53,35 @@ class AdvertisementController extends BController {
         $this->redirect('/admin/advertisement/index');
     }
 
+    public function actionDetail() {
+        $viewData = array();
+        $id = Yii::app()->request->getQuery('id');
+        $viewData['ad'] = $this->advertisementBehavior->detailById($id);
+        $this->render('detail', $viewData);
+    }
+
+    public function actionEdit() {
+        $viewData = array();
+        if (!Yii::app()->request->isPostRequest) {
+            $id = Yii::app()->request->getQuery('id');
+            $viewData['ad'] = $this->advertisementBehavior->detailById($id);
+            return $this->render('edit', $viewData);
+        }
+        $adEditForm = new AdEditForm();
+        $adEditForm->setAttributes(Yii::app()->request->getPost('ad'));
+        if (!$adEditForm->validate()) {
+            $viewData['message'] = $adEditForm->getFirstError();
+            $viewData['ad'] = $adEditForm->getAttributes();
+            return $this->render('edit', $viewData);
+        }
+        if (!$this->advertisementBehavior->edit($adEditForm->getAttributes())) {
+            $viewData['message'] = $this->advertisementBehavior->getError();
+            $viewData['user'] = $adEditForm->getAttributes();
+            return $this->render('edit', $viewData);
+        }
+        $this->showSuccess(Yii::t('admin', 'Save success.'), $this->createUrl('index'));
+    }
+
     public function actionDisable() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
@@ -72,6 +101,18 @@ class AdvertisementController extends BController {
                 $this->showSuccess(Yii::t('admin', 'Restore success'), $this->createUrl('index'));
             } else {
                 $this->showError(Yii::t('admin', 'Restore failure'), $this->createUrl('index'));
+            }
+        }
+        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
+    }
+
+    public function actionDelete() {
+        $id = Yii::app()->request->getParam('id');
+        if (!empty($id)) {
+            if ($this->advertisementBehavior->delete($id)) {
+                $this->showSuccess(Yii::t('admin', 'Delete Success'), $this->createUrl('index'));
+            } else {
+                $this->showError(Yii::t('admin', 'Delete Failure'), $this->createUrl('index'));
             }
         }
         $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));

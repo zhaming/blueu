@@ -30,9 +30,8 @@ class Station extends CActiveRecord {
 
     public function relations() {
         $relations = array(
-            'merchant' => array(
-                self::HAS_ONE, 'Merchant', 'blueid'
-            ),
+            'merchant' => array(self::HAS_ONE, 'Merchant', 'blueid'),
+			'shop' => array(self::BELONGS_TO,"MerchantShop","shopid"),
         );
         return $relations;
     }

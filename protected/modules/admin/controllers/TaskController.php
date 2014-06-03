@@ -133,12 +133,10 @@ class TaskController extends BController
     public function actionDelete()
     {
         $id = Yii::app()->request->getQuery('id');
+        if(empty($id)) $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('list'));
         $rs = $this->_task->delete($id);
-        if($rs)
-            $errorMsg = '删除成功';
-        else
-            $errorMsg = '删除失败';
-        $this->redirect(MingString::url(self::$urls['list']), $errorMsg);
+        $message = $rs ? 'ADelSuccess' : 'ADelFail';
+        $this->showError(Yii::t('admin', $message), $this->createUrl('list'));
     }
     
     public function actionLog()
@@ -171,8 +169,8 @@ class TaskController extends BController
         $type = Yii::app()->request->getQuery('type');
         
         
-        $command = sprintf(self::$command, realpath(Yii::app()->basePath.DS.'..'), $type, $taskid);
+        /*$command = sprintf(self::$command, realpath(Yii::app()->basePath.DS.'..'), $type, $taskid);
         $result = exec($command);
-        $this->redirect(MingString::url(self::$urls['list']), '状态码：'.$result);
+        $this->redirect(MingString::url(self::$urls['list']), '状态码：'.$result);*/
     }
 }

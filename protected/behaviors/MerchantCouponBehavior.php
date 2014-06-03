@@ -17,6 +17,7 @@ class MerchantCouponBehavior extends BaseBehavior{
         if(-1 != $page){
             $count= MerchantCoupon::model()->count($criteria);
             $pager = new CPagination($count);
+            $pager->validateCurrentPage = false;
             $pager->setCurrentPage($page-1);
             $pager->pageSize = $pageSize;
             $pager->applyLimit($criteria);

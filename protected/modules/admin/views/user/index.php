@@ -85,7 +85,7 @@
                                         <i class="icon-download-alt bigger-120"></i>
                                     </a>
                                     <?php } ?>
-                                    <a href="/admin/user/detail?id=<?php echo $item['id']; ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
+                                    <a href="<?php echo $this->createUrl('detail?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Detail'); ?>" class="btn btn-xs btn-success">
                                         <i class="icon-edit bigger-120"></i>
                                     </a>
                                     <a href="<?php echo $this->createUrl('delete?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger delete-confirm">

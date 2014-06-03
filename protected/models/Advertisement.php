@@ -18,6 +18,18 @@
  */
 class Advertisement extends CActiveRecord {
 
+    public $id;
+    public $pic;
+    public $desc;
+    public $url;
+    public $placetag;
+    public $owner;
+    public $created;
+    public $disabled;
+    public $source;
+    public $sid;
+    public $clicked;
+
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }

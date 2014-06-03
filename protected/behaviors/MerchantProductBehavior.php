@@ -25,6 +25,7 @@ class MerchantProductBehavior extends BaseBehavior{
         if(-1 != $page){
             $count=MerchantProduct::model()->count($criteria);
             $pager = new CPagination($count);
+            $pager->validateCurrentPage = false;
             $pager->setCurrentPage($page-1);
             $pager->pageSize = $pageSize;
             $pager->applyLimit($criteria);
