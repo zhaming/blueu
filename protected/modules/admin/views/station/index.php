@@ -43,14 +43,13 @@
                         <td><?php echo $value->id?></td>
                         <td><?php echo $value->uuid?></td>
                         <td><?php echo $value->name?></td>
-                        <td><?php echo $value->shopid?></td>
+                        <td><?php echo empty($value->shopid)?'':$value->shop->name?></td>
                         <td><?php echo $value->positionX?></td>
                         <td><?php echo $value->positionY;?></td>
                         <td><?php echo $value->disabled ==1?"Yes":"No";?></td>
                          <td>
-                            <a onclick="return confirm('确定要删除吗？');" href="/admin/merchantshop/delete/id/<?php echo $value->id;?>"><i class="icon-remove red"></i>删除</a>
-                            <a href="/admin/merchantshop/edit/id/<?php echo $value->id;?>"><i class="icon-edit"></i>详情</a>
-                            <a href="/admin/merchantshop/addshopaccount/id/<?php echo $value->id;?>"><i class="icon-plus"></i>基站广告</a>
+                            <a onclick="return confirm('确定要删除吗？');" href="/admin/station/delete/id/<?php echo $value->id;?>"><i class="icon-remove red"></i>删除</a>
+                            <a href="/admin/station/edit/id/<?php echo $value->id;?>"><i class="icon-edit"></i>详情</a>
                         </td>
                     </tr>
                     <?php endforeach;?>

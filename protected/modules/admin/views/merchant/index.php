@@ -1,17 +1,26 @@
 <div class="row">
     <div class="col-xs-12">
+        <p>
+            <a href="/admin/merchant/create" class="btn btn-app btn-success btn-xs">
+                <i class="icon-plus bigger-120"></i>
+                <?php echo Yii::t('admin', 'Create'); ?>
+            </a>
+            <button class="btn btn-app btn-danger btn-xs batch-delete-confirm">
+                <i class="icon-remove bigger-120"></i>
+                <?php echo Yii::t('admin', 'Delete'); ?>
+            </button>
+        </p>
+        <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
+        <div class="alert alert-block<?php if ($message['type'] == 'success') { ?> alert-success<?php } ?><?php if ($message['type'] == 'error') { ?> alert-danger<?php } ?>">
+            <p><strong><?php echo $message['msg']; ?></strong></p>
+        </div>
+        <?php } ?>
         <form action="/admin/merchant/index" method="get" class="well form-inline">
             <label class="inline">
-                <?php echo Yii::t('admin', 'Username'); ?>
-                <input type="text" name="username" value="<?php if(!empty($_GET['username'])) { echo $_GET['username']; } ?>"> 
+                <input type="text" name="username" value="<?php if(!empty($_GET['username'])) { echo $_GET['username']; } ?>" placeholder="<?php echo Yii::t('admin', 'Username'); ?>" /> 
             </label>
             <label class="inline">
-                <?php echo Yii::t('admin', 'Name'); ?>
-                <input type="text" name="name" value="<?php if(!empty($_GET['name'])) { echo $_GET['name']; } ?>"> 
-            </label>
-            <label class="inline ">
-                <input name="isonly" type="checkbox" class="ace" value="1">
-                <span class="lbl"><?php echo Yii::t('admin', 'Normal'); ?></span>
+                <input type="text" name="name" value="<?php if(!empty($_GET['name'])) { echo $_GET['name']; } ?>" placeholder="<?php echo Yii::t('admin', 'Name'); ?>" /> 
             </label>
             <label class="inline" >
                 <button type="submit" class="btn btn-xs btn-info">
@@ -19,23 +28,8 @@
                 </button>
             </label>
         </form>
-        <form action="/admin/merchant/delete" method="POST">
-            <p>
-                <a href="/admin/merchant/create" class="btn btn-app btn-success btn-xs">
-                    <i class="icon-plus bigger-120"></i>
-                    <?php echo Yii::t('admin', 'Create'); ?>
-                </a>
-                <button type="submit" class="btn btn-app btn-danger btn-xs">
-                    <i class="icon-remove bigger-120"></i>
-                    <?php echo Yii::t('admin', 'Delete'); ?>
-                </button>
-            </p>
-            <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
-            <div class="alert alert-block<?php if ($message['type'] == 'success') { ?> alert-success<?php } ?><?php if ($message['type'] == 'error') { ?> alert-danger<?php } ?>">
-                <p><strong><?php echo $message['msg']; ?></strong></p>
-            </div>
-            <?php } ?>
-            <div class="table-responsive">
+        <div class="table-responsive">
+            <form action="/admin/merchant/delete" method="POST" class="batch-delete-form">
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
@@ -90,8 +84,8 @@
                         <?php }} ?>
                     </tbody>
                 </table>
-                <?php $this->widget('application.modules.admin.widgets.BCLinkPager', array('pages' => $pager)); ?>
-            </div>
-        </form>
+            </form>
+            <?php $this->widget('application.modules.admin.widgets.BCLinkPager', array('pages' => $pager)); ?>
+        </div>
     </div>
 </div>

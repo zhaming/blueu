@@ -24,6 +24,20 @@ class StationBehavior extends BaseBehavior{
 		
 	}
 
+	public function edit($params)
+	{
+	    $model = Station::model()->findByPk($params['id']);
+		$model->uuid = $params['uuid'];
+		$model->name = $params['name'];
+		$model->positionX = $params['positionX'];
+		$model->positionY = $params['positionY'];
+		$model->shopid = $params['shopid'];
+		if(!empty($params['disabled']))
+			$model->disabled = 1;
+        return $model->save();		
+	}
+
+
 
     public  function getList($param = array()){
         $pager = null;
@@ -81,7 +95,7 @@ class StationBehavior extends BaseBehavior{
     }
 
     public function getById($id){
-        return MerchantShop::model()->findByPK($id);
+        return Station::model()->findByPK($id);
     }
 
 //创建分店账号用

@@ -56,7 +56,7 @@
                         <td><?php echo $value->status?></td>
                         <td>
                             <a href="/admin/merchantproduct/edit/id/<?php echo $value->id;?>" >编辑</a>
-                            <a href="/admin/merchantproduct/delete/id/<?php echo $value->id;?>" >删除</a>
+                            <a href="/admin/merchantproduct/delete/id/<?php echo $value->id;?>" class="delete-confirm" >删除</a>
                         </td>
                     </tr>
                     <?php endforeach;?>
