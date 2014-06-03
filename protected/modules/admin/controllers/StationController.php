@@ -26,7 +26,8 @@ class StationController extends BController {
         $this->render('index', $result);
     }
 
-    public function actionCreate(){
+    public function actionCreate()
+	{
         if(Yii::app()->request->IsPostRequest){
 
             $station = Yii::app()->request->getPost("station");
@@ -42,6 +43,27 @@ class StationController extends BController {
 			//店铺
             $shop  = MerchantShop::model()->findAll();
             $this->render("create",compact('shop'));
+        }
+    }
+
+    public function actionEdit()
+	{
+        if(Yii::app()->request->IsPostRequest){
+
+            $station = Yii::app()->request->getPost("station");
+			$station['id'] = $_GET['id'];
+            $res = $this->bhv->edit($station);
+            if($res){
+                $this->showSuccess(Yii::t("comment","Edit Success"), $this->createUrl('index'));
+            }else{
+                $this->showError(Yii::t("comment","Edit Failure"), $this->createUrl('index'));
+            }
+
+        }else{
+			//店铺
+			$value = $this->bhv->getById($_GET['id']);
+            $shop  = MerchantShop::model()->findAll();
+            $this->render("edit",compact('shop','value'));
         }
     }
 
@@ -77,6 +99,7 @@ class StationController extends BController {
         $this->render('add', compact('id', 'name', 'describ'));
     }
 
+/*
     public function actionEdit() {
         $id = '';
         $name = '';
@@ -118,7 +141,7 @@ class StationController extends BController {
         }
         $this->render('edit', compact('id', 'name', 'describ'));
     }
-
+*/
     public function actionDelete() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
