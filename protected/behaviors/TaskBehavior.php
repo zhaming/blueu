@@ -21,7 +21,7 @@ class TaskBehavior extends BaseBehavior
      */
     public function getTaskOption()
     {
-        $tasks = $this->tasks(true, false);
+        $tasks = $this->tasks('', true, false, false);
         $options = array('' => '所有任务');
         foreach($tasks as $v)
             $options[$v['id']] = $v['name'];
@@ -34,13 +34,15 @@ class TaskBehavior extends BaseBehavior
      * @param boolean $iswaiting
      * @return array 
      */
-    public function tasks($isdisabled = false, $iswaiting = true, $type = '')
+    public function tasks($type = '', $isdisabled = false, $iswaiting = true, $immediately = 1)
     {
         $type = strtolower($type);
         $criteria = new CDbCriteria();
+        if(!empty($type)) $criteria->addCondition("type = '$type'");
         if($isdisabled == false) $criteria->addCondition('disabled = 0');
         if($iswaiting == true) $criteria->addCondition('runtime = 0');
-        if(!empty($type)) $criteria->addCondition("type = '$type'");
+        if(is_numeric($immediately)) $criteria->addCondition("immediately = '$immediately'");
+        $criteria->order = 'priority ASC';
         return Task::model()->findAll($criteria);
     }
     
@@ -163,11 +165,13 @@ class TaskBehavior extends BaseBehavior
             }
             if(!empty($search['start']))
             {
+                if(strlen($search['start']) <= 10) $search['start'] .= '00:00:00';
                 $condition[] = 'start >= :start';
                 $params[':start'] = strtotime($search['start']);
             }
             if(!empty($search['end']))
             {
+                if(strlen($search['end']) <= 10) $search['end'] .= '23:59:59';
                 $condition[] = 'end <= :end';
                 $params[':end'] = strtotime($search['end']);
             }
@@ -178,7 +182,7 @@ class TaskBehavior extends BaseBehavior
         $criteria->order = empty($order) ? 'id DESC' : $order;
         
         if(empty($page)) $page = 1;
-        $pageSize = 10;//Yii::app()->params->page_size;
+        $pageSize = Yii::app()->params->page_size;
         $criteria->offset = $pageSize * ($page -1);
         $criteria->limit = $pageSize;
         

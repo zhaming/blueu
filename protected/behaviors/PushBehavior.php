@@ -13,23 +13,24 @@ class PushBehavior extends BaseBehavior {
     
     const ERROR_CMD_NONE = 0;
     const ERROR_CMD_TASK = 1;
-    const ERROR_CMD_KW = 2;
-    const ERROR_CMD_TPL = 3;
-    const ERROR_CMD_URL = 4;
-    const ERROR_CMD_ACTOR = 5;
-    const ERROR_CMD_API = 6;
-    const ERROR_CMD_IV = 7;
-    const ERROR_CMD_IA = 8;
-    const ERROR_CMD_SNS = 9;
-    
-    static $sleep = 5;
+    const ERROR_CMD_PARAM = 2;
+    const ERROR_CMD_USER = 3;
+    const ERROR_CMD_BIND = 4;
+    const ERROR_CMD_LIMIT = 5;
+    const ERROR_CMD_PUSH = 6;
+    const ERROR_CMD_DB = 7;
+    const ERROR_CMD_LIKE = 8;
+    const ERROR_CMD_MANUAL = 9;
     
     private $total = 0;
     private $success = 0;
     
+    static $sleep = 5;
+    
     
     /**
      * 绑定客户端设备推送信息
+     * for API
      * @param integer $userid 用户ID
      * @param array $data 
      *    user_id: 百度云推送分配的设备用户ID
@@ -64,6 +65,7 @@ class PushBehavior extends BaseBehavior {
     
     /**
      * 客户端用户到店
+     * for API
      * @param array $data 
      *    userid: 用户ID
      *    uuid: 基站UUID
@@ -89,6 +91,14 @@ class PushBehavior extends BaseBehavior {
                 $shopUserT->shopid = $stationR->shopid;
                 $shopUserT->come_time = time();
                 $rs = $shopUserT->save();
+                if($rs){
+                    $params = array(
+                        'userid' => $data['userid'],
+                        'uuid' => $data['uuid'],
+                        'shopid' => $stationR->shopid,
+                    );
+                    $this->runCommand($params);
+                }
             } else {
                 $this->errorLog(Yii::t('api', 'Repeat Request'));
             }
@@ -104,6 +114,7 @@ class PushBehavior extends BaseBehavior {
     
     /**
      * 推送消息点击
+     * for API
      * @param array $data 
      *    pushid: 推送ID
      * @return mixed
@@ -112,311 +123,436 @@ class PushBehavior extends BaseBehavior {
         return Push::model()->updateByPk($data['pushid'], array('onclick' => 1, 'clicktime' => time()));
     }
     
+    /**
+     * 添加推送记录
+     * @param array $info
+     * @return mixed 
+     */
+    public function add($info)
+	{
+        $push = new Push();
+        $push->to = $info['to'];
+        $push->message = $info['message'];
+        $push->type = $info['type'];
+        $push->shopid = $info['shopid'];
+        if(isset($info['from'])) $push->from = $info['from'];
+        if(isset($info['source'])) $push->from = $info['source'];
+        if(isset($info['sid'])) $push->from = $info['sid'];
+        $push->created = time();
+        return $push->save();
+	}
+    
+    /**
+     * 获取关注列表
+     * @param string $sql
+     * @return mixed
+     */
+    public function getLikeBySql($sql)
+    {
+        return Like::model()->findAllBySql($sql);
+    }
+    
+    /**
+     * 获取人工推送列表
+     * @param string $sql
+     * @return mixed
+     */
+    public function getManualBySql($sql)
+    {
+        return PushManual::model()->findAllBySql($sql);
+    }
+    
+    /**
+     * 人工推送成功次数递增
+     * @param integer $id
+     * @param integer $cnt
+     * @return mixed 
+     */
+    public function plusManual($id, $cnt = 1)
+    {
+        return PushManual::model()->updateCounters(array('count' => $cnt), "id = '$id'");
+    }
+    
+    /**
+     * 调用后台命令
+     * @param array $params
+     */
+    private function runCommand($params)
+    {
+        $params = json_encode($params);
+        $command = sprintf(Yii::app()->params->pushCmd, realpath(Yii::app()->basePath.DIRECTORY_SEPARATOR.'..'), 1, $params);
+        return exec($command);
+    }
+    
     
     /**
      * 控制台推送信息
-     * @param integer $taskid
+     * @param integer $immediately
+     * @param json $params
      * @return integer 
      */
-    public function push($taskid = 0)
+    public function push($immediately = 0, $params = '')
     {
-//请开发者设置自己的apiKey与secretKey
-$apiKey = "Tp3bIrUoG13eoE5GvwVRcI9W";
-$secretKey = "ItaHRAXueuTwYPANjLtNcA4mRObGoi1e";
-
-#test
-//$userId = '813292011209507601';
-//$userId = '1148340223945189762';
-//$userId = '868725677998357477'; //iPhone
-$userId = '856690259366666776'; //HUAWEI
-//$channelId = '3891701151187579171';
-$tag_name = '分组1';
-$tag_name1 = '分组2';
-
-$push_type = 2;  // userid -> 1
-$push_param = 'group3';  // userid
-$messages = array(
-    'type' => 1,  //0:消息 1:通知
-    'key' => 'msg_key',
-    'msg' => '{ 
-        "title": "来自后台的通知",
-        "description": "爆料：小米论坛数据库800万用户资料泄漏！尽情期待",
-        "notification_basic_style":7,
-        "open_type":1,
-        "user_confirm":1,
-        "url":"http://www.mi.com",
-        "aps":{
-			"sound":"",
-			"badge":1
-		},
-        "custom_content":{"key1":"value1"},
-        "key1":"value1"
-    }',
-);
-
-$cert_name = 'APNs-blueu';
-$cert_desc = 'the demo for APNs';
-$pro_cert = '../../APNs-pro.pem';
-$dev_cert = '../../APNs-dev.pem';
-
-//test_initAppIoscert($cert_name, $cert_desc, $pro_cert, $dev_cert);
-//test_pushMessage('all', $push_type, $push_param, $messages);
-        
-        
-        
-        $_task = new AdminTaskBehavior();
-        if($taskid == 0)
-            $tasks = $_task->tasks(false, true, __FUNCTION__);
-        else
-            $tasks[] = $_task->getById($taskid);
-        if(empty($tasks)) return self::ERROR_CMD_TASK;
-        
-        $result = '';
-        foreach($tasks as $v){
-            $_task->setRuntime($v['id'], 1);
-            $rs = $this->_push($v);
-            $result .= $rs;
-            $_task->edit($v['id'], array('runtime' => 0, 'lasttime' => time()));
-        }
-        return $result;
-    }
-    
-    /**
-     * 循环调用方法doPush方法
-     * @param array $row 
-     */
-    private function _push($row)
-    {
-        $ext = MingString::json2arr($row['ext']);
-        
-        $this->total = 0;
-        $i = 0;
-        $affectedRows = $ext['pageSize'];
-        $result = '';
-        $_sns = new AdminSnsBehavior();
-        
-        $_task = new AdminTaskBehavior();
-        $logId = $_task->logAdd($row['id'], array('start' => time()));
-        
-        while(true)
-        {
-            if($row['count'] > 0)
-                if($this->total > $row['count'] - 1) break;
+        $params = json_decode($params, true);
+        $_task = new TaskBehavior();
+        if($immediately == 1){
+            $tasks = $_task->tasks(__FUNCTION__, false, false, $immediately);
+            $result = $this->pushImmediately($tasks, $params);
+        }else{
+            if(isset($params['taskid']) && $params['taskid'] > 0)
+                $tasks[] = $_task->getById($params['taskid']);
             else
-                if($affectedRows < $ext['pageSize']) break;
-
-            $pageStart = $ext['pageStart'] + (++$i - 1) * $ext['pageSize'];
-            $sql = sprintf($row['sql'], $pageStart, $ext['pageSize']);
-            $rs = $_sns->getBySql($sql);
-            if(empty($rs)){
-                $result .= self::ERROR_CMD_SNS;
-                break;
-            }
-            $affectedRows = count($rs);
-            $this->total += $affectedRows;
-            foreach($rs as $v)
-            {
-                $rs = $this->doPush($v, $row['actor']);
-                if($rs == self::ERROR_CMD_NONE){
-                    $this->success++;
-                    $_sns->setStatus($v['id'], 1);
-                }
-                if(strpos($rs, self::ERROR_CMD_IV) !== false) $_sns->setStatus($v['id'], 2);
-                $result .= $rs;
-                sleep(self::$sleep);
-            }
-        }
-        $_task->plusExecTimes($row['id'], $this->success);
-        
-        $info = array(
-            'end' => time(),
-            'total' => $this->total,
-            'success' => $this->success,
-            'result' => $result,
-        );
-        $_task->logEdit($logId, $info);
-        $this->success = 0;
-        
-        return $result;
-    }
-    
-    /**
-     * 实际执行推送，并返回状态码
-     * @param array $row
-     * @param integer $actor
-     * @return integer 
-     */
-    private function doPush($row, $actor)
-    {
-        $keywords = $this->getKeyword($row['key_words']);
-        if(empty($keywords)) return self::ERROR_CMD_KW;
-        
-        $tpls = $this->getTpl($keywords['tpl_id']);
-        if(empty($tpls)) return self::ERROR_CMD_TPL;
-        
-        $tokens = $this->getActorParams($row['platform'], $actor);
-        if(empty($tokens)) return self::ERROR_CMD_ACTOR;
-        
-        $urls = $this->getUrl($keywords['rule_id'], array('platform' => $row['platform'], 'weibo_id' => $row['weibo_id']));
-        if(empty($urls)) return self::ERROR_CMD_URL;
-
-        $result = '';
-        $params['nick'] = $row['user_name'];
-        $params['keyword'] = current(explode(' ', $keywords['key_words']));
-        //$fields = $row['platform'] == 'qq' ? array('keyword', 'url') : array();
-        foreach($urls as $url)
-        {
-            $params['url'] = $url;
-            $content = $this->getCommentContent($tpls['template'], $params);
-            
-            //$rs = $this->_doPush($row['platform'], $tokens, array($row['weibo_id'], $row['user_id']), $content);
-            $rs = $this->_doPush($row['platform'], $tokens, $row['weibo_id'], $content);
-            $result .= $rs;
-        }
-        
-        if( $result == str_repeat(true, count($urls)) ){
-            return self::ERROR_CMD_NONE;
-        }elseif(strpos($result, self::ERROR_CMD_IA) !== false){
-            $_app = new AdminAppBehavior();
-            $_app->setAuthStatus($tokens, 0);
+                $tasks = $_task->tasks(__FUNCTION__, false, true, $immediately);
+            $result = $this->pushCrontab($tasks, $params);
         }
         return $result;
     }
     
     /**
-     * 调用相应平台API，发送评论
-     * @param string $platform
-     * @param array $tokens
-     * @param integer $to
-     * @param string $content
-     * @return mixed
-     */
-    private function _doPush($platform, $tokens, $to, $content)
-    {
-        $toauth = ucfirst(strtolower($platform)) . 'TOauth';
-        if(!@class_exists($toauth)) return false;
-        $_toauth = new $toauth();
-        if(!@method_exists($_toauth, 'sendMessage')) return false;
-        $rs = $_toauth->sendMessage($tokens, $to, $content, true);
-        
-        echo "\n".date('Y-m-d H:i:s')."\n";
-        print_r($to);echo $content."\n";
-        print_r($rs); //重定向到日志中
-        return true;
-        
-        if( (isset($rs['ret']) && $rs['ret'] > 0) || isset($rs['error_code']) || isset($rs['error']) || empty($rs) )
-        {
-            if(isset($rs['errcode']) && $rs['errcode'] == 11) return self::ERROR_CMD_IV;
-            if(isset($rs['msg']) && $rs['msg'] == 'forbidden access') return self::ERROR_CMD_IA;
-            
-            echo "\n".date('Y-m-d H:i:s')."\n";
-            print_r($to);echo $content."\n";
-            print_r($rs); //重定向到日志中
-            return self::ERROR_CMD_API;
-        }
-        return true;
-    }
-    
-    /**
-     * 根据关键字ID获取规则ID
-     * @param integer $keywordId
-     * @return integer 
-     */
-    private function getKeyword($keywordId)
-    {
-        $_keyword = new AdminKeywordBehavior();
-        $rs = $_keyword->getById($keywordId);
-        return $rs;
-    }
-    
-    /**
-     * 获取评论模板
-     * @param integer $tplId
-     * @return array 
-     */
-    private function getTpl($tplId)
-    {
-        $_tpl = new AdminTplBehavior();
-        $rs = $_tpl->getByIdAndZero($tplId);
-        return $rs;
-    }
-    
-    /**
-     * 获取关键字URL
-     * @param integer $keywordId
-     * @param array $params
-     * @return string 
-     */
-    private function getUrl($urlId, $params)
-    {
-        $urlFormat = '%s/site/go/p/%s';
-        $_url = new AdminUrlBehavior();
-        
-        $urls = array();
-        $urlIds = explode(',', $urlId);
-        foreach($urlIds as $id)
-        {
-            $rs = $_url->getById($id);
-            if(empty($rs)) continue;
-            $p = array(
-                $rs['short'],
-                $params['platform'],
-                $params['weibo_id']
-            );
-            $p = MingCrypt::authCrypt(implode('|', $p), 'ENCODE');
-            $urls[] = sprintf($urlFormat, Yii::app()->params->host, $p);
-        }
-        return $urls;
-    }
-
-    /**
-     * 获取执行者
-     * @param string $platform
-     * @param integer $actor
-     * @return array 
-     */
-    private function getActorParams($platform, $actor)
-    {
-        $_app = new AdminAppBehavior();
-        if($actor > 0)
-        {
-            $auths = $_app->getAuthById($actor);
-            if(empty($auths)) return false;
-            if($auths['platform'] == $platform)
-                return array(
-                    'token' => $auths['token'],
-                    'token_secret' => $auths['token_secret'],
-                );
-        }
-        $authIds = $_app->getAppAuthIds($platform);
-        if(empty($authIds)) return false;
-        $auths = $authIds[array_rand($authIds)];
-        return array(
-            'token' => $auths['token'],
-            'token_secret' => $auths['token_secret'],
-        );
-    }
-
-    /**
-     * 获取评论内容
-     * @param string $template
+     * 即时推送
+     * @param record $tasks 
      * @param array $params
      * @return string
      */
-    private function getCommentContent($template, $params, $fields = array())
+    private function pushImmediately($tasks, $params)
+    {
+        if(empty($tasks)) return self::ERROR_CMD_TASK;
+        if(!isset($params['userid']) || !isset($params['uuid'])) return self::ERROR_CMD_PARAM;
+        $params = $this->pushImmediatelyBefore($params);
+        if(!is_array($params)) return $params;
+        
+        $_task = new TaskBehavior();
+        $result = '';
+        foreach($tasks as $v){
+            $method = 'do'.ucfirst($v['item']);
+            if(!method_exists($this, $method)) continue;
+            $logId = $_task->logAdd($v['id'], array('start' => time()));
+            
+            $rs = $this->$method($v, $params);
+            $result .= $rs;
+            
+            $_task->edit($v['id'], array('lasttime' => time()));
+            $info = array(
+                'end' => time(),
+                'total' => $this->total,
+                'success' => $this->success,
+                'result' => $rs,
+            );
+            $_task->logEdit($logId, $info);
+        }
+        return $result === '' ? self::ERROR_CMD_TASK : $result;
+    }
+    
+    /**
+     * 定时推送
+     * @param array $row 
+     */
+    private function pushCrontab($tasks, $params)
+    {
+        /*if(empty($tasks)) return self::ERROR_CMD_TASK;
+        if(!isset($params['userid']) || !isset($params['uuid'])) return self::ERROR_CMD_PARAM;
+        $params = $this->pushImmediatelyBefore($params);
+        
+        $_task = new TaskBehavior();
+        $result = '';
+        foreach($tasks as $v){
+            $method = 'do'.ucfirst($v['item']);
+            if(!method_exists($this, $method)) continue;
+            
+            $_task->setRuntime($v['id'], 1);
+            $result .= $this->$method($v, $params);
+            $_task->edit($v['id'], array('runtime' => 0, 'lasttime' => time()));
+            
+        }*/
+    }
+    
+    /**
+     * 即时推送预处理
+     * @param array $params
+     * @return mixed 
+     */
+    private function pushImmediatelyBefore($params)
+    {
+        $userid = $params['userid'];
+        $shopid = $params['shopid'];
+        
+        $_user = new UserBehavior();
+        $pushSetting = $_user->getPushSetting($userid);
+        if(empty($pushSetting) || $pushSetting['pushable'] == 0) return self::ERROR_CMD_USER;
+        if(empty($pushSetting['user_id']) || empty($pushSetting['platform'])) return self::ERROR_CMD_BIND;
+        
+        $_shop = new MerchantShopBehavior();
+        $shopR = $_shop->getById($shopid);
+        $shopname = $shopR->name;
+        return array_merge($params, $pushSetting, array('shopname' => $shopname));
+    }
+    
+    /**
+     * 推送欢迎通知
+     * @param record $tasks
+     * @param array $params
+     * @return integer
+     */
+    private function doWelcome($tasks, $params)
+    {
+        $this->total = 1;
+        $this->success = 0;
+        $checkRs = $this->doWelcomeCheck($params['userid'], $params['shopid'], $tasks['item']);
+        if(!$checkRs) return self::ERROR_CMD_LIMIT;
+        $msg = $this->getMsg($tasks['msg'], $params);
+        $messages = $this->getMessages($msg, $params['platform']);
+        $pushRs = $this->bdPush($params['platform'], $params['user_id'], $messages);
+        if(!$pushRs) return self::ERROR_CMD_PUSH;
+        $this->success = 1;
+        
+        $info = array(
+            'to' => $params['userid'],
+            'shopid' => $params['shopid'],
+            'type' => $tasks['item'],
+            'message' => json_encode($messages),
+        );
+        if(!$this->add($info)) return self::ERROR_CMD_DB;
+        return self::ERROR_CMD_NONE;
+    }
+    
+    /**
+     * 推送关注通知
+     * @param record $tasks
+     * @param array $params
+     * @return integer
+     */
+    private function doLike($tasks, $params)
+    {
+        $this->total = 1;
+        $this->success = 0;
+        $checkRs = $this->doLikeCheck($tasks['sql'], $tasks['ext'], $tasks['item'], $params);
+        if($checkRs !== true) return $checkRs;
+        $msg = $this->getMsg($tasks['msg'], $params);
+        $messages = $this->getMessages($msg, $params['platform'], array('shopid' => $params['shopid']));
+        $pushRs = $this->bdPush($params['platform'], $params['user_id'], $messages);
+        if(!$pushRs) return self::ERROR_CMD_PUSH;
+        $this->success = 1;
+        
+        $info = array(
+            'to' => $params['userid'],
+            'shopid' => $params['shopid'],
+            'type' => $tasks['item'],
+            'message' => json_encode($messages),
+        );
+        if(!$this->add($info)) return self::ERROR_CMD_DB;
+        return self::ERROR_CMD_NONE;
+    }
+    
+    /**
+     * 推送人工通知
+     * @param record $tasks
+     * @param array $params
+     * @return integer
+     */
+    private function doManual($tasks, $params)
+    {
+        $this->total = $this->success = 0;
+        $manualRs = $this->doManualCheck($tasks['sql'], $tasks['ext'], $params);
+        if(is_int($manualRs)) return $manualRs;
+        
+        $result = '';
+        foreach($manualRs as $v){
+            $this->total++;
+            if($v->limit > 0 && $v->limit <= $v->count){
+                $result .= self::ERROR_CMD_LIMIT;
+                continue;
+            }
+            $msgtpl = empty($v->msg) ? $tasks['msg'] : $v->msg;
+            $msg = $this->getMsg($msgtpl, array_merge($params, array('name' => $v->name)));
+            $extra = array(
+                'shopid' => $v->shopid,
+                'source' => $v->source,
+                'sid' => $v->sid,
+            );
+            $messages = $this->getMessages($msg, $params['platform'], $extra);
+            $pushRs = $this->bdPush($params['platform'], $params['user_id'], $messages);
+            if(!$pushRs){
+                $result .= self::ERROR_CMD_PUSH;
+                continue;
+            }
+            $this->plusManual($v->id);
+            $this->success++;
+            
+            $info = array(
+                'to' => $params['userid'],
+                'shopid' => $params['shopid'],
+                'type' => $tasks['item'],
+                'message' => json_encode($messages),
+            );
+            if(!$this->add($info))
+                $result .= self::ERROR_CMD_DB;
+            else
+                $result .= self::ERROR_CMD_NONE;
+        }
+        return $result;
+    }
+    
+    /**
+     * 一天内一家店仅推送一条欢迎通知给用户
+     * @param integer $userid
+     * @param integer $shopid
+     * @param string $type
+     * @return boolean
+     */
+    private function doWelcomeCheck($userid, $shopid, $type) {
+        $criteria = new CDbCriteria();
+        $criteria->select = 'created';
+        $criteria->addCondition("`to` = '$userid'");
+        $criteria->addCondition("`shopid` = '$shopid'");
+        $criteria->addCondition("`type` = '$type'");
+        $criteria->order = 'created DESC';
+        $pushR = Push::model()->find($criteria);
+        if(!empty($pushR) && MingString::sameDay($pushR->created, time())) return false;
+        return true;
+    }
+    
+    /**
+     * 基于用户关注推送
+     * 基于用户接收关注推送频率推送
+     * @param string $sql
+     * @param string $ext
+     * @param string $type
+     * @param array $params
+     * @return mixed
+     */
+    private function doLikeCheck($sql, $ext, $type, $params) {
+        if(strpos($sql, '%') === false) return self::ERROR_CMD_TASK;
+        $ext = json_decode($ext, true);
+        if(empty($ext)) return false;
+        $arr = array();
+        foreach($ext as $v){
+            $arr[] = $params[$v];
+        }
+        $sql = vsprintf($sql, $arr);
+        $rs = $this->getLikeBySql($sql);
+        if(empty($rs)) return self::ERROR_CMD_LIKE;
+        
+        if($params['likepush'] == '1'){
+            $userid = $params['userid'];
+            $shopid = $params['shopid'];
+            $criteria = new CDbCriteria();
+            $criteria->select = 'created';
+            $criteria->addCondition("`to` = '$userid'");
+            $criteria->addCondition("`shopid` = '$shopid'");
+            $criteria->addCondition("`type` = '$type'");
+            $pushR = Push::model()->find($criteria);
+            if(!empty($pushR)) return self::ERROR_CMD_LIMIT;
+        }
+        return true;
+    }
+    
+    /**
+     * 基于人工推送列表推送
+     * @param string $sql
+     * @param string $ext
+     * @param array $params
+     * @return mixed
+     */
+    private function doManualCheck($sql, $ext, $params) {
+        if(strpos($sql, '%') === false) return self::ERROR_CMD_TASK;
+        $ext = json_decode($ext, true);
+        if(empty($ext)) return self::ERROR_CMD_TASK;
+        $arr = array();
+        foreach($ext as $v){
+            $arr[] = $params[$v];
+        }
+        $sql = vsprintf($sql, $arr);
+        $rs = $this->getManualBySql($sql);
+        if(empty($rs)) return self::ERROR_CMD_MANUAL;
+        return $rs;
+    }
+    
+    /**
+     * 获取推送消息
+     * @param string $msg
+     * @param string $platform
+     * @param array $extra
+     * @return array 
+     */
+    private function getMessages($msg, $platform, $extra = array())
+    {
+        $key = 'msg_'.rand(100000000, 999999999);
+        if(preg_match("/^http[s]?:\/\/[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*$/ui", $msg)){
+            $message = array(
+                'description' => Yii::app()->params->title,
+                'notification_basic_style' => 7,
+                'open_type' => 1,
+                'user_confirm' => 1,
+                'url' => $msg,
+                'aps' => array(
+                    'sound' => '',
+                    'badge' => 1
+                )
+            );
+        }else{
+            $message = array(
+                'description' => $msg,
+                'notification_basic_style' => 7,
+                'aps' => array(
+                    'sound' => '',
+                    'badge' => 1
+                )
+            );
+        }
+        if($platform == 'android') $message['title'] = Yii::app()->params->title;
+        if(!empty($extra)){
+            if($platform == 'ios'){
+                $message = array_merge($message, $extra);
+            }else{
+                $message = array_merge($message, array('custom_content' => $extra));
+            }
+        }
+        return array(
+            'type' => Yii::app()->params->message_type,
+            'key' => $key,
+            'msg' => json_encode($message)
+        );
+    }
+
+    /**
+     * 获取推送消息主体内容
+     * @param string $msgtpl
+     * @param mixed $params
+     * @return string
+     */
+    private function getMsg($msgtpl, $params)
     {
         $matches = array();
-        preg_match_all('/%([^%]*)%/', $template, $matches);
-        if(empty($matches[0]))
-            $content = $template;
-        else
-        {
-            $search = $matches[0];
-            $replace = array();
-            foreach($matches[1] as $v)
-                $replace[] = (empty($fields) || in_array($v, $fields)) ? $params[$v] : '';
-            $content = str_replace($search, $replace, $template);
+        $cnt = preg_match_all('/({.*?})/ui', $msgtpl, $matches);
+        if(empty($cnt)) return $msgtpl;
+        foreach($matches[0] as $v){
+            $k = substr($v, 1, -1);
+            $msgtpl = str_replace($v, $params[$k], $msgtpl);
         }
-        return $content;
+        return $msgtpl;
+    }
+    
+    /**
+     * 百度推送
+     * @param string $platform
+     * @param integer $user_id
+     * @param array $messages
+     * @return type
+     */
+    private function bdPush($platform, $user_id, $messages)
+    {
+        $_baiduPush = new BaiduPush(Yii::app()->params->apikey, Yii::app()->params->secretkey);
+        if($platform == 'ios'){
+            $release_cert = realpath(Yii::app()->basePath.Yii::app()->params->pem_pro);
+            $dev_cert = realpath(Yii::app()->basePath.Yii::app()->params->pem_dev);
+            $_baiduPush->initAppIoscert2 (
+                Yii::app()->params->title, 
+                Yii::app()->params->meta_description, 
+                $release_cert, 
+                $dev_cert, 
+                Yii::app()->params->deployed
+            );
+        }
+        return $_baiduPush->pushMessage2($platform, 1, $user_id, $messages, Yii::app()->params->deployed);
     }
 }

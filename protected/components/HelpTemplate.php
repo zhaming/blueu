@@ -18,6 +18,19 @@
  */
 class HelpTemplate extends CComponent {
 
+    const ENABLED = 0;
+    const DISABLED = 1;
+    const ADMIN_ROLE = 1;
+    const USER_ROLE = 5;
+    const MERCHANT_ROLE = 4;
+    const SUPER_ADMIN_ID = 1;
+    const USER_SEX_UNKNOWN = 0;
+    const USER_SEX_FEMALE = 1;
+    const USER_SEX_MALE = 2;
+    const USER_STATUS_NORMAL = 0;
+    const USER_STATUS_DISABLED = 1;
+    const USER_STATUS_DELETED = 2;
+
     public static function UUID() {
         $chars = md5(uniqid(mt_rand(), true));
         $uuid = substr($chars, 0, 8) . '-'
@@ -30,52 +43,68 @@ class HelpTemplate extends CComponent {
 
     public static function sex($index) {
         $map = array(
-            0 => Yii::t('admin', 'Unknown'),
-            1 => Yii::t('admin', 'Female'),
-            2 => Yii::t('admin', 'Male')
+            self::USER_SEX_UNKNOWN => Yii::t('admin', 'Unknown'),
+            self::USER_SEX_FEMALE => Yii::t('admin', 'Female'),
+            self::USER_SEX_MALE => Yii::t('admin', 'Male')
         );
         return $map[$index];
     }
 
     public static function accountStatus($index) {
         $map = array(
-            0 => Yii::t('admin', 'Normal'),
-            1 => Yii::t('admin', 'Disable'),
-            2 => Yii::t('admin', 'Deleted')
+            self::USER_STATUS_NORMAL => Yii::t('admin', 'Normal'),
+            self::USER_STATUS_DISABLED => Yii::t('admin', 'Disable'),
+            self::USER_STATUS_DELETED => Yii::t('admin', 'Deleted')
         );
         return $map[$index];
     }
 
     public static function role($index) {
         $map = array(
-            1 => Yii::t('admin', 'Administrator'),
-            4 => Yii::t('admin', 'Merchant'),
-            5 => Yii::t('admin', 'Client user')
+            self::ADMIN_ROLE => Yii::t('admin', 'Administrator'),
+            self::MERCHANT_ROLE => Yii::t('admin', 'Merchant'),
+            self::USER_ROLE => Yii::t('admin', 'Client user')
         );
         return $map[$index];
     }
 
     public static function loginRole() {
         $roleId = Yii::app()->user->getState('roleid');
-        if ($roleId == 1) {
-            if (Yii::app()->user->getId() == 1) {
+        if ($roleId == self::ADMIN_ROLE) {
+            if (Yii::app()->user->getId() == self::SUPER_ADMIN_ID) {
                 return Yii::t('admin', 'Super admin');
             } else {
                 return Yii::t('admin', 'Administrator');
             }
         }
-        if ($roleId == 4) {
+        if ($roleId == self::MERCHANT_ROLE) {
             return Yii::t('admin', 'Merchant');
         }
         return '';
     }
 
     public static function isLoginAsAdmin() {
-        return Yii::app()->user->getState('roleid') == 1;
+        return Yii::app()->user->getState('roleid') == self::ADMIN_ROLE;
     }
 
     public static function isLoginAsMerchant() {
-        return Yii::app()->user->getState('roleid') == 4;
+        return Yii::app()->user->getState('roleid') == self::MERCHANT_ROLE;
+    }
+
+    public static function getAdUrl($path) {
+        return Yii::app()->params['host'] . Yii::app()->params['url_web'] . 'upload/original/' . $path;
+    }
+
+    public static function getMapUrl($path) {
+        return Yii::app()->params['host'] . Yii::app()->params['url_web'] . 'upload/original/' . $path;
+    }
+
+    public static function getAvatarUrl($path, $size = '100_200') {
+        if (empty($path)) {
+            return Yii::app()->params['host'] . Yii::app()->params['url_web'] . 'upload/default/avatar_180_200.jpg';
+        } else {
+            return Yii::app()->params['host'] . Yii::app()->params['url_web'] . 'upload/avatar/' . $path;
+        }
     }
 
 }

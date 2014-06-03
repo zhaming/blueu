@@ -9,6 +9,8 @@
  *	$Id$
  */
 
+require_once 'Channel.class.php';
+
 class BaiduPush extends Channel {
     
     const DEBUG = true;
@@ -74,9 +76,10 @@ class BaiduPush extends Channel {
 
     public function initAppIoscert2 ( $name, $description, $release_cert, $dev_cert, $deployed = false )
     {
+        $optional[Channel::DEPLOY_STATUS] = $deployed ? 2 : 1;
+        if($this->queryAppIoscert($optional)) return;
         if(is_file($release_cert)) $release_cert = file_get_contents($release_cert);
         if(is_file($dev_cert)) $dev_cert = file_get_contents ($dev_cert);
-        $optional[Channel::DEPLOY_STATUS] = $deployed ? 2 : 1;
         
         $ret = $this->initAppIoscert($name, $description, $release_cert, $dev_cert, $optional);
         $this->output($ret);

@@ -23,11 +23,20 @@ class Advertisement extends CActiveRecord {
     }
 
     public function tableName() {
-        return '{{advertisment}}';
+        return '{{advertisement}}';
     }
 
     public function primaryKey() {
         return "id";
+    }
+
+    public function relations() {
+        $relations = array(
+            'account' => array(
+                self::BELONGS_TO, 'Account', 'owner'
+            )
+        );
+        return $relations;
     }
 
 }

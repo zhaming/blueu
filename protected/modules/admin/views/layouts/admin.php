@@ -8,7 +8,7 @@
         <meta content="<?php echo Yii::app()->params->meta_keywords; ?>" name="keywords" />
         <meta content="<?php echo Yii::app()->params->meta_description; ?>" name="description" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-        <link href="favicon.ico" rel="shortcut icon" />
+        <link href="/statics/favicon.ico" rel="shortcut icon" />
 
         <!-- basic styles -->
         <link rel="stylesheet" href="/statics/css/bootstrap.min.css" />
@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="/statics/css/colorpicker.css" />
 
         <!-- fonts -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+        <!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
 
         <!-- ace styles -->
         <link rel="stylesheet" href="/statics/css/ace.min.css" />
@@ -124,6 +124,11 @@
             jQuery(function($) {
                 $(".delete-confirm").click(function() {
                     return confirm('Are you absolutely sure you want to delete?');
+                });
+                $(".batch-delete-confirm").click(function() {
+                    if (confirm('Are you absolutely sure you want to delete?')) {
+                        $(".batch-delete-form").submit();
+                    }
                 });
                 $('.easy-pie-chart.percentage').each(function() {
                     var $box = $(this).closest('.infobox');

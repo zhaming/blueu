@@ -41,7 +41,7 @@ class User extends CActiveRecord {
     public function relations() {
         $relations = array(
             'account' => array(
-                self::HAS_ONE, 'Account', 'id'
+                self::BELONGS_TO, 'Account', 'id'
             )
         );
         return $relations;

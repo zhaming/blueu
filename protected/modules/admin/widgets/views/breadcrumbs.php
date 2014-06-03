@@ -11,14 +11,14 @@
             <i class="icon-home home-icon"></i>
             <a href="/admin"><?php echo Yii::t('admin', 'Home'); ?></a>
         </li>
-        <li class="active"><?php echo $menu; ?></li>
+        <?php if (!empty($secondLevelTitle)) { if (!empty($thirdLevelTitle)) { ?>
+        <li>
+            <a href="/admin/<?php echo Yii::app()->controller->id; ?>/index"><?php echo $secondLevelTitle; ?></a>
+        </li>
+        <?php } else { ?>
+        <li class="active"><?php echo $secondLevelTitle; ?></li>
+        <?php } } if (!empty($thirdLevelTitle)) { ?>
+        <li class="active"><?php echo $thirdLevelTitle; ?></li>
+        <?php } ?>
     </ul>
-    <div class="nav-search" id="nav-search">
-        <form class="form-search">
-            <span class="input-icon">
-                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-                <i class="icon-search nav-search-icon"></i>
-            </span>
-        </form>
-    </div>
 </div>

@@ -32,9 +32,24 @@ class MerchantController extends IController {
             return;
         }
         $page = Yii::app()->request->getQuery('page', 1);
-        $pagesize = Yii::app()->request->getQuery('pagesize', 2);
-        $data = $this->merchantBehavior->getlist(array(), $page, $pagesize);
-        $this->data = $data['data'];
+        $pagesize = Yii::app()->request->getQuery('pagesize', 10);
+        $merchants = $this->merchantBehavior->apiGetList($page, $pagesize);
+        if (empty($merchants)) {
+            $this->error_code = self::ERROR_NO_DATA;
+            $this->message = Yii::t('admin', 'No data.');
+            return;
+        }
+        $this->data = array();
+        foreach ($merchants as $merchant) {
+            $this->data[] = array(
+                'id' => $merchant['id'],
+                'name' => $merchant['name'],
+                "legal" => $merchant['legal'],
+                "telephone" => $merchant['telephone'],
+                "bank" => $merchant['bank'],
+                "shopnum" => $merchant['shopnum']
+            );
+        }
     }
 
     public function ActionDetail() {
@@ -50,16 +65,23 @@ class MerchantController extends IController {
             return;
         }
         $account = $this->checkToken();
-        if (!$account) {
+        if (empty($account)) {
             return;
         }
         $merchant = $this->merchantBehavior->detail($merchantId);
-        if (!$merchant) {
-            $this->error_code = self::ERROR_REQUEST_FAILURE;
+        if (empty($merchant)) {
+            $this->error_code = self::ERROR_NO_DATA;
             $this->message = $this->merchantBehavior->getError();
             return;
         }
-        $this->data = $merchant;
+        $this->data = array(
+            'id' => $merchant['id'],
+            'name' => $merchant['name'],
+            "legal" => $merchant['legal'],
+            "telephone" => $merchant['telephone'],
+            "bank" => $merchant['bank'],
+            "shopnum" => $merchant['shopnum']
+        );
     }
 
 }

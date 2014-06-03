@@ -1,17 +1,5 @@
 <div class="row">
     <div class="col-xs-12">
-        <div class="alert alert-block alert-success">
-            <button type="button" class="close" data-dismiss="alert">
-                <i class="icon-remove"></i>
-            </button>
-            <i class="icon-ok green"></i>
-            欢迎使用
-            <strong class="green">
-                BLUEU后台管理系统
-                <small>(v0.1)</small>
-            </strong>
-            ,轻量级好用的后台管理系统模版.	
-        </div>
 
         <div class="row">
             <div class="space-6"></div>
