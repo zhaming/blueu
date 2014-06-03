@@ -17,7 +17,7 @@
                 <li class="light-blue">
                     <a data-toggle="dropdown" class="dropdown-toggle cursor-default">
                         <span class="user-info">
-                            <small><?php echo Yii::t('admin', 'Welcome,'); ?><?php echo HelpTemplate::logginRole(); ?></small><?php echo Yii::app()->user->getName(); ?>
+                            <small><?php echo Yii::t('admin', 'Welcome,'); ?><?php echo HelpTemplate::loginRole(); ?></small><?php echo Yii::app()->user->getName(); ?>
                         </span>
                         <i class="icon-caret-down"></i>
                     </a>
