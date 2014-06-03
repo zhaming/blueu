@@ -50,7 +50,6 @@
                          <td>
                             <a onclick="return confirm('确定要删除吗？');" href="/admin/merchantshop/delete/id/<?php echo $value->id;?>"><i class="icon-remove red"></i>删除</a>
                             <a href="/admin/merchantshop/edit/id/<?php echo $value->id;?>"><i class="icon-edit"></i>详情</a>
-                            <a href="/admin/merchantshop/addshopaccount/id/<?php echo $value->id;?>"><i class="icon-plus"></i>基站广告</a>
                         </td>
                     </tr>
                     <?php endforeach;?>
