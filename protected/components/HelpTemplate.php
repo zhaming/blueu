@@ -114,13 +114,20 @@ class HelpTemplate extends CComponent {
 
     public static function adSource($flag) {
         $map = array(
-            self::AD_SOURCE_MAN_MADE => Yii::t('admin', 'Man made'),
+            self::AD_SOURCE_MAN_MADE => '',
             self::AD_SOURCE_SHOP => Yii::t('admin', 'Shop'),
             self::AD_SOURCE_PRODUCT => Yii::t('admin', 'Product'),
             self::AD_SOURCE_COUPON => Yii::t('admin', 'Coupon'),
             self::AD_SOURCE_STAMP => Yii::t('admin', 'Stamp')
         );
         return $map[$flag];
+    }
+
+    public static function getAdPlaceTags() {
+        return array(
+            'top' => Yii::t('admin', '顶部'),
+            'right' => Yii::t('admin', '右边')
+        );
     }
 
 }

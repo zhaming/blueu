@@ -30,7 +30,7 @@
                             <div class="col-sm-9">
                                 <span class="input-icon input-icon-right">
                                     <input id="form-field-desc" name="ad[desc]" value="<?php echo $ad['desc']; ?>" type="text" placeholder="<?php echo Yii::t('admin', 'Description'); ?>" />
-                                    <i class="icon-user"></i>
+                                    <i class="icon-credit-card"></i>
                                 </span>
                             </div>
                         </div>
@@ -39,24 +39,25 @@
                             <div class="col-sm-9">
                                 <span class="input-icon input-icon-right">
                                     <input id="form-field-url" name="ad[url]" value="<?php echo $ad['url']; ?>" type="text" placeholder="<?php echo Yii::t('admin', 'Url'); ?>" />
-                                    <i class="icon-user"></i>
+                                    <i class="icon-external-link"></i>
                                 </span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-placetag"><?php echo Yii::t('admin', 'Place tag'); ?></label>
                             <div class="col-sm-9">
-                                <span class="input-icon input-icon-right">
-                                    <input id="form-field-placetag" name="ad[placetag]" value="<?php echo $ad['placetag']; ?>" type="text" placeholder="<?php echo Yii::t('admin', 'Place tag'); ?>" />
-                                    <i class="icon-tag"></i>
-                                </span>
+                                <select id="form-field-placetag" name="ad[placetag]" class="col-sm-3 no-padding-left">
+                                    <?php foreach (HelpTemplate::getAdPlaceTags() as $key => $value) { ?>
+                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-disabled"><?php echo Yii::t('admin', 'Disabled'); ?></label>
                             <div class="col-sm-9">
                                 <label class="control-label">
-                                    <input id="form-field-disabled" name="ad[disabled]" class="ace ace-switch ace-switch-2" type="checkbox"<?php if ($ad['disabled']) { ?> checked<?php } ?> />
+                                    <input id="form-field-disabled" name="ad[disabled]" value="1" class="ace ace-switch ace-switch-2" type="checkbox"<?php if ($ad['disabled']) { ?> checked<?php } ?> />
                                     <span class="lbl"></span>
                                 </label>
                             </div>

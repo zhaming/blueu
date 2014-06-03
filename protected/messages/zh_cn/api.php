@@ -19,7 +19,7 @@
 return array (
   ' is already taken.' => '',
   ' is not set.' => '',
-  'Advertisement is no exist' => '',
+  'Advertisement is no exist.' => '',
   'Illegal identity' => '',
   'Illegal request' => '',
   'Illegal request.' => '',
@@ -35,6 +35,7 @@ return array (
   'Token not exist' => '',
   'Token not set' => '',
   'User is no exist' => '',
+  'Advertisement is no exist' => '@@@@',
   ' is not correct' => ' 不正确',
   ' is not set' => ' 未设置',
   'Repeat Request' => '重复请求',

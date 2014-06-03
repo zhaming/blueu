@@ -157,4 +157,9 @@ class AdvertisementBehavior extends BaseBehavior {
         return Advertisement::model()->deleteByPk($id);
     }
 
+    public function update($id, $data) {
+        unset($data['id']);
+        return Advertisement::model()->updateByPk($id, $data);
+    }
+
 }

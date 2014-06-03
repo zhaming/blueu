@@ -57,27 +57,29 @@
                             </td>
                             <td><?php echo $item['id']; ?></td>
                             <td><?php echo $item['placetag']; ?></td>
-                            <td><?php if (empty($item['url'])) { echo Yii::t('admin', 'Not available'); } else {echo $item['placetag'];} ?></td>
+                            <td><?php echo $item['url']; ?></td>
                             <td><?php echo $item['desc']; ?></td>
                             <td><?php echo $item['account']['username']; ?></td>
                             <td><?php echo HelpTemplate::adSource($item['source']); ?></td>
                             <td><?php echo date('y-m-d H:i:s', $item['created']); ?></td>
                             <td>
-                                <?php if ($item->disabled == 1) { ?>
-                                <a href="<?php echo $this->createUrl('enable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="btn btn-xs btn-success">
-                                    <i class="icon-unlock bigger-120"></i>
-                                </a>
-                                <?php } else { ?>
-                                <a href="<?php echo $this->createUrl('disable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="btn btn-xs btn-warning">
-                                    <i class="icon-lock bigger-120"></i>
-                                </a>
-                                <?php } ?>
-                                <a href="<?php echo $this->createUrl('detail?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Detail'); ?>" class="btn btn-xs btn-success">
-                                    <i class="icon-edit bigger-120"></i>
-                                </a>
-                                <a href="<?php echo $this->createUrl('delete?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger delete-confirm">
-                                    <i class="icon-trash bigger-120"></i>
-                                </a>
+                                <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                                    <?php if ($item->disabled == HelpTemplate::DISABLED) { ?>
+                                    <a href="<?php echo $this->createUrl('enable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="green">
+                                        <i class="icon-unlock bigger-130"></i>
+                                    </a>
+                                    <?php } else { ?>
+                                    <a href="<?php echo $this->createUrl('disable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="yellow">
+                                        <i class="icon-lock bigger-130"></i>
+                                    </a>
+                                    <?php } ?>
+                                    <a href="<?php echo $this->createUrl('detail?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Detail'); ?>" class="green">
+                                        <i class="icon-edit bigger-130"></i>
+                                    </a>
+                                    <a href="<?php echo $this->createUrl('delete?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="red delete-confirm">
+                                        <i class="icon-trash bigger-130"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                         <?php }} ?>
