@@ -100,7 +100,7 @@
         <li<?php if (Yii::app()->controller->id == 'merchantcoupon') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-signal"></i>
-                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'CouponManager'); ?></span>
+                <span class="menu-text cursor-default"><?php echo Yii::t('shop', 'Coupon Manager'); ?></span>
                 <b class="arrow icon-angle-down"></b>
             </a>
             <ul class="submenu">
@@ -112,6 +112,23 @@
                 </li>
             </ul>
         </li>
+            <!--stamp-->
+        <li<?php if (Yii::app()->controller->id == 'merchantstamp') { ?> class="active"<?php } ?>>
+            <a class="dropdown-toggle">
+                <i class="icon-gift"></i>
+                <span class="menu-text cursor-default"><?php echo Yii::t('shop', 'Stamp Manager'); ?></span>
+                <b class="arrow icon-angle-down"></b>
+            </a>
+            <ul class="submenu">
+                <li<?php if (Yii::app()->controller->getId() == 'merchantstamp' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
+                    <a href="/admin/merchantstamp/index"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Stamp List")?></a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'merchantstamp' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
+                    <a href="/admin/merchantstamp/create"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Stamp Create")?></a>
+                </li>
+            </ul>
+        </li>
+
         <li<?php if (Yii::app()->controller->id == 'activity') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-adjust"></i>

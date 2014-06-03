@@ -6,6 +6,7 @@ class StationController extends BController {
 
     public function init() {
         parent::init();
+		$this->setPageTitle(Yii::t('station', 'Station Manager'));
         $this->bhv = new StationBehavior();
     }
 	
@@ -26,7 +27,8 @@ class StationController extends BController {
         $this->render('index', $result);
     }
 
-    public function actionCreate(){
+    public function actionCreate()
+	{
         if(Yii::app()->request->IsPostRequest){
 
             $station = Yii::app()->request->getPost("station");
@@ -42,6 +44,27 @@ class StationController extends BController {
 			//店铺
             $shop  = MerchantShop::model()->findAll();
             $this->render("create",compact('shop'));
+        }
+    }
+
+    public function actionEdit()
+	{
+        if(Yii::app()->request->IsPostRequest){
+
+            $station = Yii::app()->request->getPost("station");
+			$station['id'] = $_GET['id'];
+            $res = $this->bhv->edit($station);
+            if($res){
+                $this->showSuccess(Yii::t("comment","Modify Success"), $this->createUrl('index'));
+            }else{
+                $this->showError(Yii::t("comment","Modify Failure"), $this->createUrl('index'));
+            }
+
+        }else{
+			//店铺
+			$value = $this->bhv->getById($_GET['id']);
+            $shop  = MerchantShop::model()->findAll();
+            $this->render("edit",compact('shop','value'));
         }
     }
 
@@ -77,6 +100,7 @@ class StationController extends BController {
         $this->render('add', compact('id', 'name', 'describ'));
     }
 
+/*
     public function actionEdit() {
         $id = '';
         $name = '';
@@ -118,14 +142,19 @@ class StationController extends BController {
         }
         $this->render('edit', compact('id', 'name', 'describ'));
     }
-
+*/
     public function actionDelete() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
             $criteria = new CDbCriteria;
             $criteria->addColumnCondition(array('id' => $id));
-            $model = BlueStation::model()->find($criteria);
+            $model = Station::model()->find($criteria);
             if (!is_null($model)) {
+				if(!empty($model->shopid))
+				{
+					$model->shop->stations = $model->shop->stations - 1;
+					$model->shop->save();
+				}
                 if ($model->delete()) {
                     $this->showSuccess('删除成功', $this->createUrl('index'));
                 } else {

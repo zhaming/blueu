@@ -25,11 +25,11 @@ return array (
   'Delete' => '',
   'Delete Success' => '',
   'Edit' => '',
-  'Edit Success' => '',
   'Illegal Operation' => '',
   'Modify Failure' => '',
   'Modify Success' => '',
   'Number' => '',
+  'Operate' => '',
   'Pelease select a date' => '',
   'Picture' => '',
   'Price' => '',
@@ -37,4 +37,5 @@ return array (
   'Select' => '',
   'Submit' => '',
   'Total' => '',
+  'Edit Success' => '@@@@',
 );

@@ -1,11 +1,9 @@
 .DS_Store
 *.swp
+*.back
 /nbproject
 /nbproject/private
 /protected/runtime/
 /protected/config/db.php
 /protected/config/params.php
-/statics/upload/logo
-/statics/upload/original
-/statics/upload/avatar
 /doc/api.html
