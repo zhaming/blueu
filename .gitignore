@@ -1,5 +1,6 @@
 .DS_Store
 *.swp
+*.back
 /nbproject
 /nbproject/private
 /protected/runtime/
