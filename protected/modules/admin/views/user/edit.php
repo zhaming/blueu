@@ -35,7 +35,7 @@
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-name"><?php echo Yii::t('admin', 'Name'); ?></label>
                             <div class="col-sm-9">
                                 <span class="input-icon input-icon-right">
-                                    <input id="form-field-name" name="user[name]" id="form-field-name" value="<?php echo $user['name']; ?>" type="text" />
+                                    <input id="form-field-name" name="user[name]" value="<?php echo $user['name']; ?>" type="text" />
                                     <i class="icon-user"></i>
                                 </span>
                             </div>

@@ -30,6 +30,11 @@ class HelpTemplate extends CComponent {
     const USER_STATUS_NORMAL = 0;
     const USER_STATUS_DISABLED = 1;
     const USER_STATUS_DELETED = 2;
+    const AD_SOURCE_MAN_MADE = 0;
+    const AD_SOURCE_SHOP = 1;
+    const AD_SOURCE_PRODUCT = 2;
+    const AD_SOURCE_COUPON = 3;
+    const AD_SOURCE_STAMP = 4;
 
     public static function UUID() {
         $chars = md5(uniqid(mt_rand(), true));
@@ -41,31 +46,31 @@ class HelpTemplate extends CComponent {
         return $uuid;
     }
 
-    public static function sex($index) {
+    public static function sex($flag) {
         $map = array(
             self::USER_SEX_UNKNOWN => Yii::t('admin', 'Unknown'),
             self::USER_SEX_FEMALE => Yii::t('admin', 'Female'),
             self::USER_SEX_MALE => Yii::t('admin', 'Male')
         );
-        return $map[$index];
+        return $map[$flag];
     }
 
-    public static function accountStatus($index) {
+    public static function accountStatus($flag) {
         $map = array(
             self::USER_STATUS_NORMAL => Yii::t('admin', 'Normal'),
             self::USER_STATUS_DISABLED => Yii::t('admin', 'Disable'),
             self::USER_STATUS_DELETED => Yii::t('admin', 'Deleted')
         );
-        return $map[$index];
+        return $map[$flag];
     }
 
-    public static function role($index) {
+    public static function role($flag) {
         $map = array(
             self::ADMIN_ROLE => Yii::t('admin', 'Administrator'),
             self::MERCHANT_ROLE => Yii::t('admin', 'Merchant'),
             self::USER_ROLE => Yii::t('admin', 'Client user')
         );
-        return $map[$index];
+        return $map[$flag];
     }
 
     public static function loginRole() {
@@ -105,6 +110,17 @@ class HelpTemplate extends CComponent {
         } else {
             return Yii::app()->params['host'] . Yii::app()->params['url_web'] . 'upload/avatar/' . $path;
         }
+    }
+
+    public static function adSource($flag) {
+        $map = array(
+            self::AD_SOURCE_MAN_MADE => Yii::t('admin', 'Man made'),
+            self::AD_SOURCE_SHOP => Yii::t('admin', 'Shop'),
+            self::AD_SOURCE_PRODUCT => Yii::t('admin', 'Product'),
+            self::AD_SOURCE_COUPON => Yii::t('admin', 'Coupon'),
+            self::AD_SOURCE_STAMP => Yii::t('admin', 'Stamp')
+        );
+        return $map[$flag];
     }
 
 }

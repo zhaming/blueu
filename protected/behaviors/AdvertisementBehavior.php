@@ -22,7 +22,21 @@ class AdvertisementBehavior extends BaseBehavior {
         $params = array('placetag' => $tag);
         $advertisement = Advertisement::model()->findByAttributes($params);
         if ($advertisement == null) {
-            $this->error = Yii::t('api', 'Advertisement is no exist');
+            $this->error = Yii::t('api', 'Advertisement is no exist.');
+            return false;
+        }
+        return $advertisement;
+    }
+
+    /**
+     * 广告详情
+     * @param integer $userId
+     * @return boolean or array
+     */
+    public function detailById($id) {
+        $advertisement = Advertisement::model()->findByPk($id);
+        if ($advertisement == null) {
+            $this->error = Yii::t('api', 'Advertisement is no exist.');
             return false;
         }
         return $advertisement;
@@ -59,8 +73,7 @@ class AdvertisementBehavior extends BaseBehavior {
 
     public function getList1($filter = array(), $page = null, $pagesize = null) {
         $criteria = new CDbCriteria();
-        $criteria->addCondition('disabled=0');
-        $criteria->order = 'created desc';
+        $criteria->order = 'id desc';
         foreach ($filter as $key => $value) {
             switch ($key) {
                 case 'search':
@@ -107,6 +120,9 @@ class AdvertisementBehavior extends BaseBehavior {
         $advertisement->desc = $data['desc'];
         $advertisement->placetag = $data['placetag'];
         $advertisement->owner = Yii::app()->user->getId();
+        $advertisement->disabled = HelpTemplate::ENABLED;
+        $advertisement->created = time();
+        $advertisement->source = HelpTemplate::AD_SOURCE_MAN_MADE;
         return $advertisement->save();
     }
 
@@ -128,7 +144,17 @@ class AdvertisementBehavior extends BaseBehavior {
         return Advertisement::model()->updateByPk($id, array("disabled" => 0));
     }
 
-    public function getStationAds($uuid){
+    public function getStationAds($uuid) {
         return StationAds::model()->findAllByAttributes(array('uuid' => $uuid));
     }
+
+    /**
+     * 删除广告
+     * @param mixed $id primary key value(s).
+     * @return integer the number of rows being updated
+     */
+    public function delete($id) {
+        return Advertisement::model()->deleteByPk($id);
+    }
+
 }
