@@ -6,6 +6,7 @@ class StationController extends BController {
 
     public function init() {
         parent::init();
+		$this->setPageTitle(Yii::t('station', 'Station Manager'));
         $this->bhv = new StationBehavior();
     }
 	
@@ -54,9 +55,9 @@ class StationController extends BController {
 			$station['id'] = $_GET['id'];
             $res = $this->bhv->edit($station);
             if($res){
-                $this->showSuccess(Yii::t("comment","Edit Success"), $this->createUrl('index'));
+                $this->showSuccess(Yii::t("comment","Modify Success"), $this->createUrl('index'));
             }else{
-                $this->showError(Yii::t("comment","Edit Failure"), $this->createUrl('index'));
+                $this->showError(Yii::t("comment","Modify Failure"), $this->createUrl('index'));
             }
 
         }else{
@@ -147,8 +148,13 @@ class StationController extends BController {
         if (!empty($id)) {
             $criteria = new CDbCriteria;
             $criteria->addColumnCondition(array('id' => $id));
-            $model = BlueStation::model()->find($criteria);
+            $model = Station::model()->find($criteria);
             if (!is_null($model)) {
+				if(!empty($model->shopid))
+				{
+					$model->shop->stations = $model->shop->stations - 1;
+					$model->shop->save();
+				}
                 if ($model->delete()) {
                     $this->showSuccess('删除成功', $this->createUrl('index'));
                 } else {

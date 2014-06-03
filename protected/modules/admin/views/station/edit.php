@@ -7,7 +7,7 @@
 <?php $this->widget("AlterMsgWidget")?>
 <div class="row">
     <div class="col-xs-12">
-        <form class="form-horizontal"  action="/admin/station/create" method="POST" >
+        <form class="form-horizontal"  action="/admin/station/edit?id=<?php echo $_GET['id']?>" method="POST" >
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="station[uuid]"><?php echo Yii::t("station","Station UUID")?></label>
