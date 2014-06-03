@@ -66,7 +66,7 @@
                         <td><?php echo $tasks[$v->taskid]; ?></td>
                         <td><?php echo empty($v->start)?'':date('Y-m-d H:i:s', $v->start); ?></td>
                         <td><?php echo empty($v->end)?'':date('Y-m-d H:i:s', $v->end); ?></td>
-                        <td class="center"><?php echo $v->interval; ?>秒</td>
+                        <td class="center"><?php echo $v->interval . Yii::t('admin', 'VSecond'); ?></td>
                         <td class="center"><font color="blue"><?php echo $v->total; ?></font></td>
                         <td class="center"><font color="green"><?php echo $v->success; ?></font></td>
                         <td class="center"><font color="red"><?php echo $v->failed; ?></font></td>

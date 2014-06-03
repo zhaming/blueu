@@ -17,9 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Edit Success' => '',
-  'Total' => '总量',
   'Delete Failure' => '@@删除失败@@',
+  'Edit Success' => '@@@@',
   'Param Error' => '@@参数错误@@',
   'Add' => '添加',
   'Choose a picture' => '选择一张图片',
@@ -33,11 +32,12 @@ return array (
   'Modify Failure' => '修改失败',
   'Modify Success' => '修改成功',
   'Number' => '编号',
+  'Operate' => '操作',
   'Pelease select a date' => '请选择有效日期',
   'Picture' => '图片',
   'Price' => '金额',
   'Reset' => '重置',
   'Select' => '查询',
   'Submit' => '提交',
-  'Operate'=>'操作',
+  'Total' => '总量',
 );

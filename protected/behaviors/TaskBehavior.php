@@ -22,7 +22,7 @@ class TaskBehavior extends BaseBehavior
     public function getTaskOption()
     {
         $tasks = $this->tasks('', true, false, false);
-        $options = array('' => '所有任务');
+        $options = array('' => Yii::t('admin', 'TaskTotal'));
         foreach($tasks as $v)
             $options[$v['id']] = $v['name'];
         return $options;
@@ -233,4 +233,3 @@ class TaskBehavior extends BaseBehavior
         return self::ERROR_NONE;
 	}
 }
-?>
