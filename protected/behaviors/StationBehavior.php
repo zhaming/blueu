@@ -65,7 +65,7 @@ class StationBehavior extends BaseBehavior{
 		if(!empty($param['order']))
             $criteria->order = $param['order'];
         if(-1 != $page){
-            $count=MerchantShop::model()->count($criteria);
+            $count = Station::model()->count($criteria);
             $pager = new CPagination($count);
             $pager->setCurrentPage($page-1);
             $pager->pageSize = $pageSize;
