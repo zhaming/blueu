@@ -6,7 +6,7 @@
 
 /**
  * 2014-5-29 8:40:11 UTF-8
- * @package Expression package is undefined on line 9, column 15 in Templates/Scripting/EmptyPHP.php.
+ * @package application.models
  * @version 3.0
  *
  * @author hugb <hu198021688500@163.com>

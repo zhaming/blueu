@@ -28,15 +28,21 @@ class FeedbackController extends IController {
     public function actionCreate() {
         if (!Yii::app()->request->getIsPostRequest()) {
             $this->error_code = self::ERROR_REQUEST_METHOD;
-            $this->message = Yii::t('api', 'Please use POST method');
+            $this->message = Yii::t('api', 'Please use POST method to post data.');
             return;
         }
         $data = $this->getJsonFormData();
         if (!isset($data['content'])) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'content' . Yii::t('api', ' is not set');
+            $this->message = 'content' . Yii::t('api', ' is not set.');
             return;
         }
+
+        $account = $this->checkToken();
+        if ($account) {
+            $data['userid'] = $account['id'];
+        }
+
         if (!$this->feedbackBehavior->create($data)) {
             $this->error_code = self::ERROR_REQUEST_FAILURE;
             $this->message = $this->feedbackBehavior->getError();

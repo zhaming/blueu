@@ -38,29 +38,24 @@ class TaskController extends BController
     
     public function actionList()
     {
+        $this->setPageTitle(array(Yii::t('admin', 'VTaskList')));
         $list = $this->_task->listinfo();
-        
-        $this->setPageTitle(array('任务列表'));
-        $data = array(
-            'types' => self::$types,
-            'list' => $list,
-        );
-        $this->render('list', $data);
+        $this->render('list', array('list' => $list));
     }
     
     public function actionAdd()
     {
-        if($this->_request->getPost('dosubmit'))
+        if(Yii::app()->request->getPost('dosubmit'))
         {
             $info = array(
-                'name' => $this->_request->getPost('name'),
-                'type' => $this->_request->getPost('type'),
-                'actor' => $this->_request->getPost('actor'),
-                'count' => $this->_request->getPost('count'),
-                'sql' => $this->_request->getPost('sql'),
-                'ext' => $this->_request->getPost('ext'),
-                'memo' => $this->_request->getPost('memo'),
-                'disabled' => $this->_request->getPost('disabled'),
+                'name' => Yii::app()->request->getPost('name'),
+                'type' => Yii::app()->request->getPost('type'),
+                'actor' => Yii::app()->request->getPost('actor'),
+                'count' => Yii::app()->request->getPost('count'),
+                'sql' => Yii::app()->request->getPost('sql'),
+                'ext' => Yii::app()->request->getPost('ext'),
+                'memo' => Yii::app()->request->getPost('memo'),
+                'disabled' => Yii::app()->request->getPost('disabled'),
             );
             $errorCode = $this->_task->add($info);
             $errorMsg = '';
@@ -94,19 +89,19 @@ class TaskController extends BController
     
     public function actionEdit()
     {
-        if($this->_request->getPost('dosubmit'))
+        if(Yii::app()->request->getPost('dosubmit'))
         {
-            $id = $this->_request->getPost('id');
+            $id = Yii::app()->request->getPost('id');
             $info = array(
-                'name' => $this->_request->getPost('name'),
-                'type' => $this->_request->getPost('type'),
-                'actor' => $this->_request->getPost('actor'),
-                'count' => $this->_request->getPost('count'),
-                'memo' => $this->_request->getPost('memo'),
-                'disabled' => $this->_request->getPost('disabled'),
+                'name' => Yii::app()->request->getPost('name'),
+                'type' => Yii::app()->request->getPost('type'),
+                'actor' => Yii::app()->request->getPost('actor'),
+                'count' => Yii::app()->request->getPost('count'),
+                'memo' => Yii::app()->request->getPost('memo'),
+                'disabled' => Yii::app()->request->getPost('disabled'),
             );
-            if($this->_request->getPost('sql')) $info['sql'] = $this->_request->getPost('sql');
-            if($this->_request->getPost('ext')) $info['ext'] = $this->_request->getPost('ext');
+            if(Yii::app()->request->getPost('sql')) $info['sql'] = Yii::app()->request->getPost('sql');
+            if(Yii::app()->request->getPost('ext')) $info['ext'] = Yii::app()->request->getPost('ext');
             $errorCode = $this->_task->edit($id, $info);
             $errorMsg = '';
             $tUrl = 'goback';
@@ -123,7 +118,7 @@ class TaskController extends BController
             $this->redirect($tUrl, $errorMsg);
         }
         
-        $id = $this->_request->getQuery('id');
+        $id = Yii::app()->request->getQuery('id');
         $info = $this->_task->getById($id);
         
         $this->setPageTitle(array('编辑任务'));
@@ -137,7 +132,7 @@ class TaskController extends BController
     
     public function actionDelete()
     {
-        $id = $this->_request->getQuery('id');
+        $id = Yii::app()->request->getQuery('id');
         $rs = $this->_task->delete($id);
         if($rs)
             $errorMsg = '删除成功';
@@ -148,23 +143,21 @@ class TaskController extends BController
     
     public function actionLog()
     {
-        Yii::app()->clientScript->registerCssFile(Yii::app()->params->url_web.'styles/calendar.css');
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->params->url_web.'scripts/calendar.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->params->url_web.'js/html.js');
         
         $tasks = $this->_task->getTaskOption();
         $search = array(
-            'taskid' => $this->_request->getQuery('taskid'),
-            'start' => $this->_request->getQuery('start'),
-            'end' => $this->_request->getQuery('end'),
+            'taskid' => Yii::app()->request->getQuery('taskid'),
+            'start' => Yii::app()->request->getQuery('start'),
+            'end' => Yii::app()->request->getQuery('end'),
         );
-        $order = $this->_request->getQuery('order');
+        $order = Yii::app()->request->getQuery('order');
         if(!empty($order)) $order = str_replace('order_', '', $order);
-        $page = $this->_request->getQuery('page');
+        $page = Yii::app()->request->getQuery('page');
         $result = $this->_task->logListinfo($search, $order, $page);
         
-        $this->setPageTitle(array('日志列表'));
+        $this->setPageTitle(array(Yii::t('admin', 'VTaskLogList')));
         $data = array(
-            'urls' => self::$urls,
             'tasks' => $tasks,
             'list' => $result['list'],
             'pages' => $result['pages'],
@@ -174,8 +167,10 @@ class TaskController extends BController
     
     public function actionRun()
     {
-        $taskid = $this->_request->getQuery('taskid');
-        $type = $this->_request->getQuery('type');
+        $taskid = Yii::app()->request->getQuery('taskid');
+        $type = Yii::app()->request->getQuery('type');
+        
+        
         $command = sprintf(self::$command, realpath(Yii::app()->basePath.DS.'..'), $type, $taskid);
         $result = exec($command);
         $this->redirect(MingString::url(self::$urls['list']), '状态码：'.$result);

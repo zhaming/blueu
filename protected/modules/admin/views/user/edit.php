@@ -1,80 +1,36 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="space-6"></div>
-        <form class="form-horizontal">
+        <form action="<?php echo $this->createUrl('edit'); ?>" method="post" class="form-horizontal">
             <div class="tabbable">
                 <ul class="nav nav-tabs padding-16">
-                    <li class="active">
-                        <a data-toggle="tab" href="#basic">
+                    <li>
+                        <a href="<?php echo $this->createUrl('detail?id=' . $user['id']); ?>">
                             <i class="green icon-user bigger-125"></i>
                             <?php echo Yii::t('admin', 'Overview'); ?>
                         </a>
                     </li>
-                    <li>
-                        <a data-toggle="tab" href="#edit-basic">
+                    <li class="active">
+                        <a href="<?php echo $this->createUrl('edit?id=' . $user['id']); ?>">
                             <i class="green icon-edit bigger-125"></i>
-                            <?php echo Yii::t('admin', 'Edit'); ?>
+                            <?php echo Yii::t('admin', 'Edit information'); ?>
                         </a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="#edit-password">
+                        <a href="<?php echo $this->createUrl('resetpwd?id=' . $user['id']); ?>">
                             <i class="blue icon-key bigger-125"></i>
                             <?php echo Yii::t('admin', 'Reset password'); ?>
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content no-border padding-24">
-                    <div id="basic" class="tab-pane in active">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-3 center">
-                                <span class="profile-picture">
-                                    <img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="/statics/upload/default/profile-pic.jpg"></img>
-
-                                </span>
-                            </div>
-                            <div class="col-xs-12 col-sm-9">
-                                <div class="profile-user-info">
-                                    <div class="profile-info-row">
-                                        <div class="profile-info-name"><?php echo Yii::t('admin', 'Username'); ?></div>
-                                        <div class="profile-info-value">
-                                            <span><?php echo $account->username; ?></span>
-                                        </div>
-                                    </div>
-                                    <div class="profile-info-row">
-                                        <div class="profile-info-name"><?php echo Yii::t('admin', 'Status'); ?></div>
-                                        <div class="profile-info-value">
-                                            <span><?php echo HelpTemplate::accountStatus($account->status); ?></span>
-                                        </div>
-                                    </div>
-                                    <div class="profile-info-row">
-                                        <div class="profile-info-name"><?php echo Yii::t('admin', 'Sex'); ?></div>
-                                        <div class="profile-info-value">
-                                            <span><?php echo HelpTemplate::sex($user->sex); ?></span>
-                                        </div>
-                                    </div>
-                                    <div class="profile-info-row">
-                                        <div class="profile-info-name"><?php echo Yii::t('admin', 'Century'); ?></div>
-                                        <div class="profile-info-value">
-                                            <span><?php echo $user->century; ?>&nbsp;</span>
-                                        </div>
-                                    </div>
-                                    <div class="profile-info-row">
-                                        <div class="profile-info-name"><?php echo Yii::t('admin', 'Registration time'); ?></div>
-                                        <div class="profile-info-value">
-                                            <span><?php echo date('Y/m/d H:i:s', $account->registertime); ?></span>
-                                        </div>
-                                    </div>
-                                    <div class="profile-info-row">
-                                        <div class="profile-info-name"><?php echo Yii::t('admin', 'Last Online'); ?></div>
-                                        <div class="profile-info-value">
-                                            <span><?php echo date('Y/m/d H:i:s', $account->logintime); ?></span>
-                                        </div>
-                                    </div>
-                                </div>                                
-                            </div>
+                    <div id="edit-basic" class="tab-pane in active">
+                        <?php if (!empty($message)) { ?>
+                        <div class="alert alert-block alert-danger">
+                            <p><strong><?php echo $message; ?></strong></p>
                         </div>
-                    </div>
-                    <div id="edit-basic" class="tab-pane">
+                        <?php } ?>
+                        <input type="hidden" name="user[id]" value="<?php echo $user['id']; ?>" />
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-name"><?php echo Yii::t('admin', 'Name'); ?></label>
                             <div class="col-sm-9">
@@ -85,11 +41,19 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-status"><?php echo Yii::t('admin', 'Enable'); ?></label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-status"><?php echo Yii::t('admin', 'Status'); ?></label>
                             <div class="col-sm-9">
-                                <label class="control-label">
-                                    <input id="form-field-status" name="user[status]" class="ace ace-switch ace-switch-2" type="checkbox" checked />
-                                    <span class="lbl"></span>
+                                <label>
+                                    <input name="user[status]" value="0" type="radio" class="ace"<?php if ($user['status'] == 0) {?> checked="checked"<?php } ?> />
+                                    <span class="lbl"><?php echo Yii::t('admin', 'Normal'); ?></span>
+                                </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label>
+                                    <input name="user[status]" value="1" type="radio" class="ace"<?php if ($user['status'] == 1) {?> checked="checked"<?php } ?> />
+                                    <span class="lbl"><?php echo Yii::t('admin', 'Disable'); ?></span>
+                                </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label>
+                                    <input name="user[status]" value="2" type="radio" class="ace"<?php if ($user['status'] == 2) {?> checked="checked"<?php } ?> />
+                                    <span class="lbl"><?php echo Yii::t('admin', 'Delete'); ?></span>
                                 </label>
                             </div>
                         </div>
@@ -103,26 +67,11 @@
                             </div>
                         </div>
                     </div>
-                    <div id="edit-password" class="tab-pane">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-pass1"><?php echo Yii::t('admin', 'New password'); ?></label>
-                            <div class="col-sm-9">
-                                <input type="password" name="newpassword" id="form-field-pass1">
-                            </div>
-                        </div>
-                        <div class="space-4"></div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-pass2"><?php echo Yii::t('admin', 'Repeat password'); ?></label>
-                            <div class="col-sm-9">
-                                <input type="password" name="repassword" id="form-field-pass2">
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="clearfix form-actions">
                 <div class="col-md-offset-3 col-md-9">
-                    <button class="btn btn-info" type="button">
+                    <button class="btn btn-info" type="submit">
                         <i class="icon-ok bigger-110"></i>
                         <?php echo Yii::t('admin', 'Save'); ?>
                     </button>

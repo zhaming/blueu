@@ -1,31 +1,22 @@
 <div class="row">
     <div class="col-xs-12">
-        <form action="/admin/manager/delete" method="POST">
-            <p>
-                <a href="/admin/manager/create" class="btn btn-app btn-success btn-xs">
-                    <i class="icon-plus bigger-120"></i>
-                    <?php echo Yii::t('admin', 'Create'); ?>
-                </a>
-                <button type="submit" class="btn btn-app btn-danger btn-xs">
-                    <i class="icon-remove bigger-120"></i>
-                    <?php echo Yii::t('admin', 'Delete'); ?>
-                </button>
-            </p>
-            <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
-            <div class="alert alert-block alert-success">
-                <button type="button" class="close" data-dismiss="alert">
-                    <i class="icon-remove"></i>
-                </button>
-                <p>
-                    <strong>
-                        <?php if ($message['type'] == 'success') { ?><i class="icon-ok"></i><?php } ?>
-                        <?php if ($message['type'] == 'error') { ?><i class="icon-remove"></i><?php } ?>
-                        <?php echo $message['msg']; ?>
-                    </strong>
-                </p>
-            </div>
-            <?php } ?>
-            <div class="table-responsive">
+        <p>
+            <a href="/admin/manager/create" class="btn btn-app btn-success btn-xs">
+                <i class="icon-plus bigger-120"></i>
+                <?php echo Yii::t('admin', 'Create'); ?>
+            </a>
+            <button class="btn btn-app btn-danger btn-xs batch-delete-confirm">
+                <i class="icon-remove bigger-120"></i>
+                <?php echo Yii::t('admin', 'Delete'); ?>
+            </button>
+        </p>
+        <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
+        <div class="alert alert-block<?php if ($message['type'] == 'success') { ?> alert-success<?php } ?><?php if ($message['type'] == 'error') { ?> alert-danger<?php } ?>">
+            <p><strong><?php echo $message['msg']; ?></strong></p>
+        </div>
+        <?php } ?>
+        <div class="table-responsive">
+            <form action="/admin/manager/delete" method="POST" class="batch-delete-form">
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
@@ -54,10 +45,10 @@
                             <td><?php echo $item->username; ?></td>
                             <td>
                                 <?php echo Yii::t('admin', 'Account'); ?>:
-                                <?php if ($item->status == 0) { echo Yii::t('admin', 'Enable'); } if ($item->status == 1) { echo Yii::t('admin', 'Disable'); } ?>
+                                <?php if ($item->status == HelpTemplate::USER_STATUS_NORMAL) { echo Yii::t('admin', 'Enable'); } if ($item->status == HelpTemplate::USER_STATUS_DISABLED) { echo Yii::t('admin', 'Disable'); } ?>
                             </td>
                             <td>
-                                <?php if ($item->status == 1) { ?>
+                                <?php if ($item->status == HelpTemplate::USER_STATUS_DISABLED) { ?>
                                 <a href="<?php echo $this->createUrl('enable?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="btn btn-xs btn-success">
                                     <i class="icon-unlock bigger-120"></i>
                                 </a>
@@ -77,7 +68,7 @@
                         <?php }} ?>
                     </tbody>
                 </table>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>

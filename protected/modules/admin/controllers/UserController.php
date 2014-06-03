@@ -29,12 +29,82 @@ class UserController extends BController {
     }
 
     public function actionIndex() {
-        $filter = array();
+        $filter = array('search' => array());
         $name = Yii::app()->request->getQuery('name');
+        $username = Yii::app()->request->getQuery('username');
         if (!empty($name)) {
-            $filter['search'] = array('t.name' => $name);
+            $filter['search']['t.name'] = $name;
+        }
+        if (!empty($username)) {
+            $filter['search']['account.username'] = $username;
         }
         $this->render('index', $this->userBehavior->getList($filter));
+    }
+
+    public function actionDetail() {
+        $viewData = array();
+        $userId = Yii::app()->request->getQuery('id');
+        $viewData['user'] = $this->userBehavior->detail($userId);
+        $this->render('detail', $viewData);
+    }
+
+    public function actionEdit() {
+        $viewData = array();
+        if (!Yii::app()->request->isPostRequest) {
+            $userId = Yii::app()->request->getQuery('id');
+            $user = $this->userBehavior->detail($userId);
+            $viewData['user'] = array();
+            $viewData['user']['id'] = $user->id;
+            $viewData['user']['name'] = $user->name;
+            $viewData['user']['status'] = $user->account->status;
+            return $this->render('edit', $viewData);
+        }
+        $userEditForm = new UserEditForm();
+        $userEditForm->setAttributes(Yii::app()->request->getPost('user'));
+        if (!$userEditForm->validate()) {
+            $viewData['message'] = $userEditForm->getFirstError();
+            $viewData['user'] = $userEditForm->getAttributes();
+            return $this->render('edit', $viewData);
+        }
+        $userData = array(
+            'id' => $userEditForm->id,
+            'name' => $userEditForm->name
+        );
+        if (!$this->userBehavior->edit($userData)) {
+            $viewData['message'] = $this->userBehavior->getError();
+            $viewData['user'] = $userEditForm->getAttributes();
+            return $this->render('edit', $viewData);
+        }
+        $accountData = array(
+            'id' => $userEditForm->id,
+            'status' => $userEditForm->status
+        );
+        if (!$this->accountBehavior->edit($accountData)) {
+            $viewData['message'] = $this->accountBehavior->getError();
+            $viewData['user'] = $userEditForm->getAttributes();
+            return $this->render('edit', $viewData);
+        }
+        $this->showSuccess(Yii::t('admin', 'Save success.'), $this->createUrl('detail?id=' . $userEditForm->id));
+    }
+
+    public function actionResetpwd() {
+        $viewData = array();
+        if (!Yii::app()->request->isPostRequest) {
+            $viewData['id'] = Yii::app()->request->getQuery('id');
+            return $this->render('resetpwd', $viewData);
+        }
+        $resetPwdForm = new ResetPwdForm();
+        $resetPwdForm->setAttributes(Yii::app()->request->getPost('user'));
+        $viewData['id'] = $resetPwdForm->id;
+        if (!$resetPwdForm->validate()) {
+            $viewData['message'] = $resetPwdForm->getFirstError();
+            return $this->render('resetpwd', $viewData);
+        }
+        if (!$this->accountBehavior->resetPwd($resetPwdForm->getAttributes())) {
+            $viewData['message'] = Yii::t('admin', 'Reset password failure.');
+            return $this->render('resetpwd', $viewData);
+        }
+        $this->redirect($this->createUrl('detail?id=' . $resetPwdForm->id));
     }
 
     public function actionCreate() {
@@ -104,14 +174,6 @@ class UserController extends BController {
 
     public function actionLogout() {
         
-    }
-
-    public function actionEdit() {
-        $viewData = array();
-        $userId = Yii::app()->request->getQuery('id');
-        $viewData['user'] = $this->userBehavior->detail($userId);
-        $viewData['account'] = $this->accountBehavior->getAccount($userId);
-        $this->render('edit', $viewData);
     }
 
     public function actionEnablePush() {

@@ -42,27 +42,23 @@
             </div>
             <div class="space-4"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="merchant[logo]"><?php echo Yii::t('admin', 'Logo'); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-legal"><?php echo Yii::t('admin', 'Legal'); ?></label>
                 <div class="col-sm-9">
-                    <input type="file" name="file" id="id-input-file-upload-logo" />
+                    <input id="form-field-legal" type="text" name="merchant[legal]" value="<?php echo $merchant['legal'] ?>" placeholder="<?php echo Yii::t('admin', 'Legal'); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="space-4"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="merchant[category]"><?php echo Yii::t('admin', 'Category'); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-telephone"><?php echo Yii::t('admin', 'Telephone'); ?></label>
                 <div class="col-sm-9">
-                    <select name="merchant[category]" class="col-sm-5">
-                        <?php foreach ($categories as $value) { ?>
-                            <option value="<?php echo $value->id; ?>"><?php echo $value->name; ?></option>
-                        <?php } ?>
-                    </select>
+                    <input id="form-field-telephone" type="text" name="merchant[telephone]" value="<?php echo $merchant['telephone'] ?>" placeholder="<?php echo Yii::t('admin', 'Telephone'); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="space-4"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="merchant[description]"><?php echo Yii::t('admin', 'Description'); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-bank"><?php echo Yii::t('admin', 'Bank'); ?></label>
                 <div class="col-sm-9">
-                    <textarea name="merchant[description]" class="col-xs-10 col-sm-5" placeholder="<?php echo Yii::t('admin', 'Description'); ?>"></textarea>
+                    <input id="form-field-bank" type="text" name="merchant[bank]" value="<?php echo $merchant['bank'] ?>" placeholder="<?php echo Yii::t('admin', 'Bank'); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="clearfix form-actions">

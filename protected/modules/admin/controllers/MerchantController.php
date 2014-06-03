@@ -29,14 +29,65 @@ class MerchantController extends BController {
     }
 
     public function actionIndex() {
-        $filter = array();
+        $filter = array('search' => array());
         $name = Yii::app()->request->getQuery('name');
+        $username = Yii::app()->request->getQuery('username');
         if (!empty($name)) {
-            $filter['search'] = array('t.name' => $name);
+            $filter['search']['t.name'] = $name;
         }
-        $viewData = $this->merchantBehavior->getlist($filter);
-        $viewData['name'] = $name;
-        $this->render('index', $viewData);
+        if (!empty($username)) {
+            $filter['search']['account.username'] = $username;
+        }
+        $this->render('index', $this->merchantBehavior->getlist($filter));
+    }
+
+    public function actionDetail() {
+        $viewData = array();
+        $merchantId = Yii::app()->request->getQuery('id');
+        $viewData['merchant'] = $this->merchantBehavior->detail($merchantId);
+        $this->render('detail', $viewData);
+    }
+
+    public function actionEdit() {
+        $viewData = array();
+        if (!Yii::app()->request->isPostRequest) {
+            $merchantId = Yii::app()->request->getQuery('id');
+            $viewData['merchant'] = $this->merchantBehavior->detail($merchantId);
+            return $this->render('edit', $viewData);
+        }
+        $merchantEditForm = new MerchantEditForm();
+        $merchantEditForm->setAttributes(Yii::app()->request->getPost('merchant'));
+        if (!$merchantEditForm->validate()) {
+            $viewData['message'] = $merchantEditForm->getFirstError();
+            $viewData['merchant'] = $merchantEditForm->getAttributes();
+            return $this->render('edit', $viewData);
+        }
+        if (!$this->merchantBehavior->edit($merchantEditForm->getAttributes())) {
+            $viewData['message'] = Yii::t('admin', 'Save failure.');
+            $viewData['merchant'] = $merchantEditForm->getAttributes();
+            return $this->render('edit', $viewData);
+        }
+        $this->showSuccess(Yii::t('admin', 'Save success.'), $this->createUrl('detail?id=' . $merchantEditForm->id));
+    }
+
+    public function actionResetpwd() {
+        $viewData = array();
+        if (!Yii::app()->request->isPostRequest) {
+            $viewData['id'] = Yii::app()->request->getQuery('id');
+            return $this->render('resetpwd', $viewData);
+        }
+        $resetPwdForm = new ResetPwdForm();
+        $resetPwdForm->setAttributes(Yii::app()->request->getPost('merchant'));
+        $viewData['id'] = $resetPwdForm->id;
+        if (!$resetPwdForm->validate()) {
+            $viewData['message'] = $resetPwdForm->getFirstError();
+            return $this->render('resetpwd', $viewData);
+        }
+        if (!$this->accountBehavior->resetPwd($resetPwdForm->getAttributes())) {
+            $viewData['message'] = Yii::t('admin', 'Reset password failure.');
+            return $this->render('resetpwd', $viewData);
+        }
+        $this->redirect($this->createUrl('detail?id=' . $resetPwdForm->id));
     }
 
     public function actionRegister() {
@@ -117,67 +168,6 @@ class MerchantController extends BController {
             }
         }
         $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
-    }
-
-    public function actionEdit() {
-        $viewData = array();
-        $userId = Yii::app()->request->getQuery('id');
-        $viewData['user'] = $this->merchantBehavior->detail($userId);
-        $this->render('edit', $viewData);
-    }
-
-    public function actionActivity() {
-        $this->render('activity');
-    }
-
-    public function actionStations() {
-        $this->render('stations');
-    }
-
-    public function actionMember() {
-        $this->render('member');
-    }
-
-    public function actionAdd() {
-        $id = '';
-        $name = '';
-        $describ = '';
-        $pic = '';
-        if (Yii::app()->request->isPostRequest) {
-            $id = Yii::app()->request->getPost('id');
-            $name = Yii::app()->request->getPost('name');
-            $describ = Yii::app()->request->getPost('describ');
-            // $pic = Yii::app()->request->getPost('pic');
-            $blueid = Yii::app()->request->getPost('blueid');
-            if (!empty($id) && !empty($name) && !empty($describ) && !empty($blueid)) {
-                $criteria = new CDbCriteria;
-                $criteria->addColumnCondition(array('id' => $id));
-                if (Merchant::model()->exists($criteria)) {
-                    $this->showError('商户编号已存在, 请重新指定');
-                } else {
-                    $model = new Merchant;
-                    $model->id = $id;
-                    $model->name = $name;
-                    $model->describ = $describ;
-                    $model->blueid = $blueid;
-                    $file_cpt = new FilesComponent;
-                    $upload_ret = $file_cpt->upload('pic');
-                    if ($upload_ret) {
-                        $model->pic = $upload_ret['hash'];
-                    }
-                    if ($model->save()) {
-                        $this->showSuccess('保存成功', $this->createUrl('edit?id=' . $id));
-                    } else {
-                        $this->showError('保存失败');
-                    }
-                }
-            } else {
-                $this->showError('请填写完整信息');
-            }
-        }
-        $blueid = Yii::app()->request->getQuery('blueid');
-        $rc_station = BlueStation::model()->findAll();
-        $this->render('add', compact('id', 'name', 'describ', 'pic', 'blueid', 'rc_station'));
     }
 
 }

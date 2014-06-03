@@ -26,7 +26,7 @@ class ResetPwdForm extends BaseForm {
 
     public function rules() {
         return array(
-            array('password,newpassword,repassword', 'required'),
+            array('newpassword,repassword', 'required'),
             array('username', 'email', 'allowEmpty' => true),
             array('id', 'safe')
         );

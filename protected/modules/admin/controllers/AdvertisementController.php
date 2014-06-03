@@ -1,12 +1,12 @@
 <?php
 
 /*
- * 
+ * 广告
  */
 
 /**
  * 2014-5-27 23:10:11 UTF-8
- * @package application
+ * @package application.behaviors
  * @version 3.0
  *
  * @author hugb <hu198021688500@163.com>
@@ -27,6 +27,7 @@ class AdvertisementController extends BController {
     }
 
     public function actionIndex() {
+        Yii::log('get ad list', 'info', 'savetodb');
         $filter = array();
         $this->render('index', $this->advertisementBehavior->getList1($filter));
     }
