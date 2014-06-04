@@ -17,6 +17,13 @@
  *
  */
 class AdvertisementBehavior extends BaseBehavior {
+    
+    static $sourceMap = array(
+        1 => 'MerchantShop',
+        2 => 'MerchantProduct',
+        3 => 'MerchantCoupon',
+        4 => 'MerchantStamp',
+    );
 
     public function detail($tag) {
         $params = array('placetag' => $tag);
@@ -145,7 +152,29 @@ class AdvertisementBehavior extends BaseBehavior {
     }
 
     public function getStationAds($uuid) {
-        return StationAds::model()->findAllByAttributes(array('uuid' => $uuid));
+        $adsR = StationAds::model()->findAllByAttributes(array('uuid' => $uuid));
+        if(empty($adsR)) return false;
+        $result = array();
+        foreach($adsR as $v) {
+            $sourceR = $this->getDataBySource($v->source, $v->sid);
+            if(empty($sourceR)) continue;
+            $result[] = array(
+                'name' => $sourceR->name,
+                'pic' => HelpTemplate::getAdUrl($sourceR->pic),
+                'intro' => $sourceR->intro,
+                'shopid' => $v->shopid,
+                'source' => $v->source,
+                'sid' => $v->sid,
+            );
+        }
+        return array_pop($result);
+    }
+    
+    public function getDataBySource($source, $sid) {
+        if(!array_key_exists($source, self::$sourceMap)) return false;
+        $model = self::$sourceMap[$source];
+        $rs = $model::model()->findByPk($sid);
+        return $rs;
     }
 
     /**

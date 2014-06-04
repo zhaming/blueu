@@ -849,11 +849,12 @@ data       |  是  |   map   | 见示例 | 返回数据
     "error_code":0,
     "error_msg":"success",
     "data":{
-        "stationid":"8",
-        "uuid":"991CC36-C8DB-96DB-1A32-AB756C6BC5A9",
+        "name":"红烧肉",
+        "pic":"http://domain/xxx/14/06/03/3d8683226fbaccc6673bebacaa3163de.jpg",
+        "intro":"全民最爱的红烧肉",
         "shopid":"2",
         "source":"2",
-        "sid":"123"
+        "sid":"19"
     }
 }
 </pre>
