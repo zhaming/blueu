@@ -11,10 +11,6 @@
 
 class TaskBehavior extends BaseBehavior
 {
-	const ERROR_NONE = 0;
-    const ERROR_DB = 1;
-    
-    
     /**
      * 获取任务option
      * @return array 
@@ -55,9 +51,7 @@ class TaskBehavior extends BaseBehavior
 	public function setRuntime($id, $runtime)
 	{
         $info = array('runtime' => $runtime);
-        $rs = Task::model()->updateByPk($id, $info);
-        if(empty($rs)) return self::ERROR_DB;
-        return self::ERROR_NONE;
+        return Task::model()->updateByPk($id, $info);
 	}
     
     /**
@@ -68,9 +62,18 @@ class TaskBehavior extends BaseBehavior
      */
     public function plusExecTimes($id, $times = 1)
     {
-        $rs = Task::model()->updateCounters(array('exec_times' => $times), "id = '$id'");
-        if(empty($rs)) return self::ERROR_DB;
-        return self::ERROR_NONE;
+        return Task::model()->updateCounters(array('exec_times' => $times), "id = '$id'");
+    }
+    
+    /**
+     * 判断任务是否以存在
+     * @param string $type
+     * @param string $item
+     * @return boolean
+     */
+    public function isExist($type, $item)
+    {
+        return Task::model()->exists("type = '$type' and item = '$item'");
     }
 
     /**
@@ -107,17 +110,16 @@ class TaskBehavior extends BaseBehavior
         $task = new Task();
         $task->name = $info['name'];
         $task->type = $info['type'];
-        $task->actor = $info['actor'];
-        $task->count = $info['count'];
+        $task->item = $info['item'];
+        $task->immediately = $info['immediately'];
+        $task->priority = $info['priority'];
+        $task->msg = $info['msg'];
         $task->sql = $info['sql'];
         $task->ext = $info['ext'];
         $task->memo = $info['memo'];
         $task->disabled = $info['disabled'];
         $task->created = time();
-        $rs = $task->save();
-
-        if(empty($rs)) return self::ERROR_DB;
-        return self::ERROR_NONE;
+        return $task->save();
 	}
 	
 	/**
@@ -128,9 +130,7 @@ class TaskBehavior extends BaseBehavior
      */
 	public function edit($id, $info)
 	{
-        $rs = Task::model()->updateByPk($id, $info);
-        if(empty($rs)) return self::ERROR_DB;
-        return self::ERROR_NONE;
+        return Task::model()->updateByPk($id, $info);
 	}
 	
 	/**
@@ -140,9 +140,7 @@ class TaskBehavior extends BaseBehavior
 	 */
 	public function delete($id)
 	{
-        $rs = Task::model()->deleteByPk($id);
-		if(empty($rs)) return false;
-		return true;
+        return Task::model()->deleteByPk($id);
     }
     
     /**
@@ -228,8 +226,6 @@ class TaskBehavior extends BaseBehavior
      */
 	public function logEdit($id, $info)
 	{
-        $rs = TaskLog::model()->updateByPk($id, $info);
-        if(empty($rs)) return self::ERROR_DB;
-        return self::ERROR_NONE;
+        return TaskLog::model()->updateByPk($id, $info);
 	}
 }

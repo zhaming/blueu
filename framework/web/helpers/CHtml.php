@@ -2534,6 +2534,10 @@ EOD;
 			}
 			else
 			{
+                if(isset($htmlOptions['kvEqual']) && $htmlOptions['kvEqual'] == true)
+                {
+                    $key = $value;
+                }
 				$attributes=array('value'=>(string)$key,'encode'=>!$raw);
 				if(!is_array($selection) && !strcmp($key,$selection) || is_array($selection) && in_array($key,$selection))
 					$attributes['selected']='selected';
