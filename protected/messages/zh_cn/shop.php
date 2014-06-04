@@ -28,6 +28,8 @@ return array (
   'Coupon Name' => '优惠券名称',
   'Coupon total' => '总量',
   'Coupon used' => '使用量',
+  'Coupon use'=>"优惠券使用",
+  'Coupon Code'=>"优惠券码",
   'Coupon validity end' => '有效期结束时间',
   'Coupon validity start' => '有效期开始时间',
   'Main' => '总店',

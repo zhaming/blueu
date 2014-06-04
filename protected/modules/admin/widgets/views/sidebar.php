@@ -110,6 +110,9 @@
                 <li<?php if (Yii::app()->controller->getId() == 'merchantcoupon' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
                     <a href="/admin/merchantcoupon/create"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Coupon Create")?></a>
                 </li>
+                 <li<?php if (Yii::app()->controller->getId() == 'merchantcoupon' && Yii::app()->controller->getAction()->getId() == 'validatecoupon') { ?> class="active"<?php } ?>>
+                    <a href="/admin/merchantcoupon/validatecoupon"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Coupon use")?></a>
+                </li>
             </ul>
         </li>
             <!--stamp-->

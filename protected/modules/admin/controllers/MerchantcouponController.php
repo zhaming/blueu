@@ -58,7 +58,7 @@ class MerchantcouponController extends BController {
 
                     $file = $fileBehavior->saveUploadFile('coupon[pic]');
                     if ($file) {
-                        $coupon['pic'] = $file['hash'];
+                        $coupon['pic'] = $file['path'];
                     }
                 }
 
@@ -164,5 +164,38 @@ class MerchantcouponController extends BController {
         );
 
         $this->ShowSuccess(Yii::t("comment","Delete Success"),$this->referer);
+    }
+
+    public function actionValidateCoupon(){
+        $name =  Yii::app()->request->getParam("name");
+        $code = Yii::app()->request->getParam("code");
+
+        $data['code'] =$code;
+        $data['name'] = $name;
+        if(!empty($code) && !empty($name)){
+            $res = MerchantCodeLog::model()->getCouponList($code,$name);
+            $data['data'] =$res;
+        }
+
+        $this->render("validate",$data);
+    }
+
+    public function actionUseCoupon(){
+        $userid = Yii::app()->request->getParam("uid");
+        $codeid = Yii::app()->request->getParam("cid");
+        if(empty($userid) || empty($codeid)){
+            $this->showError("",$this->referer);
+            return;
+        }
+
+        // $res  =  MerchantCodeLog::model()->isUsed($codeid,$userid);
+        // if($res){
+        //     $this->showError("已经使用",$this->referer);
+        //     return;
+        // }
+
+        MerchantCodeLog::model()->useCoupon($codeid,$userid);
+
+        $this->ShowSuccess(Yii::t('comment',"Success"),$this->referer);
     }
 }

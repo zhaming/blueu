@@ -58,7 +58,7 @@ class MerchantproductController  extends BController {
 
                 $file = $fileBehavior->saveUploadFile('product[pic]');
                 if ($file) {
-                    $product['pic'] = $file['hash'];
+                    $product['pic'] = $file['path'];
                 }
             }
             $product['merchantid'] = Yii::app()->user->getId();
@@ -105,7 +105,7 @@ class MerchantproductController  extends BController {
             if ($fileBehavior->isHaveUploadFile('product[pic]')) {
                 $file = $fileBehavior->saveUploadFile('product[pic]');
                 if ($file) {
-                    $product['pic'] = $file['hash'];
+                    $product['pic'] = $file['path'];
                 }
             }else{
             }

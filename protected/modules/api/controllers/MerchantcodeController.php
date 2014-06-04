@@ -1,6 +1,7 @@
 <?php
 
 class MerchantcodeController extends IController {
+
     public function init(){
         parent::init();
     }
@@ -11,10 +12,40 @@ class MerchantcodeController extends IController {
     */
     public function actionCouponList(){
 
-        $page       = Yii::app()->request->getParam('page', 1);
-        $pagesize   = Yii::app()->request->getParam('pagesize', 10);
+        $page     = Yii::app()->request->getParam('page', 1);
+        $pagesize = Yii::app()->request->getParam('pagesize', 10);
+        $shopid   = Yii::app()->request->getParam("shopid");
+
+        $couponBehavior = new MerchantCouponBehavior;
+
+        $ar['page']     = $page;
+        $ar['pageSize'] = $pagesize;
+        $ar['shopid']   = $shopid;
+        $res = $couponBehavior->getList($ar);
+        $this->data =  array();
+        if(!empty($res['data'])){
+            $this->data = $res['data'];
+        }
     }
 
+/**
+ * 我的优惠券
+ */
+    public function actinoMyCoupon(){
+
+        $page     = Yii::app()->request->getParam('page', 1);
+        $pagesize = Yii::app()->request->getParam('pagesize', 10);
+        $shopid   = Yii::app()->request->getParam("shopid");
+
+        $ar['page']     = $page;
+        $ar['pageSize'] = $pagesize;
+        $ar['shopid']   = $shopid;
+    }
+
+
+    /**
+     * 获取优惠券
+     */
     public function actionGetCoupon(){
         $codeid = Yii::app()->request->getParam("codeid");
         $userid = Yii::app()->request->getParam("userid");
@@ -45,8 +76,25 @@ class MerchantcodeController extends IController {
         //Validate user is get this code;
     }
 
-
+/**
+ * 印花列表
+ */
     public function actionStampList(){
+
+        $page     = Yii::app()->request->getParam('page', 1);
+        $pagesize = Yii::app()->request->getParam('pagesize', 10);
+        $shopid   = Yii::app()->request->getParam("shopid");
+
+        $stampBehavior = new MerchantStampBehavior;
+
+        $ar['page']     = $page;
+        $ar['pageSize'] = $pagesize;
+        $ar['shopid']   = $shopid;
+        $res = $stampBehavior->getList($ar);
+        $this->data =  array();
+        if(!empty($res['data'])){
+            $this->data = $res['data'];
+        }
 
     }
     public function actionGetStamp(){

@@ -26,7 +26,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="product[intro]"> </label>
                 <div class="col-sm-9">
-                <img src="/images/<?php echo $product['pic']?>">
+                <img  class=" col-xs-10 col-sm-5  " src="<?php echo HelpTemplate::getAdUrl($product['pic']); ?>">
                 </div>
             </div>
             <?php endif;?>

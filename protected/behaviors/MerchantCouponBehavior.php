@@ -13,6 +13,8 @@ class MerchantCouponBehavior extends BaseBehavior{
            $pageSize = $param['pageSize'];
         if(!empty($param['name']))
             $criteria->addSearchCondition("name",$param['name']);
+        if(!empty($param['shopid']) && is_numeric($param['shopid']))
+            $criteria->addColumnCondition(array("shopid"=>$param['shopid']));
 
         if(-1 != $page){
             $count= MerchantCoupon::model()->count($criteria);
