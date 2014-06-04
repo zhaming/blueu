@@ -175,7 +175,6 @@ class AdvertisementBehavior extends BaseBehavior {
                 'catname' => $catname,
             );
         }
-        MingString::prints($result, true);
         return array_pop($result);
     }
     
