@@ -12,7 +12,10 @@
 class Share extends CActiveRecord {
 
     public $id;
-    public $name;
+    public $userid;
+    public $source;
+    public $sid;
+    public $created;
 
     public static function model($className = __CLASS__) {
         return parent::model($className);

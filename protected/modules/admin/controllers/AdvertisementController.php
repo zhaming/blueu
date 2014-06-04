@@ -74,7 +74,7 @@ class AdvertisementController extends BController {
             $viewData['ad'] = $adEditForm->getAttributes();
             return $this->render('edit', $viewData);
         }
-        if (!$this->advertisementBehavior->edit($adEditForm->getAttributes())) {
+        if (!$this->advertisementBehavior->update($adEditForm->id, $adEditForm->getAttributes())) {
             $viewData['message'] = $this->advertisementBehavior->getError();
             $viewData['user'] = $adEditForm->getAttributes();
             return $this->render('edit', $viewData);

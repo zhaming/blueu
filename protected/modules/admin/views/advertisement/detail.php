@@ -5,7 +5,7 @@
             <ul class="nav nav-tabs padding-16">
                 <li class="active">
                     <a href="<?php echo $this->createUrl('detail?id=' . $ad['id']); ?>">
-                        <i class="green icon-user bigger-125"></i>
+                        <i class="green icon-sun bigger-125"></i>
                         <?php echo Yii::t('admin', 'Overview'); ?>
                     </a>
                 </li>

@@ -127,8 +127,11 @@ class TaskController extends BController
     {
         $id = Yii::app()->request->getQuery('id');
         $rs = $this->_task->delete($id);
-        $message = $rs ? 'ADelSuccess' : 'ADelFail';
-        $this->showError(Yii::t('admin', $message), $this->createUrl('list'));
+        if($rs){
+            $this->showError(Yii::t('admin', 'ADelSuccess'), $this->createUrl('list'));
+        }else{
+            $this->showError(Yii::t('admin', 'ADelFail'), $this->createUrl('list'));
+        }
     }
     
     public function actionLog()

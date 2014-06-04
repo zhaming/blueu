@@ -60,14 +60,14 @@
                             <td><?php echo $item['floor']; ?></td>
                             <td><?php echo date('y-m-d H:i:s', $item['created']); ?></td>
                             <td>
-                                <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
                                     <?php if ($item['disabled'] == HelpTemplate::USER_STATUS_DISABLED) { ?>
-                                    <a href="<?php echo $this->createUrl('enable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="btn btn-xs btn-success">
-                                        <i class="icon-unlock bigger-120"></i>
+                                    <a href="<?php echo $this->createUrl('enable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="green">
+                                        <i class="icon-unlock bigger-130"></i>
                                     </a>
                                     <?php } else { ?>
-                                    <a href="<?php echo $this->createUrl('disable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="btn btn-xs btn-warning">
-                                        <i class="icon-lock bigger-120"></i>
+                                    <a href="<?php echo $this->createUrl('disable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="yellow">
+                                        <i class="icon-lock bigger-130"></i>
                                     </a>
                                     <?php } ?>
                                 </div>

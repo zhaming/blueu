@@ -21,7 +21,11 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-placetag"><?php echo Yii::t('admin', 'Place tag'); ?></label>
                 <div class="col-sm-9">
-                    <input id="form-field-placetag" type="text" name="advertisement[placetag]" value="<?php echo $advertisement['placetag'] ?>" placeholder="<?php echo Yii::t('admin', 'Place tag'); ?>" class="col-xs-10 col-sm-5" />
+                    <select id="form-field-placetag" name="advertisement[placetag]" class="col-sm-5 no-padding-left">
+                        <?php foreach (HelpTemplate::getAdPlaceTags() as $key => $value) { ?>
+                        <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                        <?php } ?>
+                    </select>
                 </div>
             </div>
             <div class="space-4"></div>

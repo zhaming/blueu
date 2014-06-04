@@ -324,7 +324,7 @@ input[type=checkbox].ace.ace-switch.ace-switch-7:checked+.lbl::after{left:3px;co
 .input-group>.btn-group>.btn{line-height:23px}
 .input-group>.btn-group>.btn.btn-sm{line-height:26px}
 .input-group>.btn>.caret,.input-group>.btn-group>.btn>.caret,.input-group>.btn.btn-sm>.caret,.input-group>.btn-group>.btn.btn-sm>.caret{margin-top:10px}
-.ace-file-input{width:43%;position:relative;height:38px;line-height:38px;margin-bottom:9px}
+.ace-file-input{width:43%;position:relative;/*height:38px;line-height:38px;margin-bottom:9px*/}
 .ace-file-input input[type=file]{position:fixed;z-index:-2;opacity:0;filter:alpha(opacity=0)}
 .ace-file-input .file-label{width:97%;display:block;position:absolute;top:0;left:0;right:0;height:30px;background-color:#fff;border:1px solid #d5d5d5;cursor:pointer;-webkit-box-shadow:none;box-shadow:none;-webkit-transition:all .15s;transition:all .15s}
 .ace-file-input .file-label:hover{-webkit-box-shadow:none;box-shadow:none;border-color:#f59942}

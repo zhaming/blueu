@@ -2,7 +2,6 @@
 *.swp
 *.back
 /nbproject
-/nbproject/private
 /protected/runtime/
 /protected/config/db.php
 /protected/config/params.php

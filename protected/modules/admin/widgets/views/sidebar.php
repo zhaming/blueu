@@ -194,7 +194,7 @@
         </li>
         <li<?php if (in_array(Yii::app()->controller->id, array('settings', 'log'))) { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
-                <i class="icon-legal"></i>
+                <i class="icon-wrench"></i>
                 <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'System'); ?></span>
                 <b class="arrow icon-angle-down"></b>
             </a>

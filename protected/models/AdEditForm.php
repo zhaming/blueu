@@ -22,6 +22,7 @@ class AdEditForm extends BaseForm {
     public $url;
     public $placetag;
     public $desc;
+    public $disabled;
 
     public function rules() {
         return array(
