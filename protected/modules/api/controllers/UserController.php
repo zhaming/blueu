@@ -279,40 +279,147 @@ class UserController extends IController {
         }
     }
 
+    /**
+     * 关注
+     * @return boolean
+     */
     public function actionLike() {
-        if (!Yii::app()->request->getIsPostRequest()) {
-            $this->error_code = self::ERROR_REQUEST_METHOD;
-            $this->message = Yii::t('api', 'Please use POST method to submit data.');
-            return false;
+        if (Yii::app()->request->getIsPostRequest()) {
+            $data = $this->getJsonFormData();
+            if (!isset($data['source'])) {
+                $this->error_code = self::ERROR_REQUEST_PARAMS;
+                $this->message = 'source' . Yii::t('api', ' is not set.');
+                return;
+            }
+            if (!isset($data['sid'])) {
+                $this->error_code = self::ERROR_REQUEST_PARAMS;
+                $this->message = 'sid' . Yii::t('api', ' is not set.');
+                return;
+            }
+            $account = $this->checkToken();
+            if (empty($account)) {
+                return;
+            }
+            $data['userid'] = $account['id'];
+            if (!$this->userBehavior->like($data)) {
+                $this->error_code = self::ERROR_REQUEST_FAILURE;
+                $this->message = $this->userBehavior->getError();
+            }
         }
-        $data = $this->getJsonFormData();
-        if (!isset($data['source'])) {
-            $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'source' . Yii::t('api', ' is not set.');
-            return;
-        }
-        if (!isset($data['sid'])) {
-            $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'sid' . Yii::t('api', ' is not set.');
-            return;
-        }
-        $account = $this->checkToken();
-        if (empty($account)) {
-            return;
-        }
-        $data['userid'] = $account['id'];
-        if (!$this->userBehavior->like($data)) {
-            $this->error_code = self::ERROR_REQUEST_FAILURE;
-            $this->message = $this->userBehavior->getError();
+        if (Yii::app()->request->getRequestType() == 'GET') {
+            $account = $this->checkToken();
+            if (empty($account)) {
+                return;
+            }
+            $likes = $this->userBehavior->getLikesByUserId($account['id']);
+            if (empty($likes)) {
+                $this->error_code = self::ERROR_REQUEST_FAILURE;
+                $this->message = $this->userBehavior->getError();
+                return;
+            }
+            $this->data = array();
+            foreach ($likes as $like) {
+                $this->data[] = array(
+                    'id' => $like['id'],
+                    'source' => $like['source'],
+                    'sid' => $like['sid'],
+                    'shopid' => $like['shopid'],
+                    'created' => $like['created']
+                );
+            }
         }
     }
 
     public function actionShare() {
-        
+        if (Yii::app()->request->getIsPostRequest()) {
+            $data = $this->getJsonFormData();
+            if (!isset($data['source'])) {
+                $this->error_code = self::ERROR_REQUEST_PARAMS;
+                $this->message = 'source' . Yii::t('api', ' is not set.');
+                return;
+            }
+            if (!isset($data['sid'])) {
+                $this->error_code = self::ERROR_REQUEST_PARAMS;
+                $this->message = 'sid' . Yii::t('api', ' is not set.');
+                return;
+            }
+            $account = $this->checkToken();
+            if (empty($account)) {
+                return;
+            }
+            $data['userid'] = $account['id'];
+            if (!$this->userBehavior->share($data)) {
+                $this->error_code = self::ERROR_REQUEST_FAILURE;
+                $this->message = $this->userBehavior->getError();
+            }
+        }
+        if (Yii::app()->request->getRequestType() == 'GET') {
+            $account = $this->checkToken();
+            if (empty($account)) {
+                return;
+            }
+            $shares = $this->userBehavior->getSharesByUserId($account['id']);
+            if (empty($shares)) {
+                $this->error_code = self::ERROR_REQUEST_FAILURE;
+                $this->message = $this->userBehavior->getError();
+                return;
+            }
+            $this->data = array();
+            foreach ($shares as $share) {
+                $this->data[] = array(
+                    'id' => $share['id'],
+                    'source' => $share['source'],
+                    'sid' => $share['sid'],
+                    'created' => $share['created']
+                );
+            }
+        }
     }
 
-    public function actionWelfare() {
-        
+    public function actionGrab() {
+        if (Yii::app()->request->getIsPostRequest()) {
+            $data = $this->getJsonFormData();
+            if (!isset($data['source'])) {
+                $this->error_code = self::ERROR_REQUEST_PARAMS;
+                $this->message = 'source' . Yii::t('api', ' is not set.');
+                return;
+            }
+            if (!isset($data['sid'])) {
+                $this->error_code = self::ERROR_REQUEST_PARAMS;
+                $this->message = 'sid' . Yii::t('api', ' is not set.');
+                return;
+            }
+            $account = $this->checkToken();
+            if (empty($account)) {
+                return;
+            }
+            $data['userid'] = $account['id'];
+            if (!$this->userBehavior->share($data)) {
+                $this->error_code = self::ERROR_REQUEST_FAILURE;
+                $this->message = $this->userBehavior->getError();
+            }
+        }
+        if (Yii::app()->request->getRequestType() == 'GET') {
+            $account = $this->checkToken();
+            if (empty($account)) {
+                return;
+            }
+            $shares = $this->userBehavior->getSharesByUserId($account['id']);
+            if (empty($shares)) {
+                $this->error_code = self::ERROR_REQUEST_FAILURE;
+                $this->message = $this->userBehavior->getError();
+                return;
+            }
+            $this->data = array();
+            foreach ($shares as $share) {
+                $this->data[] = array(
+                    'id' => $share['id'],
+                    'source' => $share['source'],
+                    'sid' => $share['sid'],
+                    'created' => $share['created']
+                );
+            }
+        }
     }
 
     public function actionCoupon() {

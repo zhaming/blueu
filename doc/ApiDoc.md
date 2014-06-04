@@ -6,7 +6,7 @@ BlueU客户端接口文档
 报文格式:*json*  
 报文编码:*utf-8*  
 正式接口:*待发布*  
-测试接口:*mocky.shifang.info*  
+测试接口:*t.blueu.cn*  
 
 
 接口名             |                 地址              |  类型
@@ -32,6 +32,10 @@ BlueU客户端接口文档
 [基站广告](#api19) |  /api/advertisement/station       |  GET
 [地图](#api20)     |  /api/map/detail                  |  POST
 [意见反馈](#api21) |  /api/feedback/create             |  POST
+[关注](#api22)     |  /api/user/like                   |  POST
+[关注](#api23)     |  /api/user/like                   |  GET
+[分享](#api24)     |  /api/user/share                  |  POST
+[分享](#api25)     |  /api/user/share                  |  GET
 
 
 ## 约定  
@@ -923,5 +927,151 @@ error_msg  |  是  |  string | 见示例 | 返回数据
 {
     "error_code":0,
     "error_msg":"success"
+}
+</pre>
+
+
+## 关注 {#api22}
+地址：/api/user/like
+
+###接口输入
+
+提交方式：POST
+
+参数名 | 必填| 类型| 示例| 说明
+source | 是  | int |  1  | 来源，1商铺 2商品 3优惠券 4印花
+sid    | 是  | int | 123 | 来源ID
+shopid | 否  | int | 123 | 店铺ID，可为空
+
+完整参数示例:
+
+<pre>
+curl -X POST -H "Accept:application/json" -d '{"source":1, "sid":123}' http://{domain}/api/user/like
+</pre>
+
+###接口输出
+
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success"
+}
+</pre>
+
+
+## 关注列表 {#api23}
+地址：/api/user/like
+
+###接口输入
+
+提交方式：GET
+
+参数名   | 必填| 类型| 示例| 说明
+page     | 否  | int |  1  | 页数 默认1
+pagesize | 否  | int | 10  |每页条数 默认10
+
+完整参数示例:
+
+<pre>
+curl -X GET -H "Accept:application/json" http://{domain}/api/user/like？page=1&pagesize=2
+</pre>
+
+###接口输出
+
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       |  是  |   map   | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success"
+    "data":[{
+            "id":1,
+            "source":1,
+            "sid":1,
+            "shopid":2,
+            "created":134567891
+        }
+    ]
+}
+</pre>
+
+
+## 分享 {#api24}
+地址：/api/user/share
+
+###接口输入
+
+提交方式：POST
+
+参数名 | 必填| 类型| 示例| 说明
+source | 是  | int |  1  | 来源，1商铺 2商品 3优惠券 4印花
+sid    | 是  | int | 123 | 来源ID
+
+完整参数示例:
+
+<pre>
+curl -X POST -H "Accept:application/json" -d '{"source":1, "sid":123}' http://{domain}/api/user/share
+</pre>
+
+###接口输出
+
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success"
+}
+</pre>
+
+
+## 分享列表 {#api25}
+地址：/api/user/share
+
+###接口输入
+
+提交方式：GET
+
+参数名   | 必填| 类型| 示例| 说明
+page     | 否  | int |  1  | 页数 默认1
+pagesize | 否  | int | 10  |每页条数 默认10
+
+完整参数示例:
+
+<pre>
+curl -X GET -H "Accept:application/json" http://{domain}/api/user/share？page=1&pagesize=2
+</pre>
+
+###接口输出
+
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       |  是  |   map   | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success"
+    "data":[{
+            "id":1,
+            "source":1,
+            "sid":1,
+            "created":134567891
+        }
+    ]
 }
 </pre>

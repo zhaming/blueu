@@ -166,8 +166,63 @@ class UserBehavior extends BaseBehavior {
         return $user;
     }
 
+    /**
+     * 关注
+     * @param array $data
+     * @return integer
+     */
     public function like($data) {
-        return true;
+        $like = new Like();
+        $like->userid = $data['userid'];
+        $like->source = $data['source'];
+        $like->sid = $data['sid'];
+        if (isset($data['shopid'])) {
+            $like->shopid = $data['shopid'];
+        }
+        $like->created = time();
+        return $like->save();
+    }
+
+    public function getLikesByUserId($id) {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('userid=:userid');
+        $criteria->params[':userid'] = $id;
+        $criteria->order = 'id desc';
+        $criteria->limit = self::DEFAULT_PAGE_SIZE;
+        if (isset($_GET['page'])) {
+            $criteria->offset = ((int) $_GET['page'] - 1) * self::DEFAULT_PAGE_SIZE;
+        } else {
+            $criteria->offset = 0;
+        }
+        return Like::model()->findAll($criteria);
+    }
+
+    /**
+     * 分享
+     * @param array $data
+     * @return integer
+     */
+    public function share($data) {
+        $share = new Share();
+        $share->userid = $data['userid'];
+        $share->source = $data['source'];
+        $share->sid = $data['sid'];
+        $share->created = time();
+        return $share->save();
+    }
+
+    public function getSharedByUserId($id) {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('userid=:userid');
+        $criteria->params[':userid'] = $id;
+        $criteria->order = 'id desc';
+        $criteria->limit = self::DEFAULT_PAGE_SIZE;
+        if (isset($_GET['page'])) {
+            $criteria->offset = ((int) $_GET['page'] - 1) * self::DEFAULT_PAGE_SIZE;
+        } else {
+            $criteria->offset = 0;
+        }
+        return Share::model()->findAll($criteria);
     }
 
     /**

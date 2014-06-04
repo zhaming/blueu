@@ -22,7 +22,9 @@ class Like extends CActiveRecord {
     public $userid;
     public $source;
     public $sid;
+    public $shopid;
     public $created;
+    public $pushcount;
 
     public static function model($className = __CLASS__) {
         return parent::model($className);
