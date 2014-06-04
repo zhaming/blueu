@@ -854,7 +854,11 @@ data       |  是  |   map   | 见示例 | 返回数据
         "intro":"全民最爱的红烧肉",
         "shopid":"2",
         "source":"2",
-        "sid":"19"
+        "sid":"19",
+        "telephone":"86345345",
+        "address":"新界油麻地左敦路32号",
+        "url":"www.hll.com.hk",
+        "catname":"麵包/西餅",
     }
 }
 </pre>

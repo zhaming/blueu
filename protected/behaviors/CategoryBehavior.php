@@ -21,5 +21,11 @@ class CategoryBehavior extends BaseBehavior {
     public function getAll() {
         return Category::model()->findAll();
     }
+    
+    public function getNameById($id) {
+        $rs = Category::model()->findByPk($id);
+        if(empty($rs)) return false;
+        return $rs->name;
+    }
 
 }

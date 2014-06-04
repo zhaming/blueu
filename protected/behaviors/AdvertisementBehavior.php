@@ -154,6 +154,10 @@ class AdvertisementBehavior extends BaseBehavior {
     public function getStationAds($uuid) {
         $adsR = StationAds::model()->findAllByAttributes(array('uuid' => $uuid));
         if(empty($adsR)) return false;
+        $_merchantShop = new MerchantShopBehavior();
+        $shopR = $_merchantShop->getById($adsR[0]->shopid);
+        $_category = new CategoryBehavior();
+        $catname = $_category->getNameById($shopR->catid);
         $result = array();
         foreach($adsR as $v) {
             $sourceR = $this->getDataBySource($v->source, $v->sid);
@@ -165,8 +169,13 @@ class AdvertisementBehavior extends BaseBehavior {
                 'shopid' => $v->shopid,
                 'source' => $v->source,
                 'sid' => $v->sid,
+                'telephone' => $shopR->telephone,
+                'address' => $shopR->address,
+                'url' => $shopR->url,
+                'catname' => $catname,
             );
         }
+        MingString::prints($result, true);
         return array_pop($result);
     }
     
