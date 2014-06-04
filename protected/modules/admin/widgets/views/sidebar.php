@@ -176,10 +176,10 @@
             </a>
             <ul class="submenu">
                 <li<?php if (Yii::app()->controller->getId() == 'push' && Yii::app()->controller->getAction()->getId() == 'list') { ?> class="active"<?php } ?>>
-                    <a href="/admin/task/list"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'PushList'); ?></a>
+                    <a href="/admin/push/list"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'PushList'); ?></a>
                 </li>
-                <li<?php if (Yii::app()->controller->getId() == 'push' && Yii::app()->controller->getAction()->getId() == 'active') { ?> class="active"<?php } ?>>
-                    <a href="/admin/task/list"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'PushActive'); ?></a>
+                <li<?php if (Yii::app()->controller->getId() == 'push' && Yii::app()->controller->getAction()->getId() == 'manual') { ?> class="active"<?php } ?>>
+                    <a href="/admin/push/manual"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'PushManual'); ?></a>
                 </li>
             </ul>
         </li>
@@ -204,6 +204,9 @@
             <ul class="submenu">
                 <li<?php if (Yii::app()->controller->getId() == 'task' && Yii::app()->controller->getAction()->getId() == 'list') { ?> class="active"<?php } ?>>
                     <a href="/admin/task/list"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'TaskManager'); ?></a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'task' && Yii::app()->controller->getAction()->getId() == 'log') { ?> class="active"<?php } ?>>
+                    <a href="/admin/task/log"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'TaskLogkManager'); ?></a>
                 </li>
                 <li<?php if (Yii::app()->controller->getId() == 'settings') { ?> class="active"<?php } ?>>
                     <a href="/admin/settings"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Settings'); ?></a>
