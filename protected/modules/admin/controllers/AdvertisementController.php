@@ -26,6 +26,20 @@ class AdvertisementController extends BController {
         $this->advertisementBehavior = new AdvertisementBehavior();
     }
 
+    public function accessRules() {
+        parent::accessRules();
+        return array(
+            array(
+                'allow',
+                'users' => array('@'),
+                'expression' => array($this, 'isAdmin'),
+            ),
+            array('deny',
+                'users' => array('*')
+            )
+        );
+    }
+
     public function actionIndex() {
         Yii::log('get ad list', 'info', 'savetodb');
         $filter = array();

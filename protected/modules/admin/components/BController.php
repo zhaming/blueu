@@ -23,6 +23,24 @@ class BController extends CController {
         return true;
     }
 
+    public function filters() {
+        return array(
+            'accessControl',
+        );
+    }
+
+    protected function isSuperAdmin() {
+        return HelpTemplate::isLoginAsSuperAdmin();
+    }
+
+    protected function isAdmin() {
+        return HelpTemplate::isLoginAsAdmin();
+    }
+
+    protected function isMerchant() {
+        return HelpTemplate::isLoginAsMerchant();
+    }
+
     public function checkPermissions() {
         $rules = array(
             'manager' => array('login', 'findpwd'),
@@ -88,23 +106,22 @@ class BController extends CController {
         }
     }
 
-    public function setPageTitle($pageName)
-	{
-		if(is_array($pageName)) $pageName = implode(Yii::app()->params->title_separator, $pageName);
-		parent::setPageTitle(Yii::t('application', '{appName}{separator}{pageName}', array(
-			'{appName}' => Yii::app()->params->title,
-			'{separator}' => Yii::app()->params->title_separator,
-			'{pageName}' => $pageName,
-		)));
-		$this->pagename = $pageName;
-	}
+    public function setPageTitle($pageName) {
+        if (is_array($pageName))
+            $pageName = implode(Yii::app()->params->title_separator, $pageName);
+        parent::setPageTitle(Yii::t('application', '{appName}{separator}{pageName}', array(
+                    '{appName}' => Yii::app()->params->title,
+                    '{separator}' => Yii::app()->params->title_separator,
+                    '{pageName}' => $pageName,
+        )));
+        $this->pagename = $pageName;
+    }
 
-	public function getPageTitle()
-	{
-		if(parent::getPageTitle()!==null)
-		{
-			return parent::getPageTitle();
-		}
-		return $this->pageTitle = empty(Yii::app()->name) ? Yii::app()->params->title : Yii::app()->name;
-	}
+    public function getPageTitle() {
+        if (parent::getPageTitle() !== null) {
+            return parent::getPageTitle();
+        }
+        return $this->pageTitle = empty(Yii::app()->name) ? Yii::app()->params->title : Yii::app()->name;
+    }
+
 }

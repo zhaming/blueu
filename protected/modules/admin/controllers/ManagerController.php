@@ -25,6 +25,31 @@ class ManagerController extends BController {
         $this->accountBehavior = new AccountBehavior();
     }
 
+    public function accessRules() {
+        parent::accessRules();
+        return array(
+            array(
+                'allow',
+                'actions' => array('login', 'findpwd'),
+                'users' => array('*')
+            ),
+            array(
+                'allow',
+                'actions' => array('index', 'create', 'enable', 'disable'),
+                'users' => array('@'),
+                'expression' => array($this, 'isSuperAdmin'),
+            ),
+            array(
+                'allow',
+                'actions' => array('resetpwd', 'profile', 'logout'),
+                'users' => array('@')
+            ),
+            array('deny',
+                'users' => array('*')
+            )
+        );
+    }
+
     public function actionIndex() {
         $allAdminUsers = $this->accountBehavior->getAllAdmin();
         $this->render('index', array('data' => $allAdminUsers));

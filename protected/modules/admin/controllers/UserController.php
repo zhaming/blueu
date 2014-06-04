@@ -28,6 +28,20 @@ class UserController extends BController {
         $this->accountBehavior = new AccountBehavior();
     }
 
+    public function accessRules() {
+        parent::accessRules();
+        return array(
+            array(
+                'allow',
+                'users' => array('@'),
+                'expression' => array($this, 'isAdmin'),
+            ),
+            array('deny',
+                'users' => array('*')
+            )
+        );
+    }
+
     public function actionIndex() {
         $filter = array('search' => array());
         $name = Yii::app()->request->getQuery('name');
@@ -162,18 +176,6 @@ class UserController extends BController {
             }
         }
         $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
-    }
-
-    public function actionProfile() {
-        $this->render('profile');
-    }
-
-    public function actionLogin() {
-        
-    }
-
-    public function actionLogout() {
-        
     }
 
     public function actionEnablePush() {

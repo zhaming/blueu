@@ -92,6 +92,10 @@ class HelpTemplate extends CComponent {
         return Yii::app()->user->getState('roleid') == self::ADMIN_ROLE;
     }
 
+    public static function isLoginAsSuperAdmin() {
+        return Yii::app()->user->getId() == self::SUPER_ADMIN_ID;
+    }
+
     public static function isLoginAsMerchant() {
         return Yii::app()->user->getState('roleid') == self::MERCHANT_ROLE;
     }
