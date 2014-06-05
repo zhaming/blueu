@@ -351,4 +351,32 @@ class MingString {
         $secondD = date('Y-m-d', $second);
         return $firstD == $secondD;
     }
+    
+    /**
+     * 递归地将json转化为数组
+     * @param string $json
+     * @return array
+     */
+    public static function jsonDecode($json)
+    {
+        if(is_string($json) && self::is_json($json))
+        {
+            $json = json_decode($json, true);
+        }
+        if(is_array($json))
+        {
+            $json = array_map(array(self, 'jsonDecode'), $json);
+        }
+        return $json;
+    }
+    
+    /**
+     * 判断是否为json数据
+     * @param string $string
+     * @return boolean
+     */
+    public static function is_json($string) {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
+    }
 }

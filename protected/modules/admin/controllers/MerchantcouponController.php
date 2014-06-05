@@ -97,7 +97,7 @@ class MerchantcouponController extends BController {
 
                 $file = $fileBehavior->saveUploadFile('coupon[pic]');
                 if ($file) {
-                    $data['pic'] = $file['hash'];
+                    $data['pic'] = $file['path'];
                 }
             }
             if(empty($data['validity_end']) || empty($data['validity_end'])){

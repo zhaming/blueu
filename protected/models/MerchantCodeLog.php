@@ -56,6 +56,7 @@ class MerchantCodeLog extends  CActiveRecord{
                         b.code ,b.total, c.isused ,d.name as username,d.id as uid
                     from merchant_coupon a , merchant_code b , merchant_code_log c ,user d
                     where a.codeid =b.id
+                        and c.codeid = b.id
                         and b.type =3
                         and c.isused = 0
                         and c.codeid = b.id
