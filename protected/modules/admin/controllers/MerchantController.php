@@ -28,6 +28,25 @@ class MerchantController extends BController {
         $this->merchantBehavior = new MerchantBehavior();
     }
 
+    public function accessRules() {
+        parent::accessRules();
+        return array(
+            array(
+                'allow',
+                'actions' => array('register', 'resetpwd'),
+                'users' => array('*')
+            ),
+            array(
+                'allow',
+                'users' => array('@'),
+                'expression' => array($this, 'isAdmin'),
+            ),
+            array('deny',
+                'users' => array('*')
+            )
+        );
+    }
+
     public function actionIndex() {
         $filter = array('search' => array());
         $name = Yii::app()->request->getQuery('name');

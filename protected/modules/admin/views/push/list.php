@@ -1,132 +1,115 @@
 <div class="row">
     <div class="col-xs-12">
-        <form action="/admin/task/delete" method="POST">
-        <p>
-            <a href="/admin/task/add" class="btn btn-app btn-success btn-xs">
-                <i class="icon-plus bigger-120"></i>
-                <?php echo Yii::t('admin', 'Create'); ?>
-            </a>
-            
-            <button type="submit" class="btn btn-app btn-danger btn-xs">
-                <i class="icon-remove bigger-120"></i>
-                <?php echo Yii::t('admin', 'Delete'); ?>
-            </button>
-        </p>
-        </form>
         <?php $this->widget("AlterMsgWidget")?>
         
         <div class="table-header"><?php echo Yii::t('admin', 'SearchForm'); ?></div>
         <div class="table-responsive">
+            <form method="GET">
             <div class="row" style="margin-bottom:5px;">
                 <div class="col-xs-12">
-                    <form action="#" method="GET">
-                    <div class="input-group">
-                        <span class="input-icon">
-                            <input type="text" class="form-control" placeholder="<?php echo Yii::t('admin', 'Username'); ?>">
-                        </span>
-                        <span class="input-icon" style="margin-left:10px;">
-                            <input type="text" class="form-control" placeholder="Type your query">
-                        </span>
-                        <span class="input-group-btn float-right">
-                            <button type="button" class="btn btn-purple btn-sm">
-                                <?php echo Yii::t('admin', 'Search'); ?>
-                                <i class="icon-search icon-on-right bigger-110"></i>
-                            </button>
-                        </span>
-                    </div>
-                    </form>
+                    <span class="input-icon" style="float:left">
+                        <?php echo CHtml::textField('to', Yii::app()->request->getQuery('to'),
+                            array('class'=>'form-control','placeholder' => Yii::t('admin', 'VToId'))
+                        );?>
+                    </span>
+                    <span class="input-icon" style="float:left;margin-left:20px;">
+                        <?php echo CHtml::dropDownList('type', Yii::app()->request->getQuery('type'), $types, 
+                            array('class'=>'form-control', style=>'height:34px', 'kvEqual' => true)
+                        );?>
+                    </span>
+                    <span class="input-group" style="float:left;width:150px;margin-left:20px;">
+                        <?php echo CHtml::textField('start', Yii::app()->request->getQuery('start'), 
+                            array(
+                                'class'=>'form-control date-picker',
+                                'placeholder' => Yii::t('admin', 'VStart'),
+                                'data-date-format' => 'yyyy-mm-dd'
+                            )
+                        );?>
+                        <span class="input-group-addon"><i class="icon-calendar bigger-110"></i></span>
+                        -
+                    </span>
+                    <span class="input-group" style="float:left;width:150px;">
+                        <?php echo CHtml::textField('end', Yii::app()->request->getQuery('end'), 
+                            array(
+                                'class'=>'form-control date-picker',
+                                'placeholder' => Yii::t('admin', 'VEnd'),
+                                'data-date-format' => 'yyyy-mm-dd'
+                            )
+                        );?>
+                        <span class="input-group-addon"><i class="icon-calendar bigger-110"></i></span>
+                    </span>
+                    <span class="input-group-btn" style="float:right;width:auto;">
+                        <button type="submit" class="btn btn-purple btn-sm">
+                            <?php echo Yii::t('admin', 'Search'); ?>
+                            <i class="icon-search icon-on-right bigger-110"></i>
+                        </button>
+                    </span>
                 </div>
             </div>
+            </form>
             
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th class="center">
-                            <label><input type="checkbox" class="ace" /><span class="lbl"></span></label>
-                        </th>
-                        <th>名称/类型</th>
-                        <th>消息模板</th>
-                        <th style="width:12%">其他</th>
-                        <th style="width:16%">
-                            <i class="icon-time bigger-110 hidden-480"></i>
-                            创建/执行时间
-                        </th>
-                        <th style="width:14%">状态</th>
-                        <th style="width:14%"></th>
+                        <th style="width:12%"><?php echo Yii::t('admin', 'VPusher'); ?></th>
+                        <th style="width:12%"><?php echo Yii::t('admin', 'VReceiver'); ?></th>
+                        <th><?php echo Yii::t('admin', 'VPushMsg'); ?></th>
+                        <th><?php echo Yii::t('admin', 'VSource'); ?></th>
+                        <th style="width:16%"><?php echo Yii::t('admin', 'VTimePC'); ?></th>
                     </tr>
                 </thead>
-
+                
                 <tbody>
-                <?php if(!empty($list)):?>
-                    <?php foreach ($list as $key => $value) :?>
+                <?php if(empty($list)){ ?>
+                    <tr><td colspan="6" class="center"><br><?php echo Yii::t('admin', 'VNoData'); ?><br><br></td></tr>
+                    <?php }else{ ?>
+                    <?php foreach($list as $value){ ?>
                     <tr>
-                        <td class="center">
-                            <label><input type="checkbox" class="ace" /><span class="lbl"></span></label>
-                        </td>
-                        <td title="<?php echo $value->memo; ?>">
-                            <?php echo $value->name; ?><br>
-                            <span style="font-style:italic"><?php echo $value->type; ?>:<?php echo $value->item; ?></span>
-                        </td>
-                        <td title="<?php echo $value->msg; ?>">
-                            <?php echo MingString::str_cut($value->msg, 60); ?>
+                        <td>
+                            <?php if($value->from > 0){ ?>
+                            <a href="/admin/user/detail?id=<?php echo $value->from; ?>"><?php echo $value->fromtitle; ?></a>
+                            <?php }else{ ?>
+                            <?php echo $value->fromtitle; ?>
+                            <?php } ?><br>
+                            <span style="font-style:italic"><?php echo $value->type; ?></span>
                         </td>
                         <td>
-                            任务类型:<strong><?php echo $value->immediately==1?'<font color=green>即时</font>':'<font color=blue>定时</font>'; ?></strong><br>
-                            优先级:<strong><?php echo $value->priority; ?>级</strong>
+                            <a href="/admin/user/detail?id=<?php echo $value->to; ?>"><?php echo $value->totitle; ?></a>
+                        </td>
+                        <td title="<?php echo $value->message; ?>">
+                            <?php echo MingString::str_cut($value->message, 80); ?>
+                        </td>
+                        <td>
+                            <?php echo Yii::t('admin', 'Shop') . ':'; ?>
+                            <strong><?php echo empty($value->shopname)?Yii::t('admin', 'VNoDataS'):$value->shopname; ?></strong><br>
+                            <?php if(empty($value->source)){ ?>
+                            <?php echo Yii::t('admin', 'VNoDataS'); ?>
+                            <?php }else{ ?>
+                            <?php echo $sourceMap[$value->source] . ':'; ?>
+                            <strong><?php echo $value->srcname; ?></strong>
+                            <?php } ?>
                         </td>
                         <td>
                             <?php echo date('Y-m-d H:i:s', $value->created); ?><br>
-                            <font color="green"><?php echo empty($value->lasttime)?'暂未执行':date('Y-m-d H:i:s', $value->lasttime); ?></font>
-                        </td>
-                        <td>
-                            运行状态:<strong><?php echo $value->runtime==1?'<font color=green>运行中</font>':'<font color=blue>等待中</font>'; ?></strong><br>
-                            是否有效:<strong><?php echo $value->disabled==0?'<font color=green>正常</font>':'<font color=red>禁用</font>'; ?></strong>
-                        </td>
-                        <td>
-                            <a href="<?php echo $this->createUrl('log?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Log'); ?>" class="btn btn-xs btn-success">
-                                <i class="icon-external-link bigger-120"></i>
-                            </a>
-                            <a href="<?php echo $this->createUrl('edit?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
-                                <i class="icon-edit bigger-120"></i>
-                            </a>
-                            <a href="<?php echo $this->createUrl('delete?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger delete-confirm">
-                                <i class="icon-trash bigger-120"></i>
-                            </a>
+                            <font color="green">
+                                <?php echo empty($value->clicktime)?Yii::t('admin', 'VPushNoClick'):date('Y-m-d H:i:s', $value->clicktime); ?>
+                            </font>
                         </td>
                     </tr>
-                    <?php endforeach;?>
-                <?php endif;?>
+                    <?php }} ?>
                 </tbody>
             </table>
-            <?php $this->widget('application.modules.admin.widgets.BCLinkPager', array('pages' => $pager)); ?>
+            <?php $this->widget('application.modules.admin.widgets.BCLinkPager', array('pages' => $pages)); ?>
         </div>
         
-        <div class="widget-box">
-            <div class="widget-header widget-header-flat">
-                <h4 class="smaller-80"><?php echo Yii::t('admin', 'TaskDefinition'); ?></h4>
-            </div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <dl id="dt-list-1">
-                        <dt>Description lists</dt>
-                        <dd>推送广告任务于每天6时至第二天1时5分开始执行，间隔时间为1个小时，总共执行20次，任务为单进程模式。</dd>
-                        <dd>数据挖掘任务于每个小时的45分开始执行，间隔时间为1个小时，总共执行24次，任务为单进程模式。</dd>
-                        <dd>若需调整，请立即联系开发人员&lt;<a href="mailto:zha_ming@163.com">一木</a>&gt;哦！</dd>
-                    </dl>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
 <script type="text/javascript">
-$('table th input:checkbox').on('click' , function(){
-    var that = this;
-    $(this).closest('table').find('tr > td:first-child input:checkbox')
-    .each(function(){
-        this.checked = that.checked;
-        $(this).closest('tr').toggleClass('selected');
+$().ready(function(){
+    Order.init(['#order_created', '#order_clicktime']);
+    $('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+        $(this).prev().focus();
     });
-
 });
 </script>

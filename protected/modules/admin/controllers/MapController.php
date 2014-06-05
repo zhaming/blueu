@@ -26,6 +26,20 @@ class MapController extends BController {
         $this->mapBehavior = new MapBehavior();
     }
 
+    public function accessRules() {
+        parent::accessRules();
+        return array(
+            array(
+                'allow',
+                'users' => array('@'),
+                'expression' => array($this, 'isAdmin'),
+            ),
+            array('deny',
+                'users' => array('*')
+            )
+        );
+    }
+
     public function actionIndex() {
         $this->render('index', $this->mapBehavior->getList());
     }

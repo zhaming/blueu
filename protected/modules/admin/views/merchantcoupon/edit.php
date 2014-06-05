@@ -33,7 +33,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right"> </label>
                 <div class="col-sm-9">
-                    <img src="/images/<?php echo $coupon->pic;?>"/>
+                    <img  class=" col-xs-10 col-sm-5  " src="<?php echo HelpTemplate::getAdUrl($coupon['pic']); ?>"/>
                 </div>
             </div>
             <?php endif;?>

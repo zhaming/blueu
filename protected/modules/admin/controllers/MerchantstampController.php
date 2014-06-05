@@ -58,7 +58,7 @@ class MerchantstampController extends BController {
 
                     $file = $fileBehavior->saveUploadFile('stamp[pic]');
                     if ($file) {
-                        $stamp['pic'] = $file['hash'];
+                        $stamp['pic'] = $file['path'];
                     }
                 }
 
@@ -97,7 +97,7 @@ class MerchantstampController extends BController {
 
                 $file = $fileBehavior->saveUploadFile('stamp[pic]');
                 if ($file) {
-                    $data['pic'] = $file['hash'];
+                    $data['pic'] = $file['path'];
                 }
             }
             if(empty($data['validity_end']) || empty($data['validity_end'])){

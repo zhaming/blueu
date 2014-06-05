@@ -40,4 +40,5 @@ return array (
   'Select' => '查询',
   'Submit' => '提交',
   'Total' => '总量',
+  "Success"=>"操作成功",
 );

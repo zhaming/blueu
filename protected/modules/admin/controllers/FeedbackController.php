@@ -26,6 +26,20 @@ class FeedbackController extends BController {
         $this->feedbackBehavior = new FeedbackBehavior();
     }
 
+    public function accessRules() {
+        parent::accessRules();
+        return array(
+            array(
+                'allow',
+                'users' => array('@'),
+                'expression' => array($this, 'isAdmin'),
+            ),
+            array('deny',
+                'users' => array('*')
+            )
+        );
+    }
+
     public function actionindex() {
         $this->render('index', $this->feedbackBehavior->getList());
     }

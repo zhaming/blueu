@@ -12,6 +12,10 @@
 class Push extends CActiveRecord {
 
     public $id;
+    public $fromtitle;
+    public $totitle;
+    public $srcname;
+    public $shopname;
 
     public static function model($className = __CLASS__) {
         return parent::model($className);
