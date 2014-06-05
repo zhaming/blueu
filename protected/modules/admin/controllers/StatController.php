@@ -11,12 +11,12 @@
 
 class StatController extends BController {
     
-    public function init() {
-        parent::init();
-    }
-
-    public function actionIndex() {
-        $this->actionUser();
+    private $_stat;
+    
+    protected function beforeAction($action) {
+        parent::beforeAction($action);
+        $this->_stat = new StatBehavior();
+        return true;
     }
     
     public function actionUser() {
