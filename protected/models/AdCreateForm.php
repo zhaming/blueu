@@ -25,6 +25,7 @@ class AdCreateForm extends BaseForm {
     public function rules() {
         return array(
             array('url,placetag', 'required'),
+            array('url', 'url'),
             array('desc', 'safe')
         );
     }

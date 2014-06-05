@@ -41,7 +41,7 @@
                             <th><?php echo Yii::t('admin', 'Description'); ?></th>
                             <th><?php echo Yii::t('admin', 'Owner'); ?></th>
                             <th><?php echo Yii::t('admin', 'Source'); ?></th>
-                            <th><?php echo Yii::t('admin', 'Created'); ?></th>
+                            <th><i class="icon-time bigger-110 hidden-480"></i><?php echo Yii::t('admin', 'Created'); ?></th>
                             <th></th>
                         </tr>
                     </thead>

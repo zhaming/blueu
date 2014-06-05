@@ -40,7 +40,7 @@
                             <th><?php echo Yii::t('admin', 'Name'); ?></th>
                             <th><?php echo Yii::t('admin', 'Market place'); ?></th>
                             <th><?php echo Yii::t('admin', 'Floor'); ?></th>
-                            <th><?php echo Yii::t('admin', 'Created'); ?></th>
+                            <th><i class="icon-time bigger-110 hidden-480"></i><?php echo Yii::t('admin', 'Created'); ?></th>
                             <th></th>
                         </tr>
                     </thead>

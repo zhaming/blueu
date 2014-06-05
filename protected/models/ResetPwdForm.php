@@ -28,6 +28,7 @@ class ResetPwdForm extends BaseForm {
         return array(
             array('newpassword,repassword', 'required'),
             array('username', 'email', 'allowEmpty' => true),
+            array('repasword', 'checkRepassword'),
             array('id', 'safe')
         );
     }
@@ -44,6 +45,12 @@ class ResetPwdForm extends BaseForm {
             'newpassword' => Yii::t('admin', 'New password'),
             'repassword' => Yii::t('admin', 'Repeat password')
         );
+    }
+
+    public function checkRepassword() {
+        if ($this->newpassword != $this->repassword) {
+            $this->addError('password', Yii::t('admin', 'Enter the password twice inconsistent.'));
+        }
     }
 
 }

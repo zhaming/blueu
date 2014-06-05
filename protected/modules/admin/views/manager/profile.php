@@ -16,7 +16,7 @@
                 <ul class="nav nav-tabs padding-16">
                     <li class="active">
                         <a data-toggle="tab" href="#basic">
-                            <i class="green icon-user bigger-125"></i>
+                            <i class="green icon-sun bigger-125"></i>
                             <?php echo Yii::t('admin', 'Overview'); ?>
                         </a>
                     </li>

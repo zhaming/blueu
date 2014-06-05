@@ -35,8 +35,35 @@
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-name"><?php echo Yii::t('admin', 'Name'); ?></label>
                             <div class="col-sm-9">
                                 <span class="input-icon input-icon-right">
-                                    <input type="text" name="merchant[name]" id="form-field-name" value="<?php echo $merchant['name']; ?>" />
+                                    <input id="form-field-name" type="text" name="merchant[name]" value="<?php echo $merchant['name']; ?>" />
                                     <i class="icon-user"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-legal"><?php echo Yii::t('admin', 'Legal'); ?></label>
+                            <div class="col-sm-9">
+                                <span class="input-icon input-icon-right">
+                                    <input id="form-field-legal" type="text" name="merchant[legal]" value="<?php echo $merchant['legal']; ?>" />
+                                    <i class="icon-user-md"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-telephone"><?php echo Yii::t('admin', 'Telephone'); ?></label>
+                            <div class="col-sm-9">
+                                <span class="input-icon input-icon-right">
+                                    <input id="form-field-telephone" type="text" name="merchant[telephone]" value="<?php echo $merchant['telephone']; ?>" />
+                                    <i class="icon-headphones"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-bank"><?php echo Yii::t('admin', 'Bank'); ?></label>
+                            <div class="col-sm-9">
+                                <span class="input-icon input-icon-right">
+                                    <input id="form-field-bank" type="text" name="merchant[bank]" value="<?php echo $merchant['bank']; ?>" />
+                                    <i class="icon-money"></i>
                                 </span>
                             </div>
                         </div>
