@@ -158,7 +158,7 @@ class UserBehavior extends BaseBehavior {
      * @return boolean or array
      */
     public function detail($userId) {
-        $user = User::model()->findByPk($userId);
+        $user = User::model()->with('account')->findByPk($userId);
         if ($user == null) {
             $this->error = Yii::t('api', 'User is no exist');
             return false;
