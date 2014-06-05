@@ -47,8 +47,15 @@ class MerchantcodeController extends IController {
      * 获取优惠券
      */
     public function actionGetCoupon(){
-        $codeid = Yii::app()->request->getParam("codeid");
-        $userid = Yii::app()->request->getParam("userid");
+
+        if (Yii::app()->request->getRequestType() != 'POST') {
+            $this->error_code = self::ERROR_REQUEST_METHOD;
+            $this->message = Yii::t('api', 'Please use POST method');
+            return;
+        }
+        $codeid = Yii::app()->request->getPost("codeid");
+        $userid = Yii::app()->request->getPost("userid");
+
         if(empty($codeid) ){
             $this->error_code = self::ERROR_REQUEST_PARAMS;
             return;

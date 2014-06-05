@@ -30,6 +30,7 @@
                         <th><?php echo Yii::t("comment","Price");?></th>
                         <th><?php echo Yii::t("shop","Coupon validity start");?></th>
                         <th><?php echo Yii::t("shop","Coupon validity end");?></th>
+                        <th><?php echo Yii::t("shop","Is in validity");?></th>
                         <th><?php echo Yii::t("admin","Username");?></th>
                         <th><?php echo Yii::t("comment","Operate");?></th>
                     </tr>
@@ -43,8 +44,26 @@
                         <td><?php echo $value['price']?></td>
                         <td><?php echo empty($value['validity_start'])?"":date("Y-m-d",$value['validity_start']);?></td>
                         <td><?php echo empty($value['validity_end'])?"":date("Y-m-d",$value['validity_end']);?></td>
+                        <td>
+                            <?php
+                                $flag = true;
+                                $now = strtotime(date("Y-m-d",time())); 
+                                if($now > $value['validity_end']  || $now < $value['validity_start']){
+                                    echo "<span style='color:red'>".Yii::t("shop","Not in validity")."</span>";
+                                    $flag = false;
+                                }else{
+                                    echo Yii::t("shop","In validity");
+                                }
+                            ?>
+                         </td>
                         <td><?php echo $value['username']?></td>
-                        <td><a href="/admin/merchantcoupon/usecoupon/uid/<?php echo $value['uid']?>/cid/<?php echo $value['id']?>">确定使用</a></td>
+                        <td>
+                        <?php if($flag):?>
+                            <a href="/admin/merchantcoupon/usecoupon/uid/<?php echo $value['uid']?>/cid/<?php echo $value['id']?>"> 确定使用  </a>
+                        <?php else:?>
+                            优惠券已过期
+                        <?php endif;?>
+                        </td>
                     </tr>
                     <?php endforeach;?>
                 <?php endif;?>
