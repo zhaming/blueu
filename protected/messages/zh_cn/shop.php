@@ -65,4 +65,7 @@ return array (
   'Stamp Manager' => '印花管理',
   'Stamp Name' => '印花名称',
   'Telephone' => '联系电话',
+  "Not in validity"=>"不在有效期内",
+  "Is in validity"=>"是否在有效期",
+  "In validity"=>"在有效期内",
 );

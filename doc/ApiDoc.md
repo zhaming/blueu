@@ -36,6 +36,10 @@ BlueU客户端接口文档
 [关注](#api23)     |  /api/user/like                   |  GET
 [分享](#api24)     |  /api/user/share                  |  POST
 [分享](#api25)     |  /api/user/share                  |  GET
+[优惠券列表](#api26) |  /api/merchantcode/couponlist    |  GET
+[优惠券获取](#api27) |  /api/merchantcode/getcoupon     |  POST
+[印花列表](#api28)  |  /api/merchantcode/stamplist      |  GET
+[印花获取](#api29)  |  /api/merchantcode/getstamp       |  GET
 
 
 ## 约定  
@@ -1080,3 +1084,141 @@ data       |  是  |   map   | 见示例 | 返回数据
     ]
 }
 </pre>
+
+
+
+## 优惠券列表 {#api26}
+地址：/api/merchantcode/couponlist
+
+###接口输入
+
+提交方式：GET
+
+参数名    | 必填 | 类型 | 示例| 说明
+---------|-----|-----|----|---------------
+page     | 否  | int |  1  | 页数 默认1
+pagesize | 否  | int | 10  | 每页条数 默认10
+shopid   | 否  | int | 1   | 店铺id
+
+完整参数示例:
+
+<pre>
+curl -X GET -H "Accept:application/json" http://{domain}/api/merchantcode/couponlist ？page=1&pagesize=2&shopid=1
+</pre>
+
+###接口输出
+
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       |  是  |   map   | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success"
+    "data":[
+        {
+            "id":"6",
+            "name":"eeeeeeeff",
+            "pic":"77f904a9c86068136791af70e0c922f9",
+            "price":"123.00",
+            "validity_start":"1401638400",
+            "validity_end":"1403884800",
+            "suit":"",
+            "codeid":"3",
+            "shopid":"1",
+            "merchantid":"1",
+            "created":"1401758748"
+        }
+    ]
+}
+</pre>
+
+
+## 优惠券获取 {#api27}
+地址：/api/merchantcode/getcoupon
+
+###接口输入
+
+提交方式：POST
+
+参数名    | 必填 | 类型 | 示例| 说明
+---------|-----|-----|----|---------------
+userid   | 是  | int |  1  | 用户id
+codeid   | 是  | int | 1  | 优惠券id
+
+完整参数示例:
+
+<pre>
+curl -X GET -H "Accept:application/json" -d '{"userid":1,"codeid":1}'  http://{domain}/api/merchantcode/getcoupon
+</pre>
+
+###接口输出
+
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success"
+}
+</pre>
+
+
+
+## 印花列表 {#api28}
+地址：/api/merchantcode/stamplist
+
+###接口输入
+
+提交方式：GET
+
+参数名    | 必填 | 类型 | 示例| 说明
+---------|-----|-----|----|---------------
+page     | 否  | int |  1  | 页数 默认1
+pagesize | 否  | int | 10  | 每页条数 默认10
+shopid   | 否  | int | 1   | 店铺id
+
+完整参数示例:
+
+<pre>
+curl -X GET -H "Accept:application/json" http://{domain}/api/merchantcode/stamplist?page=1&pagesize=2&shopid=1
+</pre>
+
+###接口输出
+
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       |  是  |   map   | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success"
+    "data":[
+        {
+          "id":"1",
+          "name":"test",
+          "pic":"14\/06\/05\/1c6bff1b2b97c0cf4275aaad7020b51f.jpg",
+          "validity_start":"1401811200",
+          "validity_end":"1403107200",
+          "suit":"",
+          "codeid":"3",
+          "shopid":"1",
+          "merchantid":"1",
+          "created":"1401758689"
+        }
+    ]
+}
+</pre>
+
+
+
+[印花获取](#api29)  |  /api/merchantcode/getstamp       |  GET
