@@ -132,7 +132,7 @@
             </ul>
         </li>
 
-        <li<?php if (Yii::app()->controller->id == 'activity') { ?> class="active"<?php } ?>>
+        <!--li<?php if (Yii::app()->controller->id == 'activity') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-adjust"></i>
                 <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'Activity manager'); ?></span>
@@ -146,7 +146,7 @@
                     <a href="/admin/activity/template"><i class="icon-double-angle-right"></i>活动模版</a>
                 </li>
             </ul>
-        </li>
+        </li-->
         <li<?php if (Yii::app()->controller->id == 'stat') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="icon-bar-chart"></i>
