@@ -12,14 +12,14 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-newpassword"><?php echo Yii::t('admin', 'Password'); ?></label>
                 <div class="col-sm-9">
-                    <input id="form-field-newpassword" type="password" name="newpassword" value="" placeholder="<?php echo Yii::t('admin', 'Password'); ?>" class="col-xs-10 col-sm-5" />
+                    <input id="form-field-newpassword" type="password" name="newpassword" value="" placeholder="<?php echo Yii::t('admin', 'Please input password'); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="space-4"></div>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-repassword"><?php echo Yii::t('admin', 'Repeat password'); ?></label>
                 <div class="col-sm-9">
-                    <input id="form-field-repassword" type="password" name="repassword" value="" placeholder="<?php echo Yii::t('admin', 'Repeat password'); ?>" class="col-xs-10 col-sm-5" />
+                    <input id="form-field-repassword" type="password" name="repassword" value="" placeholder="<?php echo Yii::t('admin', 'Please input password again'); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="clearfix form-actions">

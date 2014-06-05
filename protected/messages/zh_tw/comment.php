@@ -36,6 +36,7 @@ return array (
   'Reset' => '',
   'Select' => '',
   'Submit' => '',
+  'Success' => '',
   'Total' => '',
   'Edit Success' => '@@@@',
 );

@@ -17,11 +17,13 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Coupon Code' => '',
   'Coupon Create' => '',
   'Coupon List' => '',
   'Coupon Manager' => '',
   'Coupon Name' => '',
   'Coupon total' => '',
+  'Coupon use' => '',
   'Coupon used' => '',
   'Coupon validity end' => '',
   'Coupon validity start' => '',

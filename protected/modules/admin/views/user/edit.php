@@ -41,6 +41,15 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-mobile"><?php echo Yii::t('admin', 'Mobile'); ?></label>
+                            <div class="col-sm-9">
+                                <span class="input-icon input-icon-right">
+                                    <input id="form-field-mobile" name="user[mobile]" value="<?php echo $user['mobile']; ?>" type="text" />
+                                    <i class="icon-headphones"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-status"><?php echo Yii::t('admin', 'Status'); ?></label>
                             <div class="col-sm-9">
                                 <label>
@@ -58,10 +67,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-push"><?php echo Yii::t('admin', 'Push'); ?></label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-pushable"><?php echo Yii::t('admin', 'Push'); ?></label>
                             <div class="col-sm-9">
                                 <label class="control-label">
-                                    <input id="form-field-push" name="user[push]" class="ace ace-switch ace-switch-2" type="checkbox" checked />
+                                    <input id="form-field-pushable" name="user[pushable]" value="1" type="checkbox" class="ace ace-switch ace-switch-2"<?php if ($user['pushable']) { ?> checked<?php } ?> />
                                     <span class="lbl"></span>
                                 </label>
                             </div>

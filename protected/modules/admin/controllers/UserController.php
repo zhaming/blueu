@@ -68,9 +68,11 @@ class UserController extends BController {
             $userId = Yii::app()->request->getQuery('id');
             $user = $this->userBehavior->detail($userId);
             $viewData['user'] = array();
-            $viewData['user']['id'] = $user->id;
-            $viewData['user']['name'] = $user->name;
-            $viewData['user']['status'] = $user->account->status;
+            $viewData['user']['id'] = $user['id'];
+            $viewData['user']['name'] = $user['name'];
+            $viewData['user']['mobile'] = $user['mobile'];
+            $viewData['user']['pushable'] = $user['pushable'];
+            $viewData['user']['status'] = $user['account']['status'];
             return $this->render('edit', $viewData);
         }
         $userEditForm = new UserEditForm();
@@ -82,7 +84,9 @@ class UserController extends BController {
         }
         $userData = array(
             'id' => $userEditForm->id,
-            'name' => $userEditForm->name
+            'name' => $userEditForm->name,
+            'mobile' => $userEditForm->mobile,
+            'pushable' => empty($userEditForm->pushable) ? 0 : 1
         );
         if (!$this->userBehavior->edit($userData)) {
             $viewData['message'] = $this->userBehavior->getError();
@@ -146,60 +150,60 @@ class UserController extends BController {
         $id = Yii::app()->request->getParam('id');
         if (!empty($id)) {
             if ($this->accountBehavior->delete($id)) {
-                $this->showSuccess(Yii::t('admin', 'Delete Success'), $this->createUrl('index'));
+                $this->showSuccess(Yii::t('admin', 'Delete success.'), $this->createUrl('index'));
             } else {
-                $this->showError(Yii::t('admin', 'Delete Failure'), $this->createUrl('index'));
+                $this->showError(Yii::t('admin', 'Delete failure.'), $this->createUrl('index'));
             }
         }
-        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
+        $this->showError(Yii::t('admin', 'Illegal request.'), $this->createUrl('index'));
     }
 
     public function actionDisable() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
             if ($this->accountBehavior->disable($id)) {
-                $this->showSuccess(Yii::t('admin', 'Disable success'), $this->createUrl('index'));
+                $this->showSuccess(Yii::t('admin', 'Disable success.'), $this->createUrl('index'));
             } else {
-                $this->showError(Yii::t('admin', 'Disable failure'), $this->createUrl('index'));
+                $this->showError(Yii::t('admin', 'Disable failure.'), $this->createUrl('index'));
             }
         }
-        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
+        $this->showError(Yii::t('admin', 'Illegal request.'), $this->createUrl('index'));
     }
 
     public function actionEnable() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
             if ($this->accountBehavior->enable($id)) {
-                $this->showSuccess(Yii::t('admin', 'Restore success'), $this->createUrl('index'));
+                $this->showSuccess(Yii::t('admin', 'Restore success.'), $this->createUrl('index'));
             } else {
-                $this->showError(Yii::t('admin', 'Restore failure'), $this->createUrl('index'));
+                $this->showError(Yii::t('admin', 'Restore failure.'), $this->createUrl('index'));
             }
         }
-        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
+        $this->showError(Yii::t('admin', 'Illegal request.'), $this->createUrl('index'));
     }
 
     public function actionEnablePush() {
         $userId = Yii::app()->request->getQuery('id');
         if (!empty($userId)) {
             if ($this->userBehavior->push($userId, 1)) {
-                $this->showSuccess(Yii::t('admin', 'Enable push success'), $this->createUrl('index'));
+                $this->showSuccess(Yii::t('admin', 'Enable push success.'), $this->createUrl('index'));
             } else {
-                $this->showError(Yii::t('admin', 'Enable push failure'), $this->createUrl('index'));
+                $this->showError(Yii::t('admin', 'Enable push failure.'), $this->createUrl('index'));
             }
         }
-        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
+        $this->showError(Yii::t('admin', 'Illegal request.'), $this->createUrl('index'));
     }
 
     public function actionDisablePush() {
         $userId = Yii::app()->request->getQuery('id');
         if (!empty($userId)) {
             if ($this->userBehavior->push($userId, 0)) {
-                $this->showSuccess(Yii::t('admin', 'Disable push success'), $this->createUrl('index'));
+                $this->showSuccess(Yii::t('admin', 'Disable push success.'), $this->createUrl('index'));
             } else {
-                $this->showError(Yii::t('admin', 'Disable push failure'), $this->createUrl('index'));
+                $this->showError(Yii::t('admin', 'Disable push failure.'), $this->createUrl('index'));
             }
         }
-        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
+        $this->showError(Yii::t('admin', 'Illegal request.'), $this->createUrl('index'));
     }
 
 }
