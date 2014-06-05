@@ -35,12 +35,48 @@
                     </div>
                     <?php } ?>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-3 center">
+                        <div class="col-xs-3 col-sm-3 center">
                             <span class="profile-picture">
-                                <img id="avatar" class="editable img-responsive" alt="<?php echo $user['name']; ?>" src="<?php echo HelpTemplate::getAvatarUrl($user['avatar']); ?>"></img>
+                                <img class="image-edit-select editable img-responsive" alt="<?php echo $user['name']; ?>" src="<?php echo HelpTemplate::getAvatarUrl($user['avatar']); ?>"></img>
                             </span>
+                            <div class="space-4"></div>
+                            <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+                                <div class="inline position-relative">
+                                    <a class="user-title-label dropdown-toggle no-underline cursor-pointer" data-toggle="dropdown">
+                                        <i class="icon-circle light-green middle"></i>
+                                        <span class="white">&nbsp;<?php echo $user['name']; ?></span>
+                                    </a>
+                                    <ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
+                                        <li class="dropdown-header"> Change Status </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <i class="icon-circle green"></i>
+                                                &nbsp;
+                                                <span class="green">Available</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <i class="icon-circle red"></i>
+                                                &nbsp;
+                                                <span class="red">Busy</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <i class="icon-circle grey"></i>
+                                                &nbsp;
+                                                <span class="grey">Invisible</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-xs-12 col-sm-9">
+                        <div class="col-xs-9 col-sm-9">
                             <div class="profile-user-info">
                                 <div class="profile-info-row">
                                     <div class="profile-info-name"><?php echo Yii::t('admin', 'Username'); ?></div>
@@ -52,12 +88,6 @@
                                     <div class="profile-info-name"><?php echo Yii::t('admin', 'Status'); ?></div>
                                     <div class="profile-info-value">
                                         <span><?php echo HelpTemplate::accountStatus($user['account']['status']); ?></span>
-                                    </div>
-                                </div>
-                                <div class="profile-info-row">
-                                    <div class="profile-info-name"><?php echo Yii::t('admin', 'Name'); ?></div>
-                                    <div class="profile-info-value">
-                                        <span><?php echo $user['name']; ?>&nbsp;</span>
                                     </div>
                                 </div>
                                 <div class="profile-info-row">
@@ -75,7 +105,7 @@
                                 <div class="profile-info-row">
                                     <div class="profile-info-name"><?php echo Yii::t('admin', 'Mobile'); ?></div>
                                     <div class="profile-info-value">
-                                        <span><?php echo $user['mobile']; ?>&nbsp;</span>
+                                        <span class="editable" id="mobile"><?php echo $user['mobile']; ?>&nbsp;</span>
                                     </div>
                                 </div>
                                 <div class="profile-info-row">

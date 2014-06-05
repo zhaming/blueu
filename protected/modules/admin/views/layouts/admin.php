@@ -20,6 +20,9 @@
 
         <!-- page specific plugin styles -->
         <link rel="stylesheet" href="/statics/css/jquery-ui-1.10.3.custom.min.css" />
+        <link rel="stylesheet" href="/statics/css/jquery.gritter.css" />
+        <link rel="stylesheet" href="/statics/css/select2.css" />
+        <link rel="stylesheet" href="/statics/css/bootstrap-editable.css" />
         <link rel="stylesheet" href="/statics/css/chosen.css" />
         <link rel="stylesheet" href="/statics/css/datepicker.css" />
         <link rel="stylesheet" href="/statics/css/bootstrap-timepicker.css" />
@@ -72,6 +75,8 @@
 
         <script src="/statics/js/jquery-ui-1.10.3.custom.min.js"></script>
         <script src="/statics/js/jquery.ui.touch-punch.min.js"></script>
+        <!-- Gritter 是一个小型的 jQuery 消息通知插件,图片上传使用到 -->
+        <script src="/statics/js/jquery.gritter.min.js"></script>
         <script src="/statics/js/jquery.slimscroll.min.js"></script>
         <script src="/statics/js/jquery.easy-pie-chart.min.js"></script>
         <script src="/statics/js/jquery.sparkline.min.js"></script>
@@ -315,18 +320,19 @@
 
                     //it seems that editable plugin calls appendChild, and as Image doesn't have it, it causes errors on IE at unpredicted points
                     //so let's have a fake appendChild for it!
-                    if (/msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()))
+                    if (/msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) {
                         Image.prototype.appendChild = function(el) {
-                        }
+                        };
+                    }
 
-                    var last_gritter
-                    $('#avatar').editable({
+                    var last_gritter;
+                    // 编辑用户头像
+                    $('.image-edit-select').editable({
                         type: 'image',
                         name: 'avatar',
                         value: null,
                         image: {
-                            //specify ace file input plugin's options here
-                            btn_choose: 'Change Avatar',
+                            btn_choose: 'Change Picture',
                             droppable: true,
                             /**
                              //this will override the default before_change that only accepts image files
@@ -336,25 +342,26 @@
                              */
 
                             //and a few extra ones here
-                            name: 'avatar', //put the field name here as well, will be used inside the custom plugin
-                            max_size: 110000, //~100Kb
+                            name: 'file', //put the field name here as well, will be used inside the custom plugin
+                            max_size: 11000000, //~100Kb
                             on_error: function(code) {//on_error function will be called when the selected file has a problem
-                                if (last_gritter)
+                                if (last_gritter) {
                                     $.gritter.remove(last_gritter);
-                                if (code == 1) {//file format error
+                                }
+                                if (code === 1) {//file format error
                                     last_gritter = $.gritter.add({
                                         title: 'File is not an image!',
                                         text: 'Please choose a jpg|gif|png image!',
                                         class_name: 'gritter-error gritter-center'
                                     });
-                                } else if (code == 2) {//file size rror
+                                } else if (code === 2) {//file size rror
                                     last_gritter = $.gritter.add({
                                         title: 'File too big!',
                                         text: 'Image size should not exceed 100Kb!',
                                         class_name: 'gritter-error gritter-center'
                                     });
-                                }
-                                else {//other error
+                                } else {//other error
+
                                 }
                             },
                             on_success: function() {
@@ -372,7 +379,7 @@
                             //but it may still be submitted by the plugin, because "" (empty string) is different from previous non-empty value whatever it was
                             //so we return just here to prevent problems
                             var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
-                            if (!value || value.length == 0) {
+                            if (!value || value.length === 0) {
                                 deferred.resolve();
                                 return deferred.promise();
                             }
@@ -382,37 +389,40 @@
                             setTimeout(function() {
                                 if ("FileReader" in window) {
                                     //for browsers that have a thumbnail of selected image
-                                    var thumb = $('#avatar').next().find('img').data('thumb');
-                                    if (thumb)
-                                        $('#avatar').get(0).src = thumb;
+                                    var thumb = $('.image-edit-select').next().find('img').data('thumb');
+                                    if (thumb) {
+                                        $('.image-edit-select').get(0).src = thumb;
+                                    }
                                 }
-
                                 deferred.resolve({'status': 'OK'});
-
-                                if (last_gritter)
+                                if (last_gritter) {
                                     $.gritter.remove(last_gritter);
+                                }
                                 last_gritter = $.gritter.add({
                                     title: 'Avatar Updated!',
                                     text: 'Uploading to server can be easily implemented. A working example is included with the template.',
                                     class_name: 'gritter-info gritter-center'
                                 });
-
-                            }, parseInt(Math.random() * 800 + 800))
+                            }, parseInt(Math.random() * 800 + 800));
 
                             return deferred.promise();
                         },
                         success: function(response, newValue) {
                         }
-                    })
+                    });
                 } catch (e) {
                 }
                 //change profile
-				$('[data-toggle="buttons"] .btn').on('click', function(e){
-					var target = $(this).find('input[type=radio]');
-					var which = parseInt(target.val());
-					$('.user-profile').parent().addClass('hide');
-					$('#user-profile-'+which).parent().removeClass('hide');
-				});
+                $('[data-toggle="buttons"] .btn').on('click', function(e) {
+                    var target = $(this).find('input[type=radio]');
+                    var which = parseInt(target.val());
+                    $('.user-profile').parent().addClass('hide');
+                    $('#user-profile-' + which).parent().removeClass('hide');
+                });
+                $('#mobile').editable({
+					type: 'text',
+					name: 'username'
+			    });
             });
         </script>
     </body>
