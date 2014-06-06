@@ -10,114 +10,116 @@
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <link href="/statics/favicon.ico" rel="shortcut icon" />
 
-        <!-- basic styles -->
-        <link rel="stylesheet" href="/statics/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="/statics/css/font-awesome.min.css" />
-
-        <!--[if IE 7]>
-        <link rel="stylesheet" href="/statics/css/font-awesome-ie7.min.css" />
-        <![endif]-->
+        <!-- bootstrap & fontawesome -->
+        <link rel="stylesheet" href="/statics/cc/bootstrap.min.css" />
+        <link rel="stylesheet" href="/statics/cc/font-awesome.min.css" />
 
         <!-- page specific plugin styles -->
-        <link rel="stylesheet" href="/statics/css/jquery-ui-1.10.3.custom.min.css" />
-        <link rel="stylesheet" href="/statics/css/jquery.gritter.css" />
-        <link rel="stylesheet" href="/statics/css/select2.css" />
-        <link rel="stylesheet" href="/statics/css/bootstrap-editable.css" />
-        <link rel="stylesheet" href="/statics/css/chosen.css" />
-        <link rel="stylesheet" href="/statics/css/datepicker.css" />
-        <link rel="stylesheet" href="/statics/css/bootstrap-timepicker.css" />
-        <link rel="stylesheet" href="/statics/css/daterangepicker.css" />
-        <link rel="stylesheet" href="/statics/css/colorpicker.css" />
+        <link rel="stylesheet" href="/statics/cc/jquery-ui.custom.min.css" />
+        <link rel="stylesheet" href="/statics/cc/jquery.gritter.css" />
+        <link rel="stylesheet" href="/statics/cc/select2.css" />
+        <link rel="stylesheet" href="/statics/cc/datepicker.css" />
+        <link rel="stylesheet" href="/statics/cc/bootstrap-editable.css" />
 
-        <!-- fonts -->
-        <!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
+        <!-- text fonts -->
+        <link rel="stylesheet" href="/statics/cc/ace-fonts.css" />
 
         <!-- ace styles -->
-        <link rel="stylesheet" href="/statics/css/ace.min.css" />
-        <link rel="stylesheet" href="/statics/css/ace-rtl.min.css" />
-        <link rel="stylesheet" href="/statics/css/ace-skins.min.css" />
+        <link rel="stylesheet" href="/statics/cc/ace.min.css" />
 
-        <!--[if lte IE 8]>
-        <link rel="stylesheet" href="/statics/css/ace-ie.min.css" />
+        <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/statics/cc/ace-part2.min.css" />
+        <![endif]-->
+        <link rel="stylesheet" href="/statics/cc/ace-skins.min.css" />
+        <link rel="stylesheet" href="/statics/cc/ace-rtl.min.css" />
+
+        <!--[if lte IE 9]>
+          <link rel="stylesheet" href="/statics/cc/ace-ie.min.css" />
         <![endif]-->
 
         <!-- inline styles related to this page -->
 
         <!-- ace settings handler -->
-        <script src="/statics/js/ace-extra.min.js"></script>
+        <script src="/statics/jj/ace-extra.min.js"></script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-        <script src="/statics/js/html5shiv.js"></script>
-        <script src="/statics/js/respond.min.js"></script>
+
+        <!--[if lte IE 8]>
+        <script src="/statics/jj/html5shiv.js"></script>
+        <script src="/statics/jj/respond.min.js"></script>
         <![endif]-->
+    </head>
+
+    <body class="no-skin">
+        <!-- #section:basics/navbar.layout -->
+        <?php $this->widget('application.modules.admin.widgets.NavbarWidget'); ?>
+        <!-- /section:basics/navbar.layout -->
+        <div class="main-container" id="main-container">
+            <!-- #section:basics/sidebar -->
+            <?php $this->widget('application.modules.admin.widgets.SidebarWidget'); ?>
+            <!-- /section:basics/sidebar -->
+            <div class="main-content">
+                <!-- #section:basics/content.breadcrumbs -->
+                <?php $this->widget('application.modules.admin.widgets.BreadcrumbsWidget'); ?>
+                <!-- /section:basics/content.breadcrumbs -->
+                <div class="page-content">
+                    <!-- #section:settings.box -->
+                    <?php $this->widget('application.modules.admin.widgets.SettingWidget'); ?>
+                    <!-- /section:settings.box -->
+                    <?php echo $content; ?>
+                </div>
+                <!-- /.page-content -->
+            </div>
+            <!-- /.main-content -->
+            <?php $this->widget('application.modules.admin.widgets.FooterWidget'); ?>
+            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+            </a>
+        </div>
+        <!-- /.main-container -->
+
         <!-- basic scripts -->
+
         <!--[if !IE]> -->
-        <script src="/statics/js/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript">
+            window.jQuery || document.write("<script src='/statics/jj/jquery.min.js'>" + "<" + "/script>");
+        </script>
+
         <!-- <![endif]-->
 
         <!--[if IE]>
-        <script src="/statics/js/jquery-1.10.2.min.js"></script>
-        <![endif]-->
-
+<script type="text/javascript">
+window.jQuery || document.write("<script src='/statics/jj/jquery1x.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
         <script type="text/javascript">
-            if ("ontouchend" in document) {
-                document.write("<script src='/statics/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
-            }
+            if ('ontouchstart' in document.documentElement)
+                document.write("<script src='/statics/jj/jquery.mobile.custom.min.js'>" + "<" + "/script>");
         </script>
-        <script src="/statics/js/bootstrap.min.js"></script>
-        <script src="/statics/js/typeahead-bs2.min.js"></script>
+        <script src="/statics/jj/bootstrap.min.js"></script>
 
         <!-- page specific plugin scripts -->
 
         <!--[if lte IE 8]>
-        <script src="/statics/js/excanvas.min.js"></script>
+          <script src="/statics/jj/excanvas.min.js"></script>
         <![endif]-->
-
-        <script src="/statics/js/jquery-ui-1.10.3.custom.min.js"></script>
-        <script src="/statics/js/jquery.ui.touch-punch.min.js"></script>
-        <!-- Gritter 是一个小型的 jQuery 消息通知插件,图片上传使用到 -->
-        <script src="/statics/js/jquery.gritter.min.js"></script>
-        <!--<script src="/statics/js/jquery.slimscroll.min.js"></script>-->
-        <script src="/statics/js/jquery.easy-pie-chart.min.js"></script>
-        <script src="/statics/js/jquery.sparkline.min.js"></script>
-        <script src="/statics/js/date-time/bootstrap-timepicker.min.js"></script>
-        <script src="/statics/js/date-time/bootstrap-datepicker.min.js"></script>
-        <script src="/statics/js/jquery.maskedinput.min.js"></script>
-        <script src="/statics/js/x-editable/bootstrap-editable.min.js"></script>
-        <script src="/statics/js/x-editable/ace-editable.min.js"></script>
-        <script src="/statics/js/bootbox.min.js"></script>
-
-        <!--<script src="/statics/js/flot/jquery.flot.min.js"></script>-->
-        <!--<script src="/statics/js/flot/jquery.flot.pie.min.js"></script>-->
-        <!--script src="/statics/js/flot/jquery.flot.resize.min.js"></script>-->
+        <script src="/statics/jj/jquery-ui.custom.min.js"></script>
+        <script src="/statics/jj/jquery.ui.touch-punch.min.js"></script>
+        <script src="/statics/jj/jquery.gritter.min.js"></script>
+        <script src="/statics/jj/bootbox.min.js"></script>
+        <script src="/statics/jj/jquery.easypiechart.min.js"></script>
+        <script src="/statics/jj/date-time/bootstrap-datepicker.min.js"></script>
+        <script src="/statics/jj/jquery.hotkeys.min.js"></script>
+        <script src="/statics/jj/bootstrap-wysiwyg.min.js"></script>
+        <script src="/statics/jj/select2.min.js"></script>
+        <script src="/statics/jj/fuelux/fuelux.spinner.min.js"></script>
+        <script src="/statics/jj/x-editable/bootstrap-editable.min.js"></script>
+        <script src="/statics/jj/x-editable/ace-editable.min.js"></script>
+        <script src="/statics/jj/jquery.maskedinput.min.js"></script>
 
         <!-- ace scripts -->
-
-        <script src="/statics/js/ace-elements.min.js"></script>
-        <script src="/statics/js/ace.min.js"></script>
-
-        <script src="/statics/js/esl/esl.js"></script>
-    </head>
-
-    <body>
-        <?php $this->widget('application.modules.admin.widgets.NavbarWidget'); ?>
-        <div class="main-container" id="main-container">
-            <div class="main-container-inner">
-                <?php $this->widget('application.modules.admin.widgets.SidebarWidget'); ?>
-                <div class="main-content">
-                    <?php $this->widget('application.modules.admin.widgets.BreadcrumbsWidget'); ?>
-                    <div class="page-content">
-                        <?php echo $content; ?>
-                    </div>
-                </div>
-                <?php $this->widget('application.modules.admin.widgets.SettingWidget'); ?>
-            </div>
-            <a id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-                <i class="icon-double-angle-up icon-only bigger-110"></i>
-            </a>
-        </div>
-
+        <script src="/statics/jj/ace-elements.min.js"></script>
+        <script src="/statics/jj/ace.min.js"></script>
         <script type="text/javascript">
             jQuery(function($) {
                 // 删除确认
@@ -309,9 +311,11 @@
 
                 try {
                     ace.settings.check('navbar', 'fixed');
-                    ace.settings.check('sidebar', 'fixed');
+                    
                     ace.settings.check('main-container', 'fixed');
+                    ace.settings.check('sidebar', 'fixed');
                     ace.settings.check('breadcrumbs', 'fixed');
+                    ace.settings.check('sidebar', 'collapsed');
 
                     var last_gritter;
                     // 编辑用户头像
@@ -402,6 +406,16 @@
                 }
             });
         </script>
+        <link rel="stylesheet" href="/statics/cc/ace.onpage-help.css" />
+        <link rel="stylesheet" href="/statics/cc/sunburst.css" />
+
+        <script type="text/javascript"> ace.vars['base'] = '..';</script>
+        <script src="/statics/jj/ace/ace.onpage-help.js"></script>
+        <script src="/statics/jj/rainbow.js"></script>
+        <script src="/statics/jj/generic.js"></script>
+        <script src="/statics/jj/html.js"></script>
+        <script src="/statics/jj/css.js"></script>
+        <script src="/statics/jj/javascript.js"></script>
     </body>
 </html>
 

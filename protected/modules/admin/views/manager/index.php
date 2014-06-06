@@ -2,11 +2,11 @@
     <div class="col-xs-12">
         <p>
             <a href="/admin/manager/create" class="btn btn-app btn-success btn-xs">
-                <i class="icon-plus bigger-120"></i>
+                <i class="ace-icon glyphicon glyphicon-plus bigger-120"></i>
                 <?php echo Yii::t('admin', 'Create'); ?>
             </a>
             <button class="btn btn-app btn-danger btn-xs batch-delete-confirm">
-                <i class="icon-remove bigger-120"></i>
+                <i class="ace-icon glyphicon glyphicon-remove bigger-120"></i>
                 <?php echo Yii::t('admin', 'Delete'); ?>
             </button>
         </p>
@@ -47,18 +47,18 @@
                                 <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
                                     <?php if ($item->status == HelpTemplate::USER_STATUS_DISABLED) { ?>
                                     <a href="<?php echo $this->createUrl('enable?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="green">
-                                        <i class="icon-unlock bigger-130"></i>
+                                        <i class="ace-icon fa fa-unlock bigger-130"></i>
                                     </a>
                                     <?php } else { ?>
                                     <a href="<?php echo $this->createUrl('disable?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="yellow">
-                                        <i class="icon-lock bigger-130"></i>
+                                        <i class="ace-icon fa fa-lock bigger-130"></i>
                                     </a>
                                     <?php } ?>
                                     <a href="<?php echo $this->createUrl('resetpwd?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Reset password'); ?>" class="green">
-                                        <i class="icon-key bigger-130"></i>
+                                        <i class="ace-icon fa fa-key bigger-130"></i>
                                     </a>
                                     <a href="<?php echo $this->createUrl('delete?id=' . $item->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="red delete-confirm">
-                                        <i class="icon-trash bigger-130"></i>
+                                        <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                     </a>
                                 </div>
                             </td>
