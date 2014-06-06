@@ -1,14 +1,13 @@
 <?php
-class AlterMsgWidget extends CWidget
-{
-    public function init()
-    {
+
+class AlterMsgWidget extends CWidget {
+
+    public function init() {
         parent::init();
     }
 
-    public function run()
-    {
+    public function run() {
         $this->render("AlterMsg");
     }
+
 }
-?>

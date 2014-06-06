@@ -61,8 +61,9 @@
         <![endif]-->
 
         <script type="text/javascript">
-            if ("ontouchend" in document)
+            if ("ontouchend" in document) {
                 document.write("<script src='/statics/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
+            }
         </script>
         <script src="/statics/js/bootstrap.min.js"></script>
         <script src="/statics/js/typeahead-bs2.min.js"></script>
@@ -86,8 +87,8 @@
         <script src="/statics/js/x-editable/bootstrap-editable.min.js"></script>
         <script src="/statics/js/x-editable/ace-editable.min.js"></script>
 
-    <!--<script src="/statics/js/flot/jquery.flot.min.js"></script>-->
-    <!--<script src="/statics/js/flot/jquery.flot.pie.min.js"></script>-->
+        <!--<script src="/statics/js/flot/jquery.flot.min.js"></script>-->
+        <!--<script src="/statics/js/flot/jquery.flot.pie.min.js"></script>-->
         <!--script src="/statics/js/flot/jquery.flot.resize.min.js"></script>-->
 
         <!-- ace scripts -->
@@ -101,13 +102,6 @@
     <body>
         <?php $this->widget('application.modules.admin.widgets.NavbarWidget'); ?>
         <div class="main-container" id="main-container">
-            <script type="text/javascript">
-                try {
-                    ace.settings.check('main-container', 'fixed');
-                } catch (e) {
-                    console.log(e);
-                }
-            </script>
             <div class="main-container-inner">
                 <a class="menu-toggler" id="menu-toggler" href="#">
                     <span class="menu-text"></span>
@@ -121,26 +115,24 @@
                 </div>
                 <?php $this->widget('application.modules.admin.widgets.SettingWidget'); ?>
             </div>
-
-            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <a id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
                 <i class="icon-double-angle-up icon-only bigger-110"></i>
             </a>
         </div>
 
         <script type="text/javascript">
             jQuery(function($) {
+                // 删除确认
                 $(".delete-confirm").click(function() {
                     return confirm('Are you absolutely sure you want to delete?');
                 });
+                // 批量删除表单提交确认
                 $(".batch-delete-confirm").click(function() {
                     if (confirm('Are you absolutely sure you want to delete?')) {
                         $(".batch-delete-form").submit();
                     }
                 });
-                $.fn.editable.defaults.mode = 'inline';
-                $.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
-                $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>' +
-                        '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';
+                // 首页统计效果
                 $('.easy-pie-chart.percentage').each(function() {
                     var $box = $(this).closest('.infobox');
                     var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
@@ -156,124 +148,12 @@
                         size: size
                     });
                 });
-
-
                 $('.sparkline').each(function() {
                     var $box = $(this).closest('.infobox');
                     var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
                     $(this).sparkline('html', {tagValuesAttribute: 'data-values', type: 'bar', barColor: barColor, chartRangeMin: $(this).data('min') || 0});
                 });
-
-                var placeholder = $('#piechart-placeholder').css({'width': '90%', 'min-height': '150px'});
-                var data = [
-                    {label: "social networks", data: 38.7, color: "#68BC31"},
-                    {label: "search engines", data: 24.5, color: "#2091CF"},
-                    {label: "ad campaigns", data: 8.2, color: "#AF4E96"},
-                    {label: "direct traffic", data: 18.6, color: "#DA5430"},
-                    {label: "other", data: 10, color: "#FEE074"}
-                ];
-
-
-
-
-                var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
-                var previousPoint = null;
-
-                placeholder.on('plothover', function(event, pos, item) {
-                    if (item) {
-                        if (previousPoint !== item.seriesIndex) {
-                            previousPoint = item.seriesIndex;
-                            var tip = item.series['label'] + " : " + item.series['percent'] + '%';
-                            $tooltip.show().children(0).text(tip);
-                        }
-                        $tooltip.css({top: pos.pageY + 10, left: pos.pageX + 10});
-                    } else {
-                        $tooltip.hide();
-                        previousPoint = null;
-                    }
-
-                });
-
-
-
-
-
-
-                var d1 = [];
-                for (var i = 0; i < Math.PI * 2; i += 0.5) {
-                    d1.push([i, Math.sin(i)]);
-                }
-
-                var d2 = [];
-                for (var i = 0; i < Math.PI * 2; i += 0.5) {
-                    d2.push([i, Math.cos(i)]);
-                }
-
-                var d3 = [];
-                for (var i = 0; i < Math.PI * 2; i += 0.2) {
-                    d3.push([i, Math.tan(i)]);
-                }
-
-
-                var sales_charts = $('#sales-charts').css({'width': '100%', 'height': '220px'});
-
-
-
-                $('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-                function tooltip_placement(context, source) {
-                    var $source = $(source);
-                    var $parent = $source.closest('.tab-content');
-                    var off1 = $parent.offset();
-                    var w1 = $parent.width();
-
-                    var off2 = $source.offset();
-                    var w2 = $source.width();
-
-                    if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2))
-                        return 'right';
-                    return 'left';
-                }
-
-
-                $('.dialogs,.comments').slimScroll({
-                    height: '300px'
-                });
-
-
-                //Android's default browser somehow is confused when tapping on label which will lead to dragging the task
-                //so disable dragging when clicking on label
-                var agent = navigator.userAgent.toLowerCase();
-                if ("ontouchstart" in document && /applewebkit/.test(agent) && /android/.test(agent))
-                    $('#tasks').on('touchstart', function(e) {
-                        var li = $(e.target).closest('#tasks li');
-                        if (li.length === 0)
-                            return;
-                        var label = li.find('label.inline').get(0);
-                        if (label === e.target || $.contains(label, e.target))
-                            e.stopImmediatePropagation();
-                    });
-
-                $('#tasks').sortable({
-                    opacity: 0.8,
-                    revert: true,
-                    forceHelperSize: true,
-                    placeholder: 'draggable-placeholder',
-                    forcePlaceholderSize: true,
-                    tolerance: 'pointer',
-                    stop: function(event, ui) {//just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved
-                        $(ui.item).css('z-index', 'auto');
-                    }
-                }
-                );
-                $('#tasks').disableSelection();
-                $('#tasks input:checkbox').removeAttr('checked').on('click', function() {
-                    if (this.checked) {
-                        $(this).closest('li').addClass('selected');
-                    } else {
-                        $(this).closest('li').removeClass('selected');
-                    }
-                });
-
+                // 表单记录批量选择
                 $('table th input:checkbox').on('click', function() {
                     var that = this;
                     $(this).closest('table').find('tr > td:first-child input:checkbox').each(function() {
@@ -281,6 +161,7 @@
                         $(this).closest('tr').toggleClass('selected');
                     });
                 });
+                // 上传选择图片
                 $('#id-input-file-single-upload').ace_file_input({
                     //style: true,
                     no_file: '',
@@ -315,6 +196,12 @@
                     //before_remove: null,
                     //preview_error: null
                 });
+                // 图片编辑
+                $.fn.editable.defaults.mode = 'inline';
+                $.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
+                $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>' +
+                        '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';
+                
                 // *** editable avatar *** //
                 try {//ie8 throws some harmless exception, so let's catch it
 
@@ -412,17 +299,19 @@
                     });
                 } catch (e) {
                 }
-                //change profile
-                $('[data-toggle="buttons"] .btn').on('click', function(e) {
-                    var target = $(this).find('input[type=radio]');
-                    var which = parseInt(target.val());
-                    $('.user-profile').parent().addClass('hide');
-                    $('#user-profile-' + which).parent().removeClass('hide');
-                });
+
                 $('#mobile').editable({
-					type: 'text',
-					name: 'username'
-			    });
+                    type: 'text',
+                    name: 'username'
+                });
+
+                try {
+                    ace.settings.check('navbar', 'fixed');
+                    ace.settings.check('sidebar', 'fixed');
+                    ace.settings.check('main-container', 'fixed');
+                    ace.settings.check('breadcrumbs', 'fixed');
+                } catch (e) {
+                }
             });
         </script>
     </body>

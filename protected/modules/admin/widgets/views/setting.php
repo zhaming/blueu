@@ -2,7 +2,6 @@
     <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
         <i class="icon-cog bigger-150"></i>
     </div>
-
     <div class="ace-settings-box" id="ace-settings-box">
         <div>
             <div class="pull-left">
@@ -13,34 +12,28 @@
                     <option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
                 </select>
             </div>
-            <span>&nbsp; 选择皮肤</span>
+            <span>&nbsp;<?php echo Yii::t('admin', 'Select the skin'); ?></span>
         </div>
-
         <div>
             <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
-            <label class="lbl" for="ace-settings-navbar"> 固定导航条</label>
+            <label class="lbl" for="ace-settings-navbar"><?php echo Yii::t('admin', 'Fixed navigation bar'); ?></label>
         </div>
-
         <div>
             <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
-            <label class="lbl" for="ace-settings-sidebar"> 固定滑动条</label>
+            <label class="lbl" for="ace-settings-sidebar"><?php echo Yii::t('admin', 'Fixed slider'); ?></label>
         </div>
-
         <div>
             <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
-            <label class="lbl" for="ace-settings-breadcrumbs">固定面包屑</label>
+            <label class="lbl" for="ace-settings-breadcrumbs"><?php echo Yii::t('admin', 'Fixed the crumbs'); ?></label>
         </div>
-
         <div>
             <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
-            <label class="lbl" for="ace-settings-rtl">切换到左边</label>
+            <label class="lbl" for="ace-settings-rtl"><?php echo Yii::t('admin', 'Switch to the left'); ?></label>
         </div>
-
         <div>
             <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
             <label class="lbl" for="ace-settings-add-container">
-                切换窄屏
-                <b></b>
+                <?php echo Yii::t('admin', 'Switch the screen'); ?>
             </label>
         </div>
     </div>
