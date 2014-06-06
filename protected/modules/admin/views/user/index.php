@@ -74,11 +74,11 @@
                                     <?php } ?>
                                     <?php if ($item->pushable) { ?>
                                     <a href="<?php echo $this->createUrl('disablepush?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Disable push'); ?>" class="red">
-                                        <i class="ace-icon fa fa-download-alt bigger-130"></i>
+                                        <i class="ace-icon fa fa-download bigger-130"></i>
                                     </a>
                                     <?php } else { ?>
                                     <a href="<?php echo $this->createUrl('enablepush?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable push'); ?>" class="green">
-                                        <i class="ace-icon fa fa-download-alt bigger-130"></i>
+                                        <i class="ace-icon fa fa-download bigger-130"></i>
                                     </a>
                                     <?php } ?>
                                     <a href="<?php echo $this->createUrl('detail?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Detail'); ?>" class="green">

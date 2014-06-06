@@ -7,31 +7,33 @@
         <meta name="language" content="<?php echo Yii::app()->getLocale()->getId(); ?>" />
         <meta content="<?php echo Yii::app()->params->meta_keywords; ?>" name="keywords" />
         <meta content="<?php echo Yii::app()->params->meta_description; ?>" name="description" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <link href="/statics/favicon.ico" rel="shortcut icon" />
 
         <!-- bootstrap & fontawesome -->
-        <link rel="stylesheet" href="/statics/cc/bootstrap.min.css" />
-        <link rel="stylesheet" href="/statics/cc/font-awesome.min.css" />
+        <link rel="stylesheet" href="/statics/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/statics/css/font-awesome.min.css" />
 
         <!-- page specific plugin styles -->
-        <link rel="stylesheet" href="/statics/cc/jquery-ui.custom.min.css" />
-        <link rel="stylesheet" href="/statics/cc/jquery.gritter.css" />
-        <link rel="stylesheet" href="/statics/cc/select2.css" />
-        <link rel="stylesheet" href="/statics/cc/datepicker.css" />
-        <link rel="stylesheet" href="/statics/cc/bootstrap-editable.css" />
+        <link rel="stylesheet" href="/statics/css/jquery-ui.custom.min.css" />
+        <link rel="stylesheet" href="/statics/css/jquery.gritter.css" />
+        <link rel="stylesheet" href="/statics/css/select2.css" />
+        <link rel="stylesheet" href="/statics/css/datepicker.css" />
+        <link rel="stylesheet" href="/statics/css/bootstrap-editable.css" />
 
         <!-- text fonts -->
-        <link rel="stylesheet" href="/statics/cc/ace-fonts.css" />
+        <link rel="stylesheet" href="/statics/css/ace-fonts.css" />
 
         <!-- ace styles -->
-        <link rel="stylesheet" href="/statics/cc/ace.min.css" />
+        <link rel="stylesheet" href="/statics/css/ace.min.css" />
 
         <!--[if lte IE 9]>
         <link rel="stylesheet" href="/statics/cc/ace-part2.min.css" />
         <![endif]-->
-        <link rel="stylesheet" href="/statics/cc/ace-skins.min.css" />
-        <link rel="stylesheet" href="/statics/cc/ace-rtl.min.css" />
+        <link rel="stylesheet" href="/statics/css/ace-skins.min.css" />
+        <link rel="stylesheet" href="/statics/css/ace-rtl.min.css" />
 
         <!--[if lte IE 9]>
           <link rel="stylesheet" href="/statics/cc/ace-ie.min.css" />
@@ -40,13 +42,13 @@
         <!-- inline styles related to this page -->
 
         <!-- ace settings handler -->
-        <script src="/statics/jj/ace-extra.min.js"></script>
+        <script src="/statics/js/ace-extra.min.js"></script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
         <!--[if lte IE 8]>
-        <script src="/statics/jj/html5shiv.js"></script>
-        <script src="/statics/jj/respond.min.js"></script>
+        <script src="/statics/js/html5shiv.js"></script>
+        <script src="/statics/js/respond.min.js"></script>
         <![endif]-->
     </head>
 
@@ -82,44 +84,46 @@
 
         <!--[if !IE]> -->
         <script type="text/javascript">
-            window.jQuery || document.write("<script src='/statics/jj/jquery.min.js'>" + "<" + "/script>");
+            window.jQuery || document.write("<script src='/statics/js/jquery.min.js'>" + "<" + "/script>");
         </script>
 
         <!-- <![endif]-->
 
         <!--[if IE]>
 <script type="text/javascript">
-window.jQuery || document.write("<script src='/statics/jj/jquery1x.min.js'>"+"<"+"/script>");
+window.jQuery || document.write("<script src='/statics/js/jquery1x.min.js'>"+"<"+"/script>");
 </script>
 <![endif]-->
         <script type="text/javascript">
             if ('ontouchstart' in document.documentElement)
-                document.write("<script src='/statics/jj/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+                document.write("<script src='/statics/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
         </script>
-        <script src="/statics/jj/bootstrap.min.js"></script>
+        <script src="/statics/js/bootstrap.min.js"></script>
 
         <!-- page specific plugin scripts -->
 
         <!--[if lte IE 8]>
-          <script src="/statics/jj/excanvas.min.js"></script>
+          <script src="/statics/js/excanvas.min.js"></script>
         <![endif]-->
-        <script src="/statics/jj/jquery-ui.custom.min.js"></script>
-        <script src="/statics/jj/jquery.ui.touch-punch.min.js"></script>
-        <script src="/statics/jj/jquery.gritter.min.js"></script>
-        <script src="/statics/jj/bootbox.min.js"></script>
-        <script src="/statics/jj/jquery.easypiechart.min.js"></script>
-        <script src="/statics/jj/date-time/bootstrap-datepicker.min.js"></script>
-        <script src="/statics/jj/jquery.hotkeys.min.js"></script>
-        <script src="/statics/jj/bootstrap-wysiwyg.min.js"></script>
-        <script src="/statics/jj/select2.min.js"></script>
-        <script src="/statics/jj/fuelux/fuelux.spinner.min.js"></script>
-        <script src="/statics/jj/x-editable/bootstrap-editable.min.js"></script>
-        <script src="/statics/jj/x-editable/ace-editable.min.js"></script>
-        <script src="/statics/jj/jquery.maskedinput.min.js"></script>
+        <script src="/statics/js/jquery-ui.custom.min.js"></script>
+        <script src="/statics/js/jquery.ui.touch-punch.min.js"></script>
+        <script src="/statics/js/jquery.easypiechart.min.js"></script>
+        <script src="/statics/js/jquery.sparkline.min.js"></script>
+        <script src="/statics/js/jquery.gritter.min.js"></script>
+        <script src="/statics/js/bootbox.min.js"></script>
+        <script src="/statics/js/jquery.easypiechart.min.js"></script>
+        <script src="/statics/js/bootstrap-datepicker.min.js"></script>
+        <script src="/statics/js/jquery.hotkeys.min.js"></script>
+        <script src="/statics/js/bootstrap-wysiwyg.min.js"></script>
+        <script src="/statics/js/select2.min.js"></script>
+        <script src="/statics/js/fuelux.spinner.min.js"></script>
+        <script src="/statics/js/bootstrap-editable.min.js"></script>
+        <script src="/statics/js/ace-editable.min.js"></script>
+        <script src="/statics/js/jquery.maskedinput.min.js"></script>
 
         <!-- ace scripts -->
-        <script src="/statics/jj/ace-elements.min.js"></script>
-        <script src="/statics/jj/ace.min.js"></script>
+        <script src="/statics/js/ace-elements.min.js"></script>
+        <script src="/statics/js/ace.min.js"></script>
         <script type="text/javascript">
             jQuery(function($) {
                 // 删除确认
@@ -197,10 +201,12 @@ window.jQuery || document.write("<script src='/statics/jj/jquery1x.min.js'>"+"<"
                     //preview_error: null
                 });
                 // 图片编辑
+                //editables on first profile page
                 $.fn.editable.defaults.mode = 'inline';
-                $.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
-                $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>' +
-                        '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';
+                $.fn.editableform.loading = "<div class='editableform-loading'><i class='ace-icon fa fa-spinner fa-spin fa-2x light-blue'></i></div>";
+                $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="ace-icon fa fa-check"></i></button>' +
+                        '<button type="button" class="btn editable-cancel"><i class="ace-icon fa fa-times"></i></button>';
+
 
                 if (/msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) {
                     Image.prototype.appendChild = function(el) {
@@ -212,106 +218,9 @@ window.jQuery || document.write("<script src='/statics/jj/jquery1x.min.js'>"+"<"
                     name: 'username'
                 });
 
-                //another option is using modals
-                $('#avatar2').on('click', function() {
-                    var modal = '<div class="modal hide fade">\
-                            <div class="modal-header">\
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>\
-                                    <h4 class="blue">Change Avatar</h4>\
-                            </div>\
-                            \
-                            <form class="no-margin">\
-                            <div class="modal-body">\
-                                    <div class="space-4"></div>\
-                                    <div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
-                            </div>\
-                            \
-                            <div class="modal-footer center">\
-                                    <button type="submit" class="btn btn-small btn-success"><i class="icon-ok"></i> Submit</button>\
-                                    <button type="button" class="btn btn-small" data-dismiss="modal"><i class="icon-remove"></i> Cancel</button>\
-                            </div>\
-                            </form>\
-                    </div>';
-
-                    var modal = $(modal);
-                    modal.modal("show").on("hidden", function() {
-                        modal.remove();
-                    });
-
-                    var working = false;
-
-                    var form = modal.find('form:eq(0)');
-                    var file = form.find('input[type=file]').eq(0);
-                    file.ace_file_input({
-                        style: 'well',
-                        btn_choose: 'Click to choose new avatar',
-                        btn_change: null,
-                        no_icon: 'icon-picture',
-                        thumbnail: 'small',
-                        before_remove: function() {
-                            //don't remove/reset files while being uploaded
-                            return !working;
-                        },
-                        before_change: function(files, dropped) {
-                            var file = files[0];
-                            if (typeof file === "string") {
-                                //file is just a file name here (in browsers that don't support FileReader API)
-                                if (!(/\.(jpe?g|png|gif)$/i).test(file))
-                                    return false;
-                            }
-                            else {//file is a File object
-                                var type = $.trim(file.type);
-                                if ((type.length > 0 && !(/^image\/(jpe?g|png|gif)$/i).test(type))
-                                        || (type.length == 0 && !(/\.(jpe?g|png|gif)$/i).test(file.name))//for android default browser!
-                                        )
-                                    return false;
-
-                                if (file.size > 110000) {//~100Kb
-                                    return false;
-                                }
-                            }
-
-                            return true;
-                        }
-                    });
-
-                    form.on('submit', function() {
-                        if (!file.data('ace_input_files'))
-                            return false;
-
-                        file.ace_file_input('disable');
-                        form.find('button').attr('disabled', 'disabled');
-                        form.find('.modal-body').append("<div class='center'><i class='icon-spinner icon-spin bigger-150 orange'></i></div>");
-
-                        var deferred = new $.Deferred;
-                        working = true;
-                        deferred.done(function() {
-                            form.find('button').removeAttr('disabled');
-                            form.find('input[type=file]').ace_file_input('enable');
-                            form.find('.modal-body > :last-child').remove();
-
-                            modal.modal("hide");
-
-                            var thumb = file.next().find('img').data('thumb');
-                            if (thumb)
-                                $('#avatar2').get(0).src = thumb;
-
-                            working = false;
-                        });
-
-
-                        setTimeout(function() {
-                            deferred.resolve();
-                        }, parseInt(Math.random() * 800 + 800));
-
-                        return false;
-                    });
-
-                });
 
                 try {
                     ace.settings.check('navbar', 'fixed');
-                    
                     ace.settings.check('main-container', 'fixed');
                     ace.settings.check('sidebar', 'fixed');
                     ace.settings.check('breadcrumbs', 'fixed');
@@ -319,7 +228,7 @@ window.jQuery || document.write("<script src='/statics/jj/jquery1x.min.js'>"+"<"
 
                     var last_gritter;
                     // 编辑用户头像
-                    $('.image-edit-select1').editable({
+                    $('.edit-picture').editable({
                         type: 'image',
                         name: 'avatar',
                         value: null,
@@ -370,7 +279,7 @@ window.jQuery || document.write("<script src='/statics/jj/jquery1x.min.js'>"+"<"
                             //if value is empty, means no valid files were selected
                             //but it may still be submitted by the plugin, because "" (empty string) is different from previous non-empty value whatever it was
                             //so we return just here to prevent problems
-                            var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
+                            var value = $('.edit-picture').next().find('input[type=hidden]:eq(0)').val();
                             if (!value || value.length === 0) {
                                 deferred.resolve();
                                 return deferred.promise();
@@ -383,7 +292,7 @@ window.jQuery || document.write("<script src='/statics/jj/jquery1x.min.js'>"+"<"
                                     //for browsers that have a thumbnail of selected image
                                     var thumb = $('.image-edit-select').next().find('img').data('thumb');
                                     if (thumb) {
-                                        $('.image-edit-select').get(0).src = thumb;
+                                        $('.edit-picture').get(0).src = thumb;
                                     }
                                 }
                                 deferred.resolve({'status': 'OK'});
@@ -406,16 +315,16 @@ window.jQuery || document.write("<script src='/statics/jj/jquery1x.min.js'>"+"<"
                 }
             });
         </script>
-        <link rel="stylesheet" href="/statics/cc/ace.onpage-help.css" />
-        <link rel="stylesheet" href="/statics/cc/sunburst.css" />
+        <link rel="stylesheet" href="/statics/css/ace.onpage-help.css" />
+        <link rel="stylesheet" href="/statics/css/sunburst.css" />
 
         <script type="text/javascript"> ace.vars['base'] = '..';</script>
-        <script src="/statics/jj/ace/ace.onpage-help.js"></script>
-        <script src="/statics/jj/rainbow.js"></script>
-        <script src="/statics/jj/generic.js"></script>
-        <script src="/statics/jj/html.js"></script>
-        <script src="/statics/jj/css.js"></script>
-        <script src="/statics/jj/javascript.js"></script>
+        <script src="/statics/js/ace.onpage-help.js"></script>
+        <script src="/statics/js/rainbow.js"></script>
+        <script src="/statics/js/generic.js"></script>
+        <script src="/statics/js/html.js"></script>
+        <script src="/statics/js/css.js"></script>
+        <script src="/statics/js/javascript.js"></script>
     </body>
 </html>
 

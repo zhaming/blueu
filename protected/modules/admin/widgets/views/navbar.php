@@ -12,7 +12,7 @@
         <div class="navbar-header pull-left">
             <!-- #section:basics/navbar.layout.brand -->
             <a class="navbar-brand cursor-default">
-                <small><i class="fa fa-leaf"></i><?php echo Yii::t('admin', 'BlueU'); ?><?php echo Yii::t('admin', 'Background management system'); ?></small>
+                <small><i class="fa fa-leaf"></i>&nbsp;<?php echo Yii::t('admin', 'BlueU'); ?><?php echo Yii::t('admin', 'Background management system'); ?></small>
             </a>
             <!-- /section:basics/navbar.layout.brand -->
         </div>

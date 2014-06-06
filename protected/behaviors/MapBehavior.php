@@ -22,7 +22,7 @@ class MapBehavior extends BaseBehavior {
         $criteria = new CDbCriteria();
         $criteria->addCondition('disabled=0');
         $criteria->order = 'created desc';
-        $count = Advertisement::model()->count($criteria);
+        $count = Map::model()->count($criteria);
 
         $pager = new CPagination($count);
         $pager->setPageSize(self::DEFAULT_PAGE_SIZE);

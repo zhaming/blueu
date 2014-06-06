@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-xs-3 col-sm-3 center">
                             <span class="profile-picture">
-                                <img id="avatar2" class="image-edit-select editable img-responsive" alt="<?php echo $user['name']; ?>" src="<?php echo HelpTemplate::getAvatarUrl($user['avatar']); ?>"></img>
+                                <img class="edit-picture editable img-responsive" alt="<?php echo $user['name']; ?>" src="<?php echo HelpTemplate::getAvatarUrl($user['avatar']); ?>"></img>
                             </span>
                             <div class="space-4"></div>
                             <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
@@ -50,7 +50,7 @@
                                         <li class="dropdown-header"> Change Status </li>
 
                                         <li>
-                                            <a href="#">
+                                            <a>
                                                 <i class="icon-circle green"></i>
                                                 &nbsp;
                                                 <span class="green">Available</span>
@@ -58,7 +58,7 @@
                                         </li>
 
                                         <li>
-                                            <a href="#">
+                                            <a>
                                                 <i class="icon-circle red"></i>
                                                 &nbsp;
                                                 <span class="red">Busy</span>
@@ -66,7 +66,7 @@
                                         </li>
 
                                         <li>
-                                            <a href="#">
+                                            <a>
                                                 <i class="icon-circle grey"></i>
                                                 &nbsp;
                                                 <span class="grey">Invisible</span>

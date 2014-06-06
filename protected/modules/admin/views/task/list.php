@@ -2,7 +2,7 @@
     <div class="col-xs-12">
         <p>
             <a href="/admin/task/add" class="btn btn-app btn-success btn-xs">
-                <i class="icon-plus bigger-120"></i>
+                <i class="ace-icon fa fa-plus bigger-120"></i>
                 <?php echo Yii::t('admin', 'Create'); ?>
             </a>
         </p>
@@ -63,13 +63,13 @@
                         </td>
                         <td>
                             <a href="<?php echo $this->createUrl('log?taskid=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Log'); ?>" class="btn btn-xs btn-success">
-                                <i class="icon-external-link bigger-120"></i>
+                                <i class="ace-icon fa fa-external-link bigger-120"></i>
                             </a>
                             <a href="<?php echo $this->createUrl('edit?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
-                                <i class="icon-edit bigger-120"></i>
+                                <i class="ace-icon fa fa-edit bigger-120"></i>
                             </a>
                             <a href="<?php echo $this->createUrl('delete?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger delete-confirm">
-                                <i class="icon-trash bigger-120"></i>
+                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
                             </a>
                         </td>
                     </tr>
