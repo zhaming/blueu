@@ -10,11 +10,7 @@
                 <?php echo Yii::t('admin', 'Delete'); ?>
             </button>
         </p>
-        <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
-        <div class="alert alert-block<?php if ($message['type'] == 'success') { ?> alert-success<?php } ?><?php if ($message['type'] == 'error') { ?> alert-danger<?php } ?>">
-            <p><strong><?php echo $message['msg']; ?></strong></p>
-        </div>
-        <?php } ?>
+        <?php $this->widget('application.modules.admin.widgets.AlterMsgWidget'); ?>
         <form action="/admin/map/index" method="get" class="well form-inline">
             <label class="inline">
                 <input type="text" name="name" value="<?php if(!empty($_GET['name'])) { echo $_GET['name']; } ?>" placeholder="<?php echo Yii::t('admin', 'Name'); ?>" /> 

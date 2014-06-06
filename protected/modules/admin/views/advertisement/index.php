@@ -10,20 +10,7 @@
                 <?php echo Yii::t('admin', 'Delete'); ?>
             </button>
         </p>
-        <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
-        <div class="alert alert-block alert-success">
-            <button type="button" class="close" data-dismiss="alert">
-                <i class="icon-remove"></i>
-            </button>
-            <p>
-                <strong>
-                    <?php if ($message['type'] == 'success') { ?><i class="icon-ok"></i><?php } ?>
-                    <?php if ($message['type'] == 'error') { ?><i class="icon-remove"></i><?php } ?>
-                    <?php echo $message['msg']; ?>
-                </strong>
-            </p>
-        </div>
-        <?php } ?>
+        <?php $this->widget('application.modules.admin.widgets.AlterMsgWidget'); ?>
         <div class="table-responsive">
             <form action="/admin/advertisement/delete" method="POST" class="batch-delete-form">
                 <table class="table table-striped table-bordered table-hover">

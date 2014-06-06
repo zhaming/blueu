@@ -1,11 +1,4 @@
 <div class="sidebar" id="sidebar">
-    <script type="text/javascript">
-        try {
-            ace.settings.check('sidebar', 'fixed');
-        } catch (e) {
-            console.log(e);
-        }
-    </script>
     <div class="sidebar-shortcuts" id="sidebar-shortcuts">
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
             <a href="/admin/user/index" title="<?php echo Yii::t('admin', 'Client user'); ?>" class="btn btn-success">
