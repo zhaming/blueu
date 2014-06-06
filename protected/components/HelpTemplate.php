@@ -129,8 +129,8 @@ class HelpTemplate extends CComponent {
 
     public static function getAdPlaceTags() {
         return array(
-            'top' => Yii::t('admin', '顶部'),
-            'right' => Yii::t('admin', '右边')
+            'top' => Yii::t('admin', 'Top'),
+            'right' => Yii::t('admin', 'Right')
         );
     }
 

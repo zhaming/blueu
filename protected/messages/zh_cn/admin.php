@@ -17,9 +17,9 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'System name' => 'BLUEU后台管理系统',
-  '右边' => '',
-  '顶部' => '',
+  'Right' => '右边',
+  'Top' => '顶部',
+  '&Copy; BlueU' => '&copy; 蓝友',
   '&lt; Previous' => '上一页',
   '&lt;&lt; First' => '首页',
   'AAddFail' => '添加出错',
@@ -38,8 +38,10 @@ return array (
   'Advertisement manager' => '广告管理',
   'Agreement' => '协议',
   'Avatar' => '头像',
+  'Background management system' => '后台管理系统',
   'Bank' => '银行',
   'Bank account' => '银行账户',
+  'BlueU' => 'BlueU',
   'Century' => '年代',
   'Client' => '客户端',
   'Client user' => '客户端用户',
@@ -170,6 +172,7 @@ return array (
   'Switch the screen' => '切换窄屏',
   'Switch to the left' => '切换到左边',
   'System' => '系统',
+  'System name' => 'BLUEU后台管理系统',
   'System settings' => '系统设置',
   'Tag' => '标签',
   'TaskDefinition' => '任务说明',
