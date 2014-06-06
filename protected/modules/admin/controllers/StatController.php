@@ -11,6 +11,11 @@
 
 class StatController extends BController {
     
+    static $statMap = array(
+        'user' => array('info', 'convert', 'share'),
+        'industry' => array('total', 'shoptop', 'industrytop', 'coupontop', 'stamptop'),
+        'shop' => array('toshop', 'coupontop', 'stamptop', 'realtime'),
+    );
     private $_stat;
     
     protected function beforeAction($action) {
@@ -20,14 +25,27 @@ class StatController extends BController {
     }
     
     public function actionUser() {
+        $t = Yii::app()->request->getQuery('t');
+        $t = empty($t) || !in_array($t, self::$statMap[Yii::app()->controller->id]) ? 'info' : $t;
+        echo $t;
         $this->render('user');
     }
     
+    public function actionUserData() {
+        echo __METHOD__;
+    }
+    
     public function actionIndustry() {
+        $t = Yii::app()->request->getQuery('t');
+        $t = empty($t) || !in_array($t, self::$statMap[Yii::app()->controller->id]) ? 'info' : $t;
+        echo $t;
         $this->render('industry');
     }
     
     public function actionShop() {
+        $t = Yii::app()->request->getQuery('t');
+        $t = empty($t) || !in_array($t, self::$statMap[Yii::app()->controller->id]) ? 'info' : $t;
+        echo $t;
         $this->render('shop');
     }
 }
