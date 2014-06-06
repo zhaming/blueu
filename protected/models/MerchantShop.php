@@ -34,4 +34,9 @@ class MerchantShop extends CActiveRecord{
         );
         return $relations;
     }
+    
+    public function getPicUrl() {
+        if(empty($this->pic)) return '';
+        return Yii::app()->params['host'] . Yii::app()->params['url_web'] . 'upload/original/' . $this->pic;
+    }
 }
