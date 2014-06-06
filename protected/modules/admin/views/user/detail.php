@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-xs-3 col-sm-3 center">
                             <span class="profile-picture">
-                                <img class="image-edit-select editable img-responsive" alt="<?php echo $user['name']; ?>" src="<?php echo HelpTemplate::getAvatarUrl($user['avatar']); ?>"></img>
+                                <img id="avatar2" class="image-edit-select editable img-responsive" alt="<?php echo $user['name']; ?>" src="<?php echo HelpTemplate::getAvatarUrl($user['avatar']); ?>"></img>
                             </span>
                             <div class="space-4"></div>
                             <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">

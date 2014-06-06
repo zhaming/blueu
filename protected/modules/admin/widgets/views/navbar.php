@@ -2,7 +2,7 @@
     <div class="navbar-container" id="navbar-container">
         <div class="navbar-header pull-left">
             <a class="navbar-brand cursor-default">
-                <small><?php echo Yii::t('admin', 'System name'); ?></small>
+                <small><?php echo Yii::t('admin', 'BlueU'); ?><?php echo Yii::t('admin', 'Background management system'); ?></small>
             </a>
         </div>
         <div class="navbar-header pull-right" role="navigation">

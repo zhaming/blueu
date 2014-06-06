@@ -51,10 +51,10 @@
                         <div class="login-container">
                             <div class="center">
                                 <h1>
-                                    <span class="red">BlueU</span>
-                                    <span class="white">后台管理系统</span>
+                                    <span class="red"><?php echo Yii::t('admin', 'BlueU'); ?></span>
+                                    <span class="white"><?php echo Yii::t('admin', 'Background management system'); ?></span>
                                 </h1>
-                                <h4 class="blue">&copy; 蓝友</h4>
+                                <h4 class="blue"><?php echo Yii::t('admin', '&Copy; BlueU'); ?></h4>
                             </div>
                             <div class="space-6"></div>
                             <div class="position-relative">
