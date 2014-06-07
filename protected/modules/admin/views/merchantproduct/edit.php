@@ -1,6 +1,6 @@
 <div class="page-header">
     <h1>
-        商品管理
+        <?php echo Yii::t("shop","Product Manager");?>
         <small><i class="icon-double-angle-right"></i>商品编辑</small>
     </h1>
 </div>

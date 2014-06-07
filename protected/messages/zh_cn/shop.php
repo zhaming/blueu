@@ -53,6 +53,7 @@ return array (
   'Product Create' => '添加商品',
   'Product List' => '商品列表',
   'Shop Address' => '店铺地址',
+  'Shop Create' => '店铺地址',
   'Shop Category' => '商铺行业',
   'Shop Create' => '创建商铺',
   'Shop District' => '商圈',
@@ -68,4 +69,12 @@ return array (
   'Stamp Manager' => '印花管理',
   'Stamp Name' => '印花名称',
   'Telephone' => '联系电话',
+  "Apply to shops"=>"适用商铺",
+  "Coupons expired"=>"优惠券已过期",
+  "discount" =>"折扣",
+  "Pelase input discount"=>"请输入折扣",
+  "Price"=>'价格',
+  "Pelase input price"=>"请输入价格",
+  'Product Manager' => '商品管理',
+
 );
