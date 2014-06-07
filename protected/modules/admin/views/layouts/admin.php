@@ -50,6 +50,11 @@
         <script src="/statics/js/html5shiv.js"></script>
         <script src="/statics/js/respond.min.js"></script>
         <![endif]-->
+        <!--[if !IE]> -->
+        <script type="text/javascript">
+            window.jQuery || document.write("<script src='/statics/js/jquery.min.js'>" + "<" + "/script>");
+        </script>
+        <!-- <![endif]-->
     </head>
 
     <body class="no-skin">
@@ -81,13 +86,6 @@
         <!-- /.main-container -->
 
         <!-- basic scripts -->
-
-        <!--[if !IE]> -->
-        <script type="text/javascript">
-            window.jQuery || document.write("<script src='/statics/js/jquery.min.js'>" + "<" + "/script>");
-        </script>
-
-        <!-- <![endif]-->
 
         <!--[if IE]>
 <script type="text/javascript">

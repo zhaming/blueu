@@ -1,7 +1,7 @@
 <div class="page-header">
     <h1>
         <?php echo Yii::t("shop","Product Manager");?>
-        <small><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Shop Create");?></small>
+        <small><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Product Create");?></small>
     </h1>
 </div>
 <?php $this->widget("AlterMsgWidget")?>
@@ -10,16 +10,16 @@
         <form class="form-horizontal"  action="/admin/merchantproduct/create" method="POST"  enctype="multipart/form-data">
 
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="product[name]">商品名</label>
+                <label class="col-sm-3 control-label no-padding-right" for="product[name]"><?php echo Yii::t("shop","Product name");?></label>
                 <div class="col-sm-9">
-                    <input type="text" name="product[name]" value="" placeholder="请输入商品名" class="col-xs-10 col-sm-5" />
+                    <input type="text" name="product[name]" value="" placeholder="<?php echo Yii::t("shop","Pelease input product name");?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="product[intro]">简介</label>
+                <label class="col-sm-3 control-label no-padding-right" for="product[intro]"><?php echo Yii::t("shop","Product intro");?></label>
                 <div class="col-sm-9">
-                <textarea name="product[intro]" placeholder="请输入简介" class=" col-xs-10 col-sm-5  " style="height:100px;"></textarea>
+                <textarea name="product[intro]" placeholder="<?php echo Yii::t("shop","Pelease input product intro");?>" class=" col-xs-10 col-sm-5  " style="height:100px;"></textarea>
                 </div>
             </div>
 

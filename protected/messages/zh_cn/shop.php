@@ -75,6 +75,9 @@ return array (
   "Pelase input discount"=>"请输入折扣",
   "Price"=>'价格',
   "Pelase input price"=>"请输入价格",
-  'Product Manager' => '商品管理',
+  'Product name' => '商品名称',
+  'Pelease input product name' => '请输入商品名称',
+  'Product intro' => '商品简介',
+  'Pelease input product intro' => '请输入商品简介',
 
 );
