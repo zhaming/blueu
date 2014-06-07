@@ -40,4 +40,16 @@ class StatBehavior extends BaseBehavior {
         $criteria->addCondition("type = '$type'");
         return StatUser::model()->findAll($criteria);
     }
+    
+    /**
+     * 获取用户转化数据
+     * @return mixed
+     */
+    public function getUserConvert()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->select = 'item,count';
+        $criteria->order = 'count ASC';
+        return StatTransform::model()->findAll($criteria);
+    }
 }

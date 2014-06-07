@@ -38,8 +38,9 @@ class StatController extends BController {
     }
     
     public function actionUser() {
+        $action = Yii::app()->controller->getAction()->getId();
         $t = Yii::app()->request->getQuery('t');
-        $t = empty($t) || !in_array($t, self::$statMap[Yii::app()->controller->id]) ? 'info' : $t;
+        $t = empty($t) || !in_array($t, self::$statMap[$action]) ? 'info' : $t;
         switch($t){
             case 'convert':
                 $this->setPageTitle(array(Yii::t('admin', 'VStatUserConvert')));
@@ -54,7 +55,7 @@ class StatController extends BController {
         $data = array(
             'limitMap' => self::$limitMap,
         );
-        $this->render('user', $data);
+        $this->render("user$t", $data);
     }
     
     public function actionIndustry() {
@@ -137,6 +138,18 @@ class StatController extends BController {
                     ),
                 );
             }
+        }elseif($source == 'convert'){
+            $rs = $this->_stat->getUserConvert();
+            $xAxis = $yAxis = array();
+            foreach($rs as $v){
+                $xAxis[] = Yii::t('admin', $v->item);
+                $yAxis[] = $v->count;
+            }
+            $result[] = array(
+                'name' => Yii::t('admin', 'VStatUserConvertP'),
+                'xAxis' => $xAxis,
+                'yAxis' => $yAxis,
+            );
         }
         
         echo json_encode($result);

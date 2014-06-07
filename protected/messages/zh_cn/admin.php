@@ -262,6 +262,7 @@ return array (
   'VStatMonth' => '%s月',
   'VStatUserCentury' => '出生年代比例',
   'VStatUserConvert' => '用户转化',
+  'VStatUserConvertP' => '用户转化率',
   'VStatUserInfo' => '用户统计',
   'VStatUserRegistered' => '注册用户',
   'VStatUserSex' => '性别比例',
@@ -300,4 +301,10 @@ return array (
   'day' => '天',
   'month' => '个月',
   'week' => '周',
+  'totalcnt' => '总数',
+  'toshopcnt' => '到店数',
+  'likecnt' => '关注数',
+  'clickcnt' => '点击数',
+  'vouchercnt' => '获取数',
+  'shoppingcnt' => '消费数',
 );

@@ -363,12 +363,18 @@ Chart.option = function(url, param, extra, _chart)
             toolbox: extra.toolbox?extra.toolbox:Chart.opt.toolbox,
             grid: extra.grid?extra.grid:Chart.opt.grid,
             calculable: extra.calculable?extra.calculable:Chart.opt.calculable,
-            xAxis: [{data: _xAxis}],
-            yAxis: [extra.yAxis?extra.yAxis:{}],
+            xAxis: [{type:'category', data: _xAxis}],
+            yAxis: [{type:'value'}],
             series : _series
         };
+        if(extra.reversed){
+            _option.xAxis = [{type:'value'}];
+            _option.yAxis = [{type:'category', data: _xAxis}];
+        }else{
+            _option.yAxis = [{type:'value'}];
+            _option.xAxis = [{type:'category', data: _xAxis}];
+        }
         console.log(_option);
-        //alert(JsonToString(_option));
         _chart.hideLoading();
         _chart.setOption(_option);
     });
@@ -376,19 +382,27 @@ Chart.option = function(url, param, extra, _chart)
 
 Chart.serie = function(name, datas, extra)
 {
-    var _itemStyle = {};
-    if(datas.extra.itemStyle) _itemStyle = eval('(' + datas.extra.itemStyle + ')');
     var _serie = {
         name: name,
         type: extra.type?extra.type:'line',
-        itemStyle: _itemStyle,
-        radius: datas.extra.radius?datas.extra.radius:[],
-        data: datas.data?datas.data:[],
-        markPoint: extra.maxmin?Chart.opt.markPoint:null,
-        markLine: extra.average?Chart.opt.markLine:null
+        data: datas.data?datas.data:[]
     };
+    if(datas.extra){
+        if(datas.extra.itemStyle){
+            _serie.itemStyle = eval('(' + datas.extra.itemStyle + ')');
+        }
+        if(datas.extra.radius){
+            _serie.radius = datas.extra.radius;
+        }
+    }
+    if(extra.maxmin){
+        _serie.markPoint = Chart.opt.markPoint;
+    }
+    if(extra.average){
+        _serie.markLine = Chart.opt.markLine;
+    }
     return _serie;
-}
+};
 
 /**
  * HTML patterns
@@ -396,7 +410,7 @@ Chart.serie = function(name, datas, extra)
  * @author Craig Campbell
  * @version 1.0.9
  */
-Rainbow.extend('html', [
+/*Rainbow.extend('html', [
     {
         'name': 'source.php.embedded',
         'matches': {
@@ -521,4 +535,4 @@ Rainbow.extend('html', [
         },
         'pattern': /\s(\w+)(?=\s|&gt;)(?![\s\S]*&lt;)/g
     }
-], true);
+], true);*/
