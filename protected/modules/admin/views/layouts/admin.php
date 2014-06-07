@@ -57,7 +57,7 @@
         <script src="/statics/js/html5shiv.js"></script>
         <script src="/statics/js/respond.min.js"></script>
         <![endif]-->
-        
+
         <script src="/statics/js/esl/esl.js"></script>
     </head>
 
@@ -233,6 +233,7 @@
 
                     var ie_timeout;
                     var last_gritter;
+                    var upload_in_progress = false;
 
                     // 编辑图片
                     $('.edit-picture').editable({
@@ -264,15 +265,22 @@
 
                                 }
                             },
+                            before_remove: function() {
+                                if (upload_in_progress) {
+                                    return false;
+                                }
+                                return true;
+                            },
                             on_success: function() {
                                 $.gritter.removeAll();
                             }
                         },
                         url: function() {
                             var deferred;
+                            var file_input = $('.edit-picture').next().find('input[type=file]');
                             if ("FormData" in window) {
                                 formData_object = new FormData();
-                                $('.edit-picture').next().find('input[type=file]').each(function() {
+                                file_input.each(function() {
                                     var field_name = $(this).attr('name');
                                     var files = $(this).data('ace_input_files');
                                     if (files && files.length > 0) {
@@ -284,6 +292,8 @@
                                 var values = $(this).attr('data-value').split('-');
                                 formData_object.append('id', values[0]);
                                 formData_object.append('type', values[1]);
+                                upload_in_progress = true;
+                                file_input.ace_file_input('loading', true);
                                 deferred = $.ajax({
                                     url: '/admin/file/upload',
                                     type: 'POST',
@@ -305,6 +315,8 @@
                                     target: temporary_iframe_id,
                                     action: '/admin/file/upload'
                                 });
+                                upload_in_progress = true;
+                                file_input.ace_file_input('loading', true);
                                 $.fn.editableform.submit();
                                 ie_timeout = setTimeout(function() {
                                     ie_timeout = null;
@@ -312,12 +324,13 @@
                                     deferred.reject({'status': 'fail', 'message': 'Timeout!'});
                                 }, 30000);
                             }
+
                             deferred.done(function(result) {
                                 if (last_gritter) {
                                     $.gritter.remove(last_gritter);
                                 }
                                 if (result['code'] === 0) {
-                                    $('.edit-picture').get(0).src = result['url'];
+                                    //$('.edit-picture').get(0).src = result['url'];
                                     last_gritter = $.gritter.add({
                                         title: 'The image has been successfully updated!',
                                         text: result['message'],
@@ -344,8 +357,18 @@
                                     clearTimeout(ie_timeout);
                                 }
                                 ie_timeout = null;
+                                upload_in_progress = false;
+                                file_input.ace_file_input('loading', false);
                             });
                             deferred.promise();
+                        },
+                        success: function() {
+                            if ("FileReader" in window) {
+                                var thumb = $('.edit-picture').next().find('img').data('thumb');
+                                if (thumb) {
+                                    $('.edit-picture').get(0).src = thumb;
+                                }
+                            }
                         }
                     });
                 } catch (e) {

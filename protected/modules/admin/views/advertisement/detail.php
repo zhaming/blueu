@@ -23,6 +23,7 @@
                             <span class="profile-picture">
                                 <img class="edit-picture editable img-responsive" data-value="<?php echo $ad['id']; ?>-2" src="<?php echo HelpTemplate::getAdUrl($ad['pic']); ?>" />
                             </span>
+                            
                         </div>
                         <div class="col-xs-12 col-sm-9">
                             <div class="profile-user-info">
