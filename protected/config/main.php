@@ -2,7 +2,7 @@
 
 return array_merge_recursive(array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'language' => 'zh_cn',
+    'language' => 'zh_tw',
     'sourceLanguage' => 'en_us',
     'name' => '',
     // preloading 'log' component

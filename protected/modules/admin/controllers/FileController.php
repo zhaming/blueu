@@ -57,7 +57,7 @@ class FileController extends BController {
             echo CJSON::encode($data);
             return;
         }
-        switch ($type) {
+        switch (intval($type)) {
             case 1:
                 $file = $this->fileBehavior->saveUploadAvatar();
                 if (!$file) {
@@ -66,7 +66,7 @@ class FileController extends BController {
                     echo CJSON::encode($data);
                     return;
                 }
-                if (!$this->userBehavior->edit(array('id' => $id, 'avatar' => $file['path']))) {
+                if (!$this->userBehavior->edit(array('id' => intval($id), 'avatar' => $file['path']))) {
                     $data['code'] = 4;
                     $data['message'] = $this->fileBehavior->getError();
                     echo CJSON::encode($data);
@@ -82,7 +82,7 @@ class FileController extends BController {
                     echo CJSON::encode($data);
                     return;
                 }
-                if (!$this->advertisementBehavior->update($id, array('pic' => $file['path']))) {
+                if (!$this->advertisementBehavior->update(intval($id), array('pic' => $file['path']))) {
                     $data['code'] = 4;
                     $data['message'] = $this->fileBehavior->getError();
                     echo CJSON::encode($data);

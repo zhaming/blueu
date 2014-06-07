@@ -19,7 +19,7 @@
             </div>
             <div class="space-4"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-field-placetag"><?php echo Yii::t('admin', 'Place tag'); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-placetag"><?php echo Yii::t('admin', 'Position'); ?></label>
                 <div class="col-sm-9">
                     <select id="form-field-placetag" name="advertisement[placetag]" class="col-sm-5 no-padding-left">
                         <?php foreach (HelpTemplate::getAdPlaceTags() as $key => $value) { ?>

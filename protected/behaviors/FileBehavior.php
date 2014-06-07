@@ -37,7 +37,7 @@ class FileBehavior extends BaseBehavior {
         $file->path = date('y/m/d/') . $file->hash . (empty($file->extension) ? '' : '.' . $file->extension);
 
         $fileObj = File::model()->findByAttributes(array('hash' => $file->hash));
-        if ($fileObj != null) {
+        if (!empty($fileObj)) {
             $this->error = Yii::t('admin', 'File already exists');
             return $fileObj;
         }
