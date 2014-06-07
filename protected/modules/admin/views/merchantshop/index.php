@@ -61,7 +61,8 @@
                             <?php if(empty($value->selfid)): ?>
                             <a href="/admin/merchantshop/addshopaccount/id/<?php echo $value->id;?>"><i class="icon-plus"></i>开通分店账户</a>
                             <?php endif;?>
-                        </td>
+                            <a href="/admin/station/create/shopid/<?php echo $value->id;?>"><i class="icon-plus"></i>添加蓝牙基站</a>
+						</td>
                     </tr>
                     <?php endforeach;?>
                 <?php endif;?>
