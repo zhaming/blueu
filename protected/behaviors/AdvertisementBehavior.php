@@ -17,7 +17,7 @@
  *
  */
 class AdvertisementBehavior extends BaseBehavior {
-    
+
     static $sourceMap = array(
         1 => 'MerchantShop',
         2 => 'MerchantProduct',
@@ -126,6 +126,7 @@ class AdvertisementBehavior extends BaseBehavior {
         $advertisement->url = $data['url'];
         $advertisement->desc = $data['desc'];
         $advertisement->placetag = $data['placetag'];
+        $advertisement->type = $data['type'];
         $advertisement->owner = Yii::app()->user->getId();
         $advertisement->disabled = HelpTemplate::ENABLED;
         $advertisement->created = time();
@@ -153,15 +154,17 @@ class AdvertisementBehavior extends BaseBehavior {
 
     public function getStationAds($uuid) {
         $adsR = StationAds::model()->findAllByAttributes(array('uuid' => $uuid));
-        if(empty($adsR)) return false;
+        if (empty($adsR))
+            return false;
         $_merchantShop = new MerchantShopBehavior();
         $shopR = $_merchantShop->getById($adsR[0]->shopid);
         $_category = new CategoryBehavior();
         $catname = $_category->getNameById($shopR->catid);
         $result = array();
-        foreach($adsR as $v) {
+        foreach ($adsR as $v) {
             $sourceR = $this->getDataBySource($v->source, $v->sid);
-            if(empty($sourceR)) continue;
+            if (empty($sourceR))
+                continue;
             $result[] = array(
                 'name' => $sourceR->name,
                 'pic' => HelpTemplate::getAdUrl($sourceR->pic),
@@ -177,9 +180,10 @@ class AdvertisementBehavior extends BaseBehavior {
         }
         return array_pop($result);
     }
-    
+
     public function getDataBySource($source, $sid) {
-        if(!array_key_exists($source, self::$sourceMap)) return false;
+        if (!array_key_exists($source, self::$sourceMap))
+            return false;
         $model = self::$sourceMap[$source];
         $rs = $model::model()->findByPk($sid);
         return $rs;

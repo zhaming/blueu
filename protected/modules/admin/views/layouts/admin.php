@@ -30,8 +30,9 @@
         <link rel="stylesheet" href="/statics/css/ace.min.css" />
 
         <!--[if lte IE 9]>
-        <link rel="stylesheet" href="/statics/cc/ace-part2.min.css" />
+        <link rel="stylesheet" href="/statics/css/ace-part2.min.css" />
         <![endif]-->
+
         <link rel="stylesheet" href="/statics/css/ace-skins.min.css" />
         <link rel="stylesheet" href="/statics/css/ace-rtl.min.css" />
 
@@ -40,6 +41,12 @@
         <![endif]-->
 
         <!-- inline styles related to this page -->
+
+        <!--[if !IE]> -->
+        <script type="text/javascript">
+            window.jQuery || document.write("<script src='/statics/js/jquery.min.js'>" + "<" + "/script>");
+        </script>
+        <!-- <![endif]-->
 
         <!-- ace settings handler -->
         <script src="/statics/js/ace-extra.min.js"></script>
@@ -50,11 +57,8 @@
         <script src="/statics/js/html5shiv.js"></script>
         <script src="/statics/js/respond.min.js"></script>
         <![endif]-->
-        <!--[if !IE]> -->
-        <script type="text/javascript">
-            window.jQuery || document.write("<script src='/statics/js/jquery.min.js'>" + "<" + "/script>");
-        </script>
-        <!-- <![endif]-->
+        
+        <script src="/statics/js/esl/esl.js"></script>
     </head>
 
     <body class="no-skin">
@@ -88,21 +92,24 @@
         <!-- basic scripts -->
 
         <!--[if IE]>
-<script type="text/javascript">
-window.jQuery || document.write("<script src='/statics/js/jquery1x.min.js'>"+"<"+"/script>");
-</script>
-<![endif]-->
         <script type="text/javascript">
-            if ('ontouchstart' in document.documentElement)
+            window.jQuery || document.write("<script src='/statics/js/jquery1x.min.js'>"+"<"+"/script>");
+        </script>
+        <![endif]-->
+
+        <script type="text/javascript">
+            if ('ontouchstart' in document.documentElement) {
                 document.write("<script src='/statics/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+            }
         </script>
         <script src="/statics/js/bootstrap.min.js"></script>
 
         <!-- page specific plugin scripts -->
 
         <!--[if lte IE 8]>
-          <script src="/statics/js/excanvas.min.js"></script>
+        <script src="/statics/js/excanvas.min.js"></script>
         <![endif]-->
+
         <script src="/statics/js/jquery-ui.custom.min.js"></script>
         <script src="/statics/js/jquery.ui.touch-punch.min.js"></script>
         <script src="/statics/js/jquery.easypiechart.min.js"></script>
@@ -224,42 +231,36 @@ window.jQuery || document.write("<script src='/statics/js/jquery1x.min.js'>"+"<"
                     ace.settings.check('breadcrumbs', 'fixed');
                     ace.settings.check('sidebar', 'collapsed');
 
+                    var ie_timeout;
                     var last_gritter;
-                    // 编辑用户头像
+
+                    // 编辑图片
                     $('.edit-picture').editable({
                         type: 'image',
-                        name: 'avatar',
+                        name: '',
                         value: null,
                         image: {
-                            btn_choose: 'Change Picture',
+                            name: 'file',
                             droppable: true,
-                            /**
-                             //this will override the default before_change that only accepts image files
-                             before_change: function(files, dropped) {
-                             return true;
-                             },
-                             */
-
-                            //and a few extra ones here
-                            name: 'file', //put the field name here as well, will be used inside the custom plugin
-                            max_size: 11000000, //~100Kb
-                            on_error: function(code) {//on_error function will be called when the selected file has a problem
+                            max_size: 11000000,
+                            btn_choose: 'Change Picture',
+                            on_error: function(code) {
                                 if (last_gritter) {
                                     $.gritter.remove(last_gritter);
                                 }
-                                if (code === 1) {//file format error
+                                if (code === 1) {
                                     last_gritter = $.gritter.add({
                                         title: 'File is not an image!',
                                         text: 'Please choose a jpg|gif|png image!',
                                         class_name: 'gritter-error gritter-center'
                                     });
-                                } else if (code === 2) {//file size rror
+                                } else if (code === 2) {
                                     last_gritter = $.gritter.add({
                                         title: 'File too big!',
                                         text: 'Image size should not exceed 100Kb!',
                                         class_name: 'gritter-error gritter-center'
                                     });
-                                } else {//other error
+                                } else {
 
                                 }
                             },
@@ -267,46 +268,84 @@ window.jQuery || document.write("<script src='/statics/js/jquery1x.min.js'>"+"<"
                                 $.gritter.removeAll();
                             }
                         },
-                        url: function(params) {
-                            // ***UPDATE AVATAR HERE*** //
-                            //You can replace the contents of this function with examples/profile-avatar-update.js for actual upload
-
-
-                            var deferred = new $.Deferred;
-
-                            //if value is empty, means no valid files were selected
-                            //but it may still be submitted by the plugin, because "" (empty string) is different from previous non-empty value whatever it was
-                            //so we return just here to prevent problems
-                            var value = $('.edit-picture').next().find('input[type=hidden]:eq(0)').val();
-                            if (!value || value.length === 0) {
-                                deferred.resolve();
-                                return deferred.promise();
-                            }
-
-
-                            //dummy upload
-                            setTimeout(function() {
-                                if ("FileReader" in window) {
-                                    //for browsers that have a thumbnail of selected image
-                                    var thumb = $('.image-edit-select').next().find('img').data('thumb');
-                                    if (thumb) {
-                                        $('.edit-picture').get(0).src = thumb;
+                        url: function() {
+                            var deferred;
+                            if ("FormData" in window) {
+                                formData_object = new FormData();
+                                $('.edit-picture').next().find('input[type=file]').each(function() {
+                                    var field_name = $(this).attr('name');
+                                    var files = $(this).data('ace_input_files');
+                                    if (files && files.length > 0) {
+                                        for (var f = 0; f < files.length; f++) {
+                                            formData_object.append(field_name, files[f]);
+                                        }
                                     }
+                                });
+                                var values = $(this).attr('data-value').split('-');
+                                formData_object.append('id', values[0]);
+                                formData_object.append('type', values[1]);
+                                deferred = $.ajax({
+                                    url: '/admin/file/upload',
+                                    type: 'POST',
+                                    processData: false,
+                                    contentType: false,
+                                    dataType: 'json',
+                                    data: formData_object
+                                });
+                            } else {
+                                deferred = new $.Deferred;
+                                var temporary_iframe_id = 'temporary-iframe-' + (new Date()).getTime() + '-' + (parseInt(Math.random() * 1000));
+                                var temp_iframe = $('<iframe id="' + temporary_iframe_id + '" name="' + temporary_iframe_id + '" \
+                                    frameborder="0" width="0" height="0" src="about:blank" style="position:absolute; z-index:-1; visibility: hidden;"></iframe>').insertAfter($.fn.editableform);
+                                $.fn.editableform.append('<input type="hidden" name="temporary-iframe-id" value="' + temporary_iframe_id + '" />');
+                                temp_iframe.data('deferrer', deferred);
+                                $.fn.editableform.attr({
+                                    method: 'POST',
+                                    enctype: 'multipart/form-data',
+                                    target: temporary_iframe_id,
+                                    action: '/admin/file/upload'
+                                });
+                                $.fn.editableform.submit();
+                                ie_timeout = setTimeout(function() {
+                                    ie_timeout = null;
+                                    temp_iframe.attr('src', 'about:blank').remove();
+                                    deferred.reject({'status': 'fail', 'message': 'Timeout!'});
+                                }, 30000);
+                            }
+                            deferred.done(function(result) {
+                                if (last_gritter) {
+                                    $.gritter.remove(last_gritter);
                                 }
-                                deferred.resolve({'status': 'OK'});
+                                if (result['code'] === 0) {
+                                    $('.edit-picture').get(0).src = result['url'];
+                                    last_gritter = $.gritter.add({
+                                        title: 'The image has been successfully updated!',
+                                        text: result['message'],
+                                        class_name: 'gritter-info gritter-center'
+                                    });
+                                } else {
+                                    last_gritter = $.gritter.add({
+                                        title: 'Pictures updated failure!',
+                                        text: result['message'],
+                                        class_name: 'gritter-error gritter-center'
+                                    });
+                                }
+                            }).fail(function() {
                                 if (last_gritter) {
                                     $.gritter.remove(last_gritter);
                                 }
                                 last_gritter = $.gritter.add({
-                                    title: 'Avatar Updated!',
-                                    text: 'Uploading to server can be easily implemented. A working example is included with the template.',
-                                    class_name: 'gritter-info gritter-center'
+                                    title: 'Pictures updated failure!',
+                                    text: result['message'],
+                                    class_name: 'gritter-error gritter-center'
                                 });
-                            }, parseInt(Math.random() * 800 + 800));
-
-                            return deferred.promise();
-                        },
-                        success: function(response, newValue) {
+                            }).always(function() {
+                                if (ie_timeout) {
+                                    clearTimeout(ie_timeout);
+                                }
+                                ie_timeout = null;
+                            });
+                            deferred.promise();
                         }
                     });
                 } catch (e) {

@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-xs-3 col-sm-3 center">
                             <span class="profile-picture">
-                                <img class="edit-picture editable img-responsive" alt="<?php echo $user['name']; ?>" src="<?php echo HelpTemplate::getAvatarUrl($user['avatar']); ?>"></img>
+                                <img class="edit-picture editable img-responsive" data-value="<?php echo $user['id']; ?>-1" alt="<?php echo $user['name']; ?>" src="<?php echo HelpTemplate::getAvatarUrl($user['avatar']); ?>"></img>
                             </span>
                             <div class="space-4"></div>
                             <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
