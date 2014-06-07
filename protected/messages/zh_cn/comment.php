@@ -41,4 +41,8 @@ return array (
   'Submit' => '提交',
   'Success' => '操作成功',
   'Total' => '总量',
+  "status"=>"状态",
+  "Approveding"=>"待审核",
+  "Approved"=>"审核通过",
+  "Unapprove"=>"审核未通过",
 );

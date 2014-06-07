@@ -1,7 +1,7 @@
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('admin', 'Merchant shop_manager');?>
-        <small><i class="icon-double-angle-right"></i>商铺信息编辑</small>
+        <?php echo Yii::t('shop', 'Shop Manager');?>
+        <small><i class="icon-double-angle-right"></i><?php echo Yii::t('shop', 'Shop Edit');?></small>
     </h1>
 </div>
 <?php $this->widget("AlterMsgWidget")?>

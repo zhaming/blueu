@@ -1,39 +1,39 @@
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('admin', 'Merchant shop_manager');?>
-        <small><i class="icon-double-angle-right"></i>商列表</small>
+        <?php echo Yii::t('shop', 'Product Manager');?>
+        <small><i class="icon-double-angle-right"></i> <?php echo Yii::t('shop', 'Product List');?></small>
     </h1>
 </div>
 <div class="row">
     <div class="col-xs-12">
         <p>
-            <a href="/admin/merchantproduct/create" class="btn btn-app btn-success btn-xs"><i class="ace-icon fa fa-plus bigger-120"></i>添加</a>
+            <a href="/admin/merchantproduct/create" class="btn btn-app btn-success btn-xs"><i class="ace-icon fa fa-plus bigger-120"></i><?php echo Yii::t("comment","Create");?></a>
         </p>
         <?php $this->widget("AlterMsgWidget")?>
         <div class="table-responsive">
             <form  action="/admin/merchantproduct/index" method="get" class="well form-inline">
                 <label class="inline">
-                    商品名：
+                    <?php echo Yii::t("shop","Product name");?>：
                     <input type="text" name="name" value="<?php echo !empty($name)?$name:'' ;?>" />&emsp;
                 </label>
                 <label class="inline" >
                     <button type="submit" class="btn btn-xs btn-info">
-                        <i class="ace-icon fa fa-search"></i> 查询
+                        <i class="ace-icon fa fa-search"></i> <?php echo Yii::t("comment","Select");?>
                     </button>
                 </label>
             </form>
             <table id="sample-table-1" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th width="45px" >编号</th>
-                        <th>商品名</th>
-                        <th>简介</th>
-                        <th>价格</th>
-                        <th>折扣</th>
-                        <th>适用店铺</th>
-                        <th>发布人</th>
-                        <th>状态</th>
-                        <th>操作</th>
+                        <th width="45px" ><?php echo Yii::t("comment","Number");?></th>
+                        <th><?php echo Yii::t("shop","Product name");?></th>
+                        <th><?php echo Yii::t('shop','Product intro');?></th>
+                        <th><?php echo Yii::t("shop","Price");?></th>
+                        <th><?php echo Yii::t("shop","discount");?></th>
+                        <th><?php echo Yii::t("shop","Apply to shops");?></th>
+                        <th><?php echo Yii::t("shop","Release people");?></th>
+                        <th><?php echo Yii::t("comment","status");?></th>
+                        <th><?php echo Yii::t("comment","Operate");?></th>
                     </tr>
                 </thead>
 
@@ -53,10 +53,26 @@
                             <?php endif;?>
                         </td>
                         <td><?php echo !empty($value->merchant)?$value->merchant->name:"";?></td>
-                        <td><?php echo $value->status?></td>
                         <td>
-                            <a href="/admin/merchantproduct/edit/id/<?php echo $value->id;?>" >编辑</a>
-                            <a href="/admin/merchantproduct/delete/id/<?php echo $value->id;?>" class="delete-confirm" >删除</a>
+                            <?php $status =$value->status;
+                                switch ($status) {
+                                    case 0:
+                                    echo Yii::t('comment',"Approveding");
+                                        break;
+                                    case 1:
+                                    echo Yii::t('comment',"Approved");
+                                        break;
+                                    case 2:
+                                    echo Yii::t('comment',"Unapproved");
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <a href="/admin/merchantproduct/edit/id/<?php echo $value->id;?>" title="<?php echo Yii::t('admin', 'Detail'); ?>"  class="green" ><i class="ace-icon fa fa-edit bigger-130"></i></a>
+                            <a href="/admin/merchantproduct/delete/id/<?php echo $value->id;?>" title="<?php echo Yii::t('admin', 'Delete'); ?>"  class="delete-confirm red" ><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
                         </td>
                     </tr>
                     <?php endforeach;?>
