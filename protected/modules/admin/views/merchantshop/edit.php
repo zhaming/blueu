@@ -47,26 +47,58 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[catid]"><?php echo Yii::t("shop","Shop Category");?></label>
                 <div class="col-sm-9">
-                    <select name="shop[catid]" class="col-sm-5">
+                    <select id="category" class="col-sm-2">
                     <?php if(!empty($category)):?>
+                        <?php
+                        $obj = null;
+                        foreach ($district as $key => $value) {
+                            if($value->id == $shop->catid){
+                                $obj = $value;
+                            }
+                        }
+                        ?>
                         <?php foreach ($category as $key => $value) :?>
-                        <option value="<?php echo $value->id;?>"  <?php echo $value->id == $shop->catid?"selected":"";?>><?php echo $value->name;?></option>
+                        <?php if($value->parentid ==0):?>
+                        <option value="<?php echo $value->id;?>"  <?php echo (!empty($obj)&&($value->id == $obj->parentid))?"selected":"";?>><?php echo $value->name;?></option>
+                        <?php endif;?>
                         <?php endforeach;?>
-                    <?php endif;?>
                     </select>
+                    <select id="category_sec" name="shop[catid]" class="col-sm-2">
+                        <?php foreach ($category as $key => $value) :?>
+                        <option value="<?php echo $value->id;?>"  <?php echo $value->id == $shop['catid']?"selected":"";?>><?php echo $value->name;?></option>
+                        <?php endforeach;?>
+                    </select>
+                    <?php endif;?>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[districtid]"><?php echo Yii::t("shop","Shop District");?></label>
                 <div class="col-sm-9">
-                    <select name="shop[districtid]" class="col-sm-5">
+                    <select id="district"  class="col-sm-2">
                     <?php if(!empty($district)):?>
+                        <?php
+                        $obj = null;
+                        foreach ($district as $key => $value) {
+                            if($value->id == $shop['districtid']){
+                                $obj = $value;
+                            }
+                        }
+                        ?>
                     <?php foreach ($district as $key => $value):?>
-                        <option value="<?php echo $value->id?>" <?php echo $value->id == $shop->districtid?"selected":"";?>><?php echo $value->district?></option>
-                    <?php endforeach;?>
+                    <?php if($value->parentid ==0):?>
+                        <option value="<?php echo $value->id?>" <?php echo (!empty($obj)&&($value->id == $obj->parentid))?"selected":""?>><?php echo $value->district?></option>
                     <?php endif;?>
+                    <?php endforeach;?>
                     </select>
+
+                    <select id="district_sec" name="shop[districtid]" class="col-sm-2">
+                    <?php foreach ($district as $key => $value):?>
+                        <option value="<?php echo $value->id?>" <?php echo $value->id ==$shop['districtid']?"selected":""?> ><?php echo $value->district?></option>
+                    <?php endforeach;?>
+                    </select>
+                    <?php endif;?>
+
                 </div>
             </div>
 
@@ -111,3 +143,4 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/statics/js/shop_select.js"></script>
