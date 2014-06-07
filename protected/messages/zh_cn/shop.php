@@ -20,8 +20,8 @@ return array (
   'Create Failure' => '',
   'Modify Failure' => '',
   'Edit Failure' => '@@@@',
-  'Product Manager' => '@@商品管理@@',
-  'Stamp Edit' => '@@编辑印花@@',
+  'Product Manager' => '商品管理',
+  'Stamp Edit' => '编辑印花',
   'Coupon Code' => '优惠券码',
   'Coupon Create' => '添加优惠券',
   'Coupon List' => '优惠券列表',
@@ -79,5 +79,11 @@ return array (
   'Pelease input product name' => '请输入商品名称',
   'Product intro' => '商品简介',
   'Pelease input product intro' => '请输入商品简介',
-
+  'Product edit' => '商品编辑',
+  "Release people"=>"发布人",
+  "Shop Edit"=>"商铺信息编辑",
+  "Only"  =>"独家",
+  "Main"=>"总店",
+  "Create account"=>"开通分店账户",
+  "Add station"=>"添加蓝牙基站",
 );

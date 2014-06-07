@@ -24,13 +24,13 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="product[pic]">图片</label>
+                <label class="col-sm-3 control-label no-padding-right" for="product[pic]"><?php echo Yii::t("comment","Picture");?></label>
                 <div class="col-sm-9">
                         <input type="file"   name="product[pic]" id="upload-product-pic" />
                         <script type="text/javascript">
                         $(document).ready(function(){
                              $('#upload-product-pic').ace_file_input({
-                                no_file:'选择图片',
+                                no_file:'Choose',
                                 btn_choose:'Choose',
                                 btn_change:'Change',
                                 droppable:false,

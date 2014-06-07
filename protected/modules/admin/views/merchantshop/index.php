@@ -1,7 +1,7 @@
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('admin', 'Merchant shop_manager');?>
-        <small><i class="icon-double-angle-right"></i>商铺列表</small>
+        <?php echo Yii::t('shop', 'Shop Manager');?>
+        <small><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Shop List");?></small>
     </h1>
 </div>
 <div class="row">
@@ -13,34 +13,34 @@
         <div class="table-responsive">
             <form  action="/admin/merchantshop/index" method="get" class="well form-inline">
                 <label class="inline">
-                    商铺名：
+                    <?php echo Yii::t("shop","Shop Name");?>：
                     <input type="text" name="name" value="<?php echo !empty($name)?$name:'' ;?>" />&emsp;
                 </label>
                 <label class="inline">
-                    店主名：
+                    <?php echo Yii::t("shop","Shop Owner");?>：
                     <input type="text" name="owner" value="<?php echo !empty($owner)?$owner:'' ;?>" />&emsp;
                 </label>
                 <label class="inline ">
                     <input name="isonly" type="checkbox" class="ace" value="1" <?php echo !empty($isonly)?"checked":'' ;?>>
-                    <span class="lbl"> 独家&emsp;</span>
+                    <span class="lbl">  <?php echo Yii::t("shop","Only");?>&emsp;</span>
                 </label>
                 <label class="inline" >
                     <button type="submit" class="btn btn-xs btn-info">
-                        <i class="icon-search"></i> 查询
+                        <i class="icon-search"></i> <?php echo Yii::t("comment","Select");?>
                     </button>
                 </label>
             </form>
             <table id="sample-table-1" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>编号</th>
-                        <th>店铺名</th>
-                        <th>店主</th>
-                        <th>联系电话</th>
-                        <th>地址</th>
-                        <th>是否总店</th>
-                        <th>是否独家</th>
-                        <th>操作</th>
+                        <th><?php echo Yii::t("comment","Number");?></th>
+                        <th><?php echo Yii::t("shop","Shop Name");?></th>
+                        <th><?php echo Yii::t("shop","Shop Owner");?></th>
+                        <th><?php echo Yii::t("admin","Telephone")?></th>
+                        <th><?php echo Yii::t("shop","Shop Address")?></th>
+                        <th><?php echo Yii::t("shop","Main")?></th>
+                        <th><?php echo Yii::t("shop","Only")?></th>
+                        <th><?php echo Yii::t("comment","Operate");?></th>
                     </tr>
                 </thead>
 
@@ -56,13 +56,21 @@
                         <td><?php echo $value->ismain ==1?"Y":"N";?></td>
                         <td><?php echo $value->isonly ==1?"Y":"N";?></td>
                         <td>
-                            <a href="/admin/merchantshop/delete/id/<?php echo $value->id;?>" class="delete-confirm"><i class="icon-remove red "></i>删除</a>
-                            <a href="/admin/merchantshop/edit/id/<?php echo $value->id;?>"><i class="icon-edit"></i>详情</a>
+                            <a href="/admin/merchantshop/delete/id/<?php echo $value->id;?>"  title="<?php echo Yii::t("admin","Delete");?>"  class="delete-confirm red"> 
+                                <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                            </a>
+                            <a href="/admin/merchantshop/edit/id/<?php echo $value->id;?>" title="<?php echo Yii::t("admin","Detail");?>" class="green"> 
+                                <i class="ace-icon fa fa-edit bigger-130"></i>
+                            </a>
                             <?php if(empty($value->selfid)): ?>
-                            <a href="/admin/merchantshop/addshopaccount/id/<?php echo $value->id;?>"><i class="icon-plus"></i>开通分店账户</a>
+                            <a href="/admin/merchantshop/addshopaccount/id/<?php echo $value->id;?>"  title="<?php echo Yii::t("shop","Create account");?>" class="orange" > 
+                                <i class="ace-icon fa fa-lemon-o bigger-130"></i>
+                            </a>
                             <?php endif;?>
-                            <a href="/admin/station/create/shopid/<?php echo $value->id;?>"><i class="icon-plus"></i>添加蓝牙基站</a>
-						</td>
+                            <a href="/admin/station/create/shopid/<?php echo $value->id;?>" title="<?php echo Yii::t("shop","Add station");?>"> 
+                                <i class="ace-icon fa fa-plus bigger-130"></i>
+                            </a>
+                        </td>
                     </tr>
                     <?php endforeach;?>
                 <?php endif;?>
