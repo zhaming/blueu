@@ -18,11 +18,11 @@
  */
 return array (
   'Unapproved' => '',
+  'Add' => '@@添加@@',
   'Delete Failure' => '@@删除失败@@',
   'Edit Success' => '@@@@',
   'Param Error' => '@@参数错误@@',
   'Unapprove' => '@@审核未通过@@',
-  'Add' => '添加',
   'Approved' => '审核通过',
   'Approveding' => '待审核',
   'Choose a picture' => '选择一张图片',

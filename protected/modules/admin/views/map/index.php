@@ -36,7 +36,7 @@
                             <th><?php echo Yii::t('admin', 'Name'); ?></th>
                             <th><?php echo Yii::t('admin', 'Market place'); ?></th>
                             <th><?php echo Yii::t('admin', 'Floor'); ?></th>
-                            <th><i class="icon-time bigger-110 hidden-480"></i><?php echo Yii::t('admin', 'Created'); ?></th>
+                            <th><i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i><?php echo Yii::t('admin', 'Created'); ?></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -66,6 +66,9 @@
                                         <i class="ace-icon fa fa-lock bigger-130"></i>
                                     </a>
                                     <?php } ?>
+                                    <a href="<?php echo $this->createUrl('delete?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="red delete-confirm">
+                                        <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
