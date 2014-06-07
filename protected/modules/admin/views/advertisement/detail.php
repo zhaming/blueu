@@ -23,7 +23,11 @@
                             <span class="profile-picture">
                                 <img class="edit-picture editable img-responsive" data-value="<?php echo $ad['id']; ?>-2" src="<?php echo HelpTemplate::getAdUrl($ad['pic']); ?>" />
                             </span>
-                            
+                            <div class="space space-4"></div>
+                            <a class="width-75 btn btn-sm btn-block btn-success cursor-default">
+                                <i class="ace-icon fa fa-edit bigger-120"></i>
+                                <span class="bigger-110"><?php echo Yii::t('admin', 'Click Image To Edit'); ?></span>
+                            </a>
                         </div>
                         <div class="col-xs-12 col-sm-9">
                             <div class="profile-user-info">
