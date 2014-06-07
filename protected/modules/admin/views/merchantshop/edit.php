@@ -1,7 +1,7 @@
 <div class="page-header">
     <h1>
-        <?php echo Yii::t('admin', 'Merchant shop_manager');?>
-        <small><i class="icon-double-angle-right"></i>商铺信息编辑</small>
+        <?php echo Yii::t('shop', 'Shop Manager');?>
+        <small><i class="icon-double-angle-right"></i><?php echo Yii::t('shop', 'Shop Edit');?></small>
     </h1>
 </div>
 <?php $this->widget("AlterMsgWidget")?>
@@ -103,9 +103,9 @@
 
             <div class="clearfix form-actions">
                 <div class="col-md-offset-3 col-md-9">
-                    <button class="btn btn-info" type="submit"><i class="icon-ok bigger-110"></i><?php echo Yii::t("comment","Submit");?></button>
+                    <button class="btn btn-info" type="submit"><i class="ace-icon glyphicon glyphicon-ok bigger-110"></i><?php echo Yii::t("comment","Submit");?></button>
                     &emsp; &emsp; &emsp;
-                    <button class="btn" type="reset"><i class="icon-undo bigger-110"></i><?php echo Yii::t("comment","Reset");?></button>
+                    <button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i><?php echo Yii::t("comment","Reset");?></button>
                 </div>
             </div>
         </div>

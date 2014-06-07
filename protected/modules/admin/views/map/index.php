@@ -2,11 +2,11 @@
     <div class="col-xs-12">
         <p>
             <a href="/admin/map/upload" class="btn btn-app btn-success btn-xs">
-                <i class="icon-plus bigger-120"></i>
+                <i class="ace-icon glyphicon glyphicon-plus bigger-120"></i>
                 <?php echo Yii::t('admin', 'Create'); ?>
             </a>
             <button class="btn btn-app btn-danger btn-xs batch-delete-confirm">
-                <i class="icon-remove bigger-120"></i>
+                <i class="ace-icon glyphicon glyphicon-remove bigger-120"></i>
                 <?php echo Yii::t('admin', 'Delete'); ?>
             </button>
         </p>
@@ -17,7 +17,7 @@
             </label>
             <label class="inline" >
                 <button type="submit" class="btn btn-xs btn-info">
-                    <i class="icon-search"></i><?php echo Yii::t('admin', 'Search'); ?>
+                    <i class="ace-icon fa fa-search"></i><?php echo Yii::t('admin', 'Search'); ?>
                 </button>
             </label>
         </form>
@@ -59,11 +59,11 @@
                                 <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
                                     <?php if ($item['disabled'] == HelpTemplate::USER_STATUS_DISABLED) { ?>
                                     <a href="<?php echo $this->createUrl('enable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="green">
-                                        <i class="icon-unlock bigger-130"></i>
+                                        <i class="ace-icon fa fa-unlock bigger-130"></i>
                                     </a>
                                     <?php } else { ?>
                                     <a href="<?php echo $this->createUrl('disable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="yellow">
-                                        <i class="icon-lock bigger-130"></i>
+                                        <i class="ace-icon fa fa-lock bigger-130"></i>
                                     </a>
                                     <?php } ?>
                                 </div>

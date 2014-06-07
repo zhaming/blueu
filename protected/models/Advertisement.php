@@ -23,6 +23,7 @@ class Advertisement extends CActiveRecord {
     public $desc;
     public $url;
     public $placetag;
+    public $type;
     public $owner;
     public $created;
     public $disabled;

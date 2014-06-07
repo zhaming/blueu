@@ -5,19 +5,19 @@
             <ul class="nav nav-tabs padding-16">
                 <li class="active">
                     <a href="<?php echo $this->createUrl('detail?id=' . $merchant['id']); ?>">
-                        <i class="green icon-sun bigger-125"></i>
+                        <i class="green ace-icon fa fa-sun-o bigger-125"></i>
                         <?php echo Yii::t('admin', 'Overview'); ?>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo $this->createUrl('edit?id=' . $merchant['id']); ?>">
-                        <i class="green icon-edit bigger-125"></i>
+                        <i class="green ace-icon fa fa-edit bigger-125"></i>
                         <?php echo Yii::t('admin', 'Edit information'); ?>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo $this->createUrl('resetpwd?id=' . $merchant['id']); ?>">
-                        <i class="green icon-key bigger-125"></i>
+                        <i class="green ace-icon fa fa-key bigger-125"></i>
                         <?php echo Yii::t('admin', 'Reset password'); ?>
                     </a>
                 </li>

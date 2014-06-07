@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-xs-12">
         <p>
-            <a href="/admin/station/create" class="btn btn-app btn-yellow btn-xs"><i class="icon-create bigger-120"></i>创建</a>
+            <a href="/admin/station/create" class="btn btn-app btn-success btn-xs"><i class="ace-icon fa fa-plus bigger-120"></i>创建</a>
         </p>
         <?php $this->widget("AlterMsgWidget")?>
         <div class="table-responsive">
@@ -18,7 +18,7 @@
                 </label>
                 <label class="inline" >
                     <button type="submit" class="btn btn-xs btn-info">
-                        <i class="icon-search"></i> 查询
+                        <i class="ace-icon fa fa-search"></i> 查询
                     </button>
                 </label>
             </form>

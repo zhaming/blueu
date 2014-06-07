@@ -30,23 +30,34 @@
             </div>
             <div class="space-4"></div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="id-input-file-single-upload"><?php echo Yii::t('admin', 'Picture'); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-type"><?php echo Yii::t('admin', 'Type'); ?></label>
                 <div class="col-sm-9">
+                    <select id="form-field-type" name="advertisement[type]" class="col-sm-5 no-padding-left">
+                        <?php foreach (HelpTemplate::getAdTypes() as $key => $value) { ?>
+                        <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="space-4"></div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="id-input-file-single-upload"><?php echo Yii::t('admin', 'Picture'); ?></label>
+                <div class="col-sm-4">
                     <input id="id-input-file-single-upload" type="file" name="file" />
                 </div>
             </div>
             <div class="space-4"></div>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-desc"><?php echo Yii::t('admin', 'Description'); ?></label>
-                <div class="input-group col-sm-9">
+                <div class="col-sm-9">
                     <textarea id="form-field-desc" name="advertisement[desc]" class="col-xs-10 col-sm-5"><?php echo $advertisement['desc'] ?></textarea>
                 </div>
             </div>
             <div class="clearfix form-actions">
                 <div class="col-md-offset-3 col-md-9">
-                    <button class="btn btn-info" type="submit"><i class="icon-ok bigger-110"></i><?php echo Yii::t('admin', 'Create'); ?></button>
+                    <button class="btn btn-info" type="submit"><i class="ace-icon glyphicon glyphicon-ok bigger-110"></i><?php echo Yii::t('admin', 'Create'); ?></button>
                     &nbsp; &nbsp; &nbsp;
-                    <button class="btn" type="reset"><i class="icon-undo bigger-110"></i><?php echo Yii::t('admin', 'Reset'); ?></button>
+                    <button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i><?php echo Yii::t('admin', 'Reset'); ?></button>
                 </div>
             </div>
         </form>

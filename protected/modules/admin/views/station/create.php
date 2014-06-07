@@ -41,9 +41,14 @@
                 <label class="col-sm-3 control-label no-padding-right" for="station[shopid]"><?php echo Yii::t("station","Shop");?></label>
                 <div class="col-sm-9">
                     <select name="station[shopid]" class="col-sm-5">
-                    <?php if(!empty($shop)):?>
+                    <?php
+					if(empty($_GET['shopid']))
+					{
+						$_GET['shopid'] = 0;
+					}
+					if(!empty($shop)):?>
                         <?php foreach ($shop as $key => $value) :?>
-                        <option value="<?php echo $value->id;?>"><?php echo $value->name;?></option>
+                        <option <?php echo $_GET['shopid']==$value->id?'selected':''?> value="<?php echo $value->id;?>"><?php echo $value->name;?></option>
                         <?php endforeach;?>
                     <?php endif;?>
                     </select>
@@ -61,9 +66,9 @@
 
             <div class="clearfix form-actions">
                 <div class="col-md-offset-3 col-md-9">
-                    <button class="btn btn-info" type="submit"><i class="icon-ok bigger-110"></i><?php echo Yii::t("comment","Create");?></button>
+                    <button class="btn btn-info" type="submit"><i class="ace-icon glyphicon glyphicon-ok bigger-110"></i><?php echo Yii::t("comment","Create");?></button>
                     &emsp; &emsp; &emsp;
-                    <button class="btn" type="reset"><i class="icon-undo bigger-110"></i><?php echo Yii::t("comment","Reset");?></button>
+                    <button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i><?php echo Yii::t("comment","Reset");?></button>
                 </div>
             </div>
         </div>

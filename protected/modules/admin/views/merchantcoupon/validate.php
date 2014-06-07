@@ -61,7 +61,7 @@
                         <?php if($flag):?>
                             <a href="/admin/merchantcoupon/usecoupon/uid/<?php echo $value['uid']?>/cid/<?php echo $value['id']?>"> 确定使用  </a>
                         <?php else:?>
-                            优惠券已过期
+                            <?php echo Yii::t("shop","Coupons expired");?>
                         <?php endif;?>
                         </td>
                     </tr>

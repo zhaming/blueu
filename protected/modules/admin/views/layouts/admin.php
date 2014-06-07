@@ -7,66 +7,102 @@
         <meta name="language" content="<?php echo Yii::app()->getLocale()->getId(); ?>" />
         <meta content="<?php echo Yii::app()->params->meta_keywords; ?>" name="keywords" />
         <meta content="<?php echo Yii::app()->params->meta_description; ?>" name="description" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <link href="/statics/favicon.ico" rel="shortcut icon" />
 
-        <!-- basic styles -->
+        <!-- bootstrap & fontawesome -->
         <link rel="stylesheet" href="/statics/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/statics/css/font-awesome.min.css" />
 
-        <!--[if IE 7]>
-        <link rel="stylesheet" href="/statics/css/font-awesome-ie7.min.css" />
-        <![endif]-->
-
         <!-- page specific plugin styles -->
-        <link rel="stylesheet" href="/statics/css/jquery-ui-1.10.3.custom.min.css" />
+        <link rel="stylesheet" href="/statics/css/jquery-ui.custom.min.css" />
         <link rel="stylesheet" href="/statics/css/jquery.gritter.css" />
         <link rel="stylesheet" href="/statics/css/select2.css" />
-        <link rel="stylesheet" href="/statics/css/bootstrap-editable.css" />
-        <link rel="stylesheet" href="/statics/css/chosen.css" />
         <link rel="stylesheet" href="/statics/css/datepicker.css" />
-        <link rel="stylesheet" href="/statics/css/bootstrap-timepicker.css" />
-        <link rel="stylesheet" href="/statics/css/daterangepicker.css" />
-        <link rel="stylesheet" href="/statics/css/colorpicker.css" />
+        <link rel="stylesheet" href="/statics/css/bootstrap-editable.css" />
 
-        <!-- fonts -->
-        <!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />-->
+        <!-- text fonts -->
+        <link rel="stylesheet" href="/statics/css/ace-fonts.css" />
 
         <!-- ace styles -->
         <link rel="stylesheet" href="/statics/css/ace.min.css" />
-        <link rel="stylesheet" href="/statics/css/ace-rtl.min.css" />
-        <link rel="stylesheet" href="/statics/css/ace-skins.min.css" />
 
-        <!--[if lte IE 8]>
-        <link rel="stylesheet" href="/statics/css/ace-ie.min.css" />
+        <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/statics/css/ace-part2.min.css" />
+        <![endif]-->
+
+        <link rel="stylesheet" href="/statics/css/ace-skins.min.css" />
+        <link rel="stylesheet" href="/statics/css/ace-rtl.min.css" />
+
+        <!--[if lte IE 9]>
+          <link rel="stylesheet" href="/statics/cc/ace-ie.min.css" />
         <![endif]-->
 
         <!-- inline styles related to this page -->
+
+        <!--[if !IE]> -->
+        <script type="text/javascript">
+            window.jQuery || document.write("<script src='/statics/js/jquery.min.js'>" + "<" + "/script>");
+        </script>
+        <!-- <![endif]-->
 
         <!-- ace settings handler -->
         <script src="/statics/js/ace-extra.min.js"></script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
+
+        <!--[if lte IE 8]>
         <script src="/statics/js/html5shiv.js"></script>
         <script src="/statics/js/respond.min.js"></script>
         <![endif]-->
+
+        <script src="/statics/js/esl/esl.js"></script>
+    </head>
+
+    <body class="no-skin">
+        <!-- #section:basics/navbar.layout -->
+        <?php $this->widget('application.modules.admin.widgets.NavbarWidget'); ?>
+        <!-- /section:basics/navbar.layout -->
+        <div class="main-container" id="main-container">
+            <!-- #section:basics/sidebar -->
+            <?php $this->widget('application.modules.admin.widgets.SidebarWidget'); ?>
+            <!-- /section:basics/sidebar -->
+            <div class="main-content">
+                <!-- #section:basics/content.breadcrumbs -->
+                <?php $this->widget('application.modules.admin.widgets.BreadcrumbsWidget'); ?>
+                <!-- /section:basics/content.breadcrumbs -->
+                <div class="page-content">
+                    <!-- #section:settings.box -->
+                    <?php $this->widget('application.modules.admin.widgets.SettingWidget'); ?>
+                    <!-- /section:settings.box -->
+                    <?php echo $content; ?>
+                </div>
+                <!-- /.page-content -->
+            </div>
+            <!-- /.main-content -->
+            <?php $this->widget('application.modules.admin.widgets.FooterWidget'); ?>
+            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+            </a>
+        </div>
+        <!-- /.main-container -->
+
         <!-- basic scripts -->
-        <!--[if !IE]> -->
-        <script src="/statics/js/jquery-2.0.3.min.js"></script>
-        <!-- <![endif]-->
 
         <!--[if IE]>
-        <script src="/statics/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript">
+            window.jQuery || document.write("<script src='/statics/js/jquery1x.min.js'>"+"<"+"/script>");
+        </script>
         <![endif]-->
 
         <script type="text/javascript">
-            if ("ontouchend" in document) {
-                document.write("<script src='/statics/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
+            if ('ontouchstart' in document.documentElement) {
+                document.write("<script src='/statics/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
             }
         </script>
         <script src="/statics/js/bootstrap.min.js"></script>
-        <script src="/statics/js/typeahead-bs2.min.js"></script>
 
         <!-- page specific plugin scripts -->
 
@@ -74,50 +110,25 @@
         <script src="/statics/js/excanvas.min.js"></script>
         <![endif]-->
 
-        <script src="/statics/js/jquery-ui-1.10.3.custom.min.js"></script>
+        <script src="/statics/js/jquery-ui.custom.min.js"></script>
         <script src="/statics/js/jquery.ui.touch-punch.min.js"></script>
-        <!-- Gritter 是一个小型的 jQuery 消息通知插件,图片上传使用到 -->
-        <script src="/statics/js/jquery.gritter.min.js"></script>
-        <!--<script src="/statics/js/jquery.slimscroll.min.js"></script>-->
-        <script src="/statics/js/jquery.easy-pie-chart.min.js"></script>
+        <script src="/statics/js/jquery.easypiechart.min.js"></script>
         <script src="/statics/js/jquery.sparkline.min.js"></script>
-        <script src="/statics/js/date-time/bootstrap-timepicker.min.js"></script>
-        <script src="/statics/js/date-time/bootstrap-datepicker.min.js"></script>
-        <script src="/statics/js/jquery.maskedinput.min.js"></script>
-        <script src="/statics/js/x-editable/bootstrap-editable.min.js"></script>
-        <script src="/statics/js/x-editable/ace-editable.min.js"></script>
+        <script src="/statics/js/jquery.gritter.min.js"></script>
         <script src="/statics/js/bootbox.min.js"></script>
-
-        <!--<script src="/statics/js/flot/jquery.flot.min.js"></script>-->
-        <!--<script src="/statics/js/flot/jquery.flot.pie.min.js"></script>-->
-        <!--script src="/statics/js/flot/jquery.flot.resize.min.js"></script>-->
+        <script src="/statics/js/jquery.easypiechart.min.js"></script>
+        <script src="/statics/js/bootstrap-datepicker.min.js"></script>
+        <script src="/statics/js/jquery.hotkeys.min.js"></script>
+        <script src="/statics/js/bootstrap-wysiwyg.min.js"></script>
+        <script src="/statics/js/select2.min.js"></script>
+        <script src="/statics/js/fuelux.spinner.min.js"></script>
+        <script src="/statics/js/bootstrap-editable.min.js"></script>
+        <script src="/statics/js/ace-editable.min.js"></script>
+        <script src="/statics/js/jquery.maskedinput.min.js"></script>
 
         <!-- ace scripts -->
-
         <script src="/statics/js/ace-elements.min.js"></script>
         <script src="/statics/js/ace.min.js"></script>
-
-        <script src="/statics/js/esl/esl.js"></script>
-    </head>
-
-    <body>
-        <?php $this->widget('application.modules.admin.widgets.NavbarWidget'); ?>
-        <div class="main-container" id="main-container">
-            <div class="main-container-inner">
-                <?php $this->widget('application.modules.admin.widgets.SidebarWidget'); ?>
-                <div class="main-content">
-                    <?php $this->widget('application.modules.admin.widgets.BreadcrumbsWidget'); ?>
-                    <div class="page-content">
-                        <?php echo $content; ?>
-                    </div>
-                </div>
-                <?php $this->widget('application.modules.admin.widgets.SettingWidget'); ?>
-            </div>
-            <a id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-                <i class="icon-double-angle-up icon-only bigger-110"></i>
-            </a>
-        </div>
-
         <script type="text/javascript">
             jQuery(function($) {
                 // 删除确认
@@ -164,9 +175,9 @@
                     //style: true,
                     no_file: '',
                     //no_icon: "icon-upload-alt",
-                    btn_choose: '选择',
-                    btn_change: '重新选择',
-                    icon_remove: "icon-remove",
+                    btn_choose: 'Choose',
+                    btn_change: 'Change',
+                    //icon_remove: "icon-remove",
                     //droppable: false,
                     thumbnail: true, //| true | large
                     before_change: function(files, dropped) {
@@ -195,10 +206,12 @@
                     //preview_error: null
                 });
                 // 图片编辑
+                //editables on first profile page
                 $.fn.editable.defaults.mode = 'inline';
-                $.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
-                $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>' +
-                        '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';
+                $.fn.editableform.loading = "<div class='editableform-loading'><i class='ace-icon fa fa-spinner fa-spin fa-2x light-blue'></i></div>";
+                $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="ace-icon fa fa-check"></i></button>' +
+                        '<button type="button" class="btn editable-cancel"><i class="ace-icon fa fa-times"></i></button>';
+
 
                 if (/msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) {
                     Image.prototype.appendChild = function(el) {
@@ -210,198 +223,168 @@
                     name: 'username'
                 });
 
-                //another option is using modals
-                $('#avatar2').on('click', function() {
-                    var modal = '<div class="modal hide fade">\
-                            <div class="modal-header">\
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>\
-                                    <h4 class="blue">Change Avatar</h4>\
-                            </div>\
-                            \
-                            <form class="no-margin">\
-                            <div class="modal-body">\
-                                    <div class="space-4"></div>\
-                                    <div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
-                            </div>\
-                            \
-                            <div class="modal-footer center">\
-                                    <button type="submit" class="btn btn-small btn-success"><i class="icon-ok"></i> Submit</button>\
-                                    <button type="button" class="btn btn-small" data-dismiss="modal"><i class="icon-remove"></i> Cancel</button>\
-                            </div>\
-                            </form>\
-                    </div>';
-
-                    var modal = $(modal);
-                    modal.modal("show").on("hidden", function() {
-                        modal.remove();
-                    });
-
-                    var working = false;
-
-                    var form = modal.find('form:eq(0)');
-                    var file = form.find('input[type=file]').eq(0);
-                    file.ace_file_input({
-                        style: 'well',
-                        btn_choose: 'Click to choose new avatar',
-                        btn_change: null,
-                        no_icon: 'icon-picture',
-                        thumbnail: 'small',
-                        before_remove: function() {
-                            //don't remove/reset files while being uploaded
-                            return !working;
-                        },
-                        before_change: function(files, dropped) {
-                            var file = files[0];
-                            if (typeof file === "string") {
-                                //file is just a file name here (in browsers that don't support FileReader API)
-                                if (!(/\.(jpe?g|png|gif)$/i).test(file))
-                                    return false;
-                            }
-                            else {//file is a File object
-                                var type = $.trim(file.type);
-                                if ((type.length > 0 && !(/^image\/(jpe?g|png|gif)$/i).test(type))
-                                        || (type.length == 0 && !(/\.(jpe?g|png|gif)$/i).test(file.name))//for android default browser!
-                                        )
-                                    return false;
-
-                                if (file.size > 110000) {//~100Kb
-                                    return false;
-                                }
-                            }
-
-                            return true;
-                        }
-                    });
-
-                    form.on('submit', function() {
-                        if (!file.data('ace_input_files'))
-                            return false;
-
-                        file.ace_file_input('disable');
-                        form.find('button').attr('disabled', 'disabled');
-                        form.find('.modal-body').append("<div class='center'><i class='icon-spinner icon-spin bigger-150 orange'></i></div>");
-
-                        var deferred = new $.Deferred;
-                        working = true;
-                        deferred.done(function() {
-                            form.find('button').removeAttr('disabled');
-                            form.find('input[type=file]').ace_file_input('enable');
-                            form.find('.modal-body > :last-child').remove();
-
-                            modal.modal("hide");
-
-                            var thumb = file.next().find('img').data('thumb');
-                            if (thumb)
-                                $('#avatar2').get(0).src = thumb;
-
-                            working = false;
-                        });
-
-
-                        setTimeout(function() {
-                            deferred.resolve();
-                        }, parseInt(Math.random() * 800 + 800));
-
-                        return false;
-                    });
-
-                });
 
                 try {
                     ace.settings.check('navbar', 'fixed');
-                    ace.settings.check('sidebar', 'fixed');
                     ace.settings.check('main-container', 'fixed');
+                    ace.settings.check('sidebar', 'fixed');
                     ace.settings.check('breadcrumbs', 'fixed');
+                    ace.settings.check('sidebar', 'collapsed');
 
+                    var ie_timeout;
                     var last_gritter;
-                    // 编辑用户头像
-                    $('.image-edit-select1').editable({
+                    var upload_in_progress = false;
+
+                    // 编辑图片
+                    $('.edit-picture').editable({
                         type: 'image',
-                        name: 'avatar',
+                        name: '',
                         value: null,
                         image: {
-                            btn_choose: 'Change Picture',
+                            name: 'file',
                             droppable: true,
-                            /**
-                             //this will override the default before_change that only accepts image files
-                             before_change: function(files, dropped) {
-                             return true;
-                             },
-                             */
-
-                            //and a few extra ones here
-                            name: 'file', //put the field name here as well, will be used inside the custom plugin
-                            max_size: 11000000, //~100Kb
-                            on_error: function(code) {//on_error function will be called when the selected file has a problem
+                            max_size: 11000000,
+                            btn_choose: 'Change Picture',
+                            on_error: function(code) {
                                 if (last_gritter) {
                                     $.gritter.remove(last_gritter);
                                 }
-                                if (code === 1) {//file format error
+                                if (code === 1) {
                                     last_gritter = $.gritter.add({
                                         title: 'File is not an image!',
                                         text: 'Please choose a jpg|gif|png image!',
                                         class_name: 'gritter-error gritter-center'
                                     });
-                                } else if (code === 2) {//file size rror
+                                } else if (code === 2) {
                                     last_gritter = $.gritter.add({
                                         title: 'File too big!',
                                         text: 'Image size should not exceed 100Kb!',
                                         class_name: 'gritter-error gritter-center'
                                     });
-                                } else {//other error
+                                } else {
 
                                 }
+                            },
+                            before_remove: function() {
+                                if (upload_in_progress) {
+                                    return false;
+                                }
+                                return true;
                             },
                             on_success: function() {
                                 $.gritter.removeAll();
                             }
                         },
-                        url: function(params) {
-                            // ***UPDATE AVATAR HERE*** //
-                            //You can replace the contents of this function with examples/profile-avatar-update.js for actual upload
-
-
-                            var deferred = new $.Deferred;
-
-                            //if value is empty, means no valid files were selected
-                            //but it may still be submitted by the plugin, because "" (empty string) is different from previous non-empty value whatever it was
-                            //so we return just here to prevent problems
-                            var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
-                            if (!value || value.length === 0) {
-                                deferred.resolve();
-                                return deferred.promise();
+                        url: function() {
+                            var deferred;
+                            var file_input = $('.edit-picture').next().find('input[type=file]');
+                            if ("FormData" in window) {
+                                formData_object = new FormData();
+                                file_input.each(function() {
+                                    var field_name = $(this).attr('name');
+                                    var files = $(this).data('ace_input_files');
+                                    if (files && files.length > 0) {
+                                        for (var f = 0; f < files.length; f++) {
+                                            formData_object.append(field_name, files[f]);
+                                        }
+                                    }
+                                });
+                                var values = $(this).attr('data-value').split('-');
+                                formData_object.append('id', values[0]);
+                                formData_object.append('type', values[1]);
+                                upload_in_progress = true;
+                                file_input.ace_file_input('loading', true);
+                                deferred = $.ajax({
+                                    url: '/admin/file/upload',
+                                    type: 'POST',
+                                    processData: false,
+                                    contentType: false,
+                                    dataType: 'json',
+                                    data: formData_object
+                                });
+                            } else {
+                                deferred = new $.Deferred;
+                                var temporary_iframe_id = 'temporary-iframe-' + (new Date()).getTime() + '-' + (parseInt(Math.random() * 1000));
+                                var temp_iframe = $('<iframe id="' + temporary_iframe_id + '" name="' + temporary_iframe_id + '" \
+                                    frameborder="0" width="0" height="0" src="about:blank" style="position:absolute; z-index:-1; visibility: hidden;"></iframe>').insertAfter($.fn.editableform);
+                                $.fn.editableform.append('<input type="hidden" name="temporary-iframe-id" value="' + temporary_iframe_id + '" />');
+                                temp_iframe.data('deferrer', deferred);
+                                $.fn.editableform.attr({
+                                    method: 'POST',
+                                    enctype: 'multipart/form-data',
+                                    target: temporary_iframe_id,
+                                    action: '/admin/file/upload'
+                                });
+                                upload_in_progress = true;
+                                file_input.ace_file_input('loading', true);
+                                $.fn.editableform.submit();
+                                ie_timeout = setTimeout(function() {
+                                    ie_timeout = null;
+                                    temp_iframe.attr('src', 'about:blank').remove();
+                                    deferred.reject({'status': 'fail', 'message': 'Timeout!'});
+                                }, 30000);
                             }
 
-
-                            //dummy upload
-                            setTimeout(function() {
-                                if ("FileReader" in window) {
-                                    //for browsers that have a thumbnail of selected image
-                                    var thumb = $('.image-edit-select').next().find('img').data('thumb');
-                                    if (thumb) {
-                                        $('.image-edit-select').get(0).src = thumb;
-                                    }
+                            deferred.done(function(result) {
+                                if (last_gritter) {
+                                    $.gritter.remove(last_gritter);
                                 }
-                                deferred.resolve({'status': 'OK'});
+                                if (result['code'] === 0) {
+                                    //$('.edit-picture').get(0).src = result['url'];
+                                    last_gritter = $.gritter.add({
+                                        title: 'The image has been successfully updated!',
+                                        text: result['message'],
+                                        class_name: 'gritter-info gritter-center'
+                                    });
+                                } else {
+                                    last_gritter = $.gritter.add({
+                                        title: 'Pictures updated failure!',
+                                        text: result['message'],
+                                        class_name: 'gritter-error gritter-center'
+                                    });
+                                }
+                            }).fail(function() {
                                 if (last_gritter) {
                                     $.gritter.remove(last_gritter);
                                 }
                                 last_gritter = $.gritter.add({
-                                    title: 'Avatar Updated!',
-                                    text: 'Uploading to server can be easily implemented. A working example is included with the template.',
-                                    class_name: 'gritter-info gritter-center'
+                                    title: 'Pictures updated failure!',
+                                    text: result['message'],
+                                    class_name: 'gritter-error gritter-center'
                                 });
-                            }, parseInt(Math.random() * 800 + 800));
-
-                            return deferred.promise();
+                            }).always(function() {
+                                if (ie_timeout) {
+                                    clearTimeout(ie_timeout);
+                                }
+                                ie_timeout = null;
+                                upload_in_progress = false;
+                                file_input.ace_file_input('loading', false);
+                            });
+                            deferred.promise();
                         },
-                        success: function(response, newValue) {
+                        success: function() {
+                            if ("FileReader" in window) {
+                                var thumb = $('.edit-picture').next().find('img').data('thumb');
+                                if (thumb) {
+                                    $('.edit-picture').get(0).src = thumb;
+                                }
+                            }
                         }
                     });
                 } catch (e) {
                 }
             });
         </script>
+        <link rel="stylesheet" href="/statics/css/ace.onpage-help.css" />
+        <link rel="stylesheet" href="/statics/css/sunburst.css" />
+
+        <script type="text/javascript"> ace.vars['base'] = '..';</script>
+        <script src="/statics/js/ace.onpage-help.js"></script>
+        <script src="/statics/js/rainbow.js"></script>
+        <script src="/statics/js/generic.js"></script>
+        <script src="/statics/js/html.js"></script>
+        <script src="/statics/js/css.js"></script>
+        <script src="/statics/js/javascript.js"></script>
     </body>
 </html>
 

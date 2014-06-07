@@ -34,7 +34,7 @@
                         <th><?php echo Yii::t("shop","Coupon validity end");?></th>
                         <th><?php echo Yii::t("shop","Coupon total");?></th>
                         <th><?php echo Yii::t("shop","Coupon used");?></th>
-                        <th>操作</th>
+                        <th><?php echo Yii::t("comment","Operate")?></th>
                     </tr>
                 </thead>
 

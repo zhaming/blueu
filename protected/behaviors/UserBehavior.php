@@ -129,7 +129,7 @@ class UserBehavior extends BaseBehavior {
         }
         $userId = $data['id'];
         unset($data['id']);
-        $enableEdit = array('name', 'mobile', 'pushable');
+        $enableEdit = array('name', 'avatar', 'mobile', 'pushable');
         while (list($key, ) = each($data)) {
             if (!in_array($key, $enableEdit)) {
                 $this->error = $key . ' ' . Yii::t('api', 'Not editable');

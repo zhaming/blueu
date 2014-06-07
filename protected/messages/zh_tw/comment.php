@@ -18,6 +18,8 @@
  */
 return array (
   'Add' => '',
+  'Approved' => '',
+  'Approveding' => '',
   'Choose a picture' => '',
   'Create' => '',
   'Create Failure' => '',
@@ -38,5 +40,7 @@ return array (
   'Submit' => '',
   'Success' => '',
   'Total' => '',
+  'Unapproved' => '',
+  'status' => '',
   'Edit Success' => '@@@@',
 );

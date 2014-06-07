@@ -5,19 +5,19 @@
             <ul class="nav nav-tabs padding-16">
                 <li class="active">
                     <a href="<?php echo $this->createUrl('detail?id=' . $user['id']); ?>">
-                        <i class="green icon-sun bigger-125"></i>
+                        <i class="green ace-icon fa fa-sun-o bigger-125"></i>
                         <?php echo Yii::t('admin', 'Overview'); ?>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo $this->createUrl('edit?id=' . $user['id']); ?>">
-                        <i class="green icon-edit bigger-125"></i>
+                        <i class="green ace-icon fa fa-edit bigger-125"></i>
                         <?php echo Yii::t('admin', 'Edit information'); ?>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo $this->createUrl('resetpwd?id=' . $user['id']); ?>">
-                        <i class="blue icon-key bigger-125"></i>
+                        <i class="green ace-icon fa fa-key bigger-125"></i>
                         <?php echo Yii::t('admin', 'Reset password'); ?>
                     </a>
                 </li>
@@ -37,44 +37,13 @@
                     <div class="row">
                         <div class="col-xs-3 col-sm-3 center">
                             <span class="profile-picture">
-                                <img id="avatar2" class="image-edit-select editable img-responsive" alt="<?php echo $user['name']; ?>" src="<?php echo HelpTemplate::getAvatarUrl($user['avatar']); ?>"></img>
+                                <img class="edit-picture editable img-responsive" data-value="<?php echo $user['id']; ?>-1" alt="<?php echo $user['name']; ?>" src="<?php echo HelpTemplate::getAvatarUrl($user['avatar']); ?>"></img>
                             </span>
-                            <div class="space-4"></div>
-                            <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
-                                <div class="inline position-relative">
-                                    <a class="user-title-label dropdown-toggle no-underline cursor-pointer" data-toggle="dropdown">
-                                        <i class="icon-circle light-green middle"></i>
-                                        <span class="white">&nbsp;<?php echo $user['name']; ?></span>
-                                    </a>
-                                    <ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
-                                        <li class="dropdown-header"> Change Status </li>
-
-                                        <li>
-                                            <a href="#">
-                                                <i class="icon-circle green"></i>
-                                                &nbsp;
-                                                <span class="green">Available</span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">
-                                                <i class="icon-circle red"></i>
-                                                &nbsp;
-                                                <span class="red">Busy</span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#">
-                                                <i class="icon-circle grey"></i>
-                                                &nbsp;
-                                                <span class="grey">Invisible</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <div class="space space-4"></div>
+                            <a class="width-75 btn btn-sm btn-block btn-success cursor-default">
+                                <i class="ace-icon fa fa-edit bigger-120"></i>
+                                <span class="bigger-110"><?php echo Yii::t('admin', 'Click Image To Edit'); ?></span>
+                            </a>
                         </div>
                         <div class="col-xs-9 col-sm-9">
                             <div class="profile-user-info">

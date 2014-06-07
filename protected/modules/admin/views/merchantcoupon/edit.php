@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right">适用商铺</label>
+                <label class="col-sm-3 control-label no-padding-right"><?php echo Yii::t("shop","Apply to shops");?></label>
                 <div class="col-sm-9">
                      <?php echo empty($coupon->shop)?"":$coupon->shop->name;?>
                 </div>

@@ -21,10 +21,11 @@ class AdCreateForm extends BaseForm {
     public $url;
     public $placetag;
     public $desc;
+    public $type;
 
     public function rules() {
         return array(
-            array('url,placetag', 'required'),
+            array('url,placetag,type', 'required'),
             array('url', 'url'),
             array('desc', 'safe')
         );
@@ -32,6 +33,7 @@ class AdCreateForm extends BaseForm {
 
     public function beforeValidate() {
         parent::beforeValidate();
+        $this->type = intval($this->type);
         return true;
     }
 
@@ -39,6 +41,7 @@ class AdCreateForm extends BaseForm {
         return array(
             'url' => Yii::t('admin', 'Url'),
             'placetag' => Yii::t('admin', 'Place tag'),
+            'type' => Yii::t('admin', 'Type'),
             'desc' => Yii::t('admin', 'Description')
         );
     }
