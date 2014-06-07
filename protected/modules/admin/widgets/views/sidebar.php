@@ -156,7 +156,7 @@
                 </li>
                 <?php } ?>
                 <li<?php if (Yii::app()->controller->getId() == 'stat' && Yii::app()->controller->getAction()->getId() == 'shop') { ?> class="active"<?php } ?>>
-                    <a href="/admin/stat/industry"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Shop Analytics'); ?></a>
+                    <a href="/admin/stat/shop"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Shop Analytics'); ?></a>
                 </li>
             </ul>
         </li>

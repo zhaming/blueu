@@ -144,6 +144,20 @@ function formvalidate(form, rule, message, errorcontainer) {
     });
 }
 
+function cascadingDropDown(dom1, dom2, ajaxUrl, defaultCid)
+{
+    $.getJSON(ajaxUrl, {type:$(dom1).val()}, function(json){
+        $(dom2).empty();
+        $.each(json, function(key, value){
+            if(value == '') return;
+            var selected = '';
+            if(defaultCid == key) selected = " selected='selected'";
+            var option = '<option value=' + key + selected + '>' + value + '</option>';
+            $(dom2).append(option);
+        });
+    });
+}
+
 function toBreakWord(dom, length) {
     $(dom).each(function(){
         var word = $(this).html();
@@ -155,6 +169,19 @@ function toBreakWord(dom, length) {
         $(this).html(newWord + word);
     });
 }
+
+function JsonToString(o) {    
+    var arr = []; 
+    var fmt = function(s) { 
+        if (typeof s == 'object' && s != null) return JsonToString(s); 
+        return /^(string|number)$/.test(typeof s) ? "'" + s + "'" : s; 
+    } 
+    for (var i in o) 
+         arr.push("'" + i + "':" + fmt(o[i])); 
+    return '{' + arr.join(',') + '}'; 
+}
+
+
 
 var Order = {
 	arrow_up: 'statics/images/spinner_up.gif',
@@ -269,249 +296,22 @@ Order.view = function(dom){
 	imgdiv.appendTo(dom);
 };
 
-var Password = {};
-
-Password.ShowStrong = function(doms)
-{
-	data = Password.checkStrong($(doms[0]).val());
-    $(doms[1]).hide();
-	$('#' + data).show();
-};
-
-Password.checkStrong = function(sPW)
-{
-	Modes=0;
-	for (i=0;i<sPW.length;i++){
-		Modes|=Password.CharMode(sPW.charCodeAt(i));
-	}
-	var btotal = Password.bitTotal(Modes);
-	if (sPW.length >= 10) btotal++;
-	switch(btotal) {
-		case 1:
-			return "pw_check_1";
-		case 2:
-			return "pw_check_2";
-		case 3:
-			return "pw_check_3";
-		default:
-			return "pw_check_1";
-	}
-}
-
-Password.CharMode = function(iN)
-{
-	if (iN>=65 && iN <= 90)
-		return 2;
-	if (iN>=97 && iN <= 122)
-		return 4;
-	else
-		return 1;
-}
-
-Password.bitTotal = function(num)
-{
-	modes = 0;
-	for(i=0; i<3; i++)
-	{
-		if (num & 1) modes++;
-		num >>>= 1;
-	}
-	return modes;
-}
-
-function cascadingDropDown(dom1, dom2, ajaxUrl, defaultCid)
-{
-    $.getJSON(ajaxUrl, {cid:$(dom1).val()}, function(json){
-        $(dom2).empty();
-        $.each(json, function(key, value){
-            if(value == '') return;
-            var selected = '';
-            if(defaultCid == key) selected = " selected='selected'";
-            var option = '<option value=' + key + selected + '>' + value + '</option>';
-            $(dom2).append(option);
-        });
-    });
-}
-
-function formdate(id, format, isdatetime)
-{
-    if(isdatetime == '' || isdatetime == undefined){
-        var size = 10;
-        var showTime = 'false';
-        if(format == '' || format == undefined) format = '%Y-%m-%d';
-    }else{
-        var size = 18;
-        var showTime = 'true';
-        if(format == '' || format == undefined) format = '%Y-%m-%d %H:%M:%S';
-    }
-    var input = $('#' + id);
-    if(input == undefined) return;
-    input.attr('size', size);
-    
-    Calendar.setup({
-        inputField: id,
-        ifFormat  : format,
-        showsTime : showTime,
-        timeFormat: '24'
-    });
-}
-
-var Tag = {}
-
-Tag.init = function()
-{
-    var userid = $('.userinfo').attr('id');
-    Tag.select();
-    Tag.save(userid);
-}
-
-Tag.select = function()
-{
-    var taglist = '.guess-taglist';
-    var tagPre = '#tag_';
-    var viewPre = '#view_';
-    var chkallPre = '#chkall_';
-    var defaultClass = 'tag tag-gray';
-    var selectedClass = 'tag tag-red';
-    
-    $(taglist).each(function(){
-        var id = $(this).attr('id').substring(4);
-        var defaultTagSelector = tagPre + id + '>span[class$=' + defaultClass.substring(4) + ']';
-        var selectedTagSelector = tagPre + id + '>span[class$=' + selectedClass.substring(4) + ']';
-        var viewSelector = viewPre + id;
-        $(defaultTagSelector).each(function(){
-            $(this).click(function(){
-                if($(this).attr('class') == defaultClass)
-                    $(this).attr('class', selectedClass);
-                else
-                    $(this).attr('class', defaultClass);
-                
-                var size = $(selectedTagSelector).size();
-                $(viewSelector).html(size);
-            });
-        });
-
-        var chkallSelector = chkallPre + id;
-        $(chkallSelector).click(function(){
-            if($(this).attr('chkall') != 'true'){
-                $(defaultTagSelector).each(function(){
-                    $(this).attr('class', selectedClass);
-                });
-                $(this).attr('chkall', 'true');
-            }else{
-                $(selectedTagSelector).each(function(){
-                    $(this).attr('class', defaultClass);
-                });
-                $(this).attr('chkall', 'false');
-            }
-            
-            var size = $(selectedTagSelector).size();
-            $(viewSelector).html(size);
-        });
-    });
-}
-
-Tag.save = function(userid)
-{
-    var recommendSubmit = '#recommend-submit';
-    var listSubmit = '#list-submit';
-    var recommendClass = '.guess-tagrecommend';
-    var listClass = '.guess-taglist';
-    var selectedClass = 'tag tag-red';
-    var recommendPre = 'recommend_';
-    var listPre = 'subtag_';
-    var url = '/site/saveTags';
-    var itemUrl = '/site/items/id/';
-    
-    var recommendSelector = recommendClass + '>span[class$=' + selectedClass.substring(4) + ']';
-    var listSelector = listClass + '>span[class$=' + selectedClass.substring(4) + ']';
-    
-    $(recommendSubmit).click(function(){
-        var recommends = new Array();
-        $(recommendSelector).each(function(){
-            id = $(this).attr('id').replace(recommendPre, '');
-            recommends.push(id);
-        });
-
-        var tags = recommends.join(',');
-        $.post(url, {userid: userid, tags: tags}, function(result){
-            alert(result);
-        });
-    });
-    
-    $(listSubmit).click(function(){
-        var lists = new Array();
-        $(listSelector).each(function(){
-            id = $(this).attr('id').replace(listPre, '');
-            lists.push(id);
-        });
-        
-        var tags = lists.join(',');
-        if(tags == '') {alert('亲，姐您还未选择哦');return;}
-        $.post(url, {userid: userid, tags: tags}, function(result){
-            if(result == 'true')
-                location.href = itemUrl + userid;
-            else
-                alert(result);
-        });
-    });
-}
-
-var App = {}
-
-App.init = function()
-{
-    $('.friend>a>img').each(function(){
-        $(this).click(function(){
-            $('.friend>a>img').attr('class', '');
-            $(this).attr('class', 'imgborder');
-            $('#nick').val($(this).attr('alt'));
-            $('#head').val($(this).attr('src'));
-            $('#name').val($(this).attr('name'));
-        });
-    })
-}
-
-App.click = function()
-{
-    $('#submit').click(function(){
-        var nick = $('#nick').val();
-        if(nick == ''){
-            alert('请选择一个好友');
-            return false;
-        }
-        return true;
-    });
-}
-
-var Items = {}
-
-Items.click = function(url, doms)
-{
-    var itemUrl = url + '/kw/';
-    for(var i = 0; i < doms.length; i++){
-        if($(doms[i]) == undefined || $(doms[i]) == '') continue;
-		$(doms[i]).each(function(){
-            $(this).click(function(){
-                var kw = $(this).html();
-                location.href = itemUrl + Common.trim(kw);
-            });
-        });
-	}
-}
-
 var Chart = {
     baseUrl: '/statics/js',
-    loading: '/statics/css/images/loading.gif'
+    opt: {
+        tooltip: {trigger:'axis',axisPointer:{type:'shadow'}},
+        toolbox: {show:true,feature:{saveAsImage:{show:true}}},
+        grid: {x:30,y:30,x2:30,y2:30},
+        calculable: false,
+        markPoint: {data:[{type:'max',name:'最大值'},{type:'min',name:'最小值'}]},
+        markLine: {data:[{type:'average',name:'平均值'}]},
+    }
 };
 
-Chart.init = function()
+Chart.init = function(domid, url, param, extra)
 {
-    //
-};
-
-Chart.config = function()
-{
+    var dom = document.getElementById(domid);
+    if(dom == null || dom == undefined) return;
     require.config({
         baseUrl: Chart.baseUrl,
         packages: [{
@@ -524,220 +324,68 @@ Chart.config = function()
                 main: 'zrender'
         }]
     });
-};
-
-Chart.option = function()
-{
-    var option = {
-        title : {
-            text: '未来一周气温变化',
-            subtext: '纯属虚构'
-        },
-        tooltip : {
-            trigger: 'axis'
-        },
-        legend: {
-            data:['最高气温','最低气温']
-        },
-        toolbox: {
-            show : true,
-            feature : {
-                mark : {show: true},
-                dataView : {show: true, readOnly: false},
-                magicType : {show: true, type: ['line', 'bar']},
-                restore : {show: true},
-                saveAsImage : {show: true}
-            }
-        },
-        calculable : true,
-        xAxis : [
-            {
-                type : 'category',
-                boundaryGap : false,
-                data : ['周一','周二','周三','周四','周五','周六','周日']
-            }
-        ],
-        yAxis : [
-            {
-                type : 'value',
-                axisLabel : {
-                    formatter: '{value} °C'
-                },
-                splitArea : {show : true}
-            }
-        ],
-        series : [
-            {
-                name:'最高气温',
-                type:'line',
-                itemStyle: {
-                    normal: {
-                        lineStyle: {
-                            shadowColor : 'rgba(0,0,0,0.4)',
-                            shadowBlur: 5,
-                            shadowOffsetX: 3,
-                            shadowOffsetY: 3
-                        }
-                    }
-                },
-                data:[11, 11, 15, 13, 12, 13, 10],
-                markPoint : {
-                    data : [
-                        {type : 'max', name: '最大值'},
-                        {type : 'min', name: '最小值'}
-                    ]
-                },
-                markLine : {
-                    data : [
-                        {type : 'average', name: '平均值'}
-                    ]
-                }
-            },
-            {
-                name:'最低气温',
-                type:'line',
-                itemStyle: {
-                    normal: {
-                        lineStyle: {
-                            shadowColor : 'rgba(0,0,0,0.4)',
-                            shadowBlur: 5,
-                            shadowOffsetX: 3,
-                            shadowOffsetY: 3
-                        }
-                    }
-                },
-                data:[1, -2, 2, 5, 3, 2, 0],
-                markPoint : {
-                    data : [
-                        {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
-                    ]
-                },
-                markLine : {
-                    data : [
-                        {type : 'average', name : '平均值'}
-                    ]
-                }
-            }
-        ]
-    };
-    
-    var option = {
-        tooltip : {
-            trigger: 'axis',
-            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-            }
-        },
-        legend: {
-            data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎','百度','谷歌','必应','其他']
-        },
-        toolbox: {
-            show : true,
-            orient: 'vertical',
-            x: 'right',
-            y: 'center',
-            feature : {
-                mark : {show: true},
-                dataView : {show: true, readOnly: false},
-                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-                restore : {show: true},
-                saveAsImage : {show: true}
-            }
-        },
-        calculable : true,
-        xAxis : [
-            {
-                type : 'category',
-                data : ['周一','周二','周三','周四','周五','周六','周日']
-            }
-        ],
-        yAxis : [
-            {
-                type : 'value',
-                splitArea : {show : true}
-            }
-        ],
-        series : [
-            {
-                name:'直接访问',
-                type:'bar',
-                data:[320, 332, 301, 334, 390, 330, 320]
-            },
-            {
-                name:'邮件营销',
-                type:'bar',
-                stack: '广告',
-                data:[120, 132, 101, 134, 90, 230, 210]
-            },
-            {
-                name:'联盟广告',
-                type:'bar',
-                stack: '广告',
-                data:[220, 182, 191, 234, 290, 330, 310]
-            },
-            {
-                name:'视频广告',
-                type:'bar',
-                stack: '广告',
-                data:[150, 232, 201, 154, 190, 330, 410]
-            },
-            {
-                name:'搜索引擎',
-                type:'bar',
-                data:[862, 1018, 964, 1026, 1679, 1600, 1570],
-                markLine : {
-                    itemStyle:{
-                        normal:{
-                            lineStyle:{
-                                type: 'dashed'
-                            }
-                        }
-                    },
-                    data : [
-                        [{type : 'min'}, {type : 'max'}]
-                    ]
-                }
-            },
-            {
-                name:'百度',
-                type:'bar',
-                barWidth : 5,
-                stack: '搜索引擎',
-                data:[620, 732, 701, 734, 1090, 1130, 1120]
-            },
-            {
-                name:'谷歌',
-                type:'bar',
-                stack: '搜索引擎',
-                data:[120, 132, 101, 134, 290, 230, 220]
-            },
-            {
-                name:'必应',
-                type:'bar',
-                stack: '搜索引擎',
-                data:[60, 72, 71, 74, 190, 130, 110]
-            },
-            {
-                name:'其他',
-                type:'bar',
-                stack: '搜索引擎',
-                data:[62, 82, 91, 84, 109, 110, 120]
-            }
-        ]
-    };
-    
-    return option;
-};
-
-Chart.draw = function(dom, option)
-{
-    require([
+    require(
+        [
             'echarts',
             'echarts/chart/line',
+            'echarts/chart/pie',
             'echarts/chart/bar'
-        ], function(ec) {
-            var myChart = ec.init($(dom));
-            myChart.showLoading({text: 'Loading..', effect: 'whirling'});
-            myChart.setOption(option);
+        ], 
+        function(ec) {
+            var _chart = ec.init(dom);
+            _chart.showLoading({text: 'Loading..', effect: 'whirling'});
+            Chart.option(url, param, extra, _chart);
+        }
+    );
+};
+
+Chart.option = function(url, param, extra, _chart)
+{
+    var _xAxis;
+    var _series = new Array();
+    $.getJSON(url, param, function(json){
+        $.each(json, function(key, value){
+            if(value == '' || value == false) return;
+            _xAxis = value.xAxis?value.xAxis:[];
+            var datas = null;
+            if(value.yAxis){
+                datas = {data:value.yAxis, extra:value.extra};
+            }else if(value.series){
+                datas = {data:value.series, extra:value.extra};
+            }
+            var serie = Chart.serie(value.name, datas, extra.series);
+            _series.push(serie);
+        });
+        var _option = {
+            title: extra.title?extra.title:'',
+            legend: extra.legend?extra.legend:'',
+            tooltip: extra.tooltip?extra.tooltip:Chart.opt.tooltip,
+            toolbox: extra.toolbox?extra.toolbox:Chart.opt.toolbox,
+            grid: extra.grid?extra.grid:Chart.opt.grid,
+            calculable: extra.calculable?extra.calculable:Chart.opt.calculable,
+            xAxis: [{data: _xAxis}],
+            yAxis: [extra.yAxis?extra.yAxis:{}],
+            series : _series
+        };
+        console.log(_option);
+        //alert(JsonToString(_option));
+        _chart.hideLoading();
+        _chart.setOption(_option);
     });
 };
+
+Chart.serie = function(name, datas, extra)
+{
+    var _itemStyle = {};
+    if(datas.extra.itemStyle) _itemStyle = eval('(' + datas.extra.itemStyle + ')');
+    var _serie = {
+        name: name,
+        type: extra.type?extra.type:'line',
+        itemStyle: _itemStyle,
+        radius: datas.extra.radius?datas.extra.radius:[],
+        data: datas.data?datas.data:[],
+        markPoint: extra.maxmin?Chart.opt.markPoint:null,
+        markLine: extra.average?Chart.opt.markLine:null
+    };
+    return _serie;
+}
