@@ -53,7 +53,7 @@ class FileController extends BController {
         }
         if (!$this->fileBehavior->isHaveUploadFile()) {
             $data['code'] = 2;
-            $data['message'] = Yii::t('admin', 'No files uploaded.');
+            $data['message'] = Yii::t('admin', 'No file uploaded.');
             echo CJSON::encode($data);
             return;
         }

@@ -17,10 +17,14 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Unapproved' => '',
   'Delete Failure' => '@@删除失败@@',
   'Edit Success' => '@@@@',
   'Param Error' => '@@参数错误@@',
+  'Unapprove' => '@@审核未通过@@',
   'Add' => '添加',
+  'Approved' => '审核通过',
+  'Approveding' => '待审核',
   'Choose a picture' => '选择一张图片',
   'Create' => '创建',
   'Create Failure' => '创建失败',
@@ -41,8 +45,5 @@ return array (
   'Submit' => '提交',
   'Success' => '操作成功',
   'Total' => '总量',
-  "status"=>"状态",
-  "Approveding"=>"待审核",
-  "Approved"=>"审核通过",
-  "Unapprove"=>"审核未通过",
+  'status' => '状态',
 );

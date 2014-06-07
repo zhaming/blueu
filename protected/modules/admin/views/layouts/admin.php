@@ -175,9 +175,9 @@
                     //style: true,
                     no_file: '',
                     //no_icon: "icon-upload-alt",
-                    btn_choose: '选择',
-                    btn_change: '重新选择',
-                    icon_remove: "icon-remove",
+                    btn_choose: 'Choose',
+                    btn_change: 'Change',
+                    //icon_remove: "icon-remove",
                     //droppable: false,
                     thumbnail: true, //| true | large
                     before_change: function(files, dropped) {

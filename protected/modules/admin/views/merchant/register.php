@@ -12,7 +12,7 @@
                 </div>
             <?php } ?>
             <div class="space-6"></div>
-            <p><?php echo Yii::t('admin', 'Enter your details to begin: </p>'); ?>
+            <p><?php echo Yii::t('admin', 'Enter your details to begin:'); ?>
             <form action="/admin/merchant/register" method="post">
                 <fieldset>
                     <label class="block clearfix">
