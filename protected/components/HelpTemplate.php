@@ -134,6 +134,13 @@ class HelpTemplate extends CComponent {
         );
     }
 
+    public static function getAdTypes() {
+        return array(
+            0 => Yii::t('admin', 'Default'),
+            1 => Yii::t('admin', 'Credit card offers')
+        );
+    }
+
     public static function roleColoration($flag) {
         $map = array(
             self::ADMIN_ROLE => 'green',

@@ -21,7 +21,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-3 center">
                             <span class="profile-picture">
-                                <img class="edit-picture editable img-responsive" src="<?php echo HelpTemplate::getAdUrl($ad['pic']); ?>" />
+                                <img class="edit-picture editable img-responsive" data-value="<?php echo $ad['id']; ?>-2" src="<?php echo HelpTemplate::getAdUrl($ad['pic']); ?>" />
                             </span>
                         </div>
                         <div class="col-xs-12 col-sm-9">

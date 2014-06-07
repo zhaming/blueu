@@ -33,8 +33,8 @@
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
         <!--[if lt IE 9]>
-        <script src="/statics/jj/html5shiv.js"></script>
-        <script src="/statics/jj/respond.min.js"></script>
+        <script src="/statics/js/html5shiv.js"></script>
+        <script src="/statics/js/respond.min.js"></script>
         <![endif]-->
     </head>
 
@@ -65,19 +65,19 @@
 
         <!--[if !IE]> -->
         <script type="text/javascript">
-            window.jQuery || document.write("<script src='/statics/jj/jquery.min.js'>" + "<" + "/script>");
+            window.jQuery || document.write("<script src='/statics/js/jquery.min.js'>" + "<" + "/script>");
         </script>
 
         <!-- <![endif]-->
 
         <!--[if IE]>
-<script type="text/javascript">
-window.jQuery || document.write("<script src='/statics/jj/jquery1x.min.js'>"+"<"+"/script>");
-</script>
-<![endif]-->
+        <script type="text/javascript">
+        window.jQuery || document.write("<script src='/statics/js/jquery1x.min.js'>"+"<"+"/script>");
+        </script>
+        <![endif]-->
         <script type="text/javascript">
             if ('ontouchstart' in document.documentElement)
-                document.write("<script src='/statics/jj/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+                document.write("<script src='/statics/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
         </script>
 
         <!-- inline scripts related to this page -->
