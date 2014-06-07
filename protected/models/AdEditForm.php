@@ -27,6 +27,7 @@ class AdEditForm extends BaseForm {
     public function rules() {
         return array(
             array('id,url,placetag', 'required'),
+            array('url', 'url'),
             array('desc', 'safe')
         );
     }

@@ -5,19 +5,19 @@
             <ul class="nav nav-tabs padding-16">
                 <li class="active">
                     <a href="<?php echo $this->createUrl('detail?id=' . $merchant['id']); ?>">
-                        <i class="green icon-user bigger-125"></i>
+                        <i class="green ace-icon fa fa-sun-o bigger-125"></i>
                         <?php echo Yii::t('admin', 'Overview'); ?>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo $this->createUrl('edit?id=' . $merchant['id']); ?>">
-                        <i class="green icon-edit bigger-125"></i>
+                        <i class="green ace-icon fa fa-edit bigger-125"></i>
                         <?php echo Yii::t('admin', 'Edit information'); ?>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo $this->createUrl('resetpwd?id=' . $merchant['id']); ?>">
-                        <i class="green icon-key bigger-125"></i>
+                        <i class="green ace-icon fa fa-key bigger-125"></i>
                         <?php echo Yii::t('admin', 'Reset password'); ?>
                     </a>
                 </li>
@@ -40,26 +40,43 @@
                             <div class="profile-info-row">
                                 <div class="profile-info-name"><?php echo Yii::t('admin', 'Username'); ?></div>
                                 <div class="profile-info-value">
-                                    <span><?php echo $merchant->account->username; ?></span>
+                                    <span><?php echo $merchant['account']['username']; ?></span>
                                 </div>
                             </div>
                             <div class="profile-info-row">
-                                <div class="profile-info-name"><?php echo Yii::t('admin', 'Role'); ?></div>
+                                <div class="profile-info-name"><?php echo Yii::t('admin', 'Name'); ?></div>
                                 <div class="profile-info-value">
-                                    <i class="icon-map-marker light-orange bigger-110"></i>
-                                    <span><?php echo HelpTemplate::role($merchant->account->roleid); ?></span>
+                                    <span><?php echo $merchant['name']; ?>&nbsp;</span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"><?php echo Yii::t('admin', 'Legal'); ?></div>
+                                <div class="profile-info-value">
+                                    <span><?php echo $merchant['legal']; ?>&nbsp;</span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"><?php echo Yii::t('admin', 'Telephone'); ?></div>
+                                <div class="profile-info-value">
+                                    <span><?php echo $merchant['telephone']; ?>&nbsp;</span>
+                                </div>
+                            </div>
+                            <div class="profile-info-row">
+                                <div class="profile-info-name"><?php echo Yii::t('admin', 'Bank'); ?></div>
+                                <div class="profile-info-value">
+                                    <span><?php echo $merchant['bank']; ?>&nbsp;</span>
                                 </div>
                             </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name"><?php echo Yii::t('admin', 'Registration time'); ?></div>
                                 <div class="profile-info-value">
-                                    <span><?php echo date('Y/m/d H:i:s', $merchant->account->registertime); ?></span>
+                                    <span><?php echo date('Y/m/d H:i:s', $merchant['account']['registertime']); ?></span>
                                 </div>
                             </div>
                             <div class="profile-info-row">
                                 <div class="profile-info-name"><?php echo Yii::t('admin', 'Last Online'); ?></div>
                                 <div class="profile-info-value">
-                                    <span><?php echo date('Y/m/d H:i:s', $merchant->account->logintime); ?></span>
+                                    <span><?php echo date('Y/m/d H:i:s', $merchant['account']['logintime']); ?></span>
                                 </div>
                             </div>
                         </div>

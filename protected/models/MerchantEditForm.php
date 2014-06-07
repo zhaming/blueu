@@ -20,10 +20,15 @@ class MerchantEditForm extends BaseForm {
 
     public $id;
     public $name;
+    public $legal;
+    public $telephone;
+    public $bank;
 
     public function rules() {
         return array(
             array('id,name', 'required'),
+            array('legal', 'length', 'max' => 15),
+            array('telephone,bank', 'numerical'),
             array('', 'safe')
         );
     }
@@ -36,7 +41,10 @@ class MerchantEditForm extends BaseForm {
     public function attributeLabels() {
         return array(
             'id' => Yii::t('admin', 'Id'),
-            'name' => Yii::t('admin', 'Name')
+            'name' => Yii::t('admin', 'Name'),
+            'legal' => Yii::t('admin', 'Legal'),
+            'telephone' => Yii::t('admin', 'Telephone'),
+            'bank' => Yii::t('admin', 'Bank account')
         );
     }
 

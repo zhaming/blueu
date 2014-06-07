@@ -124,6 +124,93 @@ class PushBehavior extends BaseBehavior {
     }
     
     /**
+	 * 推送记录列表
+     * @param array $search
+     * @param string $order
+     * @param integer $page
+	 * @return array
+	 */
+	public function listinfo($search, $order, $page)
+	{
+        $criteria = new CDbCriteria();
+        if(!empty($search))
+        {
+            $condition = $params = array();
+            if(!empty($search['to']))
+            {
+                $condition[] = '`to` = :to';
+                $params[':to'] = $search['to'];
+            }
+            if(!empty($search['type']))
+            {
+                $condition[] = 'type = :type';
+                $params[':type'] = $search['type'];
+            }
+            if(!empty($search['start']))
+            {
+                if(strlen($search['start']) <= 10) $search['start'] .= '00:00:00';
+                $condition[] = 'created >= :start';
+                $params[':start'] = strtotime($search['start']);
+            }
+            if(!empty($search['end']))
+            {
+                if(strlen($search['end']) <= 10) $search['end'] .= '23:59:59';
+                $condition[] = 'created <= :end';
+                $params[':end'] = strtotime($search['end']);
+            }
+            $condition = implode(' and ', $condition);
+            $criteria->condition = $condition;
+            $criteria->params = $params;
+        }
+        $criteria->order = empty($order) ? 'id DESC' : $order;
+        
+        if(empty($page)) $page = 1;
+        $pageSize = Yii::app()->params->page_size;
+        $criteria->offset = $pageSize * ($page -1);
+        $criteria->limit = $pageSize;
+        
+        $count = Push::model()->count($criteria);
+        $rows = Push::model()->findAll($criteria);
+        
+        if(!empty($rows))
+        {
+            $_ads = new AdvertisementBehavior();
+            $_shop = new MerchantShopBehavior();
+            foreach($rows as $i => $row)
+            {
+                $row->fromtitle = $this->getTitleByUser($row->from);
+                $row->totitle = $this->getTitleByUser($row->to);
+                $row->message = var_export(MingString::jsonDecode($row->message), true);
+                $adR = $_ads->getDataBySource($row->source, $row->sid);
+                $row->srcname = $adR->name;
+                $shopR = $_shop->getById($row->shopid);
+                $row->shopname = $shopR->name;
+                $rows[$i] = $row;
+            }
+        }
+        
+        $pages = new CPagination($count);
+        $pages->pageSize = $pageSize;
+        $pages->applyLimit($criteria);
+        
+        $result = array(
+            'list' => $rows,
+            'pages' => $pages,
+        );
+        
+        return $result;
+	}
+    
+    public function getTitleByUser($user)
+    {
+        if($user == 'system') return Yii::t('admin', 'VPushSystem');
+        $_user = new UserBehavior();
+        $rs = $_user->detail($user);
+        $title = empty($rs->name) ? $rs->account->username : $rs->name;
+        return $title;
+    }
+    
+    /**
      * 添加推送记录
      * @param array $info
      * @return mixed 
@@ -143,6 +230,119 @@ class PushBehavior extends BaseBehavior {
 	}
     
     /**
+	 * 人工推送列表
+     * @param array $search
+     * @param string $order
+     * @param integer $page
+	 * @return array
+	 */
+    public function manualList($search, $order, $page)
+    {
+        $criteria = new CDbCriteria();
+        if(!empty($search))
+        {
+            $condition = $params = array();
+            if(!empty($search['source']))
+            {
+                $condition[] = 'source = :source';
+                $params[':source'] = $search['source'];
+            }
+            if(!empty($search['shopid']))
+            {
+                $condition[] = 'shopid = :shopid';
+                $params[':shopid'] = $search['shopid'];
+            }
+            if(!empty($search['start']))
+            {
+                if(strlen($search['start']) <= 10) $search['start'] .= '00:00:00';
+                $condition[] = 'created >= :start';
+                $params[':start'] = strtotime($search['start']);
+            }
+            if(!empty($search['end']))
+            {
+                if(strlen($search['end']) <= 10) $search['end'] .= '23:59:59';
+                $condition[] = 'created <= :end';
+                $params[':end'] = strtotime($search['end']);
+            }
+            $condition = implode(' and ', $condition);
+            $criteria->condition = $condition;
+            $criteria->params = $params;
+        }
+        $criteria->order = empty($order) ? 'id DESC' : $order;
+        
+        if(empty($page)) $page = 1;
+        $pageSize = Yii::app()->params->page_size;
+        $criteria->offset = $pageSize * ($page -1);
+        $criteria->limit = $pageSize;
+        
+        $count = PushManual::model()->count($criteria);
+        $rows = PushManual::model()->findAll($criteria);
+        
+        if(!empty($rows))
+        {
+            $_shop = new MerchantShopBehavior();
+            foreach($rows as $i => $row)
+            {
+                $shopR = $_shop->getById($row->shopid);
+                $row->shopname = $shopR->name;
+                $rows[$i] = $row;
+            }
+        }
+        
+        $pages = new CPagination($count);
+        $pages->pageSize = $pageSize;
+        $pages->applyLimit($criteria);
+        
+        $result = array(
+            'list' => $rows,
+            'pages' => $pages,
+        );
+        
+        return $result;
+    }
+    
+    /**
+     * 添加人工推送
+     * @param array $info
+     * @return mixed 
+     */
+    public function manualAdd($info)
+    {
+        $manual = new PushManual();
+        $manual->source = $info['source'];
+        $manual->sid = $info['sid'];
+        $manual->name = $info['name'];
+        $manual->shopid = $info['shopid'];
+        $manual->msg = $info['msg'];
+        $manual->limit = $info['limit'];
+        $manual->owner = Yii::app()->user->getId();
+        $manual->created = time();
+        return $manual->save();
+    }
+    
+    /**
+     * 编辑人工推送
+     * @param integer $id
+     * @param array $info
+     * @return mixed 
+     */
+	public function manualEdit($id, $info)
+	{
+        return PushManual::model()->updateByPk($id, $info);
+	}
+	
+	/**
+	 * 根据ID删除人工推送
+	 * @param mixed $id
+	 * @return mixed
+	 */
+	public function manualDelete($id)
+	{
+        return PushManual::model()->deleteByPk($id);
+    }
+
+
+    /**
      * 获取关注列表
      * @param string $sql
      * @return mixed
@@ -150,6 +350,16 @@ class PushBehavior extends BaseBehavior {
     public function getLikeBySql($sql)
     {
         return Like::model()->findAllBySql($sql);
+    }
+    
+    /**
+     * 获取人工推送详情
+     * @param integer $id
+     * @return mixed
+     */
+    public function getManualById($id)
+    {
+        return PushManual::model()->findByPk($id);
     }
     
     /**
@@ -326,7 +536,7 @@ class PushBehavior extends BaseBehavior {
         $this->total = 1;
         $this->success = 0;
         $checkRs = $this->doLikeCheck($tasks['sql'], $tasks['ext'], $tasks['item'], $params);
-        if($checkRs !== true) return $checkRs;
+        if(is_int($checkRs)) return $checkRs;
         $msg = $this->getMsg($tasks['msg'], $params);
         $messages = $this->getMessages($msg, $params['platform'], array('shopid' => $params['shopid']));
         $pushRs = $this->bdPush($params['platform'], $params['user_id'], $messages);
@@ -336,6 +546,8 @@ class PushBehavior extends BaseBehavior {
         $info = array(
             'to' => $params['userid'],
             'shopid' => $params['shopid'],
+            'source' => $checkRs->source,
+            'sid' => $checkRs->sid,
             'type' => $tasks['item'],
             'message' => json_encode($messages),
         );
@@ -381,6 +593,8 @@ class PushBehavior extends BaseBehavior {
             $info = array(
                 'to' => $params['userid'],
                 'shopid' => $params['shopid'],
+                'source' => $v->source,
+                'sid' => $v->sid,
                 'type' => $tasks['item'],
                 'message' => json_encode($messages),
             );
@@ -443,7 +657,7 @@ class PushBehavior extends BaseBehavior {
             $pushR = Push::model()->find($criteria);
             if(!empty($pushR)) return self::ERROR_CMD_LIMIT;
         }
-        return true;
+        return $rs;
     }
     
     /**

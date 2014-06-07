@@ -2,19 +2,15 @@
     <div class="col-xs-12">
         <p>
             <a href="/admin/user/create" class="btn btn-app btn-success btn-xs">
-                <i class="icon-plus bigger-120"></i>
+                <i class="ace-icon glyphicon glyphicon-plus bigger-120"></i>
                 <?php echo Yii::t('admin', 'Create'); ?>
             </a>
             <button class="btn btn-app btn-danger btn-xs batch-delete-confirm">
-                <i class="icon-remove bigger-120"></i>
+                <i class="ace-icon glyphicon glyphicon-remove bigger-120"></i>
                 <?php echo Yii::t('admin', 'Delete'); ?>
             </button>
         </p>
-        <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
-        <div class="alert alert-block<?php if ($message['type'] == 'success') { ?> alert-success<?php } ?><?php if ($message['type'] == 'error') { ?> alert-danger<?php } ?>">
-            <p><strong><?php echo $message['msg']; ?></strong></p>
-        </div>
-        <?php } ?>
+        <?php $this->widget('application.modules.admin.widgets.AlterMsgWidget'); ?>
         <form action="/admin/user/index" method="get" class="well form-inline">
             <label class="inline">
                 <input type="text" name="username" value="<?php if(!empty($_GET['username'])) { echo $_GET['username']; } ?>" placeholder="<?php echo Yii::t('admin', 'Username'); ?>" /> 
@@ -24,7 +20,7 @@
             </label>
             <label class="inline" >
                 <button type="submit" class="btn btn-xs btn-info">
-                    <i class="icon-search"></i><?php echo Yii::t('admin', 'Search'); ?>
+                    <i class="ace-icon fa fa-search"></i><?php echo Yii::t('admin', 'Search'); ?>
                 </button>
             </label>
         </form>
@@ -69,27 +65,27 @@
                                 <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
                                     <?php if ($item->account->status == HelpTemplate::USER_STATUS_DISABLED) { ?>
                                     <a href="<?php echo $this->createUrl('enable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="green">
-                                        <i class="icon-unlock bigger-130"></i>
+                                        <i class="ace-icon fa fa-unlock bigger-130"></i>
                                     </a>
                                     <?php } else { ?>
                                     <a href="<?php echo $this->createUrl('disable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="yellow">
-                                        <i class="icon-lock bigger-130"></i>
+                                        <i class="ace-icon fa fa-lock bigger-130"></i>
                                     </a>
                                     <?php } ?>
                                     <?php if ($item->pushable) { ?>
                                     <a href="<?php echo $this->createUrl('disablepush?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Disable push'); ?>" class="red">
-                                        <i class="icon-download-alt bigger-130"></i>
+                                        <i class="ace-icon fa fa-download bigger-130"></i>
                                     </a>
                                     <?php } else { ?>
                                     <a href="<?php echo $this->createUrl('enablepush?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable push'); ?>" class="green">
-                                        <i class="icon-download-alt bigger-130"></i>
+                                        <i class="ace-icon fa fa-download bigger-130"></i>
                                     </a>
                                     <?php } ?>
                                     <a href="<?php echo $this->createUrl('detail?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Detail'); ?>" class="green">
-                                        <i class="icon-edit bigger-130"></i>
+                                        <i class="ace-icon fa fa-edit bigger-130"></i>
                                     </a>
                                     <a href="<?php echo $this->createUrl('delete?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="red delete-confirm">
-                                        <i class="icon-trash bigger-130"></i>
+                                        <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                     </a>
                                 </div>
                             </td>

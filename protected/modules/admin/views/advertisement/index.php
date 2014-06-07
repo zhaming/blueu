@@ -2,28 +2,15 @@
     <div class="col-xs-12">
         <p>
             <a href="/admin/advertisement/create" class="btn btn-app btn-success btn-xs">
-                <i class="icon-plus bigger-120"></i>
+                <i class="ace-icon glyphicon glyphicon-plus bigger-120"></i>
                 <?php echo Yii::t('admin', 'Create'); ?>
             </a>
             <button class="btn btn-app btn-danger btn-xs batch-delete-confirm">
-                <i class="icon-remove bigger-120"></i>
+                <i class="ace-icon glyphicon glyphicon-remove bigger-120"></i>
                 <?php echo Yii::t('admin', 'Delete'); ?>
             </button>
         </p>
-        <?php $message = Yii::app()->user->getFlash('messagetip'); if ($message != null) { ?>
-        <div class="alert alert-block alert-success">
-            <button type="button" class="close" data-dismiss="alert">
-                <i class="icon-remove"></i>
-            </button>
-            <p>
-                <strong>
-                    <?php if ($message['type'] == 'success') { ?><i class="icon-ok"></i><?php } ?>
-                    <?php if ($message['type'] == 'error') { ?><i class="icon-remove"></i><?php } ?>
-                    <?php echo $message['msg']; ?>
-                </strong>
-            </p>
-        </div>
-        <?php } ?>
+        <?php $this->widget('application.modules.admin.widgets.AlterMsgWidget'); ?>
         <div class="table-responsive">
             <form action="/admin/advertisement/delete" method="POST" class="batch-delete-form">
                 <table class="table table-striped table-bordered table-hover">
@@ -41,7 +28,7 @@
                             <th><?php echo Yii::t('admin', 'Description'); ?></th>
                             <th><?php echo Yii::t('admin', 'Owner'); ?></th>
                             <th><?php echo Yii::t('admin', 'Source'); ?></th>
-                            <th><?php echo Yii::t('admin', 'Created'); ?></th>
+                            <th><i class="ace-icon glyphicon glyphicon-time bigger-110 hidden-480"></i><?php echo Yii::t('admin', 'Created'); ?></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -66,18 +53,18 @@
                                 <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
                                     <?php if ($item->disabled == HelpTemplate::DISABLED) { ?>
                                     <a href="<?php echo $this->createUrl('enable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Enable'); ?>" class="green">
-                                        <i class="icon-unlock bigger-130"></i>
+                                        <i class="ace-icon fa fa-unlock bigger-130"></i>
                                     </a>
                                     <?php } else { ?>
                                     <a href="<?php echo $this->createUrl('disable?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Disable'); ?>" class="yellow">
-                                        <i class="icon-lock bigger-130"></i>
+                                        <i class="ace-icon fa fa-lock bigger-130"></i>
                                     </a>
                                     <?php } ?>
                                     <a href="<?php echo $this->createUrl('detail?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Detail'); ?>" class="green">
-                                        <i class="icon-edit bigger-130"></i>
+                                        <i class="ace-icon fa fa-edit bigger-130"></i>
                                     </a>
                                     <a href="<?php echo $this->createUrl('delete?id=' . $item['id']); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="red delete-confirm">
-                                        <i class="icon-trash bigger-130"></i>
+                                        <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                     </a>
                                 </div>
                             </td>

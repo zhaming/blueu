@@ -11,18 +11,6 @@
 
 class TaskController extends BController
 {
-    static $urls = array(
-        'add' => 'task/add',
-        'edit' => 'task/edit',
-        'list' => 'task/list',
-        'delete' => 'task/delete',
-        'log' => 'task/log',
-        'run' => 'task/run',
-    );
-    static $disableds = array(
-        '0' => '正常',
-        '1' => '禁用',
-    );
     static $types = array(
         'push' => array(
             'welcome',
@@ -35,7 +23,6 @@ class TaskController extends BController
             'industry',
         ),
     );
-    static $command = '/opt/server/php/bin/php %s/console.php %s %s';
     private $_task;
     
     protected function beforeAction($action) {
@@ -46,7 +33,7 @@ class TaskController extends BController
     
     public function actionItems($type)
     {
-        $items = isset(self::$types[$type]) ? self::$types[$type] : '';
+        $items = isset(Yii::app()->params->types[$type]) ? Yii::app()->params->types[$type] : '';
         echo json_encode($items);
     }
     
@@ -66,7 +53,7 @@ class TaskController extends BController
         );
         $viewData = array(
             'message' => null,
-            'types' => self::$types,
+            'types' => Yii::app()->params->types,
             'kinds' => $kinds,
         );
         $_taskForm = new TaskForm();
@@ -97,7 +84,7 @@ class TaskController extends BController
         );
         $viewData = array(
             'message' => null,
-            'types' => self::$types,
+            'types' => Yii::app()->params->types,
             'kinds' => $kinds,
         );
         if (!Yii::app()->request->isPostRequest) {

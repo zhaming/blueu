@@ -190,7 +190,7 @@
             {
                 name:'最低气温',
                 type:'line',
-                itemStyle: {
+                /*itemStyle: {
                     normal: {
                         lineStyle: {
                             shadowColor : 'rgba(0,0,0,0.4)',
@@ -199,7 +199,7 @@
                             shadowOffsetY: 3
                         }
                     }
-                },
+                },*/
                 data:[1, -2, 2, 5, 3, 2, 0],
                 markPoint : {
                     data : [

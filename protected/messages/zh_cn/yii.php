@@ -18,13 +18,13 @@
  */
 return array (
   ' ' => '',
-  '&gt;' => '',
-  '&gt;&gt;' => '',
-  '&lt;' => '',
-  '&lt; Previous' => '',
-  '&lt;&lt;' => '',
-  '&lt;&lt; First' => '',
-  'Go to page: ' => '',
-  'Last &gt;&gt;' => '',
-  'Next &gt;' => '',
+  '&lt; Previous' => '@@上一页@@',
+  '&lt;&lt; First' => '@@首页@@',
+  'Go to page: ' => '@@@@',
+  'Last &gt;&gt;' => '@@尾页@@',
+  'Next &gt;' => '@@下一页@@',
+  '&gt;' => '下一页',
+  '&gt;&gt;' => '尾页',
+  '&lt;' => '上一页',
+  '&lt;&lt;' => '首页',
 );

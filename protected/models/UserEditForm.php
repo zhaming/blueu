@@ -20,11 +20,15 @@ class UserEditForm extends BaseForm {
 
     public $id;
     public $name;
+    public $mobile;
     public $status;
+    public $pushable = false;
 
     public function rules() {
         return array(
-            array('id,name,status', 'required')
+            array('id,name,status', 'required'),
+            array('mobile', 'numerical'),
+            array('pushable', 'boolean')
         );
     }
 

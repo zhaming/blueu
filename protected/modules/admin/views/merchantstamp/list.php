@@ -7,8 +7,8 @@
 <div class="row">
     <div class="col-xs-12">
         <p>
-            <a href="/admin/merchantproduct/create" class="btn btn-app btn-yellow btn-xs">
-                <i class="icon-create bigger-120"></i><?php echo Yii::t('comment', 'Add');?>
+            <a href="/admin/merchantproduct/create" class="btn btn-app btn-success btn-xs">
+                <i class="ace-icon fa fa-plus bigger-120"></i><?php echo Yii::t('comment', 'Add');?>
             </a>
         </p>
         <?php $this->widget("AlterMsgWidget")?>
@@ -20,7 +20,7 @@
                 </label>
                 <label class="inline">
                     <button type="submit" class="btn btn-xs btn-info">
-                        <i class="icon-search"></i><?php echo Yii::t('comment', 'Select');?>
+                        <i class="ace-icon fa fa-search"></i><?php echo Yii::t('comment', 'Select');?>
                     </button>
                 </label>
             </form>

@@ -1,14 +1,8 @@
+<!-- #section:basics/content.breadcrumbs -->
 <div class="breadcrumbs" id="breadcrumbs">
-    <script type="text/javascript">
-        try {
-            ace.settings.check('breadcrumbs', 'fixed');
-        } catch (e) {
-            console.log(e);
-        }
-    </script>
     <ul class="breadcrumb">
         <li>
-            <i class="icon-home home-icon"></i>
+            <i class="ace-icon fa fa-home home-icon"></i>
             <a href="/admin"><?php echo Yii::t('admin', 'Home'); ?></a>
         </li>
         <?php if (!empty($secondLevelTitle)) { if (!empty($thirdLevelTitle)) { ?>
@@ -21,4 +15,6 @@
         <li class="active"><?php echo $thirdLevelTitle; ?></li>
         <?php } ?>
     </ul>
+    <!-- /.breadcrumb -->
 </div>
+<!-- /section:basics/content.breadcrumbs -->

@@ -41,6 +41,10 @@ class MerchantshopController  extends IController {
             $param['order'] =  $this->order_array[$order];
         }
         $data = $this->shopBehavior->getlist($param);
+        foreach($data['data'] as $i => $v){
+            $v->pic = $v->picUrl;
+            $data['data'][$i] = $v;
+        }
         $this->data = $data['data'] ;
     }
 
@@ -51,6 +55,7 @@ class MerchantshopController  extends IController {
             return;
         }
         $res  =  $this->shopBehavior->getById($id);
+        $res->pic = $res->picUrl;
         if(empty($res)){
             $this->error_code = self::ERROR_NOT_FOUNT;
             return;
@@ -71,6 +76,10 @@ class MerchantshopController  extends IController {
         }else{
             $res =  $this->productBehavior->getListByShopId($shopid,$page,$pageSize);
         }
+        foreach($res['data'] as $i => $v){
+            $v->pic = $v->picUrl;
+            $res['data'][$i] = $v;
+        }
         $this->data = $res['data'];
     }
 
@@ -81,6 +90,7 @@ class MerchantshopController  extends IController {
             return;
         }
         $res  =  $this->productBehavior->getById($id);
+        $res->pic = $res->picUrl;
         if(empty($res)){
             $this->error_code = self::ERROR_NOT_FOUNT;
             return;

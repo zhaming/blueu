@@ -4,9 +4,18 @@
  *@author wzq
  */
 class MerchantProduct extends  CActiveRecord{
+    
+    public $picUrl;
+
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
+    
+    public function afterFind() {
+        parent::afterFind();
+        $this->picUrl = $this->getPicUrl();
+    }
+    
     public function tableName() {
         return '{{merchant_product}}';
     }
@@ -30,5 +39,10 @@ class MerchantProduct extends  CActiveRecord{
             )
         );
         return $relations;
+    }
+    
+    public function getPicUrl() {
+        if(empty($this->pic)) return '';
+        return Yii::app()->params['host'] . Yii::app()->params['url_web'] . 'upload/original/' . $this->pic;
     }
 }

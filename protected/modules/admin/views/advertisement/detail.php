@@ -5,13 +5,13 @@
             <ul class="nav nav-tabs padding-16">
                 <li class="active">
                     <a href="<?php echo $this->createUrl('detail?id=' . $ad['id']); ?>">
-                        <i class="green icon-sun bigger-125"></i>
+                        <i class="green ace-icon fa fa-sun-o bigger-125"></i>
                         <?php echo Yii::t('admin', 'Overview'); ?>
                     </a>
                 </li>
                 <li>
                     <a href="<?php echo $this->createUrl('edit?id=' . $ad['id']); ?>">
-                        <i class="green icon-edit bigger-125"></i>
+                        <i class="green ace-icon fa fa-edit bigger-125"></i>
                         <?php echo Yii::t('admin', 'Edit information'); ?>
                     </a>
                 </li>
@@ -21,7 +21,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-3 center">
                             <span class="profile-picture">
-                                <img id="avatar" class="editable img-responsive" src="<?php echo HelpTemplate::getAdUrl($ad['pic']); ?>" />
+                                <img class="edit-picture editable img-responsive" src="<?php echo HelpTemplate::getAdUrl($ad['pic']); ?>" />
                             </span>
                         </div>
                         <div class="col-xs-12 col-sm-9">

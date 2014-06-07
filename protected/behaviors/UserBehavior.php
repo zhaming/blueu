@@ -129,9 +129,7 @@ class UserBehavior extends BaseBehavior {
         }
         $userId = $data['id'];
         unset($data['id']);
-        $enableEdit = array(
-            'name'
-        );
+        $enableEdit = array('name', 'mobile', 'pushable');
         while (list($key, ) = each($data)) {
             if (!in_array($key, $enableEdit)) {
                 $this->error = $key . ' ' . Yii::t('api', 'Not editable');
@@ -158,7 +156,7 @@ class UserBehavior extends BaseBehavior {
      * @return boolean or array
      */
     public function detail($userId) {
-        $user = User::model()->findByPk($userId);
+        $user = User::model()->with('account')->findByPk($userId);
         if ($user == null) {
             $this->error = Yii::t('api', 'User is no exist');
             return false;

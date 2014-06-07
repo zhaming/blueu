@@ -16,7 +16,6 @@
     </div>
 </div>
 
-<!--echarts demo-->
 <script type="text/javascript">
     require.config({
         baseUrl: '/statics/',
@@ -38,7 +37,7 @@
         tooltip : {
             trigger: 'axis',
             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
             }
         },
         legend: {
@@ -48,25 +47,29 @@
             show : true,
             orient: 'vertical',
             x: 'right',
-            y: 'center',
+            y: 'bottom',
             feature : {
-                mark : {show: true},
+                mark : {show: false},
                 dataView : {show: true, readOnly: false},
                 magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
                 restore : {show: true},
                 saveAsImage : {show: true}
             }
         },
-        calculable : true,
+        calculable : false,
         xAxis : [
             {
                 type : 'category',
+                boundaryGap : true,
                 data : ['周一','周二','周三','周四','周五','周六','周日']
             }
         ],
         yAxis : [
             {
                 type : 'value',
+                axisLabel : {
+                    formatter: '{value} 次数'
+                },
                 splitArea : {show : true}
             }
         ],
@@ -147,7 +150,9 @@
         ],
         function(ec) {
             var myChart = ec.init(document.getElementById('main'));
+            myChart.showLoading({text: 'Loading..', effect: 'whirling'});
             myChart.setOption(option);
+            //myChart.hideLoading();
         }
     );
 </script>

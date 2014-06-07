@@ -129,9 +129,26 @@ class HelpTemplate extends CComponent {
 
     public static function getAdPlaceTags() {
         return array(
-            'top' => Yii::t('admin', '顶部'),
-            'right' => Yii::t('admin', '右边')
+            'top' => Yii::t('admin', 'Top'),
+            'right' => Yii::t('admin', 'Right')
         );
+    }
+
+    public static function roleColoration($flag) {
+        $map = array(
+            self::ADMIN_ROLE => 'green',
+            self::MERCHANT_ROLE => 'light-orange',
+            self::USER_ROLE => 'orange'
+        );
+        return $map[$flag];
+    }
+
+    public static function yesOrNo($value) {
+        if ($value) {
+            return Yii::t('admin', 'Yes');
+        } else {
+            return Yii::t('admin', 'No');
+        }
     }
 
 }

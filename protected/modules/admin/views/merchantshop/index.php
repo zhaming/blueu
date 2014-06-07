@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-xs-12">
         <p>
-            <a href="/admin/merchantshop/create" class="btn btn-app btn-yellow btn-xs"><i class="icon-create bigger-120"></i>创建</a>
+            <a href="/admin/merchantshop/create" class="btn btn-app btn-success btn-xs"><i class="ace-icon fa fa-plus bigger-120"></i><?php echo Yii::t('admin', 'Create'); ?></a>
         </p>
         <?php $this->widget("AlterMsgWidget")?>
         <div class="table-responsive">

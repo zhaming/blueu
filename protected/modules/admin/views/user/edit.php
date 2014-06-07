@@ -6,19 +6,19 @@
                 <ul class="nav nav-tabs padding-16">
                     <li>
                         <a href="<?php echo $this->createUrl('detail?id=' . $user['id']); ?>">
-                            <i class="green icon-user bigger-125"></i>
+                            <i class="green ace-icon fa fa-sun-o bigger-125"></i>
                             <?php echo Yii::t('admin', 'Overview'); ?>
                         </a>
                     </li>
                     <li class="active">
                         <a href="<?php echo $this->createUrl('edit?id=' . $user['id']); ?>">
-                            <i class="green icon-edit bigger-125"></i>
+                            <i class="green ace-icon fa fa-edit bigger-125"></i>
                             <?php echo Yii::t('admin', 'Edit information'); ?>
                         </a>
                     </li>
                     <li>
                         <a href="<?php echo $this->createUrl('resetpwd?id=' . $user['id']); ?>">
-                            <i class="blue icon-key bigger-125"></i>
+                            <i class="green ace-icon fa fa-key bigger-125"></i>
                             <?php echo Yii::t('admin', 'Reset password'); ?>
                         </a>
                     </li>
@@ -41,6 +41,15 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-mobile"><?php echo Yii::t('admin', 'Mobile'); ?></label>
+                            <div class="col-sm-9">
+                                <span class="input-icon input-icon-right">
+                                    <input id="form-field-mobile" name="user[mobile]" value="<?php echo $user['mobile']; ?>" type="text" />
+                                    <i class="icon-headphones"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-status"><?php echo Yii::t('admin', 'Status'); ?></label>
                             <div class="col-sm-9">
                                 <label>
@@ -58,10 +67,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-push"><?php echo Yii::t('admin', 'Push'); ?></label>
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-pushable"><?php echo Yii::t('admin', 'Push'); ?></label>
                             <div class="col-sm-9">
                                 <label class="control-label">
-                                    <input id="form-field-push" name="user[push]" class="ace ace-switch ace-switch-2" type="checkbox" checked />
+                                    <input id="form-field-pushable" name="user[pushable]" value="1" type="checkbox" class="ace ace-switch ace-switch-2"<?php if ($user['pushable']) { ?> checked<?php } ?> />
                                     <span class="lbl"></span>
                                 </label>
                             </div>
@@ -72,12 +81,12 @@
             <div class="clearfix form-actions">
                 <div class="col-md-offset-3 col-md-9">
                     <button class="btn btn-info" type="submit">
-                        <i class="icon-ok bigger-110"></i>
+                        <i class="ace-icon glyphicon glyphicon-ok bigger-110"></i>
                         <?php echo Yii::t('admin', 'Save'); ?>
                     </button>
                     &nbsp; &nbsp;
                     <button class="btn" type="reset">
-                        <i class="icon-undo bigger-110"></i>
+                        <i class="ace-icon fa fa-undo bigger-110"></i>
                         <?php echo Yii::t('admin', 'Reset'); ?>
                     </button>
                 </div>

@@ -1,9 +1,9 @@
 <?php if (!empty($message)) { ?>
-<div class="alert alert-block alert-danger">
+<div class="alert alert-danger">
     <button type="button" class="close" data-dismiss="alert">
-        <i class="icon-remove"></i>
+        <i class="ace-icon fa fa-times"></i>
     </button>
-    <i class="icon-warning-sign"></i>&nbsp;&nbsp;<?php echo $message; ?>	
+    <i class="ace-icon fa fa-times"></i>&nbsp;&nbsp;<?php echo $message; ?>	
 </div>
 <?php } ?>
 <div class="row">
@@ -13,24 +13,21 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="merchant[username]"><?php echo Yii::t('admin', 'Username'); ?></label>
                 <div class="col-sm-9">
-                    <input type="text" name="merchant[username]" value="<?php echo $merchant['username'] ?>" placeholder="<?php echo Yii::t('admin', 'Username'); ?>" class="col-xs-10 col-sm-5" />
-                    <span class="help-inline col-xs-12 col-sm-7">
-                        <span class="middle"><?php echo Yii::t('admin', 'Pelase input email'); ?></span>
-                    </span>
+                    <input type="text" name="merchant[username]" value="<?php echo $merchant['username'] ?>" placeholder="<?php echo Yii::t('admin', 'Please input email'); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="space-4"></div>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="merchant[password]"><?php echo Yii::t('admin', 'Password'); ?></label>
                 <div class="col-sm-9">
-                    <input type="password" name="merchant[password]" value="<?php echo $merchant['password'] ?>" placeholder="<?php echo Yii::t('admin', 'Password'); ?>" class="col-xs-10 col-sm-5" />
+                    <input type="password" name="merchant[password]" value="<?php echo $merchant['password'] ?>" placeholder="<?php echo Yii::t('admin', 'Please input password'); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="space-4"></div>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="merchant[repassword]"><?php echo Yii::t('admin', 'Repeat password'); ?></label>
                 <div class="col-sm-9">
-                    <input type="password" name="merchant[repassword]" value="<?php echo $merchant['repassword'] ?>" placeholder="<?php echo Yii::t('admin', 'Repeat password'); ?>" class="col-xs-10 col-sm-5" />
+                    <input type="password" name="merchant[repassword]" value="<?php echo $merchant['repassword'] ?>" placeholder="<?php echo Yii::t('admin', 'Please input password again'); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="space-4"></div>
@@ -63,9 +60,9 @@
             </div>
             <div class="clearfix form-actions">
                 <div class="col-md-offset-3 col-md-9">
-                    <button class="btn btn-info" type="submit"><i class="icon-ok bigger-110"></i><?php echo Yii::t('admin', 'Create'); ?></button>
+                    <button class="btn btn-info" type="submit"><i class="ace-icon glyphicon glyphicon-ok bigger-110"></i><?php echo Yii::t('admin', 'Create'); ?></button>
                     &nbsp; &nbsp; &nbsp;
-                    <button class="btn" type="reset"><i class="icon-undo bigger-110"></i><?php echo Yii::t('admin', 'Reset'); ?></button>
+                    <button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i><?php echo Yii::t('admin', 'Reset'); ?></button>
                 </div>
             </div>
     </div>

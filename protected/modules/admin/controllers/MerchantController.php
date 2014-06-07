@@ -157,36 +157,36 @@ class MerchantController extends BController {
         $id = Yii::app()->request->getParam('id');
         if (!empty($id)) {
             if ($this->accountBehavior->delete($id)) {
-                $this->showSuccess(Yii::t('admin', 'Delete Success'), $this->createUrl('index'));
+                $this->showSuccess(Yii::t('admin', 'Delete success.'), $this->createUrl('index'));
             } else {
-                $this->showError(Yii::t('admin', 'Delete Failure'), $this->createUrl('index'));
+                $this->showError(Yii::t('admin', 'Delete failure.'), $this->createUrl('index'));
             }
         }
-        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
+        $this->showError(Yii::t('admin', 'Illegal request.'), $this->createUrl('index'));
     }
 
     public function actionDisable() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
             if ($this->accountBehavior->disable($id)) {
-                $this->showSuccess(Yii::t('admin', 'Disable success'), $this->createUrl('index'));
+                $this->showSuccess(Yii::t('admin', 'Disable success.'), $this->createUrl('index'));
             } else {
-                $this->showError(Yii::t('admin', 'Disable failure'), $this->createUrl('index'));
+                $this->showError(Yii::t('admin', 'Disable failure.'), $this->createUrl('index'));
             }
         }
-        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
+        $this->showError(Yii::t('admin', 'Illegal request.'), $this->createUrl('index'));
     }
 
     public function actionEnable() {
         $id = Yii::app()->request->getQuery('id');
         if (!empty($id)) {
             if ($this->accountBehavior->enable($id)) {
-                $this->showSuccess(Yii::t('admin', 'Restore success'), $this->createUrl('index'));
+                $this->showSuccess(Yii::t('admin', 'Restore success.'), $this->createUrl('index'));
             } else {
-                $this->showError(Yii::t('admin', 'Restore failure'), $this->createUrl('index'));
+                $this->showError(Yii::t('admin', 'Restore failure.'), $this->createUrl('index'));
             }
         }
-        $this->showError(Yii::t('admin', 'Illegal request'), $this->createUrl('index'));
+        $this->showError(Yii::t('admin', 'Illegal request.'), $this->createUrl('index'));
     }
 
 }
