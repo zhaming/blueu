@@ -1,9 +1,3 @@
-<div class="page-header">
-    <h1>
-        <?php echo Yii::t('shop', 'Coupon Manager');?>
-        <small><i class="icon-double-angle-right"></i><?php echo Yii::t('shop', 'Coupon use');?></small>
-    </h1>
-</div>
 <div class="row">
     <div class="col-xs-12">
         <?php $this->widget("AlterMsgWidget")?>

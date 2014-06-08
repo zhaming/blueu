@@ -1,13 +1,7 @@
-<div class="page-header">
-    <h1>
-        <?php echo Yii::t('shop', 'Stamp Manager');?>
-        <small><i class="icon-double-angle-right"></i><?php echo Yii::t('shop', 'Stamp List');?></small>
-    </h1>
-</div>
 <div class="row">
     <div class="col-xs-12">
         <p>
-            <a href="/admin/merchantproduct/create" class="btn btn-app btn-success btn-xs">
+            <a href="/admin/merchantstamp/create" class="btn btn-app btn-success btn-xs">
                 <i class="ace-icon fa fa-plus bigger-120"></i><?php echo Yii::t('admin', 'Create');?>
             </a>
         </p>

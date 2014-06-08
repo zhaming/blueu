@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-xs-12">
         <p>
-            <a href="/admin/merchantproduct/create" class="btn btn-app btn-success btn-xs">
+            <a href="/admin/merchantcoupon/create" class="btn btn-app btn-success btn-xs">
                 <i class="ace-icon fa fa-plus bigger-120"></i><?php echo Yii::t('admin', 'Create');?>
             </a>
         </p>
