@@ -12,7 +12,7 @@
                             array('class'=>'form-control', 'style'=>'height:34px')
                         );?>
                     </span>
-                    <span class="input-group" style="float:left;width:150px;margin-left:50px;">
+                    <span class="input-group" style="float:left;width:150px;margin-left:50px;margin-right:5px;">
                         <?php echo CHtml::textField('start', Yii::app()->request->getQuery('start'), 
                             array(
                                 'class'=>'form-control date-picker',
@@ -20,8 +20,7 @@
                                 'data-date-format' => 'yyyy-mm-dd'
                             )
                         );?>
-                        <span class="input-group-addon"><i class="icon-calendar bigger-110"></i></span>
-                        -
+                        <span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i></span>
                     </span>
                     <span class="input-group" style="float:left;width:150px;">
                         <?php echo CHtml::textField('end', Yii::app()->request->getQuery('end'), 
@@ -31,7 +30,7 @@
                                 'data-date-format' => 'yyyy-mm-dd'
                             )
                         );?>
-                        <span class="input-group-addon"><i class="icon-calendar bigger-110"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i></span>
                     </span>
                     <span class="input-group-btn" style="float:right;width:auto;">
                         <button type="submit" class="btn btn-purple btn-sm">
