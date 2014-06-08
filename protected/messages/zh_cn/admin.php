@@ -274,6 +274,7 @@ return array (
   'VStatUserRegistered' => '注册用户',
   'VStatUserSex' => '性别比例',
   'VStatUserShare' => '用户分享',
+  'VStatType' => '类别',
   'VStatWeek' => '第%s周',
   'VStatus' => '状态',
   'VStatusCode' => '状态码',

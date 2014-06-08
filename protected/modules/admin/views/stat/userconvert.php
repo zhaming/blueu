@@ -18,8 +18,8 @@
                     </a>
                 </li>
             </ul>
-            <div class="tab-content no-border padding-24">
-                <div id="convert" class="tab-pane in active" style="height:300px;width:800px;"></div>
+            <div class="col-xs-12">
+                <div id="convert" style="height:300px;width:800px;"></div>
             </div>
         </div>
     </div>

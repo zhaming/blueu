@@ -18,51 +18,53 @@
                     </a>
                 </li>
             </ul>
-            <div class="tab-content no-border padding-24">
-                <span id="datetype" style="float:right;margin-right:30px;">
-                    <?php echo Yii::t('admin', 'VStatDateType'); ?>：
-                    <a href="javascript:void(0)" datat="registered:day" datatype="line">
-                        <?php echo $limitMap['user']['day'] . Yii::t('admin', 'day'); ?>
-                    </a> |
-                    <a href="javascript:void(0)" datat="registered:week" datatype="line">
-                        <?php echo $limitMap['user']['week'] . Yii::t('admin', 'week'); ?>
-                    </a> |
-                    <a href="javascript:void(0)" datat="registered:month" datatype="line">
-                        <?php echo $limitMap['user']['month'] . Yii::t('admin', 'month'); ?>
-                    </a>
-                </span>
-                <div id="registered" class="tab-pane in active" style="height:300px;width:800px;"></div>
-                <div id="sexandcentury" class="tab-pane in active" style="height:400px;width:400px;"></div>
+            <div class="col-xs-12">
+                <div class="col-sm-5 widget-box" style="margin-top:25px;">
+                    <div id="stattype" class="widget-header widget-header-flat" style="line-height:38px;">
+                        <?php echo Yii::t('admin', 'VStatType'); ?>：
+                        <a href="javascript:void(0)" source="1">
+                            <?php echo Yii::t('admin', 'Shop'); ?>
+                        </a> |
+                        <a href="javascript:void(0)" source="2">
+                            <?php echo Yii::t('admin', 'Product'); ?>
+                        </a> |
+                        <a href="javascript:void(0)" source="3">
+                            <?php echo Yii::t('admin', 'Coupon'); ?>
+                        </a> |
+                        <a href="javascript:void(0)" source="4">
+                            <?php echo Yii::t('admin', 'Stamp'); ?>
+                        </a>
+                    </div>
+                    <div class="widget-body">
+                        <div id="sharetop" class="widget-main"></div>
+                    </div>
+                </div>
+                <div id="share" class="col-sm-7" style="height:300px;"></div>
             </div>
         </div>
     </div>
 
 <script type="text/javascript">
 $().ready(function(){
-    var first = $('#datetype a:first');
+    var first = $('#stattype a:first');
     if(first == undefined) return;
-    var datat = first.attr('datat');
-    var datatype = first.attr('datatype');
-    Chart.init('registered', '/admin/stat/userdata', {t:datat}, {
-        toolbox: {show:false},
-        series: {type:datatype}
-    });
-    $('#datetype a').each(function(){
+    var source = first.attr('source');
+    first.attr('style', 'color:#FFA830;');
+    $('#sharetop').load('/admin/stat/usersharetop?source='+source);
+    $('#stattype a').each(function(){
         $(this).click(function(){
-            datat = $(this).attr('datat');
-            datatype = $(this).attr('datatype');
-            Chart.init('registered', '/admin/stat/userdata', {t:datat}, {
-                toolbox: {show:false},
-                series: {type:datatype}
+            $('#stattype a').each(function(){
+                $(this).attr('style', 'color:##428BCA;');
             });
+            $(this).attr('style', 'color:#FFA830;');
+            source = $(this).attr('source');
+            $('#sharetop').load('/admin/stat/usersharetop?source='+source);
         });
     });
     
-    Chart.init('sexandcentury', '/admin/stat/userdata', {t:'user:sex|century'}, {
-        tooltip: {trigger:'item',formatter:'{a} <br/>{b} : {c} ({d}%)'},
-        toolbox: {show:false},
-        grid: {x:'left',y:'top'},
-        series: {type:'pie',itemtyled:false,maxmin:false,average:false}
+    Chart.init('share', '/admin/stat/userdata', {t:'share:'}, {
+        toolbox:{show:false},
+        series: {type:'line'}
     });
 });
 </script>
