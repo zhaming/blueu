@@ -1,9 +1,3 @@
-<div class="page-header">
-    <h1>
-        <?php echo Yii::t('shop', 'Shop Manager');?>
-        <small><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Shop List");?></small>
-    </h1>
-</div>
 <div class="row">
     <div class="col-xs-12">
         <p>
