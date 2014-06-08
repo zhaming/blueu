@@ -269,7 +269,7 @@ return array (
   'VStatMonth' => '%s月',
   'VStatUserCentury' => '出生年代比例',
   'VStatUserConvert' => '用户转化',
-  'VStatUserConvertP' => '用户转化率',
+  'VStatUserCnt' => '用户数',
   'VStatUserInfo' => '用户统计',
   'VStatUserRegistered' => '注册用户',
   'VStatUserSex' => '性别比例',

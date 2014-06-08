@@ -146,7 +146,7 @@ class StatController extends BController {
                 $yAxis[] = $v->count;
             }
             $result[] = array(
-                'name' => Yii::t('admin', 'VStatUserConvertP'),
+                'name' => Yii::t('admin', 'VStatUserCnt'),
                 'xAxis' => $xAxis,
                 'yAxis' => $yAxis,
             );
