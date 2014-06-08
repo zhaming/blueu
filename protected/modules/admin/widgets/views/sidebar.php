@@ -75,10 +75,19 @@
             </a>
         </li>
         <li<?php if (Yii::app()->controller->id == 'merchantcoupon') { ?> class="active"<?php } ?>>
-            <a href="/admin/merchantcoupon/index">
+            <a class="dropdown-toggle">
                 <i class="menu-icon fa fa-signal"></i>
-                <span class="menu-text"><?php echo Yii::t('shop', 'Coupon Manager'); ?></span>
+                <span class="menu-text cursor-default"><?php echo Yii::t('shop', 'Coupon Manager'); ?></span>
+                <b class="arrow icon-angle-down"></b>
             </a>
+            <ul class="submenu">
+                <li<?php if (Yii::app()->controller->getId() == 'merchantcoupon' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
+                    <a href="/admin/merchantcoupon/index"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop", "Coupon List") ?></a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'merchantcoupon' && Yii::app()->controller->getAction()->getId() == 'validatecoupon') { ?> class="active"<?php } ?>>
+                    <a href="/admin/merchantcoupon/validatecoupon"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop", "Coupon use") ?></a>
+                </li>
+            </ul>
         </li>
         <li<?php if (Yii::app()->controller->id == 'merchantstamp') { ?> class="active"<?php } ?>>
             <a href="/admin/merchantstamp/index">
