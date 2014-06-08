@@ -25,7 +25,7 @@
                                 'data-date-format' => 'yyyy-mm-dd'
                             )
                         );?>
-                        <span class="input-group-addon"><i class="icon-calendar bigger-110"></i></span>
+                        <span class="input-group-addon"><i class="ace-icon fa fa-calendar bigger-110"></i></span>
                         -
                     </span>
                     <span class="input-group" style="float:left;width:150px;">
@@ -36,12 +36,12 @@
                                 'data-date-format' => 'yyyy-mm-dd'
                             )
                         );?>
-                        <span class="input-group-addon"><i class="icon-calendar bigger-110"></i></span>
+                        <span class="input-group-addon"><i class="ace-icon fa fa-calendar bigger-110"></i></span>
                     </span>
                     <span class="input-group-btn" style="float:right;width:auto;">
                         <button type="submit" class="btn btn-purple btn-sm">
                             <?php echo Yii::t('admin', 'Search'); ?>
-                            <i class="icon-search icon-on-right bigger-110"></i>
+                            <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
                         </button>
                     </span>
                 </div>

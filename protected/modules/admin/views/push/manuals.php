@@ -1,9 +1,9 @@
 <?php if (!empty($message)) { ?>
 <div class="alert alert-block alert-danger">
     <button type="button" class="close" data-dismiss="alert">
-        <i class="icon-remove"></i>
+        <i class="ace-icon glyphicon glyphicon-remove"></i>
     </button>
-    <i class="icon-warning-sign"></i>&nbsp;&nbsp;
+    <i class="ace-icon glyphicon glyphicon-warning-sign"></i>&nbsp;&nbsp;
     <?php echo $message; ?>	
 </div>
 <?php } ?>
@@ -82,10 +82,10 @@
             </div>
             <div class="clearfix form-actions">
                 <div class="col-md-offset-3 col-md-9">
-                    <button class="btn btn-info" type="submit"><i class="icon-ok bigger-110"></i>
+                    <button class="btn btn-info" type="submit"><i class="ace-icon glyphicon glyphicon-ok bigger-110"></i>
                         <?php echo isset($info['id'])?Yii::t('admin', 'Save'):Yii::t('admin', 'Create'); ?>
                     </button>&nbsp; &nbsp; &nbsp;
-                    <button class="btn" type="reset"><i class="icon-undo bigger-110"></i><?php echo Yii::t('admin', 'Reset'); ?></button>
+                    <button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i><?php echo Yii::t('admin', 'Reset'); ?></button>
                     <input type="hidden" name="info[id]" value="<?php echo empty($info['id'])?$info->id:0; ?>">
                 </div>
             </div>
