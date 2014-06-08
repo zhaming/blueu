@@ -1,41 +1,41 @@
-    <div class="col-xs-12">
-        <div class="space-6"></div>
-        <div class="tabbable">
-            <ul class="nav nav-tabs padding-16">
-                <li class="active">
-                    <a href="<?php echo $this->createUrl('user?t=info'); ?>">
-                        <i class="green ace-icon fa fa-sun-o bigger-125"></i><?php echo Yii::t('admin', 'VStatUserInfo'); ?>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo $this->createUrl('user?t=convert'); ?>">
-                        <i class="green ace-icon fa fa-edit bigger-125"></i><?php echo Yii::t('admin', 'VStatUserConvert'); ?>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo $this->createUrl('user?t=share'); ?>">
-                        <i class="green ace-icon fa fa-share bigger-125"></i><?php echo Yii::t('admin', 'VStatUserShare'); ?>
-                    </a>
-                </li>
-            </ul>
-            <div class="tab-content no-border padding-24">
-                <span id="datetype" style="float:right;margin-right:20px;">
-                    <?php echo Yii::t('admin', 'VStatDateType'); ?>：
-                    <a href="javascript:void(0)" datat="registered:day" datatype="line">
-                        <?php echo $limitMap['user']['day'] . Yii::t('admin', 'day'); ?>
-                    </a> |
-                    <a href="javascript:void(0)" datat="registered:week" datatype="line">
-                        <?php echo $limitMap['user']['week'] . Yii::t('admin', 'week'); ?>
-                    </a> |
-                    <a href="javascript:void(0)" datat="registered:month" datatype="line">
-                        <?php echo $limitMap['user']['month'] . Yii::t('admin', 'month'); ?>
-                    </a>
-                </span>
-                <div id="registered" style="height:300px;width:800px;"></div>
-                <div id="sexandcentury" style="height:400px;width:400px;"></div>
-            </div>
+<div class="col-xs-12">
+    <div class="space-6"></div>
+    <div class="tabbable">
+        <ul class="nav nav-tabs padding-16">
+            <li class="active">
+                <a href="<?php echo $this->createUrl('user?t=info'); ?>">
+                    <i class="green ace-icon fa fa-sun-o bigger-125"></i><?php echo Yii::t('admin', 'VStatUserInfo'); ?>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $this->createUrl('user?t=convert'); ?>">
+                    <i class="green ace-icon fa fa-edit bigger-125"></i><?php echo Yii::t('admin', 'VStatUserConvert'); ?>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $this->createUrl('user?t=share'); ?>">
+                    <i class="green ace-icon fa fa-share bigger-125"></i><?php echo Yii::t('admin', 'VStatUserShare'); ?>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content no-border padding-24">
+            <span id="datetype" style="float:right;margin-right:20px;">
+                <?php echo Yii::t('admin', 'VStatDateType'); ?>：
+                <a href="javascript:void(0)" datat="registered:day" datatype="line">
+                    <?php echo $limitMap['user']['day'] . Yii::t('admin', 'day'); ?>
+                </a> |
+                <a href="javascript:void(0)" datat="registered:week" datatype="line">
+                    <?php echo $limitMap['user']['week'] . Yii::t('admin', 'week'); ?>
+                </a> |
+                <a href="javascript:void(0)" datat="registered:month" datatype="line">
+                    <?php echo $limitMap['user']['month'] . Yii::t('admin', 'month'); ?>
+                </a>
+            </span>
+            <div id="registered" style="height:300px;width:800px;"></div>
+            <div id="sexandcentury" style="height:400px;width:400px;"></div>
         </div>
     </div>
+</div>
 
 <script type="text/javascript">
 $().ready(function(){
