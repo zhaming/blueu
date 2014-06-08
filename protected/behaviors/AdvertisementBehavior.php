@@ -126,11 +126,10 @@ class AdvertisementBehavior extends BaseBehavior {
         $advertisement->url = $data['url'];
         $advertisement->desc = $data['desc'];
         $advertisement->placetag = $data['placetag'];
-        $advertisement->type = $data['type'];
+        $advertisement->source = $data['source'];
         $advertisement->owner = Yii::app()->user->getId();
         $advertisement->disabled = HelpTemplate::ENABLED;
         $advertisement->created = time();
-        $advertisement->source = HelpTemplate::AD_SOURCE_MAN_MADE;
         return $advertisement->save();
     }
 

@@ -41,6 +41,14 @@ class BreadcrumbsWidget extends CWidget {
                     'create' => Yii::t('admin', 'Create'),
                 )
             ),
+            'merchantproduct' => array(
+                'title' => Yii::t('admin', 'ProductManager'),
+                'actions' => array(
+                    'create' => Yii::t('admin', 'Create'),
+                )
+            ),
+            
+            
             'acl' => array(
                 'title' => Yii::t('admin', 'Access control'),
                 'actions' => array(
