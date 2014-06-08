@@ -12,7 +12,7 @@
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <link href="/statics/favicon.ico" rel="shortcut icon" />
 
-        <!-- bootstrap & fontawesome -->
+        <!-- bootstrap and fontawesome -->
         <link rel="stylesheet" href="/statics/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/statics/css/font-awesome.min.css" />
 
@@ -37,7 +37,7 @@
         <link rel="stylesheet" href="/statics/css/ace-rtl.min.css" />
 
         <!--[if lte IE 9]>
-          <link rel="stylesheet" href="/statics/cc/ace-ie.min.css" />
+        <link rel="stylesheet" href="/statics/cc/ace-ie.min.css" />
         <![endif]-->
 
         <!-- inline styles related to this page -->
@@ -57,7 +57,10 @@
         <script src="/statics/js/html5shiv.js"></script>
         <script src="/statics/js/respond.min.js"></script>
         <![endif]-->
-
+        
+        <!-- load esl on after easypiechart and sparkline -->
+        <script src="/statics/js/jquery.easypiechart.min.js"></script>
+        <script src="/statics/js/jquery.sparkline.min.js"></script>
         <script src="/statics/js/esl/esl.js"></script>
     </head>
 
@@ -83,7 +86,7 @@
             </div>
             <!-- /.main-content -->
             <?php $this->widget('application.modules.admin.widgets.FooterWidget'); ?>
-            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <a id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
                 <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
             </a>
         </div>
@@ -112,11 +115,9 @@
 
         <script src="/statics/js/jquery-ui.custom.min.js"></script>
         <script src="/statics/js/jquery.ui.touch-punch.min.js"></script>
-        <script src="/statics/js/jquery.easypiechart.min.js"></script>
-        <script src="/statics/js/jquery.sparkline.min.js"></script>
         <script src="/statics/js/jquery.gritter.min.js"></script>
         <script src="/statics/js/bootbox.min.js"></script>
-        <script src="/statics/js/jquery.easypiechart.min.js"></script>
+        <script src="/statics/js/jquery.easy-pie-chart.min.js"></script>
         <script src="/statics/js/bootstrap-datepicker.min.js"></script>
         <script src="/statics/js/jquery.hotkeys.min.js"></script>
         <script src="/statics/js/bootstrap-wysiwyg.min.js"></script>
@@ -212,7 +213,6 @@
                 $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="ace-icon fa fa-check"></i></button>' +
                         '<button type="button" class="btn editable-cancel"><i class="ace-icon fa fa-times"></i></button>';
 
-
                 if (/msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) {
                     Image.prototype.appendChild = function(el) {
                     };
@@ -222,7 +222,6 @@
                     type: 'text',
                     name: 'username'
                 });
-
 
                 try {
                     ace.settings.check('navbar', 'fixed');

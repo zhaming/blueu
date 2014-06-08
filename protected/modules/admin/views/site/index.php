@@ -45,14 +45,18 @@
                         <div class="infobox-content">调查</div>
                     </div>
                 </div>
-                <div class="infobox infobox-orange2  ">
+                <div class="infobox infobox-orange2">
+                    <!-- #section:pages/dashboard.infobox.sparkline -->
                     <div class="infobox-chart">
                         <span class="sparkline" data-values="196,128,202,177,154,94,100,170,224"></span>
                     </div>
+
+                    <!-- /section:pages/dashboard.infobox.sparkline -->
                     <div class="infobox-data">
                         <span class="infobox-data-number">6,251</span>
-                        <div class="infobox-content">页面查看次数</div>
+                        <div class="infobox-content">pageviews</div>
                     </div>
+
                     <div class="badge badge-success">
                         7.2%
                         <i class="ace-icon fa fa-arrow-up"></i>
@@ -86,11 +90,14 @@
                     </div>
                 </div>
                 <div class="infobox infobox-blue infobox-small infobox-dark">
+                    <!-- #section:pages/dashboard.infobox.sparkline -->
                     <div class="infobox-chart">
                         <span class="sparkline" data-values="3,4,2,3,4,4,2,2"></span>
                     </div>
+
+                    <!-- /section:pages/dashboard.infobox.sparkline -->
                     <div class="infobox-data">
-                        <div class="infobox-content">获得</div>
+                        <div class="infobox-content">Earnings</div>
                         <div class="infobox-content">$32,000</div>
                     </div>
                 </div>
