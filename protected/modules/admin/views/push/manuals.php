@@ -86,7 +86,7 @@
                         <?php echo isset($info['id'])?Yii::t('admin', 'Save'):Yii::t('admin', 'Create'); ?>
                     </button>&nbsp; &nbsp; &nbsp;
                     <button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i><?php echo Yii::t('admin', 'Reset'); ?></button>
-                    <input type="hidden" name="info[id]" value="<?php echo empty($info['id'])?$info->id:0; ?>">
+                    <input type="hidden" name="info[id]" value="<?php echo isset($info['id'])&&empty($info['id'])?$info->id:0; ?>">
                 </div>
             </div>
         </form>
