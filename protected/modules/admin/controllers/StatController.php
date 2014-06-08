@@ -150,6 +150,18 @@ class StatController extends BController {
                 'xAxis' => $xAxis,
                 'yAxis' => $yAxis,
             );
+        }elseif($source == 'share'){
+            $rs = $this->_stat->getUserConvert();
+            $xAxis = $yAxis = array();
+            foreach($rs as $v){
+                $xAxis[] = Yii::t('admin', $v->item);
+                $yAxis[] = $v->count;
+            }
+            $result[] = array(
+                'name' => Yii::t('admin', 'VStatUserCnt'),
+                'xAxis' => $xAxis,
+                'yAxis' => $yAxis,
+            );
         }
         
         echo json_encode($result);
