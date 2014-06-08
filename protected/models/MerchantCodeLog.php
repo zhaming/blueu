@@ -44,6 +44,9 @@ class MerchantCodeLog extends  CActiveRecord{
             $res->usetime = time();
             $res->save();
         }
+        $code = MerchantCode::model()->findByPK($res->codeid);
+        $code->used =1 + $code->used;
+        $code->save();
          // $res =  $this->findByAttributes(array("codeid"=>$codeid,"userid"=>$userid,"isused"=>0));
 
     }
@@ -52,7 +55,7 @@ class MerchantCodeLog extends  CActiveRecord{
         // $criteria = new CDbCriteria;
         // $criteria->addSearchCondition("name",$param['name']);
         // $criteria->addSearchCondition("name",$param['name']);
-        $sql = "select  b.id ,a.name ,a.price ,a.validity_start ,a.validity_end ,
+        $sql = "select distinct  b.id ,a.name ,a.price ,a.validity_start ,a.validity_end ,
                         b.code ,b.total, c.isused ,d.name as username,d.id as uid
                     from merchant_coupon a , merchant_code b , merchant_code_log c ,user d
                     where a.codeid =b.id
