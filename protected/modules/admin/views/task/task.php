@@ -76,11 +76,11 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-disabled"><?php echo Yii::t('admin', 'VTaskDisabled'); ?></label>
                 <div class="col-sm-9">
                     <label>
-                        <input name="info[disabled]" value="0" type="radio"<?php if ($info['disabled']==0) { ?> checked="checked"<?php } ?> class="ace" />
+                        <input name="info[disabled]" value="0" type="radio"<?php if (isset($info['disabled'])&&$info['disabled']==0) { ?> checked="checked"<?php } ?> class="ace" />
                         <span class="lbl"><?php echo Yii::t('admin', 'VDisabled0'); ?></span>
                     </label>
                     <label>
-                        <input name="info[disabled]" value="1" type="radio"<?php if ($info['disabled']==1) { ?> checked="checked"<?php } ?> class="ace" />
+                        <input name="info[disabled]" value="1" type="radio"<?php if (isset($info['disabled'])&&$info['disabled']==1) { ?> checked="checked"<?php } ?> class="ace" />
                         <span class="lbl"><?php echo Yii::t('admin', 'VDisabled1'); ?></span>
                     </label>
                 </div>
