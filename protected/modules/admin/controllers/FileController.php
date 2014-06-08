@@ -53,11 +53,19 @@ class FileController extends BController {
         }
         if (!$this->fileBehavior->isHaveUploadFile()) {
             $data['code'] = 2;
+<<<<<<< HEAD
             $data['message'] = Yii::t('admin', 'No files uploaded.');
             echo CJSON::encode($data);
             return;
         }
         switch ($type) {
+=======
+            $data['message'] = Yii::t('admin', 'No file uploaded.');
+            echo CJSON::encode($data);
+            return;
+        }
+        switch (intval($type)) {
+>>>>>>> e8602fa8dba6853736fa69258bf869e12bc71872
             case 1:
                 $file = $this->fileBehavior->saveUploadAvatar();
                 if (!$file) {
@@ -66,7 +74,11 @@ class FileController extends BController {
                     echo CJSON::encode($data);
                     return;
                 }
+<<<<<<< HEAD
                 if (!$this->userBehavior->edit(array('id' => $id, 'avatar' => $file['path']))) {
+=======
+                if (!$this->userBehavior->edit(array('id' => intval($id), 'avatar' => $file['path']))) {
+>>>>>>> e8602fa8dba6853736fa69258bf869e12bc71872
                     $data['code'] = 4;
                     $data['message'] = $this->fileBehavior->getError();
                     echo CJSON::encode($data);
@@ -82,7 +94,11 @@ class FileController extends BController {
                     echo CJSON::encode($data);
                     return;
                 }
+<<<<<<< HEAD
                 if (!$this->advertisementBehavior->update($id, array('pic' => $file['path']))) {
+=======
+                if (!$this->advertisementBehavior->update(intval($id), array('pic' => $file['path']))) {
+>>>>>>> e8602fa8dba6853736fa69258bf869e12bc71872
                     $data['code'] = 4;
                     $data['message'] = $this->fileBehavior->getError();
                     echo CJSON::encode($data);

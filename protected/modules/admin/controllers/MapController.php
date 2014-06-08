@@ -68,6 +68,18 @@ class MapController extends BController {
         $this->showError(Yii::t('admin', 'Illegal request.'), $this->createUrl('index'));
     }
 
+    public function actionDelete() {
+        $id = Yii::app()->request->getParam('id');
+        if (!empty($id)) {
+            if ($this->mapBehavior->delete($id)) {
+                $this->showSuccess(Yii::t('admin', 'Delete success.'), $this->createUrl('index'));
+            } else {
+                $this->showError(Yii::t('admin', 'Delete failure.'), $this->createUrl('index'));
+            }
+        }
+        $this->showError(Yii::t('admin', 'Illegal request.'), $this->createUrl('index'));
+    }
+
     public function actionUpload() {
         $viewData = array();
         $mapUploadForm = new MapUploadForm();

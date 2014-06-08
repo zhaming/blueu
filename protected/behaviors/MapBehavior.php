@@ -20,7 +20,7 @@ class MapBehavior extends BaseBehavior {
 
     public function getList() {
         $criteria = new CDbCriteria();
-        $criteria->addCondition('disabled=0');
+        //$criteria->addCondition('disabled=0');
         $criteria->order = 'created desc';
         $count = Map::model()->count($criteria);
 
@@ -47,6 +47,10 @@ class MapBehavior extends BaseBehavior {
 
     public function enable($id) {
         return Map::model()->updateByPk($id, array("disabled" => 0));
+    }
+
+    public function delete($id) {
+        return Map::model()->deleteByPk($id);
     }
 
     /**

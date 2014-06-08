@@ -37,10 +37,8 @@
                 <div class="col-sm-9">
                     <?php echo CHtml::dropDownList('info[type]', isset($info['type'])?$info['type']:'', array_keys($types), 
                         array('class'=>'col-sm-2', 'id' => 'form-field-type', 'kvEqual' => true)
-                    );?>&nbsp;&nbsp;
-                    <?php echo CHtml::dropDownList('info[item]', isset($info['item'])?$info['item']:'', $types[empty($info['type'])?'push':$info['type']], 
-                        array('class'=>'col-sm-2', 'style'=>'margin-left:5px;', 'kvEqual' => true)
                     );?>
+                    <select id="form-field-item" class="col-sm-2" style="margin-left:5px;"></select>
                 </div>
             </div>
             <div class="space-4"></div>
@@ -115,7 +113,7 @@
 
 <script type="text/javascript">
 $().ready(function(){
-    $('#form-field-type').change(function(){
+    /*$('#form-field-type').change(function(){
         var selected = $(this).val();
         $.getJSON('/admin/task/items', {type: selected}, function(items){
             $('#info_item option').remove();
@@ -123,6 +121,12 @@ $().ready(function(){
                 $('#info_item').append("<option value='"+items[i]+"'>"+items[i]+"</option>");
             }
         })
+    });*/
+    var defaultid = '<?php echo isset($info['item'])?$info['item']:''; ?>';
+    cascadingDropDown('#form-field-type', '#form-field-item', '/admin/task/items', defaultid);
+    $('#form-field-type').change(function(){
+        cascadingDropDown('#form-field-type', '#form-field-item', '/admin/task/items', defaultid);
     });
+    
 });
 </script>

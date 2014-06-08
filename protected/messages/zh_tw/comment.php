@@ -17,7 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Add' => '',
+  'Approved' => '',
+  'Approveding' => '',
   'Choose a picture' => '',
   'Create' => '',
   'Create Failure' => '',
@@ -38,5 +39,8 @@ return array (
   'Submit' => '',
   'Success' => '',
   'Total' => '',
+  'Unapproved' => '',
+  'status' => '',
+  'Add' => '@@@@',
   'Edit Success' => '@@@@',
 );

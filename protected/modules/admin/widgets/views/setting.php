@@ -46,8 +46,7 @@
             <div class="ace-settings-item">
                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
                 <label class="lbl" for="ace-settings-add-container">
-                    <?php echo Yii::t('admin', 'Inside'); ?>
-                    <b>.container</b>
+                    <?php echo Yii::t('admin', 'Inside .container'); ?>
                 </label>
             </div>
             <!-- /section:settings.container -->
@@ -65,7 +64,7 @@
             </div>
             <div class="ace-settings-item">
                 <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-highlight" />
-                <label class="lbl" for="ace-settings-highlight"><?php echo Yii::t('admin', ' Alt. Active Item'); ?></label>
+                <label class="lbl" for="ace-settings-highlight"><?php echo Yii::t('admin', 'Alt. Active Item'); ?></label>
             </div>
             <!-- /section:basics/sidebar.options -->
         </div>

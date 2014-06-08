@@ -56,6 +56,7 @@
                         <td><?php echo $value->ismain ==1?"Y":"N";?></td>
                         <td><?php echo $value->isonly ==1?"Y":"N";?></td>
                         <td>
+<<<<<<< HEAD
                             <a href="/admin/merchantshop/delete/id/<?php echo $value->id;?>"  title="<?php echo Yii::t("admin","Delete");?>"  class="delete-confirm red"> 
                                 <i class="ace-icon fa fa-trash-o bigger-130"></i>
                             </a>
@@ -70,6 +71,24 @@
                             <a href="/admin/station/create/shopid/<?php echo $value->id;?>" title="<?php echo Yii::t("shop","Add station");?>"> 
                                 <i class="ace-icon fa fa-rss bigger-130"></i>
                             </a>
+=======
+                            <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                                <a href="/admin/merchantshop/delete/id/<?php echo $value->id;?>"  title="<?php echo Yii::t("admin","Delete");?>"  class="delete-confirm red"> 
+                                    <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                </a>
+                                <a href="/admin/merchantshop/edit/id/<?php echo $value->id;?>" title="<?php echo Yii::t("admin","Detail");?>" class="green"> 
+                                    <i class="ace-icon fa fa-edit bigger-130"></i>
+                                </a>
+                                <?php if(empty($value->selfid)): ?>
+                                <a href="/admin/merchantshop/addshopaccount/id/<?php echo $value->id;?>"  title="<?php echo Yii::t("shop","Create account");?>" class="orange" > 
+                                    <i class="ace-icon fa fa-lemon-o bigger-130"></i>
+                                </a>
+                                <?php endif;?>
+                                <a href="/admin/station/create/shopid/<?php echo $value->id;?>" title="<?php echo Yii::t("shop","Add station");?>"> 
+                                    <i class="ace-icon fa fa-plus bigger-130"></i>
+                                </a>
+                            </div>
+>>>>>>> e8602fa8dba6853736fa69258bf869e12bc71872
                         </td>
                     </tr>
                     <?php endforeach;?>

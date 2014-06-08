@@ -24,7 +24,7 @@
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
                             <input type="password" name="user[password]" value="<?php echo $user['password'] ?>" class="form-control" placeholder="<?php echo Yii::t('admin', 'Password'); ?>" />
-                            <i class="ace-icon fa fa-lock"></i>
+                            <i class="ace-icon glyphicon glyphicon-lock"></i>
                         </span>
                     </label>
                     <div class="space"></div>

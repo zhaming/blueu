@@ -379,4 +379,34 @@ class MingString {
         json_decode($string);
         return (json_last_error() == JSON_ERROR_NONE);
     }
+    
+    /**
+     * 获取
+     *   XX日
+     *   XX月第X周
+     *   XX月
+     * @param string $type
+     * @param date $date
+     * @param string $msg
+     * @return string
+     */
+    public static function getFormatDate($type, $date, $msg)
+    {
+        $timestamp = strtotime($date);
+        switch($type){
+            case 'day':
+                $newDate = $date;
+                break;
+            case 'week':
+                $yearmonth = date('Y-m', $timestamp);
+                $interval = $timestamp - strtotime($yearmonth . '-00');
+                $newDate = ceil($interval / 604800);
+                break;
+            case 'month':
+                $newDate = date('n', strtotime($date));
+                break;
+        }
+        if(empty($msg)) return $newDate;
+        return sprintf($msg, $newDate);
+    }
 }

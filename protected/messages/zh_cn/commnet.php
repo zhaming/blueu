@@ -17,17 +17,6 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Pelase input positionX' => '',
-  'Pelase input positionY' => '',
-  'Pelase input station name' => '',
-  'Pelase input station uuid' => '',
-  'Shop' => '店鋪',
-  'Station Create' => '創建',
-  'Station Disabled' => '禁用',
-  'Station List' => '列表',
-  'Station Manager' => '基站管理',
-  'Station Name' => '名稱',
-  'Station UUID' => 'UUID',
-  'positionX' => '',
-  'positionY' => '',
+  'Create' => '',
+  'Reset' => '',
 );

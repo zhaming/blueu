@@ -12,13 +12,13 @@
                 </div>
             <?php } ?>
             <div class="space-6"></div>
-            <p><?php echo Yii::t('admin', 'Enter your details to begin: </p>'); ?>
+            <p><?php echo Yii::t('admin', 'Enter your details to begin:'); ?>
             <form action="/admin/merchant/register" method="post">
                 <fieldset>
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
                             <input type="text" name="merchant[username]" value="<?php echo $merchant['username'] ?>" class="form-control" placeholder="<?php echo Yii::t('admin', 'Email'); ?>" />
-                            <i class="ace-icon fa fa-envelope-o"></i>
+                            <i class="ace-icon fa fa-envelope"></i>
                         </span>
                     </label>
                     <label class="block clearfix">
@@ -36,7 +36,7 @@
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
                             <input type="text" name="merchant[name]" value="<?php echo $merchant['name'] ?>" class="form-control" placeholder="<?php echo Yii::t('admin', 'Name'); ?>" />
-                            <i class="ace-icon fa fa-user"></i>
+                            <i class="ace-icon glyphicon glyphicon-user"></i>
                         </span>
                     </label>
                     <label class="block">

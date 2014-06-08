@@ -23,10 +23,9 @@
                                 </label>
                             </th>
                             <th><?php echo Yii::t('admin', 'Id'); ?></th>
-                            <th><?php echo Yii::t('admin', 'Tag'); ?></th>
+                            <th><?php echo Yii::t('admin', 'Position'); ?></th>
                             <th><?php echo Yii::t('admin', 'Url'); ?></th>
                             <th><?php echo Yii::t('admin', 'Description'); ?></th>
-                            <th><?php echo Yii::t('admin', 'Owner'); ?></th>
                             <th><?php echo Yii::t('admin', 'Source'); ?></th>
                             <th><i class="ace-icon glyphicon glyphicon-time bigger-110 hidden-480"></i><?php echo Yii::t('admin', 'Created'); ?></th>
                             <th></th>
@@ -46,7 +45,6 @@
                             <td><?php echo $item['placetag']; ?></td>
                             <td><?php echo $item['url']; ?></td>
                             <td><?php echo $item['desc']; ?></td>
-                            <td><?php echo $item['account']['username']; ?></td>
                             <td><?php echo HelpTemplate::adSource($item['source']); ?></td>
                             <td><?php echo date('y-m-d H:i:s', $item['created']); ?></td>
                             <td>

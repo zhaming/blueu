@@ -57,7 +57,11 @@
         <script src="/statics/js/html5shiv.js"></script>
         <script src="/statics/js/respond.min.js"></script>
         <![endif]-->
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> e8602fa8dba6853736fa69258bf869e12bc71872
         <script src="/statics/js/esl/esl.js"></script>
     </head>
 
@@ -175,9 +179,9 @@
                     //style: true,
                     no_file: '',
                     //no_icon: "icon-upload-alt",
-                    btn_choose: '选择',
-                    btn_change: '重新选择',
-                    icon_remove: "icon-remove",
+                    btn_choose: 'Choose',
+                    btn_change: 'Change',
+                    //icon_remove: "icon-remove",
                     //droppable: false,
                     thumbnail: true, //| true | large
                     before_change: function(files, dropped) {
@@ -233,6 +237,10 @@
 
                     var ie_timeout;
                     var last_gritter;
+<<<<<<< HEAD
+=======
+                    var upload_in_progress = false;
+>>>>>>> e8602fa8dba6853736fa69258bf869e12bc71872
 
                     // 编辑图片
                     $('.edit-picture').editable({
@@ -264,15 +272,28 @@
 
                                 }
                             },
+                            before_remove: function() {
+                                if (upload_in_progress) {
+                                    return false;
+                                }
+                                return true;
+                            },
                             on_success: function() {
                                 $.gritter.removeAll();
                             }
                         },
                         url: function() {
                             var deferred;
+<<<<<<< HEAD
                             if ("FormData" in window) {
                                 formData_object = new FormData();
                                 $('.edit-picture').next().find('input[type=file]').each(function() {
+=======
+                            var file_input = $('.edit-picture').next().find('input[type=file]');
+                            if ("FormData" in window) {
+                                formData_object = new FormData();
+                                file_input.each(function() {
+>>>>>>> e8602fa8dba6853736fa69258bf869e12bc71872
                                     var field_name = $(this).attr('name');
                                     var files = $(this).data('ace_input_files');
                                     if (files && files.length > 0) {
@@ -284,6 +305,11 @@
                                 var values = $(this).attr('data-value').split('-');
                                 formData_object.append('id', values[0]);
                                 formData_object.append('type', values[1]);
+<<<<<<< HEAD
+=======
+                                upload_in_progress = true;
+                                file_input.ace_file_input('loading', true);
+>>>>>>> e8602fa8dba6853736fa69258bf869e12bc71872
                                 deferred = $.ajax({
                                     url: '/admin/file/upload',
                                     type: 'POST',
@@ -305,6 +331,11 @@
                                     target: temporary_iframe_id,
                                     action: '/admin/file/upload'
                                 });
+<<<<<<< HEAD
+=======
+                                upload_in_progress = true;
+                                file_input.ace_file_input('loading', true);
+>>>>>>> e8602fa8dba6853736fa69258bf869e12bc71872
                                 $.fn.editableform.submit();
                                 ie_timeout = setTimeout(function() {
                                     ie_timeout = null;
@@ -312,6 +343,7 @@
                                     deferred.reject({'status': 'fail', 'message': 'Timeout!'});
                                 }, 30000);
                             }
+<<<<<<< HEAD
                             deferred.done(function(result) {
                                 if (last_gritter) {
                                     $.gritter.remove(last_gritter);
@@ -330,6 +362,27 @@
                                         class_name: 'gritter-error gritter-center'
                                     });
                                 }
+=======
+
+                            deferred.done(function(result) {
+                                if (last_gritter) {
+                                    $.gritter.remove(last_gritter);
+                                }
+                                if (result['code'] === 0) {
+                                    //$('.edit-picture').get(0).src = result['url'];
+                                    last_gritter = $.gritter.add({
+                                        title: 'The image has been successfully updated!',
+                                        text: result['message'],
+                                        class_name: 'gritter-info gritter-center'
+                                    });
+                                } else {
+                                    last_gritter = $.gritter.add({
+                                        title: 'Pictures updated failure!',
+                                        text: result['message'],
+                                        class_name: 'gritter-error gritter-center'
+                                    });
+                                }
+>>>>>>> e8602fa8dba6853736fa69258bf869e12bc71872
                             }).fail(function() {
                                 if (last_gritter) {
                                     $.gritter.remove(last_gritter);
@@ -344,8 +397,23 @@
                                     clearTimeout(ie_timeout);
                                 }
                                 ie_timeout = null;
+<<<<<<< HEAD
                             });
                             deferred.promise();
+=======
+                                upload_in_progress = false;
+                                file_input.ace_file_input('loading', false);
+                            });
+                            deferred.promise();
+                        },
+                        success: function() {
+                            if ("FileReader" in window) {
+                                var thumb = $('.edit-picture').next().find('img').data('thumb');
+                                if (thumb) {
+                                    $('.edit-picture').get(0).src = thumb;
+                                }
+                            }
+>>>>>>> e8602fa8dba6853736fa69258bf869e12bc71872
                         }
                     });
                 } catch (e) {

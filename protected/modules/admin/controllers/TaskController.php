@@ -27,6 +27,7 @@ class TaskController extends BController
     
     protected function beforeAction($action) {
         parent::beforeAction($action);
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->params->url_web.'js/html.js');
         $this->_task = new TaskBehavior();
         return true;
     }
@@ -34,7 +35,11 @@ class TaskController extends BController
     public function actionItems($type)
     {
         $items = isset(Yii::app()->params->types[$type]) ? Yii::app()->params->types[$type] : '';
-        echo json_encode($items);
+        $newItems = array();
+        foreach($items as $v){
+            $newItems[$v] = $v;
+        }
+        echo json_encode($newItems);
     }
     
     public function actionList()
@@ -123,8 +128,6 @@ class TaskController extends BController
     
     public function actionLog()
     {
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->params->url_web.'js/html.js');
-        
         $tasks = $this->_task->getTaskOption();
         $search = array(
             'taskid' => Yii::app()->request->getQuery('taskid'),

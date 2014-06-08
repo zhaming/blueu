@@ -1,29 +1,22 @@
-<div class="page-header">
-    <h1>
-        <?php echo Yii::t('shop', 'Coupon Manager');?>
-        <small><i class="icon-double-angle-right"></i><?php echo Yii::t('shop', 'Coupon List');?></small>
-    </h1>
-</div>
 <div class="row">
     <div class="col-xs-12">
         <p>
-            <a href="/admin/merchantproduct/create" class="btn btn-app btn-yellow btn-xs">
-                <i class="icon-create bigger-120"></i><?php echo Yii::t('comment', 'Add');?>
+            <a href="/admin/merchantproduct/create" class="btn btn-app btn-success btn-xs">
+                <i class="ace-icon fa fa-plus bigger-120"></i><?php echo Yii::t('admin', 'Create');?>
             </a>
         </p>
         <?php $this->widget("AlterMsgWidget")?>
+        <form  action="/admin/merchantcoupon/index" method="get" class="well form-inline">
+            <label class="inline">
+                <input type="text" name="name" value="<?php if(!empty($name)) { echo $name; } ?>" placeholder="<?php echo Yii::t('admin', 'Name'); ?>" /> 
+            </label>
+            <label class="inline" >
+                <button type="submit" class="btn btn-xs btn-info">
+                    <i class="ace-icon fa fa-search"></i><?php echo Yii::t('admin', 'Search'); ?>
+                </button>
+            </label>
+        </form>
         <div class="table-responsive">
-            <form  action="/admin/merchantcoupon/index" method="get" class="well form-inline">
-                <label class="inline">
-                   <?php echo Yii::t('shop',"Coupon Name")?>：
-                    <input type="text" name="name" value="<?php echo !empty($name)?$name:'' ;?>" />&emsp;
-                </label>
-                <label class="inline">
-                    <button type="submit" class="btn btn-xs btn-info">
-                        <i class="icon-search"></i><?php echo Yii::t('comment', 'Select');?>
-                    </button>
-                </label>
-            </form>
             <table id="sample-table-1" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
