@@ -22,6 +22,15 @@ class MerchantProductBehavior extends BaseBehavior{
                 $criteria->addInCondition($key,$value);
             }
         }
+        if(isset($param['conditions'])){
+            foreach ($param['conditions'] as $key => $value) {
+               $criteria->addCondition($value,"AND");
+            }
+        }
+
+        if(isset($param['join'])){
+            $criteria->join = $param['join'];
+        }
         if(-1 != $page){
             $count=MerchantProduct::model()->count($criteria);
             $pager = new CPagination($count);
@@ -39,6 +48,13 @@ class MerchantProductBehavior extends BaseBehavior{
         return MerchantProduct::model()->findByPK($id);
     }
 
+/**
+ * 废弃
+ * @param  [type]  $shopId   [description]
+ * @param  integer $page     [description]
+ * @param  integer $pageSize [description]
+ * @return [type]            [description]
+ */
     public function getListByShopId($shopId,$page=1,$pageSize=10){
         $criteria = new CDbCriteria;
         $criteria->addColumnCondition(array("shopid"=>$shopId));

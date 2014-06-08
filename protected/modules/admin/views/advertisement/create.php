@@ -31,6 +31,20 @@
             <div class="space-4"></div>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-type"><?php echo Yii::t('admin', 'Type'); ?></label>
+<<<<<<< HEAD
+                <div class="col-sm-9">
+                    <select id="form-field-type" name="advertisement[type]" class="col-sm-5 no-padding-left">
+                        <?php foreach (HelpTemplate::getAdTypes() as $key => $value) { ?>
+                        <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="space-4"></div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="id-input-file-single-upload"><?php echo Yii::t('admin', 'Picture'); ?></label>
+=======
+>>>>>>> e8602fa8dba6853736fa69258bf869e12bc71872
                 <div class="col-sm-9">
                     <select id="form-field-type" name="advertisement[type]" class="col-sm-5 no-padding-left">
                         <?php foreach (HelpTemplate::getAdTypes() as $key => $value) { ?>

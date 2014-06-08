@@ -67,15 +67,23 @@ class MerchantshopController  extends IController {
         $shopid=Yii::app()->request->getParam("shopid");
         $page = Yii::app()->request->getParam("page",1);
         $pageSize =Yii::app()->request->getParam("pagesize",10);
+        $discount   = Yii::app()->request->getParam("discount");
+
         $param['page'] = $page;
         $param["pageSize"] =$pageSize;
         //不带商铺id 返回所有的信息
         //带商铺id查询关联
-        if(empty($shopid)){
-            $res =  $this->productBehavior->getlist($param);
-        }else{
-            $res =  $this->productBehavior->getListByShopId($shopid,$page,$pageSize);
+        if(!empty($discount)){
+            if($discount=="yes")
+                $param['conditions'] = array("discount < 1");
+            else if($discount =="no")
+                $param['conditions']= array("discount = 1");
         }
+        if(empty($shopid)){
+        }else{
+            $param['join'] = ' join merchant_shop_product a   on (a.productid = t.id and a.shopid ='.$shopid.")";
+        }
+        $res =  $this->productBehavior->getlist($param);
         foreach($res['data'] as $i => $v){
             $v->pic = $v->picUrl;
             $res['data'][$i] = $v;

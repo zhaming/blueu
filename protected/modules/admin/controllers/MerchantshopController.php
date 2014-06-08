@@ -78,6 +78,7 @@ class MerchantshopController extends BController {
                 }
                 $this->redirect($this->referer);
         }else{
+
             $shopid  =  Yii::app()->request->getParam("id");
             if(empty($shopid))
             {
@@ -173,5 +174,36 @@ class MerchantshopController extends BController {
             Yii::app()->end();
         }
         $this->showSuccess("删除成功",$this->referer);
+    }
+
+    public function actionDistrict(){
+        $this->layout="null";
+        echo header("Content-Type:application/json");
+
+        $pid = Yii::app()->request->getParam("pid");
+
+        $district  = District::model()->findAll();
+        $data =array();
+        if(!empty($district))
+        foreach ($district as $key => $value) {
+            if($value->parentid == $pid)
+                $data[] = $value;
+        }
+        echo CJSON::encode($data);
+    }
+    public function actionCategory(){
+        $this->layout="null";
+        echo header("Content-Type:application/json");
+
+        $pid = Yii::app()->request->getParam("pid");
+
+        $res  = Category::model()->findAll();
+        $data =array();
+        if(!empty($res))
+        foreach ($res as $key => $value) {
+            if($value->parentid == $pid)
+                $data[] = $value;
+        }
+        echo CJSON::encode($data);
     }
 }

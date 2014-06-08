@@ -47,12 +47,16 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[catid]"><?php echo Yii::t("shop","Shop Category");?></label>
                 <div class="col-sm-9">
-                    <select name="shop[catid]" class="col-sm-5">
+                    <select id="category"   class="col-sm-2">
                     <?php if(!empty($category)):?>
                         <?php foreach ($category as $key => $value) :?>
+                        <?php if($value->parentid ==0):?>
                         <option value="<?php echo $value->id;?>"><?php echo $value->name;?></option>
+                        <?php endif;?>
                         <?php endforeach;?>
                     <?php endif;?>
+                    </select>
+                    <select id="category_sec"name="shop[catid]" class="col-sm-2">
                     </select>
                 </div>
             </div>
@@ -60,12 +64,17 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[districtid]"><?php echo Yii::t("shop","Shop District");?></label>
                 <div class="col-sm-9">
-                    <select name="shop[districtid]" class="col-sm-5">
+                    <select id="district"  class="col-sm-2">
                     <?php if(!empty($district)):?>
                     <?php foreach ($district as $key => $value):?>
+                    <?php if($value->parentid ==0):?>
                         <option value="<?php echo $value->id?>"><?php echo $value->district?></option>
+                    <?php endif;?>
                     <?php endforeach;?>
                     <?php endif;?>
+                    </select>
+
+                    <select id="district_sec" name="shop[districtid]" class="col-sm-2">
                     </select>
                 </div>
             </div>
@@ -111,3 +120,4 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/statics/js/shop_select.js"></script>

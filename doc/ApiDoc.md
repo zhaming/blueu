@@ -762,6 +762,13 @@ data       |  是  |   map   | 见示例 | 返回数据
 shopid     | 否   | int   |  7   | 店铺ID
 page       | 否   | int   |  1   | 页数 默认1
 pagesize   | 否   | int   |  10  |每页条数 默认10
+discount   | 否   | string|  yes | 折扣
+
+### 参数说明
+
+discount = yes   请求有折扣的商品
+discount = no    请求不打折的商品
+不传请求所有的
 
 ### 接口输出
 
