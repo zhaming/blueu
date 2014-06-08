@@ -52,4 +52,29 @@ class StatBehavior extends BaseBehavior {
         $criteria->order = 'count ASC';
         return StatTransform::model()->findAll($criteria);
     }
+    
+    /**
+     * 获取用户分享数据
+     * @return mixed
+     */
+    public function getUserShare()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->select = 'century,sex,count';
+        $criteria->order = "FIELD(`century`,'00','90','80','70','other')";
+        return StatShareUser::model()->findAll($criteria);
+    }
+    
+    /**
+     * 获取用户分享排行榜
+     * @param int $source
+     * @return mixed
+     */
+    public function getUserShareContent($source)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition("source = $source");
+        $criteria->order = 'count DESC';
+        return StatShareContent::model()->findAll($criteria);
+    }
 }

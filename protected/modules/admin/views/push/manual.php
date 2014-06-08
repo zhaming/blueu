@@ -15,7 +15,7 @@
                 <div class="col-xs-12">
                     <span class="input-icon" style="float:left;">
                         <?php echo CHtml::dropDownList('source', Yii::app()->request->getQuery('source'), $sourceMap, 
-                            array('class'=>'form-control', style=>'height:34px')
+                            array('class'=>'form-control', 'style'=>'height:34px')
                         );?>
                     </span>
                     <span class="input-icon" style="float:left;margin-left:5px;">
