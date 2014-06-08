@@ -28,7 +28,7 @@ class BCLinkPager extends CLinkPager {
         $this->firstPageLabel = Yii::t('admin', '&lt;&lt; First');
         $this->nextPageLabel = Yii::t('admin', 'Next &gt;');
         $this->lastPageLabel = Yii::t('admin', 'Last &gt;&gt;');
-        $this->htmlOptions = array('class' => 'pagination');
+        $this->htmlOptions = array('class' => 'pagination', 'style'=>'margin:0;');
     }
 
 }

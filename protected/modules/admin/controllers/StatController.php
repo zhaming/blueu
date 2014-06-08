@@ -43,6 +43,11 @@ class StatController extends BController {
         return true;
     }
     
+    public function actionIndex()
+    {
+        $this->actionUser();
+    }
+    
     public function actionUser() {
         $action = Yii::app()->controller->getAction()->getId();
         $t = Yii::app()->request->getQuery('t');

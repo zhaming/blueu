@@ -1,43 +1,37 @@
-<div class="page-header">
-    <h1>
-        <?php echo Yii::t('shop', 'Stamp Manager');?>
-        <small><i class="icon-double-angle-right"></i><?php echo Yii::t('shop', 'Stamp List');?></small>
-    </h1>
-</div>
 <div class="row">
     <div class="col-xs-12">
         <p>
-            <a href="/admin/merchantproduct/create" class="btn btn-app btn-success btn-xs">
-                <i class="ace-icon fa fa-plus bigger-120"></i><?php echo Yii::t('admin', 'Create');?>
+            <a href="/admin/merchantstamp/create" class="btn btn-app btn-success btn-xs">
+                <i class="ace-icon fa fa-plus bigger-120"></i><?php echo Yii::t('admin', 'Create'); ?>
             </a>
         </p>
-        <?php $this->widget("AlterMsgWidget")?>
+        <?php $this->widget("AlterMsgWidget") ?>
         <div class="table-responsive">
             <form  action="/admin/merchantstamp/index" method="get" class="well form-inline">
                 <label class="inline">
-                   <?php echo Yii::t('shop',"Stamp Name")?>：
-                    <input type="text" name="name" value="<?php echo !empty($name)?$name:'' ;?>" />&emsp;
+                    <input type="text" name="name" value="<?php echo!empty($name) ? $name : ''; ?>" placeholder="<?php echo Yii::t('shop', "Stamp Name"); ?>" />
                 </label>
                 <label class="inline">
                     <button type="submit" class="btn btn-xs btn-info">
-                        <i class="ace-icon fa fa-search"></i><?php echo Yii::t('comment', 'Select');?>
+                        <i class="ace-icon fa fa-search"></i><?php echo Yii::t('admin', 'Search'); ?>
                     </button>
                 </label>
             </form>
             <table id="sample-table-1" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th width="45px" ><?php echo Yii::t("comment","Number");?></th>
-                        <th><?php echo Yii::t("shop","Stamp Name");?></th>
-                        <th><?php echo Yii::t("shop","Coupon validity start");?></th>
-                        <th><?php echo Yii::t("shop","Coupon validity end");?></th>
-                        <th><?php echo Yii::t("shop","Coupon total");?></th>
-                        <th><?php echo Yii::t("shop","Coupon used");?></th>
-                        <th><?php echo Yii::t("comment","Operate")?></th>
+                        <th width="45px" ><?php echo Yii::t("comment", "Number"); ?></th>
+                        <th><?php echo Yii::t("shop", "Stamp Name"); ?></th>
+                        <th><?php echo Yii::t("shop", "Coupon validity start"); ?></th>
+                        <th><?php echo Yii::t("shop", "Coupon validity end"); ?></th>
+                        <th><?php echo Yii::t("shop", "Coupon total"); ?></th>
+                        <th><?php echo Yii::t("shop", "Coupon used"); ?></th>
+                        <th><?php echo Yii::t("comment", "Operate") ?></th>
                     </tr>
                 </thead>
 
                 <tbody>
+
                 <?php if(!empty($data)):?>
                     <?php foreach ($data as $key => $value) :?>
                     <tr>
@@ -66,6 +60,7 @@
                     </tr>
                     <?php endforeach;?>
                 <?php endif;?>
+
                 </tbody>
             </table>
             <?php $this->widget('application.modules.admin.widgets.BCLinkPager', array('pages' => $pager)); ?>

@@ -26,6 +26,11 @@ class PushController extends BController {
         );
         return true;
     }
+    
+    public function actionIndex()
+    {
+        $this->actionList();
+    }
 
     public function actionList() {
         $search = array(

@@ -32,6 +32,11 @@ class TaskController extends BController
         return true;
     }
     
+    public function actionIndex()
+    {
+        $this->actionList();
+    }
+    
     public function actionItems($type)
     {
         $items = isset(Yii::app()->params->types[$type]) ? Yii::app()->params->types[$type] : '';

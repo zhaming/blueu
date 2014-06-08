@@ -1,9 +1,3 @@
-<div class="page-header">
-    <h1>
-        <?php echo Yii::t('shop', 'Coupon Manager');?>
-        <small><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Coupon Create");?></small>
-    </h1>
-</div>
 <?php $this->widget("AlterMsgWidget")?>
 <div class="row">
     <div class="col-xs-12">
@@ -31,8 +25,8 @@
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="coupon[pic]"><?php echo Yii::t("comment","Picture");?></label>
-                <div class="col-sm-9">
-                        <input type="file"   name="coupon[pic]" id="upload-coupon-pic" />
+                <div class="col-sm-4">
+                        <input type="file" name="coupon[pic]" id="upload-coupon-pic" />
                         <script type="text/javascript">
                         $(document).ready(function(){
                              $('#upload-coupon-pic').ace_file_input({
