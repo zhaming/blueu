@@ -19,6 +19,7 @@
 return array (
   'Unapproved' => '',
   'Add' => '@@添加@@',
+  'Delete' => '@@删除@@',
   'Delete Failure' => '@@删除失败@@',
   'Edit Success' => '@@@@',
   'Param Error' => '@@参数错误@@',
@@ -29,7 +30,6 @@ return array (
   'Create' => '创建',
   'Create Failure' => '创建失败',
   'Create Success' => '创建成功',
-  'Delete' => '删除',
   'Delete Success' => '删除成功',
   'Edit' => '编辑',
   'Illegal Operation' => '非法操作',

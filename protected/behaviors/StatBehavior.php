@@ -68,13 +68,32 @@ class StatBehavior extends BaseBehavior {
     /**
      * 获取用户分享排行榜
      * @param int $source
+     * @param int $order
+     * @param int $page
      * @return mixed
      */
-    public function getUserShareContent($source)
+    public function getUserShareContent($source, $page, $limit = 20)
     {
         $criteria = new CDbCriteria();
         $criteria->addCondition("source = $source");
         $criteria->order = 'count DESC';
-        return StatShareContent::model()->findAll($criteria);
+        
+        if(empty($page)) $page = 1;
+        $pageSize = $limit;//Yii::app()->params->page_size;
+        $criteria->offset = $pageSize * ($page -1);
+        $criteria->limit = $pageSize;
+        
+        $count = StatShareContent::model()->count($criteria);
+        $rows = StatShareContent::model()->findAll($criteria);
+        
+        $pages = new CPagination($count);
+        $pages->pageSize = $pageSize;
+        $pages->applyLimit($criteria);
+        
+        $result = array(
+            'list' => $rows,
+            'pages' => $pages,
+        );
+        return $result;
     }
 }

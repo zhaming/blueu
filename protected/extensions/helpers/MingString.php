@@ -365,7 +365,7 @@ class MingString {
         }
         if(is_array($json))
         {
-            $json = array_map(array(self, 'jsonDecode'), $json);
+            $json = array_map(array('MingString', 'jsonDecode'), $json);
         }
         return $json;
     }

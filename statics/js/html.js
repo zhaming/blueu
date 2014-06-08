@@ -301,7 +301,7 @@ var Chart = {
     opt: {
         tooltip: {trigger:'axis',axisPointer:{type:'shadow'}},
         toolbox: {show:true,feature:{saveAsImage:{show:true}}},
-        grid: {x:30,y:30,x2:30,y2:30},
+        grid: {x:50,y:30,x2:30,y2:30},
         calculable: false,
         markPoint: {data:[{type:'max',name:'最大值'},{type:'min',name:'最小值'}]},
         markLine: {data:[{type:'average',name:'平均值'}]},

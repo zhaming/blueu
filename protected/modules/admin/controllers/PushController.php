@@ -16,6 +16,7 @@ class PushController extends BController {
     
     protected function beforeAction($action) {
         parent::beforeAction($action);
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->params->url_web.'js/html.js');
         $this->_push = new PushBehavior();
         $this->sourceMap = array(
             1 => Yii::t('admin', 'Shop'),
@@ -27,8 +28,6 @@ class PushController extends BController {
     }
 
     public function actionList() {
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->params->url_web.'js/html.js');
-        
         $search = array(
             'to' => Yii::app()->request->getQuery('to'),
             'type' => Yii::app()->request->getQuery('type'),
@@ -51,8 +50,6 @@ class PushController extends BController {
     }
 
     public function actionManual() {
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->params->url_web.'js/html.js');
-        
         $search = array(
             'source' => Yii::app()->request->getQuery('source'),
             'shopid' => Yii::app()->request->getQuery('shopid'),

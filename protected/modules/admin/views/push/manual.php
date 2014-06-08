@@ -23,7 +23,7 @@
                             array('class'=>'form-control','placeholder' => Yii::t('admin', 'VSID'))
                         );?>
                     </span>
-                    <span class="input-group" style="float:left;width:150px;margin-left:20px;">
+                    <span class="input-group" style="float:left;width:150px;margin-left:20px;margin-right:5px;">
                         <?php echo CHtml::textField('start', Yii::app()->request->getQuery('start'), 
                             array(
                                 'class'=>'form-control date-picker',
@@ -31,8 +31,7 @@
                                 'data-date-format' => 'yyyy-mm-dd'
                             )
                         );?>
-                        <span class="input-group-addon"><i class="ace-icon fa fa-calendar bigger-110"></i></span>
-                        -
+                        <span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i></span>
                     </span>
                     <span class="input-group" style="float:left;width:150px;">
                         <?php echo CHtml::textField('end', Yii::app()->request->getQuery('end'), 
@@ -42,7 +41,7 @@
                                 'data-date-format' => 'yyyy-mm-dd'
                             )
                         );?>
-                        <span class="input-group-addon"><i class="icace-icon fa faon-calendar bigger-110"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-calendar bigger-110"></i></span>
                     </span>
                     <span class="input-group-btn" style="float:right;width:auto;">
                         <button type="submit" class="btn btn-purple btn-sm">
@@ -105,11 +104,11 @@
                         </td>
                         <td>
                             <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                <a href="<?php echo $this->createUrl('edit?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
-                                    <i class="ace fa fa-edit bigger-120"></i>
+                                <a href="<?php echo $this->createUrl('edit?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="green">
+                                    <i class="ace fa fa-edit bigger-130"></i>
                                 </a>
-                                <a href="<?php echo $this->createUrl('delete?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger delete-confirm">
-                                    <i class="ace fa fa-trash-o bigger-120"></i>
+                                <a href="<?php echo $this->createUrl('delete?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="red delete-confirm">
+                                    <i class="ace fa fa-trash-o bigger-130"></i>
                                 </a>
                             </div>
                         </td>

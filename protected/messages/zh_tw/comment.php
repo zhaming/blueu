@@ -23,7 +23,6 @@ return array (
   'Create' => '',
   'Create Failure' => '',
   'Create Success' => '',
-  'Delete' => '',
   'Delete Success' => '',
   'Edit' => '',
   'Illegal Operation' => '',
@@ -42,5 +41,6 @@ return array (
   'Unapproved' => '',
   'status' => '',
   'Add' => '@@@@',
+  'Delete' => '@@@@',
   'Edit Success' => '@@@@',
 );
