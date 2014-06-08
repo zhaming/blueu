@@ -518,8 +518,9 @@ data       |  是  |   map   | 见示例 | 返回数据
 
 提交方式：GET
 
-参数名    | 必填| 类型 |  示例 | 说明
+参数名   | 必填| 类型 |  示例 | 说明
 placetag | 是  |string|  top  | 广告位 top:上方 right:右侧
+source   | 是  |string|  top  | 来源，1商铺 2商品 3优惠券 4印花
 page     | 否  |  int |   1   | 当前页码，默认1
 pagesize | 否  |  int |   2   | 每页显示的数据条数
 
@@ -1228,4 +1229,37 @@ data       |  是  |   map   | 见示例 | 返回数据
 
 
 
-[印花获取](#api29)  |  /api/merchantcode/getstamp       |  GET
+
+## 印花获取 {#api29}
+地址：/api/merchantcode/getstamp
+
+###接口输入
+
+提交方式：POST
+
+参数名    | 必填 | 类型 | 示例| 说明
+---------|-----|-----|----|---------------
+userid   | 是  | int |  1  | 用户id
+codeid   | 是  | int | 1  | 印花id
+
+完整参数示例:
+
+<pre>
+curl -X GET -H "Accept:application/json" -d '{"userid":1,"codeid":1}'  http://{domain}/api/merchantcode/getstamp
+</pre>
+
+###接口输出
+
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+
+<pre>
+{
+    "error_code":0,
+    "error_msg":"success"
+}
+</pre>
+
+

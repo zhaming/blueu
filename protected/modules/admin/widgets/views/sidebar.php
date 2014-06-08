@@ -190,7 +190,7 @@
                     <span class="menu-text"><?php echo Yii::t('admin', 'Map'); ?></span>
                 </a>
             </li>
-            <li<?php if (in_array(Yii::app()->controller->id, array('settings', 'log'))) { ?> class="active"<?php } ?>>
+            <li<?php if (in_array(Yii::app()->controller->id, array('settings', 'log', 'task'))) { ?> class="active"<?php } ?>>
                 <a class="dropdown-toggle">
                     <i class="menu-icon fa fa-wrench"></i>
                     <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'System'); ?></span>

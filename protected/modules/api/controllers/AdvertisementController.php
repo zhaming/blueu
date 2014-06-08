@@ -31,9 +31,10 @@ class AdvertisementController extends IController {
             $this->message = Yii::t('api', 'Please use GET method to get data.');
             return;
         }
+        $tag = Yii::app()->request->getQuery('placetag');
+        $source = Yii::app()->request->getQuery('source');
         $page = Yii::app()->request->getQuery('page', 1);
         $pageSize = Yii::app()->request->getQuery('pagesize', 10);
-        $tag = Yii::app()->request->getQuery('placetag');
         if (empty($tag)) {
             $this->error_code = self::ERROR_REQUEST_PARAMS;
             $this->message = 'placetag' . Yii::t('api', ' is not set.');
@@ -43,6 +44,9 @@ class AdvertisementController extends IController {
             'where' => array('placetag' => $tag),
             'order' => 'created desc'
         );
+        if (!empty($source)) {
+            $filter['where']['source'] = $source;
+        }
         $advertisements = $this->advertisementBehavior->getList($filter, $page, $pageSize);
         if (empty($advertisements)) {
             return;

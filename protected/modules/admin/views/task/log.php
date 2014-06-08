@@ -9,7 +9,7 @@
                 <div class="col-xs-12">
                     <span class="input-icon" style="float:left">
                         <?php echo CHtml::dropDownList('taskid', Yii::app()->request->getQuery('taskid'), $tasks, 
-                            array('class'=>'form-control', style=>'height:34px')
+                            array('class'=>'form-control', 'style'=>'height:34px')
                         );?>
                     </span>
                     <span class="input-group" style="float:left;width:150px;margin-left:50px;">

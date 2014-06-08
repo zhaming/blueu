@@ -118,6 +118,36 @@ class MerchantcodeController extends IController {
 
     }
     public function actionGetStamp(){
+        if (Yii::app()->request->getRequestType() != 'POST') {
+            $this->error_code = self::ERROR_REQUEST_METHOD;
+            $this->message = Yii::t('api', 'Please use POST method');
+            return;
+        }
+        $codeid = Yii::app()->request->getPost("codeid");
+        $userid = Yii::app()->request->getPost("userid");
 
+        if(empty($codeid) ){
+            $this->error_code = self::ERROR_REQUEST_PARAMS;
+            return;
+        }
+        if(empty($userid)){
+            $this->error_code = self::ERROR_REQUEST_PARAMS;
+            return;
+        }
+
+        $res  = MerchantCodeLog::model()->isHave($codeid,$userid);
+        if($res){
+            $this->error_code = self::ERROR_NO_DATA;
+            $this->message ="该用户已经获取过了.";
+            return;
+        }
+
+        $obj = new MerchantCodeLog;
+
+        $obj->userid = $userid;
+        $obj->codeid= $codeid;
+        $obj->gettime = time();
+
+        $obj->save();
     }
 }
