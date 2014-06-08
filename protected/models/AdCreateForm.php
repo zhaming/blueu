@@ -21,11 +21,11 @@ class AdCreateForm extends BaseForm {
     public $url;
     public $placetag;
     public $desc;
-    public $type;
+    public $source;
 
     public function rules() {
         return array(
-            array('url,placetag,type', 'required'),
+            array('url,placetag,source', 'required'),
             array('url', 'url'),
             array('desc', 'safe')
         );

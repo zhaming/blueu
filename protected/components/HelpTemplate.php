@@ -35,6 +35,7 @@ class HelpTemplate extends CComponent {
     const AD_SOURCE_PRODUCT = 2;
     const AD_SOURCE_COUPON = 3;
     const AD_SOURCE_STAMP = 4;
+    const AD_SOURCE_CARD = 5;
 
     public static function UUID() {
         $chars = md5(uniqid(mt_rand(), true));
@@ -122,22 +123,27 @@ class HelpTemplate extends CComponent {
             self::AD_SOURCE_SHOP => Yii::t('admin', 'Shop'),
             self::AD_SOURCE_PRODUCT => Yii::t('admin', 'Product'),
             self::AD_SOURCE_COUPON => Yii::t('admin', 'Coupon'),
-            self::AD_SOURCE_STAMP => Yii::t('admin', 'Stamp')
+            self::AD_SOURCE_STAMP => Yii::t('admin', 'Stamp'),
+            self::AD_SOURCE_CARD => Yii::t('admin', 'Card')
         );
         return $map[$flag];
+    }
+
+    public static function getAdSource() {
+        return $map = array(
+            self::AD_SOURCE_MAN_MADE => '',
+            self::AD_SOURCE_SHOP => Yii::t('admin', 'Shop'),
+            self::AD_SOURCE_PRODUCT => Yii::t('admin', 'Product'),
+            self::AD_SOURCE_COUPON => Yii::t('admin', 'Coupon'),
+            self::AD_SOURCE_STAMP => Yii::t('admin', 'Stamp'),
+            self::AD_SOURCE_CARD => Yii::t('admin', 'Card')
+        );
     }
 
     public static function getAdPlaceTags() {
         return array(
             'top' => Yii::t('admin', 'Top'),
             'right' => Yii::t('admin', 'Right')
-        );
-    }
-
-    public static function getAdTypes() {
-        return array(
-            0 => Yii::t('admin', 'Default'),
-            1 => Yii::t('admin', 'Credit card offers')
         );
     }
 
