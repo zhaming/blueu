@@ -83,4 +83,5 @@ return array (
   'Stamp Name' => '印花名称',
   'Telephone' => '联系电话',
   'discount' => '折扣',
+  "Add push"=>"推送",
 );

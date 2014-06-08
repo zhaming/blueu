@@ -48,9 +48,13 @@
                         <td><?php echo $value->code->total;?></td>
                         <td><?php echo $value->code->used;?></td>
                         <td>
+                        <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
                             <a href="/admin/merchantstamp/edit/id/<?php echo $value->id;?>" title="<?php echo Yii::t('admin', 'Detail'); ?>"  class="green" ><i class="ace-icon fa fa-edit bigger-130"></i></a>
                             <a href="/admin/merchantstamp/delete/id/<?php echo $value->id;?>" title="<?php echo Yii::t('admin', 'Delete'); ?>"  class="delete-confirm red" ><i class="ace-icon fa fa-trash-o bigger-130"></i></a>
-
+                            <a href="/admin/push/add/source/4/shopid/<?php echo $value->shopid;?>/name/<?php echo $value->name;?>/sid/<?php echo $value->id;?>" title="<?php echo Yii::t("shop","Add push");?>"> 
+                                    <i class="ace-icon fa fa-plus bigger-130"></i>
+                            </a>
+                        </div>
                         </td>
                     </tr>
                     <?php endforeach;?>

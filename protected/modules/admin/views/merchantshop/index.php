@@ -69,6 +69,9 @@
                                 </a>
                                 <?php endif;?>
                                 <a href="/admin/station/create/shopid/<?php echo $value->id;?>" title="<?php echo Yii::t("shop","Add station");?>"> 
+                                    <i class="ace-icon fa fa-rss bigger-130"></i>
+                                </a>
+                                <a href="/admin/push/add/source/1/shopid/<?php echo $value->id;?>/name/<?php echo $value->name;?>/sid/<?php echo $value->id;?>" title="<?php echo Yii::t("shop","Add push");?>"> 
                                     <i class="ace-icon fa fa-plus bigger-130"></i>
                                 </a>
                             </div>
