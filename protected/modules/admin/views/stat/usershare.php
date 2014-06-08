@@ -14,7 +14,7 @@
                 </li>
                 <li class="active">
                     <a href="<?php echo $this->createUrl('user?t=share'); ?>">
-                        <i class="green ace-icon fa fa-edit bigger-125"></i><?php echo Yii::t('admin', 'VStatUserShare'); ?>
+                        <i class="green ace-icon fa fa-share bigger-125"></i><?php echo Yii::t('admin', 'VStatUserShare'); ?>
                     </a>
                 </li>
             </ul>
