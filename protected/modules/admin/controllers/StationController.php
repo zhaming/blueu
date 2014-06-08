@@ -165,6 +165,51 @@ class StationController extends BController {
         $this->showError('非法操作', $this->createUrl('index'));
     }
 
+    public function actionEditAds(){
+        $data['sid'] = Yii::app()->request->getParam("sid");
+        $data['source'] = Yii::app()->request->getParam("source");
+        $data['shopid'] = Yii::app()->request->getParam("shopid");
+        $data['staionid'] = Yii::app()->request->getParam("staionid");
+        $data['stations'] = array();
+
+        $sbh = new StationBehavior;
+        if(Yii::app()->request->isPostRequest){
+
+            //$data['uuid'] = Yii::app()->request->getParam("uuid");
+            $data['staionid'] =  Yii::app()->request->getParam("staionid");
+            //save
+            $station = $sbh->getById($data['staionid']);
+
+            $data['uuid'] =  $station->uuid;
+            $station_ads  = new StationAds;
+            $station_ads->_attributes= $data;
+            $station_ads->save();
+
+            $this->redirect("/admin/station/editads/sid/".$data['sid']."/source/".$data['source']."/shopid/".$data['shopid']."/staionid/".$data['staionid']."");
+        }
+        $ar = array();
+        if(!empty($data['shopid'])){
+            $ar['shopid'] = $data['shopid'];
+        }
+        $data['sourceMap'] = array(
+            1 => Yii::t('admin', 'Shop'),
+            2 => Yii::t('admin', 'Product'),
+            3 => Yii::t('admin', 'Coupon'),
+            4 => Yii::t('admin', 'Stamp'),
+        );
+
+        $res = $sbh->getList($ar);
+        if(!empty($res['data']))
+            $data['stations'] =$res['data'];
+        $this->render('ads',$data);
+    }
+
+    public function actionAdsList(){
+        $ar['page'] = Yii::app()->request->getParam("page",1);
+        $ar['pageSize']=Yii::app()->request->getParam('pagesize',10);
+        $bhv = new StationBehavior;
+        $data = $bhv->getAdsList($ar);
+        $this->render("adslist",$data);
+    }
 }
 
-?>

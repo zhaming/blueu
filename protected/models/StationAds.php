@@ -19,13 +19,15 @@ class StationAds extends CActiveRecord {
         return '{{station_ads}}';
     }
 
-    public function relations() {
-        $relations = array(
+    public function relations(){
+        return array(
             'station' => array(
-                self::HAS_ONE, 'Station', 'id'
+                self::HAS_ONE, 'Station', array('id'=>'staionid')
+            ),
+            'shop' =>array(
+                self::HAS_ONE,"MerchantShop",array('id'=>"shopid")
             ),
         );
-        return $relations;
     }
 
 }

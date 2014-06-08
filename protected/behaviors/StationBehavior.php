@@ -61,7 +61,7 @@ class StationBehavior extends BaseBehavior{
 */
         if(isset($param['name']) && !empty($param['name']))
             $criteria->addSearchCondition("name",$param['name']);
-        
+
 		if(!empty($param['order']))
             $criteria->order = $param['order'];
         if(-1 != $page){
@@ -73,6 +73,30 @@ class StationBehavior extends BaseBehavior{
         }
 
         $data = Station::model()->findAll($criteria);
+
+        return compact('data','pager');
+    }
+
+    public function getAdsList($param){
+        $pager = null;
+        $page=-1;
+        $pageSize=20;
+
+        $criteria = new CDbCriteria;
+
+        if(isset($param['page']) && is_numeric($param['page']))
+           $page = $param['page'];
+        if(isset($param['pageSize']) && is_numeric($param['pageSize']))
+           $pageSize = $param['pageSize'];
+        if(-1 != $page){
+            $count = StationAds::model()->count($criteria);
+            $pager = new CPagination($count);
+            $pager->setCurrentPage($page-1);
+            $pager->pageSize = $pageSize;
+            $pager->applyLimit($criteria);
+        }
+
+        $data = StationAds::model()->findAll($criteria);
 
         return compact('data','pager');
     }
