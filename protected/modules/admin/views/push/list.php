@@ -14,7 +14,7 @@
                     </span>
                     <span class="input-icon" style="float:left;margin-left:20px;">
                         <?php echo CHtml::dropDownList('type', Yii::app()->request->getQuery('type'), $types, 
-                            array('class'=>'form-control', style=>'height:34px', 'kvEqual' => true)
+                            array('class'=>'form-control', 'style'=>'height:34px', 'kvEqual' => true)
                         );?>
                     </span>
                     <span class="input-group" style="float:left;width:150px;margin-left:20px;">
