@@ -32,7 +32,7 @@ class TaskController extends BController
         return true;
     }
     
-    public function actionInex()
+    public function actionIndex()
     {
         $this->actionList();
     }
