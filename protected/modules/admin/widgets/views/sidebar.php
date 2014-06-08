@@ -59,6 +59,10 @@
                     <li<?php if (Yii::app()->controller->getId() == 'station' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
                         <a href="/admin/station/create"><i class="icon-double-angle-right"></i><?php echo Yii::t("station", "Station Create") ?></a>
                     </li>
+                    <li<?php if (Yii::app()->controller->getId() == 'station' && Yii::app()->controller->getAction()->getId() == 'adslist') { ?> class="active"<?php } ?>>
+                        <a href="/admin/station/adslist"><i class="icon-double-angle-right"></i><?php echo Yii::t("station", "Station ads list") ?></a>
+                    </li>
+
                 </ul>
             </li>
         <?php } ?>

@@ -22,7 +22,10 @@ class StationAds extends CActiveRecord {
     public function relations() {
         $relations = array(
             'station' => array(
-                self::HAS_ONE, 'Station', 'id'
+                self::HAS_ONE, 'Station', 'staionid'
+            ),
+            'shop' =>array(
+                self::HAS_ONE,"MerchantShop",array('shopid'=>"id")
             ),
         );
         return $relations;

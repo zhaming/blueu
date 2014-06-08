@@ -30,4 +30,7 @@ return array (
   'Pelase input positionY' => '请输入设备坐标Y',
   'Station Disabled' => '设备禁用',
   'Shop' => '绑定商铺',
+  "Station ads edit"=>"基站广告编辑",
+  "Station ads list"=>"基站广告列表",
+
 );
