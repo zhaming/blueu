@@ -25,11 +25,15 @@ class MerchantshopController  extends IController {
         $catid      = Yii::app()->request->getParam("catid");
         $districtid = Yii::app()->request->getParam("districtid");
         $order      = Yii::app()->request->getParam("order");
+        $discount   = Yii::app()->request->getParam("discount");
         if(!empty($id)){
             // $this->error_code = self::ERROR_REQUEST_PARAMS;
             // return;
             $param['merchantid'] = $id;
             $param['selfid'] = $id;
+        }
+        if(!empty($discount)){
+            $param['lt'] = array("discount"=>1);
         }
         $param['page'] = $page;
         $param['pageSize'] =$pagesize;

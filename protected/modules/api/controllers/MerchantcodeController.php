@@ -22,10 +22,17 @@ class MerchantcodeController extends IController {
         $ar['pageSize'] = $pagesize;
         $ar['shopid']   = $shopid;
         $res = $couponBehavior->getList($ar);
-        $this->data =  array();
+
+        $data = array();
         if(!empty($res['data'])){
-            $this->data = $res['data'];
+            foreach ($res['data'] as $key => $value) {
+                if(!empty($value->pic)){
+                    $value->pic = HelpTemplate::getAdUrl($value->pic);
+                }
+                $data[] = $value;
+            }
         }
+        $this->data = $data;
     }
 
 /**
@@ -98,10 +105,16 @@ class MerchantcodeController extends IController {
         $ar['pageSize'] = $pagesize;
         $ar['shopid']   = $shopid;
         $res = $stampBehavior->getList($ar);
-        $this->data =  array();
+        $data = array();
         if(!empty($res['data'])){
-            $this->data = $res['data'];
+            foreach ($res['data'] as $key => $value) {
+                if(!empty($value->pic)){
+                    $value->pic = HelpTemplate::getAdUrl($value->pic);
+                }
+                $data[] = $value;
+            }
         }
+        $this->data = $data;
 
     }
     public function actionGetStamp(){
