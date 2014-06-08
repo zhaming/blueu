@@ -7,12 +7,11 @@
         <div class="table-responsive">
             <form  action="/admin/merchantproduct/index" method="get" class="well form-inline">
                 <label class="inline">
-                    <?php echo Yii::t("shop","Product name");?>：
-                    <input type="text" name="name" value="<?php echo !empty($name)?$name:'' ;?>" />&emsp;
+                    <input type="text" name="name" value="<?php echo !empty($name)?$name:'' ;?>" placeholder="<?php echo Yii::t('shop', 'Product name'); ?>" />
                 </label>
                 <label class="inline" >
                     <button type="submit" class="btn btn-xs btn-info">
-                        <i class="ace-icon fa fa-search"></i> <?php echo Yii::t("comment","Select");?>
+                        <i class="ace-icon fa fa-search"></i> <?php echo Yii::t("admin","Search");?>
                     </button>
                 </label>
             </form>

@@ -25,127 +25,67 @@
             </a>
         </li>
         <?php if (HelpTemplate::isLoginAsAdmin()) { ?>
-            <li<?php if (in_array(Yii::app()->controller->id, array('user', 'merchant', 'manager'))) { ?> class="active"<?php } ?>>
-                <a class="dropdown-toggle">
-                    <i class="menu-icon fa fa-user"></i>
-                    <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'User'); ?></span>
-                    <b class="arrow icon-angle-down"></b>
-                </a>
-                <ul class="submenu">
-                    <li<?php if (Yii::app()->controller->getId() == 'merchant') { ?> class="active"<?php } ?>>
-                        <a href="/admin/merchant"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Merchant'); ?></a>
+        <li<?php if (in_array(Yii::app()->controller->id, array('user', 'merchant', 'manager'))) { ?> class="active"<?php } ?>>
+            <a class="dropdown-toggle">
+                <i class="menu-icon fa fa-user"></i>
+                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'User'); ?></span>
+                <b class="arrow icon-angle-down"></b>
+            </a>
+            <ul class="submenu">
+                <li<?php if (Yii::app()->controller->getId() == 'merchant') { ?> class="active"<?php } ?>>
+                    <a href="/admin/merchant"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Merchant'); ?></a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'user') { ?> class="active"<?php } ?>>
+                    <a href="/admin/user"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Client'); ?></a>
+                </li>
+                <?php if (Yii::app()->user->getId() == 1) { ?>
+                    <li<?php if (Yii::app()->controller->getId() == 'manager') { ?> class="active"<?php } ?>>
+                        <a href="/admin/manager"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Administrator'); ?></a>
                     </li>
-                    <li<?php if (Yii::app()->controller->getId() == 'user') { ?> class="active"<?php } ?>>
-                        <a href="/admin/user"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Client'); ?></a>
-                    </li>
-                    <?php if (Yii::app()->user->getId() == 1) { ?>
-                        <li<?php if (Yii::app()->controller->getId() == 'manager') { ?> class="active"<?php } ?>>
-                            <a href="/admin/manager"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Administrator'); ?></a>
-                        </li>
-                    <?php } ?>
-                </ul>
-            </li>
+                <?php } ?>
+            </ul>
+        </li>
+        <li<?php if (Yii::app()->controller->getId() == 'station') { ?> class="active"<?php } ?>>
+            <a class="dropdown-toggle">
+                <i class="menu-icon fa fa-rss"></i>
+                <span class="menu-text cursor-default"><?php echo Yii::t('station', 'Station Manager'); ?></span>
+                <b class="arrow icon-angle-down"></b>
+            </a>
+            <ul class="submenu">
+                <li<?php if (Yii::app()->controller->getId() == 'station' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
+                    <a href="/admin/station/index"><i class="icon-double-angle-right"></i><?php echo Yii::t("station", "Station List") ?></a>
+                </li>
+                <li<?php if (Yii::app()->controller->getId() == 'station' && Yii::app()->controller->getAction()->getId() == 'adslist') { ?> class="active"<?php } ?>>
+                    <a href="/admin/station/adslist"><i class="icon-double-angle-right"></i><?php echo Yii::t("station", "Station ads list") ?></a>
+                </li>
 
-            <li<?php if (Yii::app()->controller->getId() == 'station') { ?> class="active"<?php } ?>>
-                <a class="dropdown-toggle">
-                    <i class="menu-icon fa fa-rss"></i>
-                    <span class="menu-text cursor-default"><?php echo Yii::t('station', 'Station Manager'); ?></span>
-                    <b class="arrow icon-angle-down"></b>
-                </a>
-                <ul class="submenu">
-                    <li<?php if (Yii::app()->controller->getId() == 'station' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
-                        <a href="/admin/station/index"><i class="icon-double-angle-right"></i><?php echo Yii::t("station", "Station List") ?></a>
-                    </li>
-                    <li<?php if (Yii::app()->controller->getId() == 'station' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
-                        <a href="/admin/station/create"><i class="icon-double-angle-right"></i><?php echo Yii::t("station", "Station Create") ?></a>
-                    </li>
-                    <li<?php if (Yii::app()->controller->getId() == 'station' && Yii::app()->controller->getAction()->getId() == 'adslist') { ?> class="active"<?php } ?>>
-                        <a href="/admin/station/adslist"><i class="icon-double-angle-right"></i><?php echo Yii::t("station", "Station ads list") ?></a>
-                    </li>
-
-                </ul>
-            </li>
+            </ul>
+        </li>
         <?php } ?>
         <li<?php if (Yii::app()->controller->id == 'merchantshop') { ?> class="active"<?php } ?>>
-            <a class="dropdown-toggle">
+            <a href="/admin/merchantshop/index">
                 <i class="menu-icon fa fa-shopping-cart"></i>
-                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'Merchant shop_manager'); ?></span>
-                <b class="arrow icon-angle-down"></b>
+                <span class="menu-text"><?php echo Yii::t('admin', 'Merchant shop_manager'); ?></span>
             </a>
-            <ul class="submenu">
-                <li<?php if (Yii::app()->controller->getId() == 'merchantshop' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchantshop/index"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop", "Shop List") ?></a>
-                </li>
-                <li<?php if (Yii::app()->controller->getId() == 'merchantshop' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchantshop/create"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop", "Shop Create") ?></a>
-                </li>
-            </ul>
         </li>
         <li<?php if (Yii::app()->controller->id == 'merchantproduct') { ?> class="active"<?php } ?>>
-            <a class="dropdown-toggle">
+            <a href="/admin/merchantproduct/index">
                 <i class="menu-icon fa fa-list"></i>
-                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'ProductManager'); ?></span>
-                <b class="arrow icon-angle-down"></b>
+                <span class="menu-text"><?php echo Yii::t('admin', 'ProductManager'); ?></span>
             </a>
-            <ul class="submenu">
-                <li<?php if (Yii::app()->controller->getId() == 'merchantproduct' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchantproduct/index"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop", "Product List") ?></a>
-                </li>
-                <li<?php if (Yii::app()->controller->getId() == 'merchantproduct' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchantproduct/create"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop", "Product Create") ?></a>
-                </li>
-            </ul>
         </li>
         <li<?php if (Yii::app()->controller->id == 'merchantcoupon') { ?> class="active"<?php } ?>>
-            <a class="dropdown-toggle">
+            <a href="/admin/merchantcoupon/index">
                 <i class="menu-icon fa fa-signal"></i>
-                <span class="menu-text cursor-default"><?php echo Yii::t('shop', 'Coupon Manager'); ?></span>
-                <b class="arrow icon-angle-down"></b>
+                <span class="menu-text"><?php echo Yii::t('shop', 'Coupon Manager'); ?></span>
             </a>
-            <ul class="submenu">
-                <li<?php if (Yii::app()->controller->getId() == 'merchantcoupon' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchantcoupon/index"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop", "Coupon List") ?></a>
-                </li>
-                <li<?php if (Yii::app()->controller->getId() == 'merchantcoupon' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchantcoupon/create"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop", "Coupon Create") ?></a>
-                </li>
-                <li<?php if (Yii::app()->controller->getId() == 'merchantcoupon' && Yii::app()->controller->getAction()->getId() == 'validatecoupon') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchantcoupon/validatecoupon"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop", "Coupon use") ?></a>
-                </li>
-            </ul>
         </li>
-        <!--stamp-->
         <li<?php if (Yii::app()->controller->id == 'merchantstamp') { ?> class="active"<?php } ?>>
-            <a class="dropdown-toggle">
+            <a href="/admin/merchantstamp/index">
                 <i class="menu-icon fa fa-gift"></i>
-                <span class="menu-text cursor-default"><?php echo Yii::t('shop', 'Stamp Manager'); ?></span>
-                <b class="arrow icon-angle-down"></b>
+                <span class="menu-text"><?php echo Yii::t('shop', 'Stamp Manager'); ?></span>
             </a>
-            <ul class="submenu">
-                <li<?php if (Yii::app()->controller->getId() == 'merchantstamp' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchantstamp/index"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop", "Stamp List") ?></a>
-                </li>
-                <li<?php if (Yii::app()->controller->getId() == 'merchantstamp' && Yii::app()->controller->getAction()->getId() == 'create') { ?> class="active"<?php } ?>>
-                    <a href="/admin/merchantstamp/create"><i class="icon-double-angle-right"></i><?php echo Yii::t("shop", "Stamp Create") ?></a>
-                </li>
-            </ul>
         </li>
-
-        <!--li<?php if (Yii::app()->controller->id == 'activity') { ?> class="active"<?php } ?>>
-            <a class="dropdown-toggle">
-                <i class="menu-icon fa fa-adjust"></i>
-                <span class="menu-text cursor-default"><?php echo Yii::t('admin', 'Activity manager'); ?></span>
-                <b class="arrow icon-angle-down"></b>
-            </a>
-            <ul class="submenu">
-                <li<?php if (Yii::app()->controller->getId() == 'activity' && Yii::app()->controller->getAction()->getId() == 'index') { ?> class="active"<?php } ?>>
-                    <a href="/admin/activity/index"><i class="icon-double-angle-right"></i>活动列表</a>
-                </li>
-                <li<?php if (Yii::app()->controller->getId() == 'activity' && Yii::app()->controller->getAction()->getId() == 'template') { ?> class="active"<?php } ?>>
-                    <a href="/admin/activity/template"><i class="icon-double-angle-right"></i>活动模版</a>
-                </li>
-            </ul>
-        </li-->
         <li<?php if (Yii::app()->controller->id == 'stat') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="menu-icon fa fa-bar-chart-o"></i>

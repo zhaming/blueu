@@ -107,6 +107,14 @@ class BreadcrumbsWidget extends CWidget {
                     'create' => Yii::t('admin', 'Create')
                 )
             ),
+            'station' => array(
+                'title' => Yii::t('station', 'Station Manager'),
+                'actions' => array(
+                    'create' => Yii::t('admin', 'Create'),
+                    'edit' => Yii::t('admin', 'Edit'),
+                    'adslist' => Yii::t('station', 'Station ads list')
+                )
+            ),
             'map' => array(
                 'title' => Yii::t('admin', 'Map'),
                 'actions' => array(
