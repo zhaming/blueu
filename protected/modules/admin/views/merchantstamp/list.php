@@ -55,6 +55,12 @@
                                 <a href="/admin/merchantstamp/delete/id/<?php echo $value->id; ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="delete-confirm red" >
                                     <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                 </a>
+                                <a href="/admin/push/add/source/3/shopid/<?php echo $value->shopid;?>/name/<?php echo $value->name;?>/sid/<?php echo $value->id;?>" title="<?php echo Yii::t("shop","Add push");?>"> 
+                                    <i class="ace-icon fa fa-plus bigger-130"></i>
+                                </a>
+                                <a href="/admin/station/editads/sid/<?php echo $value->id?>/source/4/shopid/<?php echo $value->shopid?>" title="<?php echo Yii::t("station","Station add to ads");?>"> 
+                                    <i class="ace-icon fa fa-bullhorn bigger-130"></i>
+                                </a>
                             </div>
                         </td>
                     </tr>

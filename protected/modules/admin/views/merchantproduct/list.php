@@ -71,6 +71,10 @@
                                  <a href="/admin/push/add/source/2/shopid/<?php echo empty($value->shop_product)?"":$value->shop_product[0]['shopid'];?>/name/<?php echo $value->name;?>/sid/<?php echo $value->id;?>" title="<?php echo Yii::t("shop","Add push");?>"> 
                                     <i class="ace-icon fa fa-plus bigger-130"></i>
                                 </a>
+
+                                <a href="/admin/station/editads/sid/<?php echo $value->id?>/source/2/shopid/<?php echo empty($value->shop_product)?"":$value->shop_product[0]['shopid'];?>" title="<?php echo Yii::t("station","Station add to ads");?>"> 
+                                    <i class="ace-icon fa fa-bullhorn bigger-130"></i>
+                                </a>
                             </div>
                         </td>
                     </tr>

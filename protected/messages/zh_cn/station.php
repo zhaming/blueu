@@ -32,5 +32,5 @@ return array (
   'Shop' => '绑定商铺',
   "Station ads edit"=>"基站广告编辑",
   "Station ads list"=>"基站广告列表",
-
+  "Station add to ads"=>"添加到基站广告列表"
 );

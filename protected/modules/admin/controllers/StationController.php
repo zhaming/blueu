@@ -209,6 +209,12 @@ class StationController extends BController {
         $ar['pageSize']=Yii::app()->request->getParam('pagesize',10);
         $bhv = new StationBehavior;
         $data = $bhv->getAdsList($ar);
+        $data['sourceMap'] = array(
+            1 => Yii::t('admin', 'Shop'),
+            2 => Yii::t('admin', 'Product'),
+            3 => Yii::t('admin', 'Coupon'),
+            4 => Yii::t('admin', 'Stamp'),
+        );
         $this->render("adslist",$data);
     }
 }

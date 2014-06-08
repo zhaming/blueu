@@ -18,7 +18,7 @@
                         <th><?php echo Yii::t('station', 'Station UUID');?></th>
                         <th><?php echo Yii::t('station', 'Station Name');?></th>
                         <th><?php echo Yii::t('shop', 'Shop Name');?></th>
-                        <th>Source</th>
+                        <th><?php echo Yii::t('admin', 'VSource'); ?></th>
                         <th><?php echo Yii::t("comment",'Operate')?></th>
                     </tr>
                 </thead>
@@ -29,9 +29,11 @@
                         <tr>
                         <td><?php echo $value->staionid?></td>
                         <td><?php echo $value->uuid;?></td>
-                        <td> <?php echo $value->sid;?></td>
-                        <td><?php echo $value->shopid;?></td>
-                        <td><?php echo $value->source;?></td>
+                        <td><?php echo empty($value->station)?"":$value->station->name?></td>
+                        <td><?php echo empty($value->shop)?"":$value->shop->name?></td>
+                        <td>
+                            <?php echo $sourceMap[$value->source]; ?>
+                        </td>
                         <td>
                         <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
                                 <a href="/admin/merchantshop/delete/id/<?php echo $value->sid;?>"  title="<?php echo Yii::t("admin","Delete");?>"  class="delete-confirm red"> 
