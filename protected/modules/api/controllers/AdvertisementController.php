@@ -35,15 +35,14 @@ class AdvertisementController extends IController {
         $source = Yii::app()->request->getQuery('source');
         $page = Yii::app()->request->getQuery('page', 1);
         $pageSize = Yii::app()->request->getQuery('pagesize', 10);
-        if (empty($tag)) {
-            $this->error_code = self::ERROR_REQUEST_PARAMS;
-            $this->message = 'placetag' . Yii::t('api', ' is not set.');
-            return;
-        }
         $filter = array(
-            'where' => array('placetag' => $tag),
+            'where' => array(),
             'order' => 'created desc'
         );
+        if (!empty($tag)) {
+            $filter['where']['placetag'] = $tag;
+        }
+
         if (!empty($source)) {
             $filter['where']['source'] = $source;
         }
