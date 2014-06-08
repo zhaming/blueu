@@ -62,15 +62,17 @@
                             </strong>
                         </td>
                         <td>
-                            <a href="<?php echo $this->createUrl('log?taskid=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Log'); ?>" class="btn btn-xs btn-success">
-                                <i class="ace-icon fa fa-external-link bigger-120"></i>
-                            </a>
-                            <a href="<?php echo $this->createUrl('edit?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="btn btn-xs btn-success">
-                                <i class="ace-icon fa fa-edit bigger-120"></i>
-                            </a>
-                            <a href="<?php echo $this->createUrl('delete?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="btn btn-xs btn-danger delete-confirm">
-                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                            </a>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                                <a href="<?php echo $this->createUrl('log?taskid=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Log'); ?>" class="green">
+                                    <i class="ace-icon fa fa-external-link bigger-120"></i>
+                                </a>
+                                <a href="<?php echo $this->createUrl('edit?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Edit'); ?>" class="green">
+                                    <i class="ace-icon fa fa-edit bigger-120"></i>
+                                </a>
+                                <a href="<?php echo $this->createUrl('delete?id=' . $value->id); ?>" title="<?php echo Yii::t('admin', 'Delete'); ?>" class="red delete-confirm">
+                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                     <?php }} ?>

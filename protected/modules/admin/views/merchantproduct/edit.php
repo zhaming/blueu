@@ -32,7 +32,7 @@
             <?php endif;?>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="product[pic]"><?php echo Yii::t("comment","Picture");?></label>
-                <div class="col-sm-9">
+                <div class="col-sm-4">
                         <input type="file"   name="product[pic]" id="upload-product-pic" />
                         <script type="text/javascript">
                         $(document).ready(function(){

@@ -184,12 +184,6 @@
                     <span class="menu-text"><?php echo Yii::t('admin', 'Advertisement'); ?></span>
                 </a>
             </li>
-            <li<?php if (Yii::app()->controller->id == 'map') { ?> class="active"<?php } ?>>
-                <a href="/admin/map">
-                    <i class="menu-icon fa fa-map-marker"></i>
-                    <span class="menu-text"><?php echo Yii::t('admin', 'Map'); ?></span>
-                </a>
-            </li>
             <li<?php if (in_array(Yii::app()->controller->id, array('settings', 'log'))) { ?> class="active"<?php } ?>>
                 <a class="dropdown-toggle">
                     <i class="menu-icon fa fa-wrench"></i>
@@ -202,6 +196,12 @@
                     </li>
                     <li<?php if (Yii::app()->controller->getId() == 'task' && Yii::app()->controller->getAction()->getId() == 'log') { ?> class="active"<?php } ?>>
                         <a href="/admin/task/log"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'TaskLogkManager'); ?></a>
+                    </li>
+                    <li<?php if (Yii::app()->controller->id == 'map') { ?> class="active"<?php } ?>>
+                        <a href="/admin/map">
+                            <i class="menu-icon fa fa-map-marker"></i>
+                            <span class="menu-text"><?php echo Yii::t('admin', 'Map manager'); ?></span>
+                        </a>
                     </li>
                     <li<?php if (Yii::app()->controller->getId() == 'settings') { ?> class="active"<?php } ?>>
                         <a href="/admin/settings"><i class="icon-double-angle-right"></i><?php echo Yii::t('admin', 'Settings'); ?></a>
