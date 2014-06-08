@@ -167,7 +167,7 @@ class AdvertisementBehavior extends BaseBehavior {
             $result[] = array(
                 'name' => $sourceR->name,
                 'pic' => HelpTemplate::getAdUrl($sourceR->pic),
-                'intro' => $sourceR->intro,
+                //'intro' => $sourceR->intro,
                 'shopid' => $v->shopid,
                 'source' => $v->source,
                 'sid' => $v->sid,
