@@ -9,7 +9,7 @@
  * Each array element represents the translation (value) of a message (key).
  * If the value is empty, the message is considered as not translated.
  * Messages that no longer need translation will have their translations
- * enclosed between a pair of '' marks.
+ * enclosed between a pair of '@@' marks.
  *
  * Message string can be used with plural forms format. Check i18n section
  * of the guide for details.
@@ -22,19 +22,20 @@ return array (
   'Compact Sidebar' => '',
   'Enter your details to begin:' => '',
   'Enter your email and to receive instructions' => '',
+  'MapManager' => '地图管理',
   'Submenu on Hover' => '',
-  'Pelase input password' => '请输入密码',
-  'Pelase input password again' => '请再次输入密码',
-  'Tag' => '标签',
-  'average' => '平均值',
-  'clickcnt' => '点击数',
-  'likecnt' => '关注数',
-  'max' => '最大值',
-  'min' => '最小值',
-  'shoppingcnt' => '消费数',
-  'toshopcnt' => '到店数',
-  'totalcnt' => '总数',
-  'vouchercnt' => '获取数',
+  'Pelase input password' => '@@请输入密码@@',
+  'Pelase input password again' => '@@请再次输入密码@@',
+  'Tag' => '@@标签@@',
+  'average' => '@@平均值@@',
+  'clickcnt' => '@@点击数@@',
+  'likecnt' => '@@关注数@@',
+  'max' => '@@最大值@@',
+  'min' => '@@最小值@@',
+  'shoppingcnt' => '@@消费数@@',
+  'toshopcnt' => '@@到店数@@',
+  'totalcnt' => '@@总数@@',
+  'vouchercnt' => '@@获取数@@',
   '&Copy; BlueU' => '&copy; 蓝友',
   '&lt; Previous' => '上一页',
   '&lt;&lt; First' => '首页',
@@ -267,14 +268,14 @@ return array (
   'VStart' => '开始时间',
   'VStatDateType' => '统计周期',
   'VStatMonth' => '%s月',
+  'VStatType' => '类别',
   'VStatUserCentury' => '出生年代比例',
-  'VStatUserConvert' => '用户转化',
   'VStatUserCnt' => '用户数',
+  'VStatUserConvert' => '用户转化',
   'VStatUserInfo' => '用户统计',
   'VStatUserRegistered' => '注册用户',
   'VStatUserSex' => '性别比例',
   'VStatUserShare' => '用户分享',
-  'VStatType' => '类别',
   'VStatWeek' => '第%s周',
   'VStatus' => '状态',
   'VStatusCode' => '状态码',

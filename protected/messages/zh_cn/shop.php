@@ -21,6 +21,7 @@ return array (
   'Modify Failure' => '',
   'Edit Failure' => '@@@@',
   'Stamp Edit' => '@@编辑印花@@',
+  'Add push' => '添加到人工推送',
   'Add station' => '添加蓝牙基站',
   'Apply to shops' => '适用商铺',
   'Coupon Code' => '优惠券码',
@@ -83,5 +84,4 @@ return array (
   'Stamp Name' => '印花名称',
   'Telephone' => '联系电话',
   'discount' => '折扣',
-  "Add push"=>"添加到人工推送",
 );
