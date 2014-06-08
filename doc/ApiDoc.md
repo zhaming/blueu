@@ -518,8 +518,9 @@ data       |  是  |   map   | 见示例 | 返回数据
 
 提交方式：GET
 
-参数名    | 必填| 类型 |  示例 | 说明
+参数名   | 必填| 类型 |  示例 | 说明
 placetag | 是  |string|  top  | 广告位 top:上方 right:右侧
+source   | 是  |string|  top  | 来源，1商铺 2商品 3优惠券 4印花
 page     | 否  |  int |   1   | 当前页码，默认1
 pagesize | 否  |  int |   2   | 每页显示的数据条数
 
