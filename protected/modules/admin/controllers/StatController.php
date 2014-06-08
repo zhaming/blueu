@@ -25,6 +25,12 @@ class StatController extends BController {
         'industry' => array(),
         'shop' => array(),
     );
+    static $sourceMap = array(
+        1 => 'Shop',
+        2 => 'Product',
+        3 => 'Coupon',
+        4 => 'Stamp',
+    );
     static $splitor = ':';
     static $splitorT = '|';
     
@@ -59,14 +65,16 @@ class StatController extends BController {
     }
     
     public function actionIndustry() {
+        $action = Yii::app()->controller->getAction()->getId();
         $t = Yii::app()->request->getQuery('t');
-        $t = empty($t) || !in_array($t, self::$statMap[Yii::app()->controller->id]) ? 'total' : $t;
+        $t = empty($t) || !in_array($t, self::$statMap[$action]) ? 'total' : $t;
         $this->render('industry');
     }
     
     public function actionShop() {
+        $action = Yii::app()->controller->getAction()->getId();
         $t = Yii::app()->request->getQuery('t');
-        $t = empty($t) || !in_array($t, self::$statMap[Yii::app()->controller->id]) ? 'toshop' : $t;
+        $t = empty($t) || !in_array($t, self::$statMap[$action]) ? 'toshop' : $t;
         $this->render('shop');
     }
     
@@ -111,7 +119,7 @@ class StatController extends BController {
         }elseif($source == 'user'){
             foreach($types as $type){
                 $rs = $this->_stat->getUserSexAndCentury($type);
-                $series = array();$itemStyle = '';
+                $series = array();$itemStyle = '';$suffix = '';
                 foreach($rs as $v){
                     switch($type){
                         case 'sex':
@@ -122,10 +130,11 @@ class StatController extends BController {
                         case 'century':
                             $name = Yii::t('admin', 'VStatUserCentury');
                             $radius = array(80, 120);
+                            $suffix = Yii::t('admin', 'century');
                             break;
                     }
                     $series[] = array(
-                        'name' => Yii::t('admin', ucfirst($v->item)),
+                        'name' => Yii::t('admin', ucfirst($v->item)) . $suffix,
                         'value' => $v->count,
                     );
                 }
@@ -151,20 +160,43 @@ class StatController extends BController {
                 'yAxis' => $yAxis,
             );
         }elseif($source == 'share'){
-            $rs = $this->_stat->getUserConvert();
-            $xAxis = $yAxis = array();
+            $rs = $this->_stat->getUserShare();
+            $xAxis = $yAxis = $female = $male = array();
             foreach($rs as $v){
-                $xAxis[] = Yii::t('admin', $v->item);
-                $yAxis[] = $v->count;
+                $century = Yii::t('admin', ucfirst($v->century)) . Yii::t('admin', 'century');
+                if(!in_array($century, $xAxis)) $xAxis[] = $century;
+                if($v->sex == '1'){
+                    $female[] = $v->count;
+                }elseif($v->sex == '2'){
+                    $male[] = $v->count;
+                }
             }
             $result[] = array(
-                'name' => Yii::t('admin', 'VStatUserCnt'),
+                'name' => Yii::t('admin', 'Female'),
                 'xAxis' => $xAxis,
-                'yAxis' => $yAxis,
+                'yAxis' => $female,
+            );
+            $result[] = array(
+                'name' => Yii::t('admin', 'Male'),
+                'xAxis' => $xAxis,
+                'yAxis' => $male,
             );
         }
         
         echo json_encode($result);
+    }
+    
+    public function actionUserShareTop() {
+        $source = Yii::app()->request->getQuery('source');
+        $page = Yii::app()->request->getQuery('page');
+        $sourceName = Yii::t('admin', self::$sourceMap[$source]);
+        $rs = $this->_stat->getUserShareContent($source, $page);
+        $data = array(
+            'sourceName' => $sourceName,
+            'list' => $rs['list'],
+            'pages' => $rs['pages'],
+        );
+        $this->renderPartial("usersharetop", $data);
     }
     
     public function actionIndustryData() {
