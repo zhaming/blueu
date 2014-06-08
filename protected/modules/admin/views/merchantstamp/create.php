@@ -1,9 +1,3 @@
-<div class="page-header">
-    <h1>
-        <?php echo Yii::t('shop', 'Stamp Manager');?>
-        <small><i class="icon-double-angle-right"></i><?php echo Yii::t("shop","Stamp Create");?></small>
-    </h1>
-</div>
 <?php $this->widget("AlterMsgWidget")?>
 <div class="row">
     <div class="col-xs-12">
@@ -25,7 +19,7 @@
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="stamp[pic]"><?php echo Yii::t("comment","Picture");?></label>
-                <div class="col-sm-9">
+                <div class="col-sm-4">
                         <input type="file"   name="stamp[pic]" id="upload-coupon-pic" />
                         <script type="text/javascript">
                         $(document).ready(function(){
@@ -66,7 +60,7 @@
                             <div class="input-group">
                                 <input name="stamp[validity_start]" type="text"  class="form-control date-picker"　 data-date-format="yyyy-mm-dd" />
                                 <span class="input-group-addon">
-                                    <i class="icon-calendar bigger-110"></i>
+                                    <i class="fa fa-calendar bigger-110"></i>
                                 </span>
                             </div>
                         </div>
@@ -82,7 +76,7 @@
                             <div class="input-group">
                                 <input name="stamp[validity_end]" class="form-control date-picker" type="text" data-date-format="yyyy-mm-dd" />
                                 <span class="input-group-addon">
-                                    <i class="icon-calendar bigger-110"></i>
+                                    <i class="fa fa-calendar bigger-110"></i>
                                 </span>
                             </div>
                         </div>

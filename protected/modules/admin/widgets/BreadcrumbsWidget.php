@@ -32,73 +32,100 @@ class BreadcrumbsWidget extends CWidget {
             'user' => array(
                 'title' => Yii::t('admin', 'Client'),
                 'actions' => array(
-                    'create' => Yii::t('admin', 'Create'),
+                    'create' => Yii::t('admin', 'Create')
                 )
             ),
             'merchant' => array(
                 'title' => Yii::t('admin', 'Merchant'),
                 'actions' => array(
-                    'create' => Yii::t('admin', 'Create'),
+                    'create' => Yii::t('admin', 'Create')
                 )
             ),
             'merchantproduct' => array(
                 'title' => Yii::t('admin', 'ProductManager'),
                 'actions' => array(
                     'create' => Yii::t('admin', 'Create'),
-                    'edit'=>Yii::t('admin', 'Edit')
+                    'edit' => Yii::t('admin', 'Edit')
                 )
             ),
-            'merchantcoupon'=> array(
+            'merchantcoupon' => array(
                 'title' => Yii::t('shop', 'Coupon Manager'),
                 'actions' => array(
                     'create' => Yii::t('admin', 'Create'),
-                    'edit'=>Yii::t('admin', 'Edit')
+                    'edit' => Yii::t('admin', 'Edit'),
+                    'validatecoupon' => Yii::t('shop', 'Coupon use')
                 )
             ),
-            
-            
+            'merchantstamp' => array(
+                'title' => Yii::t('shop', 'Stamp Manager'),
+                'actions' => array(
+                    'create' => Yii::t('admin', 'Create'),
+                    'edit' => Yii::t('admin', 'Edit')
+                )
+            ),
             'acl' => array(
                 'title' => Yii::t('admin', 'Access control'),
                 'actions' => array(
-                    'create' => Yii::t('admin', 'Create'),
+                    'create' => Yii::t('admin', 'Create')
                 )
             ),
             'manager' => array(
                 'title' => Yii::t('admin', 'Administrator'),
                 'actions' => array(
-                    'create' => Yii::t('admin', 'Create'),
+                    'create' => Yii::t('admin', 'Create')
+                )
+            ),
+            'stat' => array(
+                'title' => Yii::t('admin', 'Statistic Manager'),
+                'actions' => array(
+                    'user' => Yii::t('admin', 'User Analytics')
                 )
             ),
             'feedback' => array(
                 'title' => Yii::t('admin', 'Feedback'),
                 'actions' => array(
-                    'create' => Yii::t('admin', 'Create'),
+                    'create' => Yii::t('admin', 'Create')
+                )
+            ),
+            'push' => array(
+                'title' => Yii::t('admin', 'PushManager'),
+                'actions' => array(
+                    'add' => Yii::t('admin', 'Create'),
+                    'edit' => Yii::t('admin', 'Edit')
                 )
             ),
             'log' => array(
                 'title' => Yii::t('admin', 'Log'),
                 'actions' => array(
-                    'create' => Yii::t('admin', 'Create'),
+                    'create' => Yii::t('admin', 'Create')
                 )
             ),
             'map' => array(
                 'title' => Yii::t('admin', 'Map'),
                 'actions' => array(
-                    'create' => Yii::t('admin', 'Create'),
+                    'create' => Yii::t('admin', 'Create')
                 )
             ),
             'advertisement' => array(
                 'title' => Yii::t('admin', 'Advertisement'),
                 'actions' => array(
-                    'create' => Yii::t('admin', 'Create'),
+                    'create' => Yii::t('admin', 'Create')
                 )
             ),
             'settings' => array(
                 'title' => Yii::t('admin', 'Settings'),
                 'actions' => array(
-                    'create' => Yii::t('admin', 'Create'),
+                    'create' => Yii::t('admin', 'Create')
                 )
             ),
+            'task' => array(
+                'title' => Yii::t('admin', 'TaskManager'),
+                'actions' => array(
+                    'add' => Yii::t('admin', 'Create'),
+                    'edit' => Yii::t('admin', 'Edit'),
+                    'log' => Yii::t('admin', 'TaskLogkManager')
+                )
+            )
         );
 
 
