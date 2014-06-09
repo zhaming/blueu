@@ -9,7 +9,7 @@
  * Each array element represents the translation (value) of a message (key).
  * If the value is empty, the message is considered as not translated.
  * Messages that no longer need translation will have their translations
- * enclosed between a pair of '' marks.
+ * enclosed between a pair of '@@' marks.
  *
  * Message string can be used with plural forms format. Check i18n section
  * of the guide for details.
@@ -235,9 +235,9 @@ return array (
   'User status invalid' => '用户状态无效',
   'Username' => '用户名',
   'Username already exists' => '用户名已经存在',
+  'Username and pass not allow empty' => '用户名密码不能为空',
   'Username invalid' => '用户名无效',
   'Username is invalid' => '用户名无效',
-  "Username and pass not allow empty"=>"用户名密码不能为空",
   'Username is not exist.' => '用户名不存在。',
   'VCostTime' => '耗费时长',
   'VDisabled' => '是否有效:',
@@ -272,6 +272,10 @@ return array (
   'VSourceName' => '来源名称',
   'VStart' => '开始时间',
   'VStatDateType' => '统计周期',
+  'VStatHotCoupon' => '优惠券热度排行',
+  'VStatHotIndustry' => '热门行业',
+  'VStatHotShop' => '热门店铺',
+  'VStatHotStamp' => '印花热度排行',
   'VStatIndustrySTop' => '消费排行',
   'VStatIndustryTop' => '行业排行',
   'VStatIndustryTotal' => '整体情况',
