@@ -46,4 +46,5 @@ return array (
   'Success' => '操作成功',
   'Total' => '总量',
   'status' => '状态',
+  "Intro"=>"简介"
 );

@@ -16,6 +16,13 @@
                 <input type="text" name="coupon[price]" value="" placeholder="<?php echo Yii::t("shop","Pelase input coupon price");?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="coupon[intro]"><?php echo Yii::t("comment","Intro");?></label>
+                <div class="col-sm-9">
+                    <textarea name="coupon[intro]"  class="col-xs-10 col-sm-5"></textarea>
+                </div>
+            </div>
              <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="coupon[total]"><?php echo Yii::t("comment","Total");?></label>
                 <div class="col-sm-9">
