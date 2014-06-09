@@ -4,7 +4,7 @@
     <?php }else{ ?>
     <?php foreach($list as $k => $value){ ?> 
     <li style="border-bottom:1px dotted #D5E4F1;">
-        [<b style="margin:0 3px;"><?php echo $k+1;//$sourceName; ?></b>]&nbsp;
+        <span style="margin:0 3px;" class="badge badge-danger"><?php echo $k+1; ?></span>&nbsp;
         <?php echo $value->name; ?>
         <b style="float:right;"><?php echo $value->count; ?></b>
     </li>

@@ -272,6 +272,8 @@ return array (
   'VSourceName' => '来源名称',
   'VStart' => '开始时间',
   'VStatDateType' => '统计周期',
+  'VStatHotCoupon' => '优惠券热度排行',
+  'VStatHotStamp' => '印花热度排行',
   'VStatHotIndustry' => '热门行业',
   'VStatHotShop' => '热门店铺',
   'VStatIndustrySTop' => '消费排行',

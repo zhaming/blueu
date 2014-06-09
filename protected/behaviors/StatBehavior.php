@@ -68,8 +68,8 @@ class StatBehavior extends BaseBehavior {
     /**
      * 获取用户分享排行榜
      * @param int $source
-     * @param int $order
      * @param int $page
+     * @param int $limit
      * @return mixed
      */
     public function getUserShareContent($source, $page, $limit)
@@ -148,6 +148,22 @@ class StatBehavior extends BaseBehavior {
         $criteria->order = 'hot DESC';
         $criteria->limit = $limit;
         $result = StatHot::model()->findAll($criteria);
+        return $result;
+    }
+    
+    /**
+     * 获取优惠券、印花热度排行榜
+     * @param int $source
+     * @param int $limit
+     * @return mixed
+     */
+    public function getIndustryMerchantTop($source, $limit)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition("source = $source");
+        $criteria->order = 'hot DESC';
+        $criteria->limit = $limit;
+        $result = StatHotMerchant::model()->findAll($criteria);
         return $result;
     }
 }

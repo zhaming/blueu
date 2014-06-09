@@ -76,6 +76,7 @@ class StatController extends BController {
         $data = array(
             'limitMap' => self::$limitMap,
             'topLimit' => self::$topLimit,
+            'legend' => Yii::t('admin', 'Female').','.Yii::t('admin', 'Male'),
         );
         $this->render("user$t", $data);
     }
@@ -286,6 +287,15 @@ class StatController extends BController {
         }elseif($t == 'shop'){
            $rs = $this->_stat->getIndustryShopTop(self::$topLimit);
         }
+        $data = array(
+            'list' => $rs,
+        );
+        $this->renderPartial('industrywidget', $data);
+    }
+    
+    public function actionIndustrySTop() {
+        $t = Yii::app()->request->getQuery('t');
+        $rs = $this->_stat->getIndustryMerchantTop($t, self::$topLimit);
         $data = array(
             'list' => $rs,
         );

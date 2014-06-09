@@ -19,7 +19,7 @@
             </li>
         </ul>
         <div class="tab-content no-border padding-24">
-            <span id="datetype" style="float:right;margin-right:40px;">
+            <span id="datetype" style="margin-left:20px;">
                 <?php echo Yii::t('admin', 'VStatDateType'); ?>：
                 <a href="javascript:void(0)" datat="total:day" datatype="line">
                     <?php echo $limitMap['industry']['day'] . Yii::t('admin', 'day'); ?>
