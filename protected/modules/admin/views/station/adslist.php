@@ -21,7 +21,7 @@
                 <?php if(!empty($data)):?>
                     <?php foreach ($data as $key => $value) :?>
                         <tr>
-                        <td><?php echo $value->staionid?></td>
+                        <td><?php echo $value->stationid?></td>
                         <td><?php echo $value->uuid;?></td>
                         <td><?php echo empty($value->station)?"":$value->station->name?></td>
                         <td><?php echo empty($value->shop)?"":$value->shop->name?></td>
@@ -33,7 +33,7 @@
                                 <a href="/admin/merchantshop/delete/id/<?php echo $value->sid;?>"  title="<?php echo Yii::t("admin","Delete");?>"  class="delete-confirm red"> 
                                     <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                 </a>
-                                <a href="admin/station/editads/source/<?php echo $value->source?>/shopid/<?php echo $value->shopid?>/staionid/<?php echo $value->staionid?>/sid/<?php echo $value->sid;?>" title="<?php echo Yii::t("admin","Detail");?>" class="green"> 
+                                <a href="admin/station/editads/source/<?php echo $value->source?>/shopid/<?php echo $value->shopid?>/stationid/<?php echo $value->stationid?>/sid/<?php echo $value->sid;?>" title="<?php echo Yii::t("admin","Detail");?>" class="green"> 
                                     <i class="ace-icon fa fa-edit bigger-130"></i>
                                 </a>
                         </div>

@@ -169,23 +169,23 @@ class StationController extends BController {
         $data['sid'] = Yii::app()->request->getParam("sid");
         $data['source'] = Yii::app()->request->getParam("source");
         $data['shopid'] = Yii::app()->request->getParam("shopid");
-        $data['staionid'] = Yii::app()->request->getParam("staionid");
+        $data['stationid'] = Yii::app()->request->getParam("stationid");
         $data['stations'] = array();
 
         $sbh = new StationBehavior;
         if(Yii::app()->request->isPostRequest){
 
             //$data['uuid'] = Yii::app()->request->getParam("uuid");
-            $data['staionid'] =  Yii::app()->request->getParam("staionid");
+            $data['stationid'] =  Yii::app()->request->getParam("stationid");
             //save
-            $station = $sbh->getById($data['staionid']);
+            $station = $sbh->getById($data['stationid']);
 
             $data['uuid'] =  $station->uuid;
             $station_ads  = new StationAds;
             $station_ads->_attributes= $data;
             $station_ads->save();
 
-            $this->redirect("/admin/station/editads/sid/".$data['sid']."/source/".$data['source']."/shopid/".$data['shopid']."/staionid/".$data['staionid']."");
+            $this->redirect("/admin/station/editads/sid/".$data['sid']."/source/".$data['source']."/shopid/".$data['shopid']."/stationid/".$data['stationid']."");
         }
         $ar = array();
         if(!empty($data['shopid'])){

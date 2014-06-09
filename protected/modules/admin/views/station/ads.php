@@ -48,11 +48,11 @@
              <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-source"><?php echo Yii::t('station', 'Station Name'); ?></label>
                 <div class="col-sm-9">
-                    <select name='staionid'>
+                    <select name='stationid'>
                     <?php if(!empty($stations)):?>
                     <?php foreach ($stations as $key => $value) :?>
                     <?php if(!empty($value->uuid) ):?>
-                        <option value="<?php echo $value->id;?>"  <?php echo $value->id== $staionid?"selected":"";?>><?php echo $value->name;?></option>
+                        <option value="<?php echo $value->id;?>"  <?php echo $value->id== $stationid?"selected":"";?>><?php echo $value->name;?></option>
                     <?php endif;?>
                     <?php endforeach;?>
                     <?php endif;?>
