@@ -237,6 +237,7 @@ return array (
   'Username already exists' => '用户名已经存在',
   'Username invalid' => '用户名无效',
   'Username is invalid' => '用户名无效',
+  "Username and pass not allow empty"=>"用户名密码不能为空",
   'Username is not exist.' => '用户名不存在。',
   'VCostTime' => '耗费时长',
   'VDisabled' => '是否有效:',

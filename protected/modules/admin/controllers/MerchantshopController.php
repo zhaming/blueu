@@ -88,13 +88,15 @@ class MerchantshopController extends BController {
             $shop = $this->shopBehavior->getById($shopid);
 
             if(empty($shop)){
-                $this->showError("没有查询到该店铺",$this->referer);
+                 //"没有查询到该店铺"
+                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
                 Yii::app()->end();
             }
             $admin = HelpTemplate::isLoginAsAdmin();
 
             if($shop->merchantid != Yii::app()->user->getId() && !$admin){
-                $this->showError("这不是你的店铺",$this->referer);
+               //"这不是你的店铺"
+                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
                 Yii::app()->end();
             }
               //商圈
@@ -114,20 +116,20 @@ class MerchantshopController extends BController {
              $passwd = Yii::app()->request->getPost("passwd");
 
              if(empty($username) || empty($passwd)){
-                $this->showError("用户名密码不能为空",$this->referer);
+                $this->showError(Yii::t("admin","Username and pass not allow empty"),$this->referer);
                 Yii::app()->end();
              }
 
              $bhv = new AccountBehavior();
              if($bhv->isExist($username)){
-                $this->showError("用户名已经存在",$this->referer);
+                $this->showError(Yii::t("admin","Username already exists"),$this->referer);
                 Yii::app()->end();
              }
              $res = $this->shopBehavior-> createAccount($username,$passwd,$shopid);
              if($res){
-                $this->showSuccess("创建成功");
+                $this->showSuccess(Yii::t("comment","Create Success"));
              }else{
-                $this->showError("创建失败");
+                $this->showError(Yii::t("comment","Create Failure"));
              }
              $this->redirect($this->referer);
 
@@ -141,11 +143,13 @@ class MerchantshopController extends BController {
             $shop = $this->shopBehavior->getById($shopid);
 
             if(empty($shop)){
-                $this->showError("没有查询到该店铺",$this->referer);
+                //"没有查询到该店铺"
+                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
                 Yii::app()->end();
             }
             if($shop->merchantid != Yii::app()->user->getId()){
-                $this->showError("这不是你的店铺",$this->referer);
+                //"这不是你的店铺"
+                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
                 Yii::app()->end();
             }
 
@@ -164,16 +168,18 @@ class MerchantshopController extends BController {
         $shop = $this->shopBehavior->getById($shopid);
 
         if(empty($shop)){
-            $this->showError("没有查询到该店铺",$this->referer);
+            //"没有查询到该店铺"
+            $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
             Yii::app()->end();
         }
         if( ($shop->merchantid == Yii::app()->user->getId()) || ($shop->selfid == Yii::app()->user->getId() )  ){
                 $shop->delete();
         }else{
-            $this->showError("这不是你的店铺",$this->referer);
+            //"这不是你的店铺"
+            $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
             Yii::app()->end();
         }
-        $this->showSuccess("删除成功",$this->referer);
+        $this->showSuccess(Yii::t("commnet","Delete Success"),$this->referer);
     }
 
     public function actionDistrict(){
