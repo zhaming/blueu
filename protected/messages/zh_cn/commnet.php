@@ -18,5 +18,8 @@
  */
 return array (
   'Create' => '',
+  'Delete Failure' => '',
+  'Delete Success' => '',
+  'Edite Success' => '',
   'Reset' => '',
 );

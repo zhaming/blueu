@@ -51,6 +51,7 @@ return array (
   'Not in validity' => '不在有效期内',
   'Only' => '独家',
   'Pelase choose  a shop' => '请选择一个店铺',
+  'Pelase choose a shop' => '请为该商品至少关联一个商铺',
   'Pelase input coupon name' => '请输入优惠券名称',
   'Pelase input coupon price' => '请输入优惠券价格',
   'Pelase input coupon total' => '请输入优惠券数量',
@@ -84,5 +85,4 @@ return array (
   'Stamp Name' => '印花名称',
   'Telephone' => '联系电话',
   'discount' => '折扣',
-  "Pelase choose a shop"=>"请为该商品至少关联一个商铺",
 );

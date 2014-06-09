@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Pelase input all' => '',
+  'Station UUID is not only' => '',
   'Station Create' => '@@创建基站@@',
   'Pelase input positionX' => '请输入设备坐标X',
   'Pelase input positionY' => '请输入设备坐标Y',

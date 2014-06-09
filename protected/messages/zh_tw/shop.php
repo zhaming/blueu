@@ -37,6 +37,7 @@ return array (
   'Not in validity' => '',
   'Only' => '',
   'Pelase choose  a shop' => '',
+  'Pelase choose a shop' => '',
   'Pelase input coupon name' => '',
   'Pelase input coupon price' => '',
   'Pelase input coupon total' => '',
