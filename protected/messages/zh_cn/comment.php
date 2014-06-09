@@ -33,6 +33,7 @@ return array (
   'Delete Success' => '删除成功',
   'Edit' => '编辑',
   'Illegal Operation' => '非法操作',
+  'Intro' => '简介',
   'Modify Failure' => '修改失败',
   'Modify Success' => '修改成功',
   'Number' => '编号',
@@ -46,5 +47,4 @@ return array (
   'Success' => '操作成功',
   'Total' => '总量',
   'status' => '状态',
-  "Intro"=>"简介"
 );

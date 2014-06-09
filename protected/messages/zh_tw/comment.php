@@ -26,6 +26,7 @@ return array (
   'Delete Success' => '',
   'Edit' => '',
   'Illegal Operation' => '',
+  'Intro' => '',
   'Modify Failure' => '',
   'Modify Success' => '',
   'Number' => '',
