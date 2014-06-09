@@ -72,14 +72,14 @@ class StatBehavior extends BaseBehavior {
      * @param int $page
      * @return mixed
      */
-    public function getUserShareContent($source, $page, $limit = 20)
+    public function getUserShareContent($source, $page, $limit)
     {
         $criteria = new CDbCriteria();
         $criteria->addCondition("source = $source");
         $criteria->order = 'count DESC';
         
         if(empty($page)) $page = 1;
-        $pageSize = $limit;//Yii::app()->params->page_size;
+        $pageSize = $limit;
         $criteria->offset = $pageSize * ($page -1);
         $criteria->limit = $pageSize;
         
@@ -95,5 +95,23 @@ class StatBehavior extends BaseBehavior {
             'pages' => $pages,
         );
         return $result;
+    }
+    
+    /**
+     * 获取整体统计数据
+     * @param string $type
+     * @param string $item
+     * @param integer $limit
+     * @return mixed
+     */
+    public function getIndustryTotal($type, $item, $limit)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->select = 'item,statdate,count';
+        $criteria->addCondition("type = '$type'");
+        $criteria->addCondition("item = '$item'");
+        $criteria->order = 'statdate DESC';
+        $criteria->limit = $limit;
+        return StatTotal::model()->findAll($criteria);
     }
 }

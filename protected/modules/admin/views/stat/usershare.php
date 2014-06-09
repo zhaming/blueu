@@ -21,7 +21,7 @@
         <div class="col-xs-12">
             <div class="col-sm-5 widget-box" style="margin-top:25px;">
                 <div id="stattype" class="widget-header widget-header-flat" style="line-height:38px;">
-                    <?php echo Yii::t('admin', 'VStatType'); ?>：
+                    <?php echo Yii::t('admin', 'VStatTop') . '(<b>TOP' . $topLimit . '</b>)'; ?>：
                     <a href="javascript:void(0)" source="1">
                         <?php echo Yii::t('admin', 'Shop'); ?>
                     </a> |

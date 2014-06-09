@@ -13,8 +13,8 @@ class StatController extends BController {
     
     static $statMap = array(
         'user' => array('info', 'convert', 'share'),
-        'industry' => array('total', 'shoptop', 'industrytop', 'coupontop', 'stamptop'),
-        'shop' => array('toshop', 'coupontop', 'stamptop', 'realtime'),
+        'industry' => array('total', 'top', 'stop'),
+        'shop' => array('toshop', 'stop', 'realtime'),
     );
     static $limitMap = array(
         'user' => array(
@@ -22,7 +22,10 @@ class StatController extends BController {
             'week' => 8,
             'month' => 4,
         ),
-        'industry' => array(),
+        'industry' => array(
+            'day' => 15,
+            'week' => 8,
+        ),
         'shop' => array(),
     );
     static $sourceMap = array(
@@ -31,6 +34,13 @@ class StatController extends BController {
         3 => 'Coupon',
         4 => 'Stamp',
     );
+    static $totalMap = array(
+        'likecnt',
+        'pclickcnt',
+        'sclickcnt',
+        'sharecnt',
+    );
+    static $topLimit = 20;
     static $splitor = ':';
     static $splitorT = '|';
     
@@ -65,6 +75,7 @@ class StatController extends BController {
         }
         $data = array(
             'limitMap' => self::$limitMap,
+            'topLimit' => self::$topLimit,
         );
         $this->render("user$t", $data);
     }
@@ -73,7 +84,27 @@ class StatController extends BController {
         $action = Yii::app()->controller->getAction()->getId();
         $t = Yii::app()->request->getQuery('t');
         $t = empty($t) || !in_array($t, self::$statMap[$action]) ? 'total' : $t;
-        $this->render('industry');
+        switch($t){
+            case 'stop':
+                $this->setPageTitle(array(Yii::t('admin', 'VStatIndustrySTop')));
+                break;
+            case 'top':
+                $this->setPageTitle(array(Yii::t('admin', 'VStatIndustryTop')));
+                break;
+            case 'total':
+            default:
+                $this->setPageTitle(array(Yii::t('admin', 'VStatIndustryTotal')));
+        }
+        $legend = array();
+        foreach(self::$totalMap as $v){
+            $legend[] = Yii::t('admin', $v);
+        }
+        $data = array(
+            'limitMap' => self::$limitMap,
+            'topLimit' => self::$topLimit,
+            'legend' => implode(',', $legend),
+        );
+        $this->render("industry$t", $data);
     }
     
     public function actionShop() {
@@ -195,7 +226,7 @@ class StatController extends BController {
         $source = Yii::app()->request->getQuery('source');
         $page = Yii::app()->request->getQuery('page');
         $sourceName = Yii::t('admin', self::$sourceMap[$source]);
-        $rs = $this->_stat->getUserShareContent($source, $page);
+        $rs = $this->_stat->getUserShareContent($source, $page, self::$topLimit);
         $data = array(
             'sourceName' => $sourceName,
             'list' => $rs['list'],
@@ -204,11 +235,64 @@ class StatController extends BController {
         $this->renderPartial("usersharetop", $data);
     }
     
-    public function actionIndustryData() {
-        echo __METHOD__;
+    public function actionIndustryData($t) {
+        if(strpos($t, self::$splitor) === false) return false;
+        list($source, $types) = explode(self::$splitor, $t);
+        $types = explode(self::$splitorT, $types);
+        
+        $result = array();
+        if($source == 'total'){
+            $itemStyle ="{normal:{lineStyle:{shadowColor:'rgba(0,0,0,0.4)',shadowBlur:5,shadowOffsetX: 3,shadowOffsetY: 3}}}";
+            foreach($types as $type){
+                $limit = self::$limitMap['industry'][$type];
+                foreach(self::$totalMap as $item){
+                    $rs = $this->_stat->getIndustryTotal($type, $item, $limit);
+                    
+                    $xAxis = $yAxis = array();
+                    for($i = count($rs) - 1; $i >= 0; $i--){
+                        $v = $rs[$i];
+                        switch($type){
+                            case 'week':
+                                $month = MingString::getFormatDate('month', $v->statdate, Yii::t('admin', 'VStatMonth'));
+                                $statdate = MingString::getFormatDate($type, $v->statdate, Yii::t('admin', 'VStatWeek'));
+                                $statdate = $month . $statdate;
+                                break;
+                            case 'day':
+                            default:
+                                $statdate = MingString::getFormatDate($type, $v->statdate, '');
+                                break;
+                        }
+                        $name = Yii::t('admin', $v->item);
+                        $xAxis[] = $statdate;
+                        $yAxis[] = $v->count;
+                    }
+                    $result[] = array(
+                        'name' => $name,
+                        'xAxis' => $xAxis,
+                        'yAxis' => $yAxis,
+                        'extra' => array('itemStyle' => $itemStyle),
+                    );
+                }
+            }
+        }
+        
+        echo json_encode($result);
     }
     
-    public function actionShopData() {
+    public function actionIndustryTop() {
+        $source = Yii::app()->request->getQuery('source');
+        $page = Yii::app()->request->getQuery('page');
+        $sourceName = Yii::t('admin', self::$sourceMap[$source]);
+        $rs = $this->_stat->getUserShareContent($source, $page, self::$topLimit);
+        $data = array(
+            'sourceName' => $sourceName,
+            'list' => $rs['list'],
+            'pages' => $rs['pages'],
+        );
+        $this->renderPartial("usersharetop", $data);
+    }
+    
+    public function actionShopData($t) {
         echo __METHOD__;
     }
 }
