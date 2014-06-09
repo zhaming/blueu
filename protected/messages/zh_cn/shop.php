@@ -84,4 +84,5 @@ return array (
   'Stamp Name' => '印花名称',
   'Telephone' => '联系电话',
   'discount' => '折扣',
+  "Pelase choose a shop"=>"请为该商品至少关联一个商铺",
 );

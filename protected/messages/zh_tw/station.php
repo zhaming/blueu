@@ -33,4 +33,6 @@ return array (
   'Station Manager' => '基站管理',
   'Station Name' => '名稱',
   'Station UUID' => 'UUID',
+  "Station UUID is not only" =>"已经存在此基站编码, 请重新指定",
+  "Pelase input all"=>"请填写完整信息",
 );

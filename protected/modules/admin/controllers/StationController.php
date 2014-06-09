@@ -81,20 +81,20 @@ class StationController extends BController {
                 $criteria = new CDbCriteria;
                 $criteria->addColumnCondition(array('id' => $id));
                 if (BlueStation::model()->exists($criteria)) {
-                    $this->showError('已经存在此基站编码, 请重新指定');
+                    $this->showError(Yii::t("station","Station UUID is not only"));
                 } else {
                     $model = new BlueStation;
                     $model->id = $id;
                     $model->name = $name;
                     $model->describ = $describ;
                     if ($model->save()) {
-                        $this->showSuccess('保存成功', $this->createUrl('edit?id=' . $id));
+                        $this->showSuccess(Yii::t("comment","Create Success"), $this->createUrl('edit?id=' . $id));
                     } else {
-                        $this->showError('保存失败');
+                        $this->showError(Yii::t("comment","Create Failure"));
                     }
                 }
             } else {
-                $this->showError('请填写完整信息');
+                $this->showError(Yii::t("station","Pelase input all"));
             }
         }
         $this->render('add', compact('id', 'name', 'describ'));
@@ -156,13 +156,13 @@ class StationController extends BController {
 					$model->shop->save();
 				}
                 if ($model->delete()) {
-                    $this->showSuccess('删除成功', $this->createUrl('index'));
+                    $this->showSuccess(Yii::t("commnet","Delete Success"), $this->createUrl('index'));
                 } else {
-                    $this->showError('删除失败', $this->createUrl('index'));
+                    $this->showError(Yii::t("commnet","Delete Failure"), $this->createUrl('index'));
                 }
             }
         }
-        $this->showError('非法操作', $this->createUrl('index'));
+        $this->showError(Yii::t("comment","Illegal Operation"), $this->createUrl('index'));
     }
 
     public function actionEditAds(){
