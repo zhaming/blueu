@@ -114,4 +114,40 @@ class StatBehavior extends BaseBehavior {
         $criteria->limit = $limit;
         return StatTotal::model()->findAll($criteria);
     }
+    
+    /**
+     * 获取热门行业统计数据
+     * @param int $limit
+     * @return mixed
+     */
+    public function getIndustryTop($limit)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->select = 'catid,sum(hot) as hot';
+        $criteria->group = 'catid';
+        $criteria->order = 'hot DESC';
+        $criteria->limit = $limit;
+        $rs = StatHot::model()->findAll($criteria);
+        $_cat = new CategoryBehavior();
+        foreach($rs as $k => $v){
+            $names = $_cat->getNameById($v->catid, true);
+            $v->name = implode('->', $names);
+            $rs[$k] = $v;
+        }
+        return $rs;
+    }
+    
+    /**
+     * 获取热门商铺统计数据
+     * @param int $limit
+     * @return mixed
+     */
+    public function getIndustryShopTop($limit)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->order = 'hot DESC';
+        $criteria->limit = $limit;
+        $result = StatHot::model()->findAll($criteria);
+        return $result;
+    }
 }

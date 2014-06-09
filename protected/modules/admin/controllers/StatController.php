@@ -232,7 +232,7 @@ class StatController extends BController {
             'list' => $rs['list'],
             'pages' => $rs['pages'],
         );
-        $this->renderPartial("usersharetop", $data);
+        $this->renderPartial('usersharetop', $data);
     }
     
     public function actionIndustryData($t) {
@@ -280,16 +280,16 @@ class StatController extends BController {
     }
     
     public function actionIndustryTop() {
-        $source = Yii::app()->request->getQuery('source');
-        $page = Yii::app()->request->getQuery('page');
-        $sourceName = Yii::t('admin', self::$sourceMap[$source]);
-        $rs = $this->_stat->getUserShareContent($source, $page, self::$topLimit);
+        $t = Yii::app()->request->getQuery('t');
+        if($t == 'industry'){
+            $rs = $this->_stat->getIndustryTop(self::$topLimit);
+        }elseif($t == 'shop'){
+           $rs = $this->_stat->getIndustryShopTop(self::$topLimit);
+        }
         $data = array(
-            'sourceName' => $sourceName,
-            'list' => $rs['list'],
-            'pages' => $rs['pages'],
+            'list' => $rs,
         );
-        $this->renderPartial("usersharetop", $data);
+        $this->renderPartial('industrywidget', $data);
     }
     
     public function actionShopData($t) {

@@ -84,6 +84,8 @@ return array (
   'VSourceName' => '',
   'VStart' => '',
   'VStatDateType' => '',
+  'VStatHotIndustry' => '',
+  'VStatHotShop' => '',
   'VStatIndustrySTop' => '',
   'VStatIndustryTop' => '',
   'VStatIndustryTotal' => '',
