@@ -46,7 +46,7 @@ class MerchantproductController  extends BController {
             $product = Yii::app()->request->getPost("product");
             //TODO 图片处理
             if(empty($shopid)){
-                $this->showError(Yii::t("shop","Pelase choose a shop");,$this->referer);
+                $this->showError(Yii::t("shop","Pelase choose a shop"),$this->referer);
                 Yii::app()->end();
             }
             // $file = new FilesComponent;
