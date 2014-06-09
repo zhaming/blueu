@@ -21,18 +21,18 @@
         <div class="col-xs-12">
             <div class="col-sm-5 widget-box" style="margin:25px;">
                 <div id="stattype" class="widget-header widget-header-flat" style="line-height:38px;">
-                    <?php echo Yii::t('admin', 'VStatHotIndustry') . '(<b>TOP' . $topLimit . '</b>)'; ?>
-                </div>
-                <div class="widget-body">
-                    <div id="hotindustry" class="widget-main"></div>
-                </div>
-            </div>
-            <div class="col-sm-5 widget-box" style="margin:25px;">
-                <div id="stattype" class="widget-header widget-header-flat" style="line-height:38px;">
                     <?php echo Yii::t('admin', 'VStatHotShop') . '(<b>TOP' . $topLimit . '</b>)'; ?>
                 </div>
                 <div class="widget-body">
                     <div id="hotshop" class="widget-main"></div>
+                </div>
+            </div>
+            <div class="col-sm-5 widget-box" style="margin:25px;">
+                <div id="stattype" class="widget-header widget-header-flat" style="line-height:38px;">
+                    <?php echo Yii::t('admin', 'VStatHotIndustry') . '(<b>TOP' . $topLimit . '</b>)'; ?>
+                </div>
+                <div class="widget-body">
+                    <div id="hotindustry" class="widget-main"></div>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
 
 <script type="text/javascript">
 $().ready(function(){
-    $('#hotindustry').load('/admin/stat/industrytop?t=industry');
     $('#hotshop').load('/admin/stat/industrytop?t=shop');
+    $('#hotindustry').load('/admin/stat/industrytop?t=industry');
 });
 </script>
