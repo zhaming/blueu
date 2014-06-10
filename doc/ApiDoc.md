@@ -40,6 +40,7 @@ BlueU客户端接口文档
 [优惠券获取](#api27) |  /api/merchantcode/getcoupon     |  POST
 [印花列表](#api28)  |  /api/merchantcode/stamplist      |  GET
 [印花获取](#api29)  |  /api/merchantcode/getstamp       |  GET
+[搜索](#api30)     |  /api/search                      |  GET
 
 
 ## 约定  
@@ -1262,4 +1263,80 @@ error_msg  |  是  |  string | 见示例 | 返回数据
 }
 </pre>
 
+
+## 搜索 {#api30}
+地址：/api/search
+
+###接口输入
+
+GET
+
+参数名    | 必填 | 类型 | 示例    | 说明
+---------|-----|-----|---------|---------------
+key      | 否  | int |  刘一手  | 搜索关键字
+page     | 否  | int |  1      | 第几页
+pagesize | 否  | int |  10     | 分页条数
+
+完整参数示例:
+
+<pre>
+curl -X GET -H "Accept:application/json"  http://{domain}/api/search?key=刘一手&page=1
+</pre>
+
+###接口输出
+
+参数名     | 必有 |   类型  |  示例  |  说明
+---------- | ---- | ------- | ------ | --------
+error_code |  是  |  int    | 见示例 | 返回数据
+error_msg  |  是  |  string | 见示例 | 返回数据
+data       | 否   |  string  | 见示例| 返回数据
+
+####data 返回值说明
+
+type区分:
+shop->店铺
+product->商品
+coupon->优惠券
+stamp->印花
+<pre>
+{
+"error_code":0,
+"error_msg":"Success",
+"data":{
+    "key":"\u5218",
+    "page":1,
+    "pagesize":10,
+    "data":[
+          {
+            "id":"9",
+            "name":"\u5218\u4e00\u624b",
+            "pic":"14\/06\/03\/e022de25bf5d09c3d1b85d40008d2f55.jpg",
+            "intro":"",
+            "type":"shop"
+          },
+          {
+            "id":"21",
+            "name":"adsf",
+            "pic":"1c31516643f2f0fb47f1b59c4c20962b",
+            "intro":"asdf",
+            "type":"product"
+          },
+          {
+            "id":"1",
+            "name":"\u4f18\u60e0\u5238\uff11",
+            "pic":"14\/06\/08\/c4b293169e513c6229d7737d84cf55fe.jpg",
+            "intro":"\u4f18\u60e0\u5238\u7684\u7b80\u4ecb\u6d4b\u8bd5",
+            "type":"coupon"
+          },
+          {
+            "id":"5",
+            "name":"\u6b22\u8fce\u5927\u5bb6\u4f7f\u7528",
+            "pic":"71c16f61b3c7e49ab548b16537353da3",
+            "intro":"",
+            "type":"stamp"
+          }
+        ]
+    }
+}
+</pre>
 
