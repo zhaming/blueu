@@ -15,7 +15,7 @@ class MerchantshopController extends BController {
         $page = Yii::app()->request->getParam("page",1);
 
 
-        $param['pageSize'] =Yii::app()->param->page_size;
+        $param['pageSize'] =Yii::app()->params->page_size;
         $param['page'] =$page;
         $isadmin = HelpTemplate::isLoginAsAdmin();
         if(!$isadmin){

@@ -14,7 +14,7 @@ class MerchantstampController extends BController {
 
         $param['page'] = $page;
         $param['name'] = $name;
-        $param['pageSize'] =Yii::app()->param->page_size;
+        $param['pageSize'] =Yii::app()->params->page_size;
         $res = $this->stampBehavior->getList($param);
 
         $res['name'] = $name;

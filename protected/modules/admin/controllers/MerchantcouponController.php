@@ -7,7 +7,7 @@ class MerchantcouponController extends BController {
     public function init(){
         parent::init();
         $this->couponBehavior = new MerchantCouponBehavior;
-        $this->pageSize = Yii::app()->param->page_size;
+        $this->pageSize = Yii::app()->params->page_size;
     }
 
     public function actionIndex(){

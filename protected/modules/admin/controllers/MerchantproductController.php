@@ -7,7 +7,7 @@ class MerchantproductController  extends BController {
 
     public function init(){
         parent::init();
-        $this->pageSize = Yii::app()->param->page_size;
+        $this->pageSize = Yii::app()->params->page_size;
         $this->productBehavior = new MerchantProductBehavior();
         $this->shopBehavior = new MerchantShopBehavior();
     }
