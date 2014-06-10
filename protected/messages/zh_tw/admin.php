@@ -16,7 +16,6 @@
  *
  * NOTE, this file must be saved in UTF-8 encoding.
  */
-
 return array (
   'Alt. Active Item' => '',
   'Card' => '',
