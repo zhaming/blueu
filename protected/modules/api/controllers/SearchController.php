@@ -11,7 +11,7 @@ class SearchController extends IController {
         $key = Yii::app()->request->getParam("key");
         $type = Yii::app()->request->getParam("type",self::SHOP);
         $page = Yii::app()->request->getParam("page",1);
-        $pagesize = Yii::app()->request->getParam("pagesize",10);
+        $pagesize = Yii::app()->request->getParam("pagesize",Yii::app()->params->page_size);
         if(empty($key))
             return;
 
@@ -22,6 +22,21 @@ class SearchController extends IController {
         $data['data']     = array();
         switch ($type) {
             case self::SHOP:
+                $sbh = new MerchantShopBehavior;
+
+                $ar['page'] = $page;
+                $ar['pageSize']=$pagesize;
+                // $ar['name'] = $key;
+                // $ar['owner'] = $key;
+
+                $ar["or_search"] = array(
+                    "name"=>$key,
+                    "owner"=>$key,
+                );
+                $res  = $sbh->getList($ar);
+                if(!empty($res['data'])){
+                    $data['data'] = $res['data'];
+                }
                 break;
             case self::PRODUCT:
                 break;
@@ -32,10 +47,8 @@ class SearchController extends IController {
             default:
                 break;
         }
-    }
 
-    private function getShopData($key){
-
+        $this->data =  $data;
     }
 
 

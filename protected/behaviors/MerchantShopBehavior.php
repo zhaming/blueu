@@ -21,6 +21,12 @@ class MerchantShopBehavior extends BaseBehavior{
             if(isset($param['selfid']) && is_numeric($param['selfid']))
                $criteria->addCondition('selfid='.$param['selfid'],'OR');
         }
+
+        if(!empty($param['or_search']) && is_array($param['or_search'])){
+            foreach ($param['or_search'] as $key => $value) {
+                $criteria->addSearchCondition($key,$value,true,"OR");
+            }
+        }
         if(isset($param['name']) && !empty($param['name']))
             $criteria->addSearchCondition("name",$param['name']);
         if(isset($param['owner']) && !empty($param['owner']))

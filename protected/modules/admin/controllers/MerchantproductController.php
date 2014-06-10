@@ -3,8 +3,11 @@ class MerchantproductController  extends BController {
 
     public $productBehavior;
     public $shopBehavior;
+    private $pageSize;
+
     public function init(){
         parent::init();
+        $this->pageSize = Yii::app()->param->page_size;
         $this->productBehavior = new MerchantProductBehavior();
         $this->shopBehavior = new MerchantShopBehavior();
     }
@@ -13,7 +16,7 @@ class MerchantproductController  extends BController {
         $page = Yii::app()->request->getParam("page",1);
         $name = Yii::app()->request->getParam('name');
 
-        $param["pageSize"] =20;
+        $param["pageSize"] =$this->pageSize;
         $param["page"] = $page;
         if(!empty($name))
             $param['name'] =$name;
