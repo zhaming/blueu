@@ -81,20 +81,20 @@ class StationController extends BController {
                 $criteria = new CDbCriteria;
                 $criteria->addColumnCondition(array('id' => $id));
                 if (BlueStation::model()->exists($criteria)) {
-                    $this->showError('已经存在此基站编码, 请重新指定');
+                    $this->showError(Yii::t("station","Station UUID is not only"));
                 } else {
                     $model = new BlueStation;
                     $model->id = $id;
                     $model->name = $name;
                     $model->describ = $describ;
                     if ($model->save()) {
-                        $this->showSuccess('保存成功', $this->createUrl('edit?id=' . $id));
+                        $this->showSuccess(Yii::t("comment","Create Success"), $this->createUrl('edit?id=' . $id));
                     } else {
-                        $this->showError('保存失败');
+                        $this->showError(Yii::t("comment","Create Failure"));
                     }
                 }
             } else {
-                $this->showError('请填写完整信息');
+                $this->showError(Yii::t("station","Pelase input all"));
             }
         }
         $this->render('add', compact('id', 'name', 'describ'));
@@ -156,36 +156,36 @@ class StationController extends BController {
 					$model->shop->save();
 				}
                 if ($model->delete()) {
-                    $this->showSuccess('删除成功', $this->createUrl('index'));
+                    $this->showSuccess(Yii::t("commnet","Delete Success"), $this->createUrl('index'));
                 } else {
-                    $this->showError('删除失败', $this->createUrl('index'));
+                    $this->showError(Yii::t("commnet","Delete Failure"), $this->createUrl('index'));
                 }
             }
         }
-        $this->showError('非法操作', $this->createUrl('index'));
+        $this->showError(Yii::t("comment","Illegal Operation"), $this->createUrl('index'));
     }
 
     public function actionEditAds(){
         $data['sid'] = Yii::app()->request->getParam("sid");
         $data['source'] = Yii::app()->request->getParam("source");
         $data['shopid'] = Yii::app()->request->getParam("shopid");
-        $data['staionid'] = Yii::app()->request->getParam("staionid");
+        $data['stationid'] = Yii::app()->request->getParam("stationid");
         $data['stations'] = array();
 
         $sbh = new StationBehavior;
         if(Yii::app()->request->isPostRequest){
 
             //$data['uuid'] = Yii::app()->request->getParam("uuid");
-            $data['staionid'] =  Yii::app()->request->getParam("staionid");
+            $data['stationid'] =  Yii::app()->request->getParam("stationid");
             //save
-            $station = $sbh->getById($data['staionid']);
+            $station = $sbh->getById($data['stationid']);
 
             $data['uuid'] =  $station->uuid;
             $station_ads  = new StationAds;
             $station_ads->_attributes= $data;
             $station_ads->save();
 
-            $this->redirect("/admin/station/editads/sid/".$data['sid']."/source/".$data['source']."/shopid/".$data['shopid']."/staionid/".$data['staionid']."");
+            $this->redirect("/admin/station/editads/sid/".$data['sid']."/source/".$data['source']."/shopid/".$data['shopid']."/stationid/".$data['stationid']."");
         }
         $ar = array();
         if(!empty($data['shopid'])){
@@ -209,6 +209,12 @@ class StationController extends BController {
         $ar['pageSize']=Yii::app()->request->getParam('pagesize',10);
         $bhv = new StationBehavior;
         $data = $bhv->getAdsList($ar);
+        $data['sourceMap'] = array(
+            1 => Yii::t('admin', 'Shop'),
+            2 => Yii::t('admin', 'Product'),
+            3 => Yii::t('admin', 'Coupon'),
+            4 => Yii::t('admin', 'Stamp'),
+        );
         $this->render("adslist",$data);
     }
 }

@@ -16,6 +16,12 @@
                 <input type="text" name="stamp[total]" value="" placeholder="<?php echo Yii::t("shop","Pelase input stamp total");?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="stamp[intro]"><?php echo Yii::t("comment","Intro");?></label>
+                <div class="col-sm-9">
+                    <textarea name="stamp[intro]"  class="col-xs-10 col-sm-5"></textarea>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="stamp[pic]"><?php echo Yii::t("comment","Picture");?></label>

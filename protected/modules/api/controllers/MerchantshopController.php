@@ -8,6 +8,8 @@ class MerchantshopController  extends IController {
         "SHOP_ASC"  =>"id asc"
     );
 
+    private $pageSize;
+
 
     private $shopBehavior ;
     private $productBehavior;
@@ -15,12 +17,13 @@ class MerchantshopController  extends IController {
         parent::init();
         $this->shopBehavior=new MerchantShopBehavior;
         $this->productBehavior = new MerchantProductBehavior;
+        $this->pageSize = Yii::app()->params->page_size;
     }
 
     public function actionList(){
 
         $page       = Yii::app()->request->getParam('page', 1);
-        $pagesize   = Yii::app()->request->getParam('pagesize', 10);
+        $pagesize   = Yii::app()->request->getParam('pagesize', $this->pageSize);
         $id         = Yii::app()->request->getParam("merchantid");
         $catid      = Yii::app()->request->getParam("catid");
         $districtid = Yii::app()->request->getParam("districtid");
@@ -66,7 +69,7 @@ class MerchantshopController  extends IController {
     public function actionProducts(){
         $shopid=Yii::app()->request->getParam("shopid");
         $page = Yii::app()->request->getParam("page",1);
-        $pageSize =Yii::app()->request->getParam("pagesize",10);
+        $pageSize =Yii::app()->request->getParam("pagesize",$this->pageSize);
         $discount   = Yii::app()->request->getParam("discount");
 
         $param['page'] = $page;

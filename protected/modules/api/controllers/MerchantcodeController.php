@@ -2,8 +2,11 @@
 
 class MerchantcodeController extends IController {
 
+    private $pageSize;
+
     public function init(){
         parent::init();
+        $this->pageSize =Yii::app()->param->page_size;
     }
 
     /*
@@ -13,7 +16,7 @@ class MerchantcodeController extends IController {
     public function actionCouponList(){
 
         $page     = Yii::app()->request->getParam('page', 1);
-        $pagesize = Yii::app()->request->getParam('pagesize', 10);
+        $pagesize = Yii::app()->request->getParam('pagesize', $this->pageSize);
         $shopid   = Yii::app()->request->getParam("shopid");
 
         $couponBehavior = new MerchantCouponBehavior;
@@ -41,7 +44,7 @@ class MerchantcodeController extends IController {
     public function actinoMyCoupon(){
 
         $page     = Yii::app()->request->getParam('page', 1);
-        $pagesize = Yii::app()->request->getParam('pagesize', 10);
+        $pagesize = Yii::app()->request->getParam('pagesize', $this->pageSize);
         $shopid   = Yii::app()->request->getParam("shopid");
 
         $ar['page']     = $page;
@@ -96,7 +99,7 @@ class MerchantcodeController extends IController {
     public function actionStampList(){
 
         $page     = Yii::app()->request->getParam('page', 1);
-        $pagesize = Yii::app()->request->getParam('pagesize', 10);
+        $pagesize = Yii::app()->request->getParam('pagesize', $this->pageSize);
         $shopid   = Yii::app()->request->getParam("shopid");
 
         $stampBehavior = new MerchantStampBehavior;

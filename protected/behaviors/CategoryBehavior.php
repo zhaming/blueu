@@ -22,10 +22,14 @@ class CategoryBehavior extends BaseBehavior {
         return Category::model()->findAll();
     }
     
-    public function getNameById($id) {
+    public function getNameById($id, $full = false) {
         $rs = Category::model()->findByPk($id);
         if(empty($rs)) return false;
+        if($full){
+            $pRs = Category::model()->findByAttributes(array('id' => $rs->parentid));
+            if(empty($pRs)) return array($rs->name);
+            return array($pRs->name,$rs->name);
+        }
         return $rs->name;
     }
-
 }

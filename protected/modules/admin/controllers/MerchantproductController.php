@@ -3,8 +3,11 @@ class MerchantproductController  extends BController {
 
     public $productBehavior;
     public $shopBehavior;
+    private $pageSize;
+
     public function init(){
         parent::init();
+        $this->pageSize = Yii::app()->params->page_size;
         $this->productBehavior = new MerchantProductBehavior();
         $this->shopBehavior = new MerchantShopBehavior();
     }
@@ -13,7 +16,7 @@ class MerchantproductController  extends BController {
         $page = Yii::app()->request->getParam("page",1);
         $name = Yii::app()->request->getParam('name');
 
-        $param["pageSize"] =20;
+        $param["pageSize"] =$this->pageSize;
         $param["page"] = $page;
         if(!empty($name))
             $param['name'] =$name;
@@ -46,7 +49,7 @@ class MerchantproductController  extends BController {
             $product = Yii::app()->request->getPost("product");
             //TODO 图片处理
             if(empty($shopid)){
-                $this->showError("请为该商品至少关联一个商铺",$this->referer);
+                $this->showError(Yii::t("shop","Pelase choose a shop"),$this->referer);
                 Yii::app()->end();
             }
             // $file = new FilesComponent;
@@ -77,7 +80,7 @@ class MerchantproductController  extends BController {
                     $data->save();
                 }
             }
-            $this->showSuccess("添加成功");
+            $this->showSuccess(Yii::t("comment","Create Success"));
             $this->redirect($this->referer);
         }else{
 
@@ -123,7 +126,7 @@ class MerchantproductController  extends BController {
                     $data->productid = $res->id;
                     $data->save();
                 }
-            $this->showSuccess("修改成功");
+            $this->showSuccess(Yii::t("commnet","Edite Success"));
             $this->redirect($this->referer);
 
         }else{
@@ -168,9 +171,9 @@ class MerchantproductController  extends BController {
             array(":id"=>$id)
         );
         if($res)
-            $this->showSuccess("删除成功");
+            $this->showSuccess(Yii::t("commnet","Delete Success"));
         else
-            $this->showError("删除失败");
+            $this->showError(Yii::t("commnet","Delete Failure"));
         $this->redirect($this->referer);
     }
 

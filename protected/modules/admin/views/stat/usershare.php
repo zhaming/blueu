@@ -21,7 +21,7 @@
         <div class="col-xs-12">
             <div class="col-sm-5 widget-box" style="margin-top:25px;">
                 <div id="stattype" class="widget-header widget-header-flat" style="line-height:38px;">
-                    <?php echo Yii::t('admin', 'VStatType'); ?>：
+                    <?php echo Yii::t('admin', 'VStatTop') . '(<b>TOP' . $topLimit . '</b>)'; ?>：
                     <a href="javascript:void(0)" source="1">
                         <?php echo Yii::t('admin', 'Shop'); ?>
                     </a> |
@@ -39,13 +39,14 @@
                     <div id="sharetop" class="widget-main"></div>
                 </div>
             </div>
-            <div id="share" class="col-sm-7" style="height:300px;"></div>
+            <div id="share" class="col-sm-7" style="margin-top:30px;height:300px;" legend="<?php echo $legend; ?>"></div>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
 $().ready(function(){
+    var legend = $('#share').attr('legend');
     var first = $('#stattype a:first');
     if(first == undefined) return;
     var source = first.attr('source');
@@ -63,6 +64,7 @@ $().ready(function(){
     });
     
     Chart.init('share', '/admin/stat/userdata', {t:'share:'}, {
+        legend: {data:legend.split(',')},
         toolbox:{show:false},
         series: {type:'line'}
     });

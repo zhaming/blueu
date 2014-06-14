@@ -1,4 +1,8 @@
 .DS_Store
+.idea
+*.iml
+*.ipr
+*.iws
 *.swp
 *.back
 /nbproject
@@ -6,3 +10,4 @@
 /protected/config/db.php
 /protected/config/params.php
 /doc/api.html
+/html

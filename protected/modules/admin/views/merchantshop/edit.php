@@ -18,6 +18,13 @@
             </div>
 
             <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="shop[intro]"><?php echo Yii::t("comment","Intro");?></label>
+                <div class="col-sm-9">
+                    <textarea name="shop[intro]"  class="col-xs-10 col-sm-5"><?php echo $shop->intro;?></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[telephone]"><?php echo Yii::t("shop","Telephone")?></label>
                 <div class="col-sm-9">
                     <input type="text" name="shop[telephone]" value="<?php echo $shop->telephone;?>" placeholder="<?php echo Yii::t("shop","Pelase input telephone");?>" class="col-xs-10 col-sm-5" />

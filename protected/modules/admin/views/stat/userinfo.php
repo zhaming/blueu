@@ -19,7 +19,7 @@
             </li>
         </ul>
         <div class="tab-content no-border padding-24">
-            <span id="datetype" style="float:right;margin-right:20px;">
+            <span id="datetype" style="margin-left:20px;">
                 <?php echo Yii::t('admin', 'VStatDateType'); ?>：
                 <a href="javascript:void(0)" datat="registered:day" datatype="line">
                     <?php echo $limitMap['user']['day'] . Yii::t('admin', 'day'); ?>
@@ -30,7 +30,7 @@
                 <a href="javascript:void(0)" datat="registered:month" datatype="line">
                     <?php echo $limitMap['user']['month'] . Yii::t('admin', 'month'); ?>
                 </a>
-            </span>
+            </span><br>
             <div id="registered" style="height:300px;width:800px;"></div>
             <div id="sexandcentury" style="height:400px;width:400px;"></div>
         </div>
