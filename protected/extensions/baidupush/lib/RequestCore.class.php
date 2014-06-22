@@ -669,7 +669,7 @@ class RequestCore {
 				if ($done ['result'] > 0) {
 					throw new RequestCore_Exception ( 'cURL resource: ' . ( string ) $done ['handle'] . '; cURL error: ' . curl_error ( $done ['handle'] ) . ' (' . $done ['result'] . ')' );
 				} // Because curl_multi_info_read() might return more than one message about a request, we check to see if this request is already in our array of completed requests
-elseif (! isset ( $to_process [( int ) $done ['handle']] )) {
+                elseif (! isset ( $to_process [( int ) $done ['handle']] )) {
 					$to_process [( int ) $done ['handle']] = $done;
 				}
 			}
