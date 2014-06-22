@@ -1,16 +1,16 @@
 <?php
-/**
- *	推送
- *	@author		zham <zha_ming@163.com>
- *	@copyright	2014-2016
- *	@version	1.0
- *	@package	
- *
- *	$Id$
- */
 
+/**
+ * 	推送
+ * 	@author		zham <zha_ming@163.com>
+ * 	@copyright	2014-2016
+ * 	@version	1.0
+ * 	@package	
+ *
+ * 	$Id$
+ */
 class PushBehavior extends BaseBehavior {
-    
+
     const ERROR_CMD_NONE = 0;
     const ERROR_CMD_TASK = 1;
     const ERROR_CMD_PARAM = 2;
@@ -21,13 +21,11 @@ class PushBehavior extends BaseBehavior {
     const ERROR_CMD_DB = 7;
     const ERROR_CMD_LIKE = 8;
     const ERROR_CMD_MANUAL = 9;
-    
+
     private $total = 0;
     private $success = 0;
-    
     static $sleep = 5;
-    
-    
+
     /**
      * 绑定客户端设备推送信息
      * for API
@@ -39,13 +37,16 @@ class PushBehavior extends BaseBehavior {
      * @return mixed
      */
     public function bindDeviceInfo($userid, $data) {
-        if(empty($userid)) return false;
-        if(!isset($data['user_id']) || empty($data['user_id'])) return false;
-        if(!isset($data['platform']) || !in_array(strtolower($data['platform']), array('android', 'ios'))) return false;
+        if (empty($userid))
+            return false;
+        if (!isset($data['user_id']) || empty($data['user_id']))
+            return false;
+        if (!isset($data['platform']) || !in_array(strtolower($data['platform']), array('android', 'ios')))
+            return false;
         $data['platform'] = strtolower($data['platform']);
-        
+
         $userExtR = UserExt::model()->findAllByPk($userid);
-        if(empty($userExtR)) {
+        if (empty($userExtR)) {
             $userExtT = new UserExt();
             $userExtT->userid = $userid;
             $userExtT->user_id = $data['user_id'];
@@ -62,7 +63,7 @@ class PushBehavior extends BaseBehavior {
         }
         return $rs;
     }
-    
+
     /**
      * 客户端用户到店
      * for API
@@ -75,23 +76,24 @@ class PushBehavior extends BaseBehavior {
      */
     public function userToShop($data) {
         $stationR = Station::model()->findByAttributes(array('uuid' => $data['uuid']));
-        if(!empty($stationR)) $stationR->updateByPk($stationR->id, array('param' => json_encode($data['param'])));
-        if(empty($stationR) || $stationR->disabled != 0 || empty($stationR->shopid)) {
+        if (!empty($stationR))
+            $stationR->updateByPk($stationR->id, array('param' => json_encode($data['param'])));
+        if (empty($stationR) || $stationR->disabled != 0 || empty($stationR->shopid)) {
             $this->errorLog(Yii::t('api', 'Station Illegal'));
             return false;
         }
-        
+
         $rs = false;
         $shopUserR = ShopUser::model()->findByAttributes(array('userid' => $data['userid'], 'station' => $data['uuid']));
-        if($data['left'] == 0) {
-            if(empty($shopUserR) || (!empty($shopUserR->come_time) && !empty($shopUserR->go_time))) {
+        if ($data['left'] == 0) {
+            if (empty($shopUserR) || (!empty($shopUserR->come_time) && !empty($shopUserR->go_time))) {
                 $shopUserT = new ShopUser();
                 $shopUserT->userid = $data['userid'];
                 $shopUserT->station = $data['uuid'];
                 $shopUserT->shopid = $stationR->shopid;
                 $shopUserT->come_time = time();
                 $rs = $shopUserT->save();
-                if($rs){
+                if ($rs) {
                     $params = array(
                         'userid' => $data['userid'],
                         'uuid' => $data['uuid'],
@@ -103,7 +105,7 @@ class PushBehavior extends BaseBehavior {
                 $this->errorLog(Yii::t('api', 'Repeat Request'));
             }
         } else {
-            if(!empty($shopUserR->come_time) && empty($shopUserR->go_time)) {
+            if (!empty($shopUserR->come_time) && empty($shopUserR->go_time)) {
                 $rs = ShopUser::model()->updateByPk($shopUserR->id, array('go_time' => time()));
             } else {
                 $this->errorLog(Yii::t('api', 'Repeat Request'));
@@ -111,7 +113,7 @@ class PushBehavior extends BaseBehavior {
         }
         return $rs;
     }
-    
+
     /**
      * 推送消息点击
      * for API
@@ -122,39 +124,35 @@ class PushBehavior extends BaseBehavior {
     public function userClick($data) {
         return Push::model()->updateByPk($data['pushid'], array('onclick' => 1, 'clicktime' => time()));
     }
-    
+
     /**
-	 * 推送记录列表
+     * 推送记录列表
      * @param array $search
      * @param string $order
      * @param integer $page
-	 * @return array
-	 */
-	public function listinfo($search, $order, $page)
-	{
+     * @return array
+     */
+    public function listinfo($search, $order, $page) {
         $criteria = new CDbCriteria();
-        if(!empty($search))
-        {
+        if (!empty($search)) {
             $condition = $params = array();
-            if(!empty($search['to']))
-            {
+            if (!empty($search['to'])) {
                 $condition[] = '`to` = :to';
                 $params[':to'] = $search['to'];
             }
-            if(!empty($search['type']))
-            {
+            if (!empty($search['type'])) {
                 $condition[] = 'type = :type';
                 $params[':type'] = $search['type'];
             }
-            if(!empty($search['start']))
-            {
-                if(strlen($search['start']) <= 10) $search['start'] .= '00:00:00';
+            if (!empty($search['start'])) {
+                if (strlen($search['start']) <= 10)
+                    $search['start'] .= '00:00:00';
                 $condition[] = 'created >= :start';
                 $params[':start'] = strtotime($search['start']);
             }
-            if(!empty($search['end']))
-            {
-                if(strlen($search['end']) <= 10) $search['end'] .= '23:59:59';
+            if (!empty($search['end'])) {
+                if (strlen($search['end']) <= 10)
+                    $search['end'] .= '23:59:59';
                 $condition[] = 'created <= :end';
                 $params[':end'] = strtotime($search['end']);
             }
@@ -163,105 +161,101 @@ class PushBehavior extends BaseBehavior {
             $criteria->params = $params;
         }
         $criteria->order = empty($order) ? 'id DESC' : $order;
-        
-        if(empty($page)) $page = 1;
+
+        if (empty($page))
+            $page = 1;
         $pageSize = Yii::app()->params->page_size;
-        $criteria->offset = $pageSize * ($page -1);
+        $criteria->offset = $pageSize * ($page - 1);
         $criteria->limit = $pageSize;
-        
+
         $count = Push::model()->count($criteria);
         $rows = Push::model()->findAll($criteria);
-        
-        if(!empty($rows))
-        {
+
+        if (!empty($rows)) {
             $_ads = new AdvertisementBehavior();
             $_shop = new MerchantShopBehavior();
-            foreach($rows as $i => $row)
-            {
+            foreach ($rows as $i => $row) {
                 $row->fromtitle = $this->getTitleByUser($row->from);
                 $row->totitle = $this->getTitleByUser($row->to);
                 $row->message = var_export(MingString::jsonDecode($row->message), true);
                 $adR = $_ads->getDataBySource($row->source, $row->sid);
-                //var_dump($adR->getAttributes());
-                $row->srcname = $adR['name'];
+                $row->srcname = $adR->name;
                 $shopR = $_shop->getById($row->shopid);
                 $row->shopname = $shopR->name;
                 $rows[$i] = $row;
             }
         }
-        
+
         $pages = new CPagination($count);
         $pages->pageSize = $pageSize;
         $pages->applyLimit($criteria);
-        
+
         $result = array(
             'list' => $rows,
             'pages' => $pages,
         );
-        
+
         return $result;
-	}
-    
-    public function getTitleByUser($user)
-    {
-        if($user == 'system') return Yii::t('admin', 'VPushSystem');
+    }
+
+    public function getTitleByUser($user) {
+        if ($user == 'system')
+            return Yii::t('admin', 'VPushSystem');
         $_user = new UserBehavior();
         $rs = $_user->detail($user);
         $title = empty($rs->name) ? $rs->account->username : $rs->name;
         return $title;
     }
-    
+
     /**
      * 添加推送记录
      * @param array $info
      * @return mixed 
      */
-    public function add($info)
-	{
+    public function add($info) {
         $push = new Push();
         $push->to = $info['to'];
         $push->message = $info['message'];
         $push->type = $info['type'];
         $push->shopid = $info['shopid'];
-        if(isset($info['from'])) $push->from = $info['from'];
-        if(isset($info['source'])) $push->from = $info['source'];
-        if(isset($info['sid'])) $push->from = $info['sid'];
+        if (isset($info['from']))
+            $push->from = $info['from'];
+        if (isset($info['source']))
+            $push->from = $info['source'];
+        if (isset($info['sid']))
+            $push->from = $info['sid'];
         $push->created = time();
         return $push->save();
-	}
-    
+    }
+
     /**
-	 * 人工推送列表
+     * 人工推送列表
      * @param array $search
      * @param string $order
      * @param integer $page
-	 * @return array
-	 */
-    public function manualList($search, $order, $page)
-    {
+     * @return array
+     */
+    public function manualList($search, $order, $page) {
         $criteria = new CDbCriteria();
-        if(!empty($search))
-        {
+        if (!empty($search)) {
             $condition = $params = array();
-            if(!empty($search['source']))
-            {
+            if (!empty($search['source'])) {
                 $condition[] = 'source = :source';
                 $params[':source'] = $search['source'];
             }
-            if(!empty($search['shopid']))
-            {
+            if (!empty($search['shopid'])) {
                 $condition[] = 'shopid = :shopid';
                 $params[':shopid'] = $search['shopid'];
             }
-            if(!empty($search['start']))
-            {
-                if(strlen($search['start']) <= 10) $search['start'] .= '00:00:00';
+            if (!empty($search['start'])) {
+                if (strlen($search['start']) <= 10)
+                    $search['start'] .= '00:00:00';
                 $condition[] = 'created >= :start';
                 $params[':start'] = strtotime($search['start']);
             }
-            if(!empty($search['end']))
-            {
-                if(strlen($search['end']) <= 10) $search['end'] .= '23:59:59';
+            if (!empty($search['end'])) {
+                if (strlen($search['end']) <= 10)
+                    $search['end'] .= '23:59:59';
                 $condition[] = 'created <= :end';
                 $params[':end'] = strtotime($search['end']);
             }
@@ -270,45 +264,43 @@ class PushBehavior extends BaseBehavior {
             $criteria->params = $params;
         }
         $criteria->order = empty($order) ? 'id DESC' : $order;
-        
-        if(empty($page)) $page = 1;
+
+        if (empty($page))
+            $page = 1;
         $pageSize = Yii::app()->params->page_size;
-        $criteria->offset = $pageSize * ($page -1);
+        $criteria->offset = $pageSize * ($page - 1);
         $criteria->limit = $pageSize;
-        
+
         $count = PushManual::model()->count($criteria);
         $rows = PushManual::model()->findAll($criteria);
-        
-        if(!empty($rows))
-        {
+
+        if (!empty($rows)) {
             $_shop = new MerchantShopBehavior();
-            foreach($rows as $i => $row)
-            {
+            foreach ($rows as $i => $row) {
                 $shopR = $_shop->getById($row->shopid);
                 $row->shopname = $shopR->name;
                 $rows[$i] = $row;
             }
         }
-        
+
         $pages = new CPagination($count);
         $pages->pageSize = $pageSize;
         $pages->applyLimit($criteria);
-        
+
         $result = array(
             'list' => $rows,
             'pages' => $pages,
         );
-        
+
         return $result;
     }
-    
+
     /**
      * 添加人工推送
      * @param array $info
      * @return mixed 
      */
-    public function manualAdd($info)
-    {
+    public function manualAdd($info) {
         $manual = new PushManual();
         $manual->source = $info['source'];
         $manual->sid = $info['sid'];
@@ -320,97 +312,87 @@ class PushBehavior extends BaseBehavior {
         $manual->created = time();
         return $manual->save();
     }
-    
+
     /**
      * 编辑人工推送
      * @param integer $id
      * @param array $info
      * @return mixed 
      */
-	public function manualEdit($id, $info)
-	{
+    public function manualEdit($id, $info) {
         return PushManual::model()->updateByPk($id, $info);
-	}
-	
-	/**
-	 * 根据ID删除人工推送
-	 * @param mixed $id
-	 * @return mixed
-	 */
-	public function manualDelete($id)
-	{
-        return PushManual::model()->deleteByPk($id);
     }
 
+    /**
+     * 根据ID删除人工推送
+     * @param mixed $id
+     * @return mixed
+     */
+    public function manualDelete($id) {
+        return PushManual::model()->deleteByPk($id);
+    }
 
     /**
      * 获取关注列表
      * @param string $sql
      * @return mixed
      */
-    public function getLikeBySql($sql)
-    {
+    public function getLikeBySql($sql) {
         return Like::model()->findAllBySql($sql);
     }
-    
+
     /**
      * 获取人工推送详情
      * @param integer $id
      * @return mixed
      */
-    public function getManualById($id)
-    {
+    public function getManualById($id) {
         return PushManual::model()->findByPk($id);
     }
-    
+
     /**
      * 获取人工推送列表
      * @param string $sql
      * @return mixed
      */
-    public function getManualBySql($sql)
-    {
+    public function getManualBySql($sql) {
         return PushManual::model()->findAllBySql($sql);
     }
-    
+
     /**
      * 人工推送成功次数递增
      * @param integer $id
      * @param integer $cnt
      * @return mixed 
      */
-    public function plusManual($id, $cnt = 1)
-    {
+    public function plusManual($id, $cnt = 1) {
         return PushManual::model()->updateCounters(array('count' => $cnt), "id = '$id'");
     }
-    
+
     /**
      * 调用后台命令
      * @param array $params
      */
-    private function runCommand($params)
-    {
+    private function runCommand($params) {
         $params = json_encode($params);
-        $command = sprintf(Yii::app()->params->pushCmd, realpath(Yii::app()->basePath.DIRECTORY_SEPARATOR.'..'), 1, $params);
+        $command = sprintf(Yii::app()->params->pushCmd, realpath(Yii::app()->basePath . DIRECTORY_SEPARATOR . '..'), 1, $params);
         return exec($command);
     }
-    
-    
+
     /**
      * 控制台推送信息
      * @param integer $immediately
      * @param json $params
      * @return integer 
      */
-    public function push($immediately = 0, $params = '')
-    {
+    public function push($immediately = 0, $params = '') {
         $params = json_decode($params, true);
         $_task = new TaskBehavior();
-        if($immediately == 1){
+        if ($immediately == 1) {
             $tasks = $_task->tasks(__FUNCTION__, false, false, $immediately);
             $result = $this->pushImmediately($tasks, $params);
-        }else{
-            if(isset($params['taskid']) && $params['taskid'] > 0)
+        } else {
+            if (isset($params['taskid']) && $params['taskid'] > 0)
                 $tasks[] = $_task->getById($params['taskid']);
             else
                 $tasks = $_task->tasks(__FUNCTION__, false, true, $immediately);
@@ -418,30 +400,33 @@ class PushBehavior extends BaseBehavior {
         }
         return $result;
     }
-    
+
     /**
      * 即时推送
      * @param record $tasks 
      * @param array $params
      * @return string
      */
-    private function pushImmediately($tasks, $params)
-    {
-        if(empty($tasks)) return self::ERROR_CMD_TASK;
-        if(!isset($params['userid']) || !isset($params['uuid'])) return self::ERROR_CMD_PARAM;
+    private function pushImmediately($tasks, $params) {
+        if (empty($tasks))
+            return self::ERROR_CMD_TASK;
+        if (!isset($params['userid']) || !isset($params['uuid']))
+            return self::ERROR_CMD_PARAM;
         $params = $this->pushImmediatelyBefore($params);
-        if(!is_array($params)) return $params;
-        
+        if (!is_array($params))
+            return $params;
+
         $_task = new TaskBehavior();
         $result = '';
-        foreach($tasks as $v){
-            $method = 'do'.ucfirst($v['item']);
-            if(!method_exists($this, $method)) continue;
+        foreach ($tasks as $v) {
+            $method = 'do' . ucfirst($v['item']);
+            if (!method_exists($this, $method))
+                continue;
             $logId = $_task->logAdd($v['id'], array('start' => time()));
-            
+
             $rs = $this->$method($v, $params);
             $result .= $rs;
-            
+
             $_task->edit($v['id'], array('lasttime' => time()));
             $info = array(
                 'end' => time(),
@@ -453,97 +438,100 @@ class PushBehavior extends BaseBehavior {
         }
         return $result === '' ? self::ERROR_CMD_TASK : $result;
     }
-    
+
     /**
      * 定时推送
      * @param array $row 
      */
-    private function pushCrontab($tasks, $params)
-    {
-        /*if(empty($tasks)) return self::ERROR_CMD_TASK;
-        if(!isset($params['userid']) || !isset($params['uuid'])) return self::ERROR_CMD_PARAM;
-        $params = $this->pushImmediatelyBefore($params);
-        
-        $_task = new TaskBehavior();
-        $result = '';
-        foreach($tasks as $v){
-            $method = 'do'.ucfirst($v['item']);
-            if(!method_exists($this, $method)) continue;
-            
-            $_task->setRuntime($v['id'], 1);
-            $result .= $this->$method($v, $params);
-            $_task->edit($v['id'], array('runtime' => 0, 'lasttime' => time()));
-            
-        }*/
+    private function pushCrontab($tasks, $params) {
+        /* if(empty($tasks)) return self::ERROR_CMD_TASK;
+          if(!isset($params['userid']) || !isset($params['uuid'])) return self::ERROR_CMD_PARAM;
+          $params = $this->pushImmediatelyBefore($params);
+
+          $_task = new TaskBehavior();
+          $result = '';
+          foreach($tasks as $v){
+          $method = 'do'.ucfirst($v['item']);
+          if(!method_exists($this, $method)) continue;
+
+          $_task->setRuntime($v['id'], 1);
+          $result .= $this->$method($v, $params);
+          $_task->edit($v['id'], array('runtime' => 0, 'lasttime' => time()));
+
+          } */
     }
-    
+
     /**
      * 即时推送预处理
      * @param array $params
      * @return mixed 
      */
-    private function pushImmediatelyBefore($params)
-    {
+    private function pushImmediatelyBefore($params) {
         $userid = $params['userid'];
         $shopid = $params['shopid'];
-        
+
         $_user = new UserBehavior();
         $pushSetting = $_user->getPushSetting($userid);
-        if(empty($pushSetting) || $pushSetting['pushable'] == 0) return self::ERROR_CMD_USER;
-        if(empty($pushSetting['user_id']) || empty($pushSetting['platform'])) return self::ERROR_CMD_BIND;
-        
+        if (empty($pushSetting) || $pushSetting['pushable'] == 0)
+            return self::ERROR_CMD_USER;
+        if (empty($pushSetting['user_id']) || empty($pushSetting['platform']))
+            return self::ERROR_CMD_BIND;
+
         $_shop = new MerchantShopBehavior();
         $shopR = $_shop->getById($shopid);
         $shopname = $shopR->name;
         return array_merge($params, $pushSetting, array('shopname' => $shopname));
     }
-    
+
     /**
      * 推送欢迎通知
      * @param record $tasks
      * @param array $params
      * @return integer
      */
-    private function doWelcome($tasks, $params)
-    {
+    private function doWelcome($tasks, $params) {
         $this->total = 1;
         $this->success = 0;
         $checkRs = $this->doWelcomeCheck($params['userid'], $params['shopid'], $tasks['item']);
-        if(!$checkRs) return self::ERROR_CMD_LIMIT;
+        if (!$checkRs)
+            return self::ERROR_CMD_LIMIT;
         $msg = $this->getMsg($tasks['msg'], $params);
         $messages = $this->getMessages($msg, $params['platform']);
         $pushRs = $this->bdPush($params['platform'], $params['user_id'], $messages);
-        if(!$pushRs) return self::ERROR_CMD_PUSH;
+        if (!$pushRs)
+            return self::ERROR_CMD_PUSH;
         $this->success = 1;
-        
+
         $info = array(
             'to' => $params['userid'],
             'shopid' => $params['shopid'],
             'type' => $tasks['item'],
             'message' => json_encode($messages),
         );
-        if(!$this->add($info)) return self::ERROR_CMD_DB;
+        if (!$this->add($info))
+            return self::ERROR_CMD_DB;
         return self::ERROR_CMD_NONE;
     }
-    
+
     /**
      * 推送关注通知
      * @param record $tasks
      * @param array $params
      * @return integer
      */
-    private function doLike($tasks, $params)
-    {
+    private function doLike($tasks, $params) {
         $this->total = 1;
         $this->success = 0;
         $checkRs = $this->doLikeCheck($tasks['sql'], $tasks['ext'], $tasks['item'], $params);
-        if(is_int($checkRs)) return $checkRs;
+        if (is_int($checkRs))
+            return $checkRs;
         $msg = $this->getMsg($tasks['msg'], $params);
         $messages = $this->getMessages($msg, $params['platform'], array('shopid' => $params['shopid']));
         $pushRs = $this->bdPush($params['platform'], $params['user_id'], $messages);
-        if(!$pushRs) return self::ERROR_CMD_PUSH;
+        if (!$pushRs)
+            return self::ERROR_CMD_PUSH;
         $this->success = 1;
-        
+
         $info = array(
             'to' => $params['userid'],
             'shopid' => $params['shopid'],
@@ -552,26 +540,27 @@ class PushBehavior extends BaseBehavior {
             'type' => $tasks['item'],
             'message' => json_encode($messages),
         );
-        if(!$this->add($info)) return self::ERROR_CMD_DB;
+        if (!$this->add($info))
+            return self::ERROR_CMD_DB;
         return self::ERROR_CMD_NONE;
     }
-    
+
     /**
      * 推送人工通知
      * @param record $tasks
      * @param array $params
      * @return integer
      */
-    private function doManual($tasks, $params)
-    {
+    private function doManual($tasks, $params) {
         $this->total = $this->success = 0;
         $manualRs = $this->doManualCheck($tasks['sql'], $tasks['ext'], $params);
-        if(is_int($manualRs)) return $manualRs;
-        
+        if (is_int($manualRs))
+            return $manualRs;
+
         $result = '';
-        foreach($manualRs as $v){
+        foreach ($manualRs as $v) {
             $this->total++;
-            if($v->limit > 0 && $v->limit <= $v->count){
+            if ($v->limit > 0 && $v->limit <= $v->count) {
                 $result .= self::ERROR_CMD_LIMIT;
                 continue;
             }
@@ -584,13 +573,13 @@ class PushBehavior extends BaseBehavior {
             );
             $messages = $this->getMessages($msg, $params['platform'], $extra);
             $pushRs = $this->bdPush($params['platform'], $params['user_id'], $messages);
-            if(!$pushRs){
+            if (!$pushRs) {
                 $result .= self::ERROR_CMD_PUSH;
                 continue;
             }
             $this->plusManual($v->id);
             $this->success++;
-            
+
             $info = array(
                 'to' => $params['userid'],
                 'shopid' => $params['shopid'],
@@ -599,14 +588,14 @@ class PushBehavior extends BaseBehavior {
                 'type' => $tasks['item'],
                 'message' => json_encode($messages),
             );
-            if(!$this->add($info))
+            if (!$this->add($info))
                 $result .= self::ERROR_CMD_DB;
             else
                 $result .= self::ERROR_CMD_NONE;
         }
         return $result;
     }
-    
+
     /**
      * 一天内一家店仅推送一条欢迎通知给用户
      * @param integer $userid
@@ -622,10 +611,11 @@ class PushBehavior extends BaseBehavior {
         $criteria->addCondition("`type` = '$type'");
         $criteria->order = 'created DESC';
         $pushR = Push::model()->find($criteria);
-        if(!empty($pushR) && MingString::sameDay($pushR->created, time())) return false;
+        if (!empty($pushR) && MingString::sameDay($pushR->created, time()))
+            return false;
         return true;
     }
-    
+
     /**
      * 基于用户关注推送
      * 基于用户接收关注推送频率推送
@@ -636,18 +626,21 @@ class PushBehavior extends BaseBehavior {
      * @return mixed
      */
     private function doLikeCheck($sql, $ext, $type, $params) {
-        if(strpos($sql, '%') === false) return self::ERROR_CMD_TASK;
+        if (strpos($sql, '%') === false)
+            return self::ERROR_CMD_TASK;
         $ext = json_decode($ext, true);
-        if(empty($ext)) return false;
+        if (empty($ext))
+            return false;
         $arr = array();
-        foreach($ext as $v){
+        foreach ($ext as $v) {
             $arr[] = $params[$v];
         }
         $sql = vsprintf($sql, $arr);
         $rs = $this->getLikeBySql($sql);
-        if(empty($rs)) return self::ERROR_CMD_LIKE;
-        
-        if($params['likepush'] == '1'){
+        if (empty($rs))
+            return self::ERROR_CMD_LIKE;
+
+        if ($params['likepush'] == '1') {
             $userid = $params['userid'];
             $shopid = $params['shopid'];
             $criteria = new CDbCriteria();
@@ -656,11 +649,12 @@ class PushBehavior extends BaseBehavior {
             $criteria->addCondition("`shopid` = '$shopid'");
             $criteria->addCondition("`type` = '$type'");
             $pushR = Push::model()->find($criteria);
-            if(!empty($pushR)) return self::ERROR_CMD_LIMIT;
+            if (!empty($pushR))
+                return self::ERROR_CMD_LIMIT;
         }
         return $rs;
     }
-    
+
     /**
      * 基于人工推送列表推送
      * @param string $sql
@@ -669,19 +663,22 @@ class PushBehavior extends BaseBehavior {
      * @return mixed
      */
     private function doManualCheck($sql, $ext, $params) {
-        if(strpos($sql, '%') === false) return self::ERROR_CMD_TASK;
+        if (strpos($sql, '%') === false)
+            return self::ERROR_CMD_TASK;
         $ext = json_decode($ext, true);
-        if(empty($ext)) return self::ERROR_CMD_TASK;
+        if (empty($ext))
+            return self::ERROR_CMD_TASK;
         $arr = array();
-        foreach($ext as $v){
+        foreach ($ext as $v) {
             $arr[] = $params[$v];
         }
         $sql = vsprintf($sql, $arr);
         $rs = $this->getManualBySql($sql);
-        if(empty($rs)) return self::ERROR_CMD_MANUAL;
+        if (empty($rs))
+            return self::ERROR_CMD_MANUAL;
         return $rs;
     }
-    
+
     /**
      * 获取推送消息
      * @param string $msg
@@ -689,10 +686,9 @@ class PushBehavior extends BaseBehavior {
      * @param array $extra
      * @return array 
      */
-    private function getMessages($msg, $platform, $extra = array())
-    {
-        $key = 'msg_'.rand(100000000, 999999999);
-        if(preg_match("/^http[s]?:\/\/[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*$/ui", $msg)){
+    private function getMessages($msg, $platform, $extra = array()) {
+        $key = 'msg_' . rand(100000000, 999999999);
+        if (preg_match("/^http[s]?:\/\/[_a-zA-Z0-9-]+(.[_a-zA-Z0-9-]+)*$/ui", $msg)) {
             $message = array(
                 'description' => Yii::app()->params->title,
                 'notification_basic_style' => 7,
@@ -704,7 +700,7 @@ class PushBehavior extends BaseBehavior {
                     'badge' => 1
                 )
             );
-        }else{
+        } else {
             $message = array(
                 'description' => $msg,
                 'notification_basic_style' => 7,
@@ -714,11 +710,12 @@ class PushBehavior extends BaseBehavior {
                 )
             );
         }
-        if($platform == 'android') $message['title'] = Yii::app()->params->title;
-        if(!empty($extra)){
-            if($platform == 'ios'){
+        if ($platform == 'android')
+            $message['title'] = Yii::app()->params->title;
+        if (!empty($extra)) {
+            if ($platform == 'ios') {
                 $message = array_merge($message, $extra);
-            }else{
+            } else {
                 $message = array_merge($message, array('custom_content' => $extra));
             }
         }
@@ -735,18 +732,18 @@ class PushBehavior extends BaseBehavior {
      * @param mixed $params
      * @return string
      */
-    private function getMsg($msgtpl, $params)
-    {
+    private function getMsg($msgtpl, $params) {
         $matches = array();
         $cnt = preg_match_all('/({.*?})/ui', $msgtpl, $matches);
-        if(empty($cnt)) return $msgtpl;
-        foreach($matches[0] as $v){
+        if (empty($cnt))
+            return $msgtpl;
+        foreach ($matches[0] as $v) {
             $k = substr($v, 1, -1);
             $msgtpl = str_replace($v, $params[$k], $msgtpl);
         }
         return $msgtpl;
     }
-    
+
     /**
      * 百度推送
      * @param string $platform
@@ -754,20 +751,16 @@ class PushBehavior extends BaseBehavior {
      * @param array $messages
      * @return type
      */
-    private function bdPush($platform, $user_id, $messages)
-    {
+    private function bdPush($platform, $user_id, $messages) {
         $_baiduPush = new BaiduPush(Yii::app()->params->apikey, Yii::app()->params->secretkey);
-        if($platform == 'ios'){
-            $release_cert = realpath(Yii::app()->basePath.Yii::app()->params->pem_pro);
-            $dev_cert = realpath(Yii::app()->basePath.Yii::app()->params->pem_dev);
-            $_baiduPush->initAppIoscert2 (
-                Yii::app()->params->title, 
-                Yii::app()->params->meta_description, 
-                $release_cert, 
-                $dev_cert, 
-                Yii::app()->params->deployed
+        if ($platform == 'ios') {
+            $release_cert = realpath(Yii::app()->basePath . Yii::app()->params->pem_pro);
+            $dev_cert = realpath(Yii::app()->basePath . Yii::app()->params->pem_dev);
+            $_baiduPush->initAppIoscert2(
+                    Yii::app()->params->title, Yii::app()->params->meta_description, $release_cert, $dev_cert, Yii::app()->params->deployed
             );
         }
         return $_baiduPush->pushMessage2($platform, 1, $user_id, $messages, Yii::app()->params->deployed);
     }
+
 }
