@@ -25,13 +25,13 @@
 
     var option = {
         title: {
-            text: "echarts简单现形图及其配置实例",
+            text: "",
             link: "http://mantis.yeamu.com/",
-            x: "center",
+            x: "left",
             //y: "-20",
             //itemGap: "10px",
             //padding: "1 0",
-            subtext: "来自yeamu.com",
+            subtext: "",
             sublink: "http://pma.yeamu.com/",
             textStyle: {fontSize: 24},
             subtextStyle: {fontSize: 12, color: "red"}

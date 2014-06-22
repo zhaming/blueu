@@ -1,4 +1,13 @@
 <?php $this->widget("AlterMsgWidget")?>
+<?php if (!empty($message)) { ?>
+<div class="alert alert-block alert-danger">
+    <button type="button" class="close" data-dismiss="alert">
+        <i class="icon-remove"></i>
+    </button>
+    <i class="icon-warning-sign"></i>&nbsp;&nbsp;
+    <?php echo $message; ?>	
+</div>
+<?php } ?>
 <div class="row">
     <div class="col-xs-12">
         <form class="form-horizontal"  action="/admin/merchantcoupon/create" method="POST"  enctype="multipart/form-data">
@@ -6,27 +15,27 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="coupon[name]"><?php echo Yii::t("shop","Coupon Name");?></label>
                 <div class="col-sm-9">
-                    <input type="text" name="coupon[name]" value="" placeholder="<?php echo Yii::t("shop","Pelase input coupon name");?>" class="col-xs-10 col-sm-5" />
+                    <input type="text" name="coupon[name]" value="<?php echo $coupon['name']; ?>" placeholder="<?php echo Yii::t("shop","Pelase input coupon name");?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="coupon[price]"><?php echo Yii::t("comment","Price");?></label>
                 <div class="col-sm-9">
-                <input type="text" name="coupon[price]" value="" placeholder="<?php echo Yii::t("shop","Pelase input coupon price");?>" class="col-xs-10 col-sm-5" />
+                <input type="text" name="coupon[price]" value="<?php echo $coupon['price']; ?>" placeholder="<?php echo Yii::t("shop","Pelase input coupon price");?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="coupon[intro]"><?php echo Yii::t("comment","Intro");?></label>
                 <div class="col-sm-9">
-                    <textarea name="coupon[intro]"  class="col-xs-10 col-sm-5"></textarea>
+                    <textarea name="coupon[intro]" class="col-xs-10 col-sm-5"><?php echo $coupon['intro']; ?></textarea>
                 </div>
             </div>
              <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="coupon[total]"><?php echo Yii::t("comment","Total");?></label>
                 <div class="col-sm-9">
-                <input type="text" name="coupon[total]" value="" placeholder="<?php echo Yii::t("shop","Pelase input coupon total");?>" class="col-xs-10 col-sm-5" />
+                <input type="text" name="coupon[total]" value="<?php echo $coupon['total']; ?>" placeholder="<?php echo Yii::t("shop","Pelase input coupon total");?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
 
@@ -55,7 +64,7 @@
                     <?php if(!empty($data)):?>
                     <?php foreach ($data as $key => $value):?>
                         <label>
-                            <input name="shopid[]" value="<?php echo $value->id?>" type="checkbox" class="ace">
+                            <input name="coupon[shopid][]" value="<?php echo $value->id?>" type="checkbox" class="ace"<?php if (!empty($coupon['shopid']) && in_array($value->id, $coupon['shopid'])) { ?> checked<?php } ?> />
                             <span class="lbl"><?php echo $value->name?></span>
                         </label>
                         &emsp;
@@ -66,14 +75,14 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="coupon[validity_start]"><?php echo Yii::t("shop","Coupon validity start");?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="coupon[validityStart]"><?php echo Yii::t("shop","Coupon validity start");?></label>
                 <div class="col-sm-9">
                     <div class="row">
                         <div class=" col-sm-5">
                             <div class="input-group">
-                                <input name="coupon[validity_start]" type="text"  class="form-control date-picker"　 data-date-format="yyyy-mm-dd" />
+                                <input name="coupon[validityStart]" type="text"  class="form-control date-picker"　 data-date-format="yyyy-mm-dd" value="<?php echo $coupon['validityStart']; ?>" />
                                 <span class="input-group-addon">
-                                    <i class="icon-calendar bigger-110"></i>
+                                    <i class="fa fa-calendar bigger-110"></i>
                                 </span>
                             </div>
                         </div>
@@ -82,14 +91,14 @@
             </div>
 
              <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="coupon[validity_end]"><?php echo Yii::t("shop","Coupon validity end");?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="coupon[validityEnd]"><?php echo Yii::t("shop","Coupon validity end");?></label>
                 <div class="col-sm-9">
                     <div class="row">
                         <div class=" col-sm-5">
                             <div class="input-group">
-                                <input name="coupon[validity_end]" class="form-control date-picker" type="text" data-date-format="yyyy-mm-dd" />
+                                <input name="coupon[validityEnd]" class="form-control date-picker" type="text" data-date-format="yyyy-mm-dd" value="<?php echo $coupon['validityEnd']; ?>" />
                                 <span class="input-group-addon">
-                                    <i class="icon-calendar bigger-110"></i>
+                                    <i class="fa fa-calendar bigger-110"></i>
                                 </span>
                             </div>
                         </div>

@@ -41,7 +41,7 @@ class MerchantCouponBehavior extends BaseBehavior{
             $obj->created =  time();
         }
 
-        $res =  $obj->save();
+        $res = $obj->save();
         if($res){
             return $obj;
         }

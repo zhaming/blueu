@@ -4,10 +4,10 @@
         <div class="table-responsive">
             <form  action="/admin/merchantcoupon/validatecoupon" method="get" class="well form-inline">
                 <label class="inline">
-                    <input type="text" name="code" value="<?php echo!empty($code) ? $code : ''; ?>" placeholder="<?php echo Yii::t('shop', "Coupon Code"); ?>" />
+                    <input type="text" name="code" value="<?php echo !empty($code) ? $code : ''; ?>" placeholder="<?php echo Yii::t('shop', "Coupon Code"); ?>" />
                 </label>
                 <label class="inline">
-                    <input type="text" name="name" value="<?php echo!empty($name) ? $name : ''; ?>" placeholder="<?php echo Yii::t('admin', "Username"); ?>" />
+                    <input type="text" name="name" value="<?php echo !empty($name) ? $name : ''; ?>" placeholder="<?php echo Yii::t('admin', "Username"); ?>" />
                 </label>
                 <label class="inline">
                     <button type="submit" class="btn btn-xs btn-info">

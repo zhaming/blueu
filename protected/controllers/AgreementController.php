@@ -18,9 +18,13 @@
  */
 class AgreementController extends CController {
 
-    public $layout = false;
+    public function init() {
+        parent::init();
+        $this->layout = 'simple';
+    }
 
     public function actionMerchant() {
+        $this->setPageTitle(Yii::t('site', 'Merchant agreement'));
         $this->render('merchant');
     }
 

@@ -27,6 +27,7 @@ class MerchantCreateForm extends BaseForm {
     public $telephone;
     public $bank;
     public $shopnum;
+    public $agreement;
 
     public function rules() {
         return array(
@@ -35,6 +36,7 @@ class MerchantCreateForm extends BaseForm {
             array('repassword', 'checkRepassword'),
             array('telephone', 'match', 'pattern' => '/^(1(([35][0-9])|(47)|[8][0126789]))\d{8}$/', 'message' => Yii::t('admin', 'Mobile format error.')),
             array('username', 'checkUsername'),
+            array('agreement', 'checkAgreement'),
             array('legal,telephone,bank,shopnum', 'safe')
         );
     }
@@ -58,6 +60,12 @@ class MerchantCreateForm extends BaseForm {
         $accountBehavior = new AccountBehavior();
         if ($accountBehavior->isExist($this->username)) {
             $this->addError('username', Yii::t('admin', 'Username already exists'));
+        }
+    }
+
+    public function checkAgreement() {
+        if (!$this->agreement) {
+            $this->addError('agreement', Yii::t('admin', 'You must accept agreement.'));
         }
     }
 

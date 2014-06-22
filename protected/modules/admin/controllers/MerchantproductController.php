@@ -1,55 +1,56 @@
 <?php
-class MerchantproductController  extends BController {
+
+class MerchantproductController extends BController {
 
     public $productBehavior;
     public $shopBehavior;
     private $pageSize;
 
-    public function init(){
+    public function init() {
         parent::init();
+        $this->setPageTitle(Yii::t('admin', 'ProductManager'));
         $this->pageSize = Yii::app()->params->page_size;
         $this->productBehavior = new MerchantProductBehavior();
         $this->shopBehavior = new MerchantShopBehavior();
     }
 
-    public function actionIndex(){
-        $page = Yii::app()->request->getParam("page",1);
+    public function actionIndex() {
+        $page = Yii::app()->request->getParam("page", 1);
         $name = Yii::app()->request->getParam('name');
 
-        $param["pageSize"] =$this->pageSize;
+        $param["pageSize"] = $this->pageSize;
         $param["page"] = $page;
-        if(!empty($name))
-            $param['name'] =$name;
+        if (!empty($name))
+            $param['name'] = $name;
         //fix 我发布的和我建立的分店账号发布的
         $merchantid = Yii::app()->user->getId();
-        $ids =array($merchantid);
+        $ids = array($merchantid);
 
-        $result   = $this->shopBehavior->getList(array("merchantid"=>$merchantid));
-        if(!empty($result['data'])){
+        $result = $this->shopBehavior->getList(array("merchantid" => $merchantid));
+        if (!empty($result['data'])) {
             foreach ($result['data'] as $key => $value) {
-                if(!empty($value->selfid)){
+                if (!empty($value->selfid)) {
                     array_push($ids, $value->selfid);
                 }
             }
         }
         $isadmin = HelpTemplate::isLoginAsAdmin();
-        if(!$isadmin){
-            $param['in']= array("merchantid"=> $ids );
+        if (!$isadmin) {
+            $param['in'] = array("merchantid" => $ids);
         }
 
-        $res  = $this->productBehavior->getList($param);
-        $data = array_merge($param,$res);
-        $this->render("list",$data);
+        $res = $this->productBehavior->getList($param);
+        $data = array_merge($param, $res);
+        $this->render("list", $data);
     }
 
-
-    public function actionCreate(){
-        if(Yii::app()->request->IsPostrequest){
-            $shopid  = Yii::app()->request->getPost("shopid");
+    public function actionCreate() {
+        if (Yii::app()->request->IsPostrequest) {
+            $shopid = Yii::app()->request->getPost("shopid");
             $product = Yii::app()->request->getPost("product");
             //TODO 图片处理
-            if(empty($shopid)){
-                $this->showError(Yii::t("shop","Pelase choose a shop"),$this->referer);
+            if (empty($shopid)) {
+                $this->showError(Yii::t("shop", "Pelase choose a shop"), $this->referer);
                 Yii::app()->end();
             }
             // $file = new FilesComponent;
@@ -65,42 +66,41 @@ class MerchantproductController  extends BController {
                 }
             }
             $product['merchantid'] = Yii::app()->user->getId();
-            $product['shops'] =  $shopid;
-            $res =  $this->productBehavior->saveOrUpdate($product);
+            $product['shops'] = $shopid;
+            $res = $this->productBehavior->saveOrUpdate($product);
             //更新关联表
-            if(!empty($shopid)){
+            if (!empty($shopid)) {
                 MerchantShopProduct::model()->deleteAllByAttributes(
-                    array(),"productid=:id",
-                    array(":id"=>$res->id)
+                        array(), "productid=:id", array(":id" => $res->id)
                 );
                 foreach ($shopid as $key => $value) {
-                    $data  = new MerchantShopProduct;
-                    $data->shopid= $value;
+                    $data = new MerchantShopProduct;
+                    $data->shopid = $value;
                     $data->productid = $res->id;
                     $data->save();
                 }
             }
-            $this->showSuccess(Yii::t("comment","Create Success"));
+            $this->showSuccess(Yii::t("comment", "Create Success"));
             $this->redirect($this->referer);
-        }else{
-
+        } else {
             //我能管理的店铺
-            $ar = array();
-            $isadmin = HelpTemplate::isLoginAsAdmin();
-            if(!$isadmin){
-                $ar['merchantid'] = Yii::app()->user->getId();
-                $ar['selfid'] = Yii::app()->user->getId();
+            $params = array();
+            if (!HelpTemplate::isLoginAsAdmin()) {
+                $params['merchantid'] = Yii::app()->user->getId();
+                $params['selfid'] = Yii::app()->user->getId();
             }
-            $shop = $this->shopBehavior->getList($ar);
-
-
-            $this->render("create",$shop);
+            $shop = $this->shopBehavior->getList($params);
+            if (empty($shop['data'])) {
+                $this->showSuccess(Yii::t('admin', "You haven't create shops."), $this->createUrl('merchantshop/create'));
+            } else {
+                $this->render("create", $shop);
+            }
         }
     }
 
-    public function actionEdit(){
-        if(Yii::app()->request->IsPostrequest){
-            $shopid  = Yii::app()->request->getPost("shopid");
+    public function actionEdit() {
+        if (Yii::app()->request->IsPostrequest) {
+            $shopid = Yii::app()->request->getPost("shopid");
             $product = Yii::app()->request->getPost("product");
             //TODO 图片处理
 
@@ -110,70 +110,69 @@ class MerchantproductController  extends BController {
                 if ($file) {
                     $product['pic'] = $file['path'];
                 }
-            }else{
+            } else {
+                
             }
             $product['merchantid'] = Yii::app()->user->getId();
-            $product['shops'] =  $shopid;
-            $res =  $this->productBehavior->saveOrUpdate($product);
+            $product['shops'] = $shopid;
+            $res = $this->productBehavior->saveOrUpdate($product);
             //更新关联表
-                MerchantShopProduct::model()->deleteAllByAttributes(
-                    array(),"productid=:id",
-                    array(":id"=>$res->id)
-                );
-                foreach ($shopid as $key => $value) {
-                    $data  = new MerchantShopProduct;
-                    $data->shopid= $value;
-                    $data->productid = $res->id;
-                    $data->save();
-                }
-            $this->showSuccess(Yii::t("commnet","Edite Success"));
+            MerchantShopProduct::model()->deleteAllByAttributes(
+                    array(), "productid=:id", array(":id" => $res->id)
+            );
+            foreach ($shopid as $key => $value) {
+                $data = new MerchantShopProduct;
+                $data->shopid = $value;
+                $data->productid = $res->id;
+                $data->save();
+            }
+            $this->showSuccess(Yii::t("commnet", "Edite Success"));
             $this->redirect($this->referer);
-
-        }else{
+        } else {
             $id = Yii::app()->request->getParam("id");
-            if(empty($id)){
-                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
+            if (empty($id)) {
+                $this->showError(Yii::t("comment", "Illegal Operation"), $this->referer);
             }
 
-            $product  = $this->productBehavior->getById($id);
-            if(empty($product)){
-                $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
+            $product = $this->productBehavior->getById($id);
+            if (empty($product)) {
+                $this->showError(Yii::t("comment", "Illegal Operation"), $this->referer);
             }
-              $ar = array();
+            $ar = array();
             $isadmin = HelpTemplate::isLoginAsAdmin();
-            if(!$isadmin){
+            if (!$isadmin) {
                 $ar['merchantid'] = Yii::app()->user->getId();
                 $ar['selfid'] = Yii::app()->user->getId();
             }
             $shop = $this->shopBehavior->getList($ar);
-            $data =  $shop['data'];
+            $data = $shop['data'];
 
             $used_shop = $product->shop_product;
 
-            $this->render("edit",compact("product","data","used_shop"));
+            $this->render("edit", compact("product", "data", "used_shop"));
         }
     }
-    public function actionDelete(){
+
+    public function actionDelete() {
 
         $id = Yii::app()->request->getParam("id");
-        if(empty($id)){
-            $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
+        if (empty($id)) {
+            $this->showError(Yii::t("comment", "Illegal Operation"), $this->referer);
         }
 
-        $product  = $this->productBehavior->getById($id);
-        if(empty($product)){
-            $this->showError(Yii::t("comment","Illegal Operation"),$this->referer);
+        $product = $this->productBehavior->getById($id);
+        if (empty($product)) {
+            $this->showError(Yii::t("comment", "Illegal Operation"), $this->referer);
         }
-        $res  = $product->delete();
+        $res = $product->delete();
         //删除关联
         MerchantShopProduct::model()->deleteAllByAttributes(
-            array(),"productid=:id",
-            array(":id"=>$id)
+                array(), "productid=:id", array(":id" => $id)
         );
-        if($res)
-            $this->showSuccess(Yii::t("commnet","Delete Success"));
+        if ($res)
+            $this->showSuccess(Yii::t("commnet", "Delete Success"));
         else
-            $this->showError(Yii::t("commnet","Delete Failure"));
+            $this->showError(Yii::t("commnet", "Delete Failure"));
         $this->redirect($this->referer);
     }
 

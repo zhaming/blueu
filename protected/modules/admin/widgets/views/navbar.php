@@ -21,7 +21,7 @@
             <ul class="nav ace-nav">
                 <!-- #section:basics/navbar.user_menu -->
                 <li class="light-blue">
-                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                    <a data-toggle="dropdown" class="dropdown-toggle cursor-pointer" title="<?php echo HelpTemplate::loginRole(); ?><?php echo Yii::app()->user->getName(); ?>">
                         <span class="user-info">
                             <small><?php echo Yii::t('admin', 'Welcome,'); ?><?php echo HelpTemplate::loginRole(); ?></small><?php echo Yii::app()->user->getName(); ?>
                         </span>

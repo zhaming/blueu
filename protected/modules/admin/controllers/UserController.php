@@ -126,7 +126,7 @@ class UserController extends BController {
     }
 
     public function actionCreate() {
-        $viewData = array('message' => null);
+        $viewData = array();
         $userCreateForm = new UserCreateForm();
         if (!Yii::app()->request->isPostRequest) {
             $viewData['user'] = $userCreateForm->getAttributes();

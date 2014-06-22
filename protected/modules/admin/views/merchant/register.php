@@ -40,7 +40,7 @@
                         </span>
                     </label>
                     <label class="block">
-                        <input type="checkbox" class="ace" />
+                        <input type="checkbox" name="merchant[agreement]" value="true" class="ace" />
                         <span class="lbl">&nbsp;&nbsp;<?php echo Yii::t('admin', 'Accept'); ?><a target="_blank" href="/agreement/merchant"><?php echo Yii::t('admin', 'Agreement'); ?></a></span>
                     </label>
                     <div class="clearfix">

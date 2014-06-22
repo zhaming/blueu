@@ -74,6 +74,10 @@ class HelpTemplate extends CComponent {
         return $map[$flag];
     }
 
+    public static function getLoginUserId() {
+        return Yii::app()->user->getId();
+    }
+
     public static function loginRole() {
         $roleId = Yii::app()->user->getState('roleid');
         if ($roleId == self::ADMIN_ROLE) {

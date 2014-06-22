@@ -11,7 +11,7 @@
         <div class="table-header"><?php echo Yii::t('admin', 'SearchForm'); ?></div>
         <div class="table-responsive">
             <form method="GET">
-            <div class="row" style="margin-bottom:5px;">
+            <div class="row" style="margin-bottom:5px;margin-top:5px;">
                 <div class="col-xs-12">
                     <span class="input-icon" style="float:left;">
                         <?php echo CHtml::dropDownList('source', Yii::app()->request->getQuery('source'), $sourceMap, 
