@@ -182,9 +182,9 @@ class PushBehavior extends BaseBehavior {
                 $row->totitle = $this->getTitleByUser($row->to);
                 $row->message = var_export(MingString::jsonDecode($row->message), true);
                 $adR = $_ads->getDataBySource($row->source, $row->sid);
-                $row->srcname = $adR->name;
+                $row->srcname = empty($adR) ? '' : $adR->name;
                 $shopR = $_shop->getById($row->shopid);
-                $row->shopname = $shopR->name;
+                $row->shopname = empty($shopR) ? '' : $shopR->name;
                 $rows[$i] = $row;
             }
         }
