@@ -17,6 +17,10 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Create success.' => '',
+  'Delete failure.' => '',
+  'Delete success.' => '',
+  'Illegal request.' => '',
   'Unapproved' => '',
   'Add' => '@@添加@@',
   'Delete' => '@@刪除@@',

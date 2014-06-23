@@ -18,6 +18,7 @@
  */
 return array (
   'Create Failure' => '',
+  'Create failure.' => '',
   'Modify Failure' => '',
   'Coupon Create' => '@@添加優惠券@@',
   'Edit Failure' => '@@@@',

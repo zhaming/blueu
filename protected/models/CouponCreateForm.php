@@ -35,7 +35,9 @@ class CouponCreateForm extends BaseForm {
             array('price', 'numerical', 'allowEmpty' => false, 'min' => 0),
             array('total', 'numerical', 'integerOnly' => true, 'allowEmpty' => false, 'min' => 0),
             array('validityStart', 'date', 'format' => 'yyyy-MM-dd', 'allowEmpty' => false, 'timestampAttribute' => 'validity_start'),
+			array('validity_start', 'checkValidityStart'),
             array('validityEnd', 'date', 'format' => 'yyyy-MM-dd', 'allowEmpty' => false, 'timestampAttribute' => 'validity_end'),
+			array('validity_end', 'checkValidityEnd'),
             array('shopid', 'checkShopId'),
             array('intro', 'safe')
         );
@@ -49,6 +51,18 @@ class CouponCreateForm extends BaseForm {
     public function afterValidate() {
         parent::afterValidate();
     }
+
+	public function checkValidityStart() {
+		if ($this->validity_start + 86400 < time()) {
+			$this->addError('validity_start', Yii::t('admin', 'Validity start time must be after now.'));
+		}
+	}
+
+	public function checkValidityEnd() {
+		if ($this->validity_end < $this->validity_start) {
+			$this->addError('validity_end', Yii::t('admin', 'Validity end time must be after start.'));
+		}
+	}
 
     public function checkShopId() {
         if (empty($this->shopid) || count($this->shopid) == 0) {
