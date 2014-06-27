@@ -1,7 +1,7 @@
 <?php $this->widget("AlterMsgWidget")?>
 <div class="row">
     <div class="col-xs-12">
-        <form class="form-horizontal"  action="/admin/merchantshop/create" method="POST" >
+        <form class="form-horizontal"  action="/admin/merchantshop/create" method="POST" enctype="multipart/form-data">
 
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[name]"><?php echo Yii::t("shop","Shop Name")?></label>
@@ -20,7 +20,27 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="shop[intro]"><?php echo Yii::t("comment","Intro");?></label>
                 <div class="col-sm-9">
-                    <textarea name="shop[intro]"  class="col-xs-10 col-sm-5"></textarea>
+                    <textarea name="shop[intro]" class="col-xs-10 col-sm-5"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="shop[pic]"><?php echo Yii::t("comment","Picture");?></label>
+                <div class="col-sm-4">
+                    <input type="file" name="shop[pic]" id="upload-shop-pic" />
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            $('#upload-shop-pic').ace_file_input({
+                                no_file:'Choose',
+                                btn_choose:'Choose',
+                                btn_change:'Change',
+                                droppable:false,
+                                onchange:null,
+                                thumbnail:true, //| true | large
+                                whitelist:'gif|png|jpg|jpeg'
+                            });
+                        });
+                    </script>
                 </div>
             </div>
 

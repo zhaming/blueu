@@ -44,6 +44,14 @@ class MerchantshopController extends BController {
             $shop = Yii::app()->request->getPost("shop");
             $shop['merchantid'] = Yii::app()->user->getId();
 
+            $fileBehavior = new FileBehavior();
+            if ($fileBehavior->isHaveUploadFile('shop[pic]')) {
+                $file = $fileBehavior->saveUploadFile('shop[pic]');
+                if ($file) {
+                    $shop['pic'] = $file['path'];
+                }
+            }
+
             $res = $this->shopBehavior->saveOrUpdate($shop);
             if ($res) {
                 $this->showSuccess(Yii::t("comment", "Create Success"), $this->createUrl('create'));
@@ -67,6 +75,14 @@ class MerchantshopController extends BController {
     public function actionEdit() {
         if (Yii::app()->request->IsPostRequest) {
             $shop = Yii::app()->request->getPost("shop");
+
+            $fileBehavior = new FileBehavior();
+            if ($fileBehavior->isHaveUploadFile('shop[pic]')) {
+                $file = $fileBehavior->saveUploadFile('shop[pic]');
+                if ($file) {
+                    $shop['pic'] = $file['path'];
+                }
+            }
 
             if (empty($shop['isonly']))
                 $shop['isonly'] = 0;
