@@ -22,6 +22,8 @@ return array (
   'Modify Failure' => '',
   'Coupon Create' => '@@添加优惠券@@',
   'Edit Failure' => '@@@@',
+  'Industry' => '@@@@',
+  'Pelase input owner' => '@@@@',
   'Product Create' => '@@添加商品@@',
   'Product List' => '@@商品列表@@',
   'Product Manager' => '@@商品管理@@',

@@ -3,11 +3,15 @@
 class MerchantshopController extends BController {
 
     private $shopBehavior;
+    private $fileBehavior;
+    private $categoryBehavior;
 
     public function init() {
         parent::init();
-        $this->setPageTitle(Yii::t('admin', 'Merchant shop_manager'));
+        $this->fileBehavior = new FileBehavior();
+        $this->categoryBehavior = new CategoryBehavior();
         $this->shopBehavior = new MerchantShopBehavior();
+        $this->setPageTitle(Yii::t('admin', 'Merchant shop_manager'));
     }
 
     public function actionIndex() {
@@ -16,11 +20,9 @@ class MerchantshopController extends BController {
         $owner = Yii::app()->request->getParam("owner");
         $page = Yii::app()->request->getParam("page", 1);
 
-
         $param['pageSize'] = Yii::app()->params->page_size;
         $param['page'] = $page;
-        $isadmin = HelpTemplate::isLoginAsAdmin();
-        if (!$isadmin) {
+        if (HelpTemplate::isLoginAsMerchant()) {
             $param['merchantid'] = Yii::app()->user->getId();
             $param['selfid'] = Yii::app()->user->getId();
         }
@@ -38,38 +40,26 @@ class MerchantshopController extends BController {
         $this->render("index", $result);
     }
 
+    /**
+     * 创建店铺
+     * @return type
+     */
     public function actionCreate() {
-        if (Yii::app()->request->IsPostRequest) {
-
-            $shop = Yii::app()->request->getPost("shop");
-            $shop['merchantid'] = Yii::app()->user->getId();
-
-            $fileBehavior = new FileBehavior();
-            if ($fileBehavior->isHaveUploadFile('shop[pic]')) {
-                $file = $fileBehavior->saveUploadFile('shop[pic]');
-                if ($file) {
-                    $shop['pic'] = $file['path'];
-                }
-            }
-
-            $res = $this->shopBehavior->saveOrUpdate($shop);
-            if ($res) {
-                $this->showSuccess(Yii::t("comment", "Create Success"), $this->createUrl('create'));
-            } else {
-                $this->showError(Yii::t("comment", "Create Failure"), $this->createUrl('create'));
-            }
-        } else {
-
-            //商圈
-            $district = District::model()->findAll();
-            $result['district'] = $district;
-            //行业-分类
-            $categoryBehavior = new CategoryBehavior();
-            $category = $categoryBehavior->getAll();
-            $result['category'] = $category;
-
-            $this->render("create", $result);
+        $viewData = array();
+        $shopCreateForm = new ShopCreateForm();
+        $viewData['district'] = District::model()->findAll();
+        $viewData['category'] = $this->categoryBehavior->getAll();
+        if (!Yii::app()->request->IsPostRequest) {
+            $viewData['shop'] = $shopCreateForm->getAttributes();
+            return $this->render("create", $viewData);
         }
+        $shopCreateForm->setAttributes(Yii::app()->request->getPost("shop"));
+        if (!$shopCreateForm->execute()) {
+            $viewData['message'] = $shopCreateForm->getFirstError();
+            $viewData['shop'] = $shopCreateForm->getAttributes();
+            return $this->render('create', $viewData);
+        }
+        $this->showSuccess(Yii::t("admin", "Create success."), $this->createUrl('index'));
     }
 
     public function actionEdit() {
