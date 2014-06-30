@@ -44,6 +44,11 @@ class MerchantCreateForm extends BaseForm {
     public function beforeValidate() {
         parent::beforeValidate();
         $this->username = trim($this->username);
+
+        // 如果是管理员添加账户，跳过协议检查
+        if (HelpTemplate::isLoginAsAdmin()) {
+            $this->agreement = true;
+        }
         return true;
     }
 

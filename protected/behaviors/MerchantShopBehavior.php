@@ -104,8 +104,12 @@ class MerchantShopBehavior extends BaseBehavior {
         return true;
     }
 
-    public function getShopsByMerchantId($id) {
-        $criteria = new CDbCriteria();
+    public function existMain($merchantid) {
+        return MerchantShop::model()->findByAttributes(array('merchantid' => $merchantid, 'ismain' => 1));
+    }
+
+    public function existOnly($merchantid) {
+        return MerchantShop::model()->findByAttributes(array('merchantid' => $merchantid));
     }
 
 }

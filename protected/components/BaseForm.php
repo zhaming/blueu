@@ -19,16 +19,27 @@
  */
 class BaseForm extends CFormModel {
 
-    function getFirstError() {
+    protected $error;
+
+    public function getFirstError() {
+        // 自定义的错误
+        if ($this->error) {
+            return $this->error;
+        }
+
+        // 验证产生的错误
         if (!$this->hasErrors()) {
             return '';
         }
+
+        // 将验证失败的域的值重置
         $names = array();
         $allErrors = $this->getErrors();
         while (list($key, ) = each($allErrors)) {
             $names[] = $key;
         }
         $this->unsetAttributes($names);
+        // 返回第一个错误
         foreach ($allErrors as $key => $value) {
             return array_shift($value);
         }

@@ -1,10 +1,11 @@
 <?php if (!empty($message)) { ?>
-<div class="alert alert-danger">
-    <button type="button" class="close" data-dismiss="alert">
-        <i class="ace-icon fa fa-times"></i>
-    </button>
-    <i class="ace-icon fa fa-times"></i>&nbsp;&nbsp;<?php echo $message; ?>	
-</div>
+    <div class="alert alert-block alert-danger">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="icon-remove"></i>
+        </button>
+        <i class="icon-warning-sign"></i>&nbsp;&nbsp;
+        <?php echo $message; ?>	
+    </div>
 <?php } ?>
 <div class="row">
     <div class="col-xs-12">
@@ -65,6 +66,6 @@
                     <button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i><?php echo Yii::t('admin', 'Reset'); ?></button>
                 </div>
             </div>
+        </div>
     </div>
-</div>
 </div>
