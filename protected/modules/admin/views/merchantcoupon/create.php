@@ -64,7 +64,7 @@
                     <?php if(!empty($data)):?>
                     <?php foreach ($data as $key => $value):?>
                         <label>
-                            <input name="coupon[shopid][]" value="<?php echo $value->id?>" type="checkbox" class="ace"<?php if (!empty($coupon['shopid']) && in_array($value->id, $coupon['shopid'])) { ?> checked<?php } ?> />
+                            <input name="coupon[shopids][]" value="<?php echo $value->id?>" type="checkbox" class="ace"<?php if (!empty($coupon['shopid']) && in_array($value->id, $coupon['shopid'])) { ?> checked<?php } ?> />
                             <span class="lbl"><?php echo $value->name?></span>
                         </label>
                         &emsp;
@@ -108,9 +108,9 @@
 
             <div class="clearfix form-actions">
                 <div class="col-md-offset-3 col-md-9">
-                    <button class="btn btn-info" type="submit"><i class="icon-ok bigger-110"></i><?php echo Yii::t("comment","Create")?></button>
-                    &emsp; &emsp; &emsp;
-                    <button class="btn" type="reset"><i class="icon-undo bigger-110"></i><?php echo Yii::t("comment","Reset");?></button>
+                    <button class="btn btn-info" type="submit"><i class="ace-icon glyphicon glyphicon-ok bigger-110"></i><?php echo Yii::t("comment","Create")?></button>
+                    &nbsp; &nbsp; &nbsp;
+                    <button class="btn" type="reset"><i class="ace-icon fa fa-undo bigger-110"></i><?php echo Yii::t("comment","Reset");?></button>
                 </div>
             </div>
          </form>

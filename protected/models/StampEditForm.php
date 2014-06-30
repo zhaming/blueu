@@ -1,7 +1,7 @@
 <?php
 
 /*
- * 创建优惠券表单
+ * 印花编辑表单
  */
 
 /**
@@ -13,15 +13,15 @@
  * @copyright (c) 2011-2015
  * @license ()
  * 
- * CouponCreateForm.php hugb
+ * StampEditForm.php hugb
  *
  */
-class CouponCreateForm extends BaseForm {
+class StampEditForm extends BaseForm {
 
+    public $id;
     public $name;
-    public $price;
-    public $intro;
     public $total;
+    public $intro;
     public $pic;
     public $shopids;
     public $validity_start;
@@ -31,11 +31,12 @@ class CouponCreateForm extends BaseForm {
 
     public function rules() {
         return array(
-            array('name,price,total,shopids,validityStart,validityEnd', 'required'),
+            array('id,name,total,shopids,validityStart,validityEnd', 'required'),
+            array('id', 'type', 'type' => 'integer', 'allowEmpty' => false),
             array('name', 'checkName'),
-            array('price', 'numerical', 'allowEmpty' => false, 'min' => 0),
             array('total', 'numerical', 'integerOnly' => true, 'allowEmpty' => false, 'min' => 0),
-            array('pic', 'file', 'allowEmpty' => false, 'types' => 'image/gif, image/jpeg', 'maxSize' => 1024 * 1024 * 3),
+            array('pic', 'file', 'allowEmpty' => true, 'types' => 'image/gif, image/jpeg', 'maxSize' => 1024 * 1024 * 3),
+            array('shopids', 'type', 'type' => 'array', 'allowEmpty' => false),
             array('shopids', 'checkShopIds'),
             array('validityStart', 'date', 'format' => 'yyyy-MM-dd', 'allowEmpty' => false, 'timestampAttribute' => 'validity_start'),
             array('validity_start', 'checkValidityStart'),
@@ -46,7 +47,7 @@ class CouponCreateForm extends BaseForm {
     }
 
     public function checkName() {
-        if (!empty(MerchantCoupon::model()->findByAttributes(array('name=:name'), '', array(':name' => $this->name)))) {
+        if (!empty(MerchantStamp::model()->findByAttributes(array('name=:name'), '', array(':name' => $this->name)))) {
             $this->addError('name', Yii::t('admin', 'Name have be used.'));
         }
     }
@@ -65,16 +66,15 @@ class CouponCreateForm extends BaseForm {
 
     public function checkShopIds() {
         if (empty($this->shopids) || count($this->shopids) == 0) {
-            $this->addError('shopids', Yii::t('admin', 'Shop is required.'));
+            $this->addError('shopid', Yii::t('admin', 'Shop is required.'));
         }
     }
 
     public function attributeLabels() {
         return array(
             'name' => Yii::t('admin', 'Name'),
-            'price' => Yii::t('admin', 'Price'),
-            'intro' => Yii::t('admin', 'Introduce'),
             'total' => Yii::t('admin', 'Total'),
+            'intro' => Yii::t('admin', 'Introduce'),
             'pic' => Yii::t('admin', 'Picture'),
             'validity_start' => Yii::t('admin', 'Validity start'),
             'validity_end' => Yii::t('admin', 'Validity end')

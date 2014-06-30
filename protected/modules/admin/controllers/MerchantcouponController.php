@@ -71,15 +71,15 @@ class MerchantcouponController extends BController {
                     $coupon['pic'] = $file['path'];
                 }
             }
-            foreach ($couponCreateForm->shopid as $value) {
+            foreach ($couponCreateForm->shopids as $value) {
                 $coupon['shopid'] = $value;
                 $this->couponBehavior->saveOrUpdate($coupon);
             }
             $transaction->commit();
-            $this->showSuccess(Yii::t("comment", "Create success."), '/admin/merchantcoupon/index');
+            $this->showSuccess(Yii::t("comment", "Create success."), $this->createUrl('index'));
         } catch (Exception $e) {
             $transaction->rollback();
-            $this->showError(Yii::t("shop", "Create failure.") . $e->getMessage(), '/admin/merchantcoupon/create');
+            $this->showError(Yii::t("shop", "Create failure.") . $e->getMessage(), $this->createUrl('create'));
         }
     }
 
@@ -179,12 +179,6 @@ class MerchantcouponController extends BController {
             $this->showError("", $this->referer);
             return;
         }
-
-        // $res  =  MerchantCodeLog::model()->isUsed($codeid,$userid);
-        // if($res){
-        //     $this->showError("已经使用",$this->referer);
-        //     return;
-        // }
 
         MerchantCodeLog::model()->useCoupon($codeid, $userid);
 

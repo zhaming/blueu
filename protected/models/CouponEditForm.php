@@ -13,11 +13,12 @@
  * @copyright (c) 2011-2015
  * @license ()
  * 
- * CouponCreateForm.php hugb
+ * CouponEditForm.php hugb
  *
  */
 class CouponCreateForm extends BaseForm {
 
+    public $id;
     public $name;
     public $price;
     public $intro;
@@ -31,11 +32,12 @@ class CouponCreateForm extends BaseForm {
 
     public function rules() {
         return array(
-            array('name,price,total,shopids,validityStart,validityEnd', 'required'),
+            array('id,name,price,total,shopids,validityStart,validityEnd', 'required'),
+            array('id', 'type', 'type' => 'integer', 'allowEmpty' => false),
             array('name', 'checkName'),
             array('price', 'numerical', 'allowEmpty' => false, 'min' => 0),
             array('total', 'numerical', 'integerOnly' => true, 'allowEmpty' => false, 'min' => 0),
-            array('pic', 'file', 'allowEmpty' => false, 'types' => 'image/gif, image/jpeg', 'maxSize' => 1024 * 1024 * 3),
+            array('pic', 'file', 'allowEmpty' => true, 'types' => 'image/gif, image/jpeg', 'maxSize' => 1024 * 1024 * 3),
             array('shopids', 'checkShopIds'),
             array('validityStart', 'date', 'format' => 'yyyy-MM-dd', 'allowEmpty' => false, 'timestampAttribute' => 'validity_start'),
             array('validity_start', 'checkValidityStart'),
@@ -63,9 +65,9 @@ class CouponCreateForm extends BaseForm {
         }
     }
 
-    public function checkShopIds() {
-        if (empty($this->shopids) || count($this->shopids) == 0) {
-            $this->addError('shopids', Yii::t('admin', 'Shop is required.'));
+    public function checkShopId() {
+        if (empty($this->shopid) || count($this->shopid) == 0) {
+            $this->addError('shopid', Yii::t('admin', 'Shop is required.'));
         }
     }
 
