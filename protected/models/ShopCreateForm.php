@@ -38,7 +38,6 @@ class ShopCreateForm extends BaseForm {
             array('merchantid,name,owner,telephone,address,url,catid,districtid,marketplace,floor', 'required'),
             array('pic', 'file', 'allowEmpty' => true, 'types' => 'gif,jpg,png,jpeg', 'maxSize' => 1024 * 1024 * 5),
             array('url', 'url', 'allowEmpty' => true),
-            array('isonly', 'checkOnly'),
             array('ismain', 'checkMain'),
             array('intro', 'safe')
         );
@@ -68,6 +67,8 @@ class ShopCreateForm extends BaseForm {
 
     public function afterValidate() {
         parent::afterValidate();
+        $this->ismain = empty($this->ismain) ? 0 : 1;
+        $this->isonly = empty($this->isonly) ? 0 : 1;
     }
 
     public function execute() {
@@ -117,13 +118,6 @@ class ShopCreateForm extends BaseForm {
         }
 
         return true;
-    }
-
-    public function checkOnly() {
-        $shopBehavior = new MerchantShopBehavior();
-        if ($shopBehavior->existOnly($this->merchantid)) {
-            $this->addError('isonly', Yii::t('admin', 'Only shop is exist.'));
-        }
     }
 
     public function checkMain() {

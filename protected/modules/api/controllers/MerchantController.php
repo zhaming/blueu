@@ -32,7 +32,7 @@ class MerchantController extends IController {
             return;
         }
         $page = Yii::app()->request->getQuery('page', 1);
-        $pagesize = Yii::app()->request->getQuery('pagesize', 10);
+        $pagesize = Yii::app()->request->getQuery('pagesize', Yii::app()->params->page_size);
         $merchants = $this->merchantBehavior->apiGetList($page, $pagesize);
         if (empty($merchants)) {
             $this->error_code = self::ERROR_NO_DATA;

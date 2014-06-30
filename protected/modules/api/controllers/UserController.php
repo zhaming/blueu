@@ -105,7 +105,7 @@ class UserController extends IController {
             return;
         }
         $page = Yii::app()->request->getQuery('page', 1);
-        $pagesize = Yii::app()->request->getQuery('pagesize', 10);
+        $pagesize = Yii::app()->request->getQuery('pagesize', Yii::app()->params->page_size);
         $users = $this->userBehavior->apiGetList($page, $pagesize);
         if (empty($users)) {
             $this->error_code = self::ERROR_NO_DATA;

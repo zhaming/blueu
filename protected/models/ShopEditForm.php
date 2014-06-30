@@ -36,10 +36,9 @@ class ShopEditForm extends BaseForm {
 
     public function rules() {
         return array(
-            array('merchantid,name,owner,telephone,address,url,catid,districtid,marketplace,floor', 'required'),
+            array('id,merchantid,name,owner,telephone,address,url,catid,districtid,marketplace,floor', 'required'),
             array('pic', 'file', 'allowEmpty' => true, 'types' => 'gif,jpg,png,jpeg', 'maxSize' => 1024 * 1024 * 5),
             array('url', 'url', 'allowEmpty' => true),
-            array('isonly', 'checkOnly'),
             array('ismain', 'checkMain'),
             array('intro', 'safe')
         );
@@ -69,6 +68,8 @@ class ShopEditForm extends BaseForm {
 
     public function afterValidate() {
         parent::afterValidate();
+        $this->ismain = empty($this->ismain) ? 0 : 1;
+        $this->isonly = empty($this->isonly) ? 0 : 1;
     }
 
     public function execute() {
@@ -76,8 +77,15 @@ class ShopEditForm extends BaseForm {
         if (!$this->validate()) {
             return false;
         }
-        $shop = new MerchantShop();
-        $shop->merchantid = $this->merchantid;
+        $shop = MerchantShop::model()->findByPk($this->id);
+        if (empty($shop)) {
+            $this->error = Yii::t("admin", "Shop is not exist.");
+            return false;
+        }
+        if (!HelpTemplate::isLoginAsAdmin() && $shop->merchantid != Yii::app()->user->getId() && $shop->selfid != Yii::app()->user->getId()) {
+            $this->error = Yii::t("admin", "You don't have permission.");
+            return false;
+        }
         $shop->name = $this->name;
         // 图片处理
         $fileBehavior = new FileBehavior();
@@ -91,7 +99,6 @@ class ShopEditForm extends BaseForm {
         }
         $shop->intro = $this->intro;
         $shop->owner = $this->owner;
-        $shop->selfid = $this->ismain == '1' ? $this->merchantid : null;
         $shop->telephone = $this->telephone;
         $shop->address = $this->address;
         $shop->url = $this->url;
@@ -99,7 +106,6 @@ class ShopEditForm extends BaseForm {
         $shop->districtid = $this->districtid;
         $shop->marketplace = $this->marketplace;
         $shop->floor = $this->floor;
-        $shop->created = time();
         if (HelpTemplate::isLoginAsAdmin()) {
             $shop->status = 1;
         } else if (HelpTemplate::isLoginAsMerchant()) {
@@ -109,22 +115,12 @@ class ShopEditForm extends BaseForm {
         }
         $shop->ismain = $this->ismain;
         $shop->isonly = $this->isonly;
-        //$shop->longitude = null;
-        //$shop->latitude = null;
-        $shop->stations = 0;
         if (!$shop->save()) {
             $this->error = Yii::t('admin', 'Save failure.');
             return false;
         }
 
         return true;
-    }
-
-    public function checkOnly() {
-        $shopBehavior = new MerchantShopBehavior();
-        if ($shopBehavior->existOnly($this->merchantid)) {
-            $this->addError('isonly', Yii::t('admin', 'Only shop is exist.'));
-        }
     }
 
     public function checkMain() {

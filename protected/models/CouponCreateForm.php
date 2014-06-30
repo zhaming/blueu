@@ -35,7 +35,7 @@ class CouponCreateForm extends BaseForm {
             array('name', 'checkName'),
             array('price', 'numerical', 'allowEmpty' => false, 'min' => 0),
             array('total', 'numerical', 'integerOnly' => true, 'allowEmpty' => false, 'min' => 0),
-            array('pic', 'file', 'allowEmpty' => false, 'types' => 'image/gif, image/jpeg', 'maxSize' => 1024 * 1024 * 3),
+            array('pic', 'file', 'allowEmpty' => true, 'types' => 'gif,jpg,png,jpeg', 'maxSize' => 1024 * 1024 * 5),
             array('shopids', 'checkShopIds'),
             array('validityStart', 'date', 'format' => 'yyyy-MM-dd', 'allowEmpty' => false, 'timestampAttribute' => 'validity_start'),
             array('validity_start', 'checkValidityStart'),

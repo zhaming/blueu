@@ -14,30 +14,19 @@ class MerchantshopController extends BController {
         $this->setPageTitle(Yii::t('admin', 'Merchant shop_manager'));
     }
 
+    /**
+     * 店铺列表
+     */
     public function actionIndex() {
-        $name = Yii::app()->request->getParam("name");
-        $isonly = Yii::app()->request->getParam("isonly");
-        $owner = Yii::app()->request->getParam("owner");
-        $page = Yii::app()->request->getParam("page", 1);
+        $params = array();
+        $params['name'] = Yii::app()->request->getParam("name");
+        $params['isonly'] = Yii::app()->request->getParam("isonly");
+        $params['owner'] = Yii::app()->request->getParam("owner");
+        $params['page'] = Yii::app()->request->getParam("page", 1);
+        $params['pagesize'] = Yii::app()->request->getParam("pagesize", Yii::app()->params->page_size);
 
-        $param['pageSize'] = Yii::app()->params->page_size;
-        $param['page'] = $page;
-        if (HelpTemplate::isLoginAsMerchant()) {
-            $param['merchantid'] = Yii::app()->user->getId();
-            $param['selfid'] = Yii::app()->user->getId();
-        }
-        if (!empty($name))
-            $param['name'] = $name;
-        if (!empty($isonly))
-            $param['isonly'] = $isonly;
-        if (!empty($owner))
-            $param['owner'] = $owner;
-
-        $res = $this->shopBehavior->getList($param);
-
-        $result = array_merge($param, $res);
-
-        $this->render("index", $result);
+        $res = $this->shopBehavior->getList($params);
+        $this->render("index", array_merge($params, $res));
     }
 
     /**
@@ -47,7 +36,9 @@ class MerchantshopController extends BController {
     public function actionCreate() {
         $viewData = array();
         $shopCreateForm = new ShopCreateForm();
+        // 商圈
         $viewData['district'] = District::model()->findAll();
+        // 行业
         $viewData['category'] = $this->categoryBehavior->getAll();
         if (!Yii::app()->request->IsPostRequest) {
             $viewData['shop'] = $shopCreateForm->getAttributes();
@@ -62,58 +53,39 @@ class MerchantshopController extends BController {
         $this->showSuccess(Yii::t("admin", "Create success."), $this->createUrl('index'));
     }
 
+    /**
+     * 编辑店铺
+     */
     public function actionEdit() {
-        if (Yii::app()->request->IsPostRequest) {
-            $shop = Yii::app()->request->getPost("shop");
-
-            $fileBehavior = new FileBehavior();
-            if ($fileBehavior->isHaveUploadFile('shop[pic]')) {
-                $file = $fileBehavior->saveUploadFile('shop[pic]');
-                if ($file) {
-                    $shop['pic'] = $file['path'];
-                }
-            }
-
-            if (empty($shop['isonly']))
-                $shop['isonly'] = 0;
-            if (empty($shop['ismain']))
-                $shop['ismain'] = 0;
-            $res = $this->shopBehavior->saveOrUpdate($shop);
-            if ($res) {
-                $this->showSuccess(Yii::t("comment", "Modify Success"));
-            } else {
-                $this->showError(Yii::t("comment", "Modify Failure"));
-            }
-            $this->redirect($this->referer);
-        } else {
-
+        $viewData = array();
+        $shopEditForm = new ShopEditForm();
+        // 商圈
+        $viewData['district'] = District::model()->findAll();
+        // 行业
+        $viewData['category'] = $this->categoryBehavior->getAll();
+        if (!Yii::app()->request->IsPostRequest) {
             $shopid = Yii::app()->request->getParam("id");
             if (empty($shopid)) {
-                $this->showError(Yii::t("comment", "Illegal Operation"), $this->referer);
-                Yii::app()->end();
+                return $this->showError(Yii::t("admin", "Illegal request."), $this->createUrl('index'));
             }
-            $shop = $this->shopBehavior->getById($shopid);
-
-            if (empty($shop)) {
-                //"没有查询到该店铺"
-                $this->showError(Yii::t("comment", "Illegal Operation"), $this->referer);
-                Yii::app()->end();
+            $viewData['shop'] = $this->shopBehavior->getById($shopid);
+            if (empty($viewData['shop'])) {
+                // 店铺不存在
+                return $this->showError(Yii::t("admin", "Illegal request."), $this->createUrl('index'));
             }
-            $admin = HelpTemplate::isLoginAsAdmin();
-
-            if ($shop->merchantid != Yii::app()->user->getId() && !$admin) {
-                //"这不是你的店铺"
-                $this->showError(Yii::t("comment", "Illegal Operation"), $this->referer);
-                Yii::app()->end();
+            if (!HelpTemplate::isLoginAsAdmin() && $viewData['shop']['merchantid'] != Yii::app()->user->getId() && $viewData['shop']['selfid'] != Yii::app()->user->getId()) {
+                // 这不是你的店铺
+                return $this->showError(Yii::t("admin", "Illegal request."), $this->createUrl('index'));
             }
-            //商圈
-            $district = District::model()->findAll();
-            $result['district'] = $district;
-            //行业-分类
-            $categoryBehavior = new CategoryBehavior();
-            $category = $categoryBehavior->getAll();
-            $this->render("edit", compact('shop', "district", "category"));
+            return $this->render("edit", $viewData);
         }
+        $shopEditForm->setAttributes(Yii::app()->request->getPost("shop"));
+        if (!$shopEditForm->execute()) {
+            $viewData['message'] = $shopEditForm->getFirstError();
+            $viewData['shop'] = $shopEditForm->getAttributes();
+            return $this->render('create', $viewData);
+        }
+        $this->showSuccess(Yii::t("admin", "Update success."), $this->createUrl('index'));
     }
 
     public function actionAddShopAccount() {

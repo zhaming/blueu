@@ -34,7 +34,7 @@ class AdvertisementController extends IController {
         $tag = Yii::app()->request->getQuery('placetag');
         $source = Yii::app()->request->getQuery('source');
         $page = Yii::app()->request->getQuery('page', 1);
-        $pageSize = Yii::app()->request->getQuery('pagesize', 10);
+        $pageSize = Yii::app()->request->getQuery('pagesize', Yii::app()->params->page_size);
         $filter = array(
             'where' => array(),
             'order' => 'created desc'
