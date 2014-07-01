@@ -1,3 +1,4 @@
+<div class="space-6"></div>
 <?php if (!empty($message)) { ?>
     <div class="alert alert-block alert-danger">
         <button type="button" class="close" data-dismiss="alert">
@@ -118,7 +119,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="shop[isonly]"></label>
+                <label class="col-sm-3 control-label no-padding-right"></label>
                 <div class="col-sm-9">
                     <label>
                         <?php echo Yii::t('admin', "Shop only") ?>

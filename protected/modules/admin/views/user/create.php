@@ -1,3 +1,4 @@
+<div class="space-6"></div>
 <?php if (!empty($message)) { ?>
 <div class="alert alert-block alert-danger">
     <button type="button" class="close" data-dismiss="alert">

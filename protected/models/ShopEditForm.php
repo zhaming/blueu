@@ -19,7 +19,6 @@
 class ShopEditForm extends BaseForm {
 
     public $id;
-    public $merchantid;
     public $name;
     public $owner;
     public $intro;
@@ -36,33 +35,15 @@ class ShopEditForm extends BaseForm {
 
     public function rules() {
         return array(
-            array('id,merchantid,name,owner,telephone,address,url,catid,districtid,marketplace,floor', 'required'),
+            array('id,name,owner,catid,districtid', 'required'),
             array('pic', 'file', 'allowEmpty' => true, 'types' => 'gif,jpg,png,jpeg', 'maxSize' => 1024 * 1024 * 5),
             array('url', 'url', 'allowEmpty' => true),
-            array('ismain', 'checkMain'),
-            array('intro', 'safe')
+            array('intro,telephone,address,marketplace,floor,isonly,ismain', 'safe')
         );
     }
 
     public function beforeValidate() {
         parent::beforeValidate();
-        if (HelpTemplate::isLoginAsAdmin() && $this->merchantid) {
-            $accountBehavior = new AccountBehavior();
-            if (is_numeric($this->merchantid)) {
-                $account = $accountBehavior->getAccount($this->merchantid);
-            } else {
-                $account = $accountBehavior->getAccountByUsername($this->merchantid);
-            }
-            if ($account['roleid'] != HelpTemplate::MERCHANT_ROLE) {
-                $this->addError('merchantid', Yii::t('admin', 'Is not a valid merchant account.'));
-                return false;
-            }
-            $this->merchantid = $account['id'];
-        }
-        if (HelpTemplate::isLoginAsMerchant()) {
-            $this->merchantid = Yii::app()->user->getId();
-        }
-
         return true;
     }
 
@@ -82,9 +63,22 @@ class ShopEditForm extends BaseForm {
             $this->error = Yii::t("admin", "Shop is not exist.");
             return false;
         }
+        
         if (!HelpTemplate::isLoginAsAdmin() && $shop->merchantid != Yii::app()->user->getId() && $shop->selfid != Yii::app()->user->getId()) {
             $this->error = Yii::t("admin", "You don't have permission.");
             return false;
+        }
+        if ($this->ismain) {
+            $params = array('merchantid' => $shop->merchantid, 'ismain' => 1);
+            $shops = MerchantShop::model()->findAllByAttributes($params);
+            if (!empty($shops)) {
+                foreach ($shops as $value) {
+                    if ($value->id != $this->id) {
+                        $this->addError('ismain', Yii::t('admin', 'Main shop is exist.'));
+                        return false;
+                    }
+                }
+            }
         }
         $shop->name = $this->name;
         // 图片处理
@@ -123,16 +117,8 @@ class ShopEditForm extends BaseForm {
         return true;
     }
 
-    public function checkMain() {
-        $shopBehavior = new MerchantShopBehavior();
-        if ($shopBehavior->existMain($this->merchantid)) {
-            $this->addError('ismain', Yii::t('admin', 'Main shop is exist.'));
-        }
-    }
-
     public function attributeLabels() {
         return array(
-            'merchantid' => Yii::t('admin', 'Account'),
             'name' => Yii::t('admin', 'Name'),
             'owner' => Yii::t('admin', 'Shop owner'),
             'intro' => Yii::t('admin', 'Introduce'),

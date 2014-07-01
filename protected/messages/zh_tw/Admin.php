@@ -17,11 +17,5 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Delete Failure' => '',
-  'Delete Success' => '',
-  'Edite Success' => '',
-  'Create' => '@@@@',
-  'Delete failure.' => '@@@@',
-  'Delete success.' => '@@@@',
-  'Reset' => '@@@@',
+  'Pelase input name' => '',
 );

@@ -35,11 +35,11 @@ class ShopCreateForm extends BaseForm {
 
     public function rules() {
         return array(
-            array('merchantid,name,owner,telephone,address,url,catid,districtid,marketplace,floor', 'required'),
+            array('merchantid,name,owner,catid,districtid', 'required'),
             array('pic', 'file', 'allowEmpty' => true, 'types' => 'gif,jpg,png,jpeg', 'maxSize' => 1024 * 1024 * 5),
             array('url', 'url', 'allowEmpty' => true),
             array('ismain', 'checkMain'),
-            array('intro', 'safe')
+            array('intro,telephone,address,url,marketplace,floor,isonly', 'safe')
         );
     }
 
@@ -109,8 +109,6 @@ class ShopCreateForm extends BaseForm {
         }
         $shop->ismain = $this->ismain;
         $shop->isonly = $this->isonly;
-        //$shop->longitude = null;
-        //$shop->latitude = null;
         $shop->stations = 0;
         if (!$shop->save()) {
             $this->error = Yii::t('admin', 'Save failure.');

@@ -17,9 +17,11 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Create' => '',
   'Delete Failure' => '',
   'Delete Success' => '',
   'Edite Success' => '',
-  'Reset' => '',
+  'Create' => '@@@@',
+  'Delete failure.' => '@@@@',
+  'Delete success.' => '@@@@',
+  'Reset' => '@@@@',
 );

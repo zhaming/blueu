@@ -58,7 +58,7 @@
                                             <i class="ace-icon fa fa-edit bigger-130"></i>
                                         </a>
                                         <?php if (empty($value->selfid) && (HelpTemplate::isLoginAsAdmin() || (HelpTemplate::isLoginAsMerchant() && $value['merchantid'] == HelpTemplate::getLoginUserId()))) { ?>
-                                            <a href="/admin/merchantshop/addshopaccount/id/<?php echo $value->id; ?>"  title="<?php echo Yii::t("shop", "Create account"); ?>" class="orange" > 
+                                            <a href="/admin/merchantshop/addshopaccount/id/<?php echo $value->id; ?>"  title="<?php echo Yii::t("admin", "Create shop account"); ?>" class="orange" > 
                                                 <i class="ace-icon fa fa-lemon-o bigger-130"></i>
                                             </a>
                                         <?php } ?>

@@ -83,79 +83,64 @@ class MerchantshopController extends BController {
         if (!$shopEditForm->execute()) {
             $viewData['message'] = $shopEditForm->getFirstError();
             $viewData['shop'] = $shopEditForm->getAttributes();
-            return $this->render('create', $viewData);
+            return $this->render('edit', $viewData);
         }
         $this->showSuccess(Yii::t("admin", "Update success."), $this->createUrl('index'));
     }
 
+    /**
+     * 开通分店帐号
+     */
     public function actionAddShopAccount() {
-        if (Yii::app()->request->IsPostRequest) {
-            $shopid = Yii::app()->request->getPost("shopid");
-            $username = Yii::app()->request->getPost("username");
-            $passwd = Yii::app()->request->getPost("passwd");
-
-            if (empty($username) || empty($passwd)) {
-                $this->showError(Yii::t("admin", "Username and pass not allow empty"), $this->referer);
-                Yii::app()->end();
-            }
-
-            $bhv = new AccountBehavior();
-            if ($bhv->isExist($username)) {
-                $this->showError(Yii::t("admin", "Username already exists"), $this->referer);
-                Yii::app()->end();
-            }
-            $res = $this->shopBehavior->createAccount($username, $passwd, $shopid);
-            if ($res) {
-                $this->showSuccess(Yii::t("comment", "Create Success"));
-            } else {
-                $this->showError(Yii::t("comment", "Create Failure"));
-            }
-            $this->redirect($this->referer);
-        } else {
-            $shopid = Yii::app()->request->getParam("id");
-            if (empty($shopid)) {
-                $this->showError(Yii::t("comment", "Illegal Operation"), $this->referer);
-                Yii::app()->end();
-            }
-            $shop = $this->shopBehavior->getById($shopid);
-
-            if (empty($shop)) {
-                //"没有查询到该店铺"
-                $this->showError(Yii::t("comment", "Illegal Operation"), $this->referer);
-                Yii::app()->end();
-            }
-            if ($shop->merchantid != Yii::app()->user->getId()) {
-                //"这不是你的店铺"
-                $this->showError(Yii::t("comment", "Illegal Operation"), $this->referer);
-                Yii::app()->end();
-            }
-
-            $this->render("create_account", compact('shop'));
-        }
-    }
-
-    public function actionDelete() {
-
+        $viewData = array();
+        $merchantCreateForm = new MerchantCreateForm();
         $shopid = Yii::app()->request->getParam("id");
+
         if (empty($shopid)) {
-            $this->showError(Yii::t("comment", "Illegal Operation"), $this->referer);
-            Yii::app()->end();
+            return $this->showError(Yii::t("admin", "Illegal request."), $this->createUrl('index'));
         }
         $shop = $this->shopBehavior->getById($shopid);
-
         if (empty($shop)) {
-            //"没有查询到该店铺"
-            $this->showError(Yii::t("comment", "Illegal Operation"), $this->referer);
-            Yii::app()->end();
+            return $this->showError(Yii::t("admin", "Illegal request."), $this->createUrl('index'));
         }
-        if (($shop->merchantid == Yii::app()->user->getId()) || ($shop->selfid == Yii::app()->user->getId() )) {
-            $shop->delete();
-        } else {
-            //"这不是你的店铺"
-            $this->showError(Yii::t("comment", "Illegal Operation"), $this->referer);
-            Yii::app()->end();
+        if (!HelpTemplate::isLoginAsAdmin() && $shop['merchantid'] != Yii::app()->user->getId()) {
+            return $this->showError(Yii::t("admin", "Illegal request."), $this->createUrl('index'));
         }
-        $this->showSuccess(Yii::t("commnet", "Delete Success"), $this->referer);
+        $viewData['id'] = $shopid;
+        if (!Yii::app()->request->IsPostRequest) {
+            $viewData['merchant'] = $merchantCreateForm->getAttributes();
+            return $this->render("create_account", $viewData);
+        }
+        $merchantCreateForm->setAttributes(Yii::app()->request->getPost('merchant'));
+        if (!$merchantCreateForm->execute()) {
+            $viewData['message'] = $merchantCreateForm->getFirstError();
+            $viewData['merchant'] = $merchantCreateForm->getAttributes();
+            return $this->render('create_account', $viewData);
+        }
+        $merchantCreateForm->updateShopSelfId($shopid);
+        $this->showSuccess(Yii::t("admin", "Save success."), $this->createUrl('index'));
+    }
+
+    /**
+     * 删除店铺
+     * @return type
+     */
+    public function actionDelete() {
+        $shopid = Yii::app()->request->getParam("id");
+        if (empty($shopid)) {
+            return $this->showError(Yii::t("admin", "Illegal request."), $this->createUrl('index'));
+        }
+        $shop = $this->shopBehavior->getById($shopid);
+        if (empty($shop)) {
+            return $this->showError(Yii::t("admin", "Illegal request."), $this->createUrl('index'));
+        }
+        if (!HelpTemplate::isLoginAsAdmin() && $shop['merchantid'] != Yii::app()->user->getId() && $shop['selfid'] != Yii::app()->user->getId()) {
+            return $this->showError(Yii::t("admin", "Illegal request."), $this->createUrl('index'));
+        }
+        if (!$shop->delete()) {
+            $this->showError(Yii::t("admin", "Delete failure."), $this->createUrl('index'));
+        }
+        $this->showSuccess(Yii::t("admin", "Delete success."), $this->createUrl('index'));
     }
 
     public function actionDistrict() {
@@ -166,11 +151,12 @@ class MerchantshopController extends BController {
 
         $district = District::model()->findAll();
         $data = array();
-        if (!empty($district))
-            foreach ($district as $key => $value) {
+        if (!empty($district)) {
+            foreach ($district as $value) {
                 if ($value->parentid == $pid)
                     $data[] = $value;
             }
+        }
         echo CJSON::encode($data);
     }
 
@@ -182,11 +168,12 @@ class MerchantshopController extends BController {
 
         $res = Category::model()->findAll();
         $data = array();
-        if (!empty($res))
-            foreach ($res as $key => $value) {
+        if (!empty($res)) {
+            foreach ($res as $value) {
                 if ($value->parentid == $pid)
                     $data[] = $value;
             }
+        }
         echo CJSON::encode($data);
     }
 

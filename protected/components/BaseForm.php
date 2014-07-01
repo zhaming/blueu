@@ -26,12 +26,10 @@ class BaseForm extends CFormModel {
         if ($this->error) {
             return $this->error;
         }
-
         // 验证产生的错误
         if (!$this->hasErrors()) {
             return '';
         }
-
         // 将验证失败的域的值重置
         $names = array();
         $allErrors = $this->getErrors();
@@ -42,6 +40,24 @@ class BaseForm extends CFormModel {
         // 返回第一个错误
         foreach ($allErrors as $key => $value) {
             return array_shift($value);
+        }
+    }
+
+    public function validate($attributes = null, $clearErrors = true) {
+        if ($clearErrors) {
+            $this->clearErrors();
+        }
+        if ($this->beforeValidate()) {
+            foreach ($this->getValidators() as $validator) {
+                $validator->validate($this, $attributes);
+                if ($this->hasErrors()) {
+                    return false;
+                }
+            }
+            $this->afterValidate();
+            return !$this->hasErrors();
+        } else {
+            return false;
         }
     }
 

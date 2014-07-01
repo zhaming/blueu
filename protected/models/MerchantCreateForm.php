@@ -37,16 +37,15 @@ class MerchantCreateForm extends BaseForm {
             array('telephone', 'match', 'pattern' => '/^(1(([35][0-9])|(47)|[8][0126789]))\d{8}$/', 'message' => Yii::t('admin', 'Mobile format error.')),
             array('username', 'checkUsername'),
             array('agreement', 'checkAgreement'),
-            array('legal,telephone,bank,shopnum', 'safe')
+            array('legal,bank,shopnum', 'safe')
         );
     }
 
     public function beforeValidate() {
         parent::beforeValidate();
         $this->username = trim($this->username);
-
-        // 如果是管理员添加账户，跳过协议检查
-        if (HelpTemplate::isLoginAsAdmin()) {
+        // 如果是管理员或者商户添加账户，跳过协议检查
+        if (HelpTemplate::isLoginAsAdmin() || HelpTemplate::isLoginAsMerchant()) {
             $this->agreement = true;
         }
         return true;
@@ -78,6 +77,40 @@ class MerchantCreateForm extends BaseForm {
         if ($this->password != $this->repassword) {
             $this->addError('repassword', Yii::t('admin', 'Two passwords do not match'));
         }
+    }
+
+    public function execute() {
+        if (!$this->validate()) {
+            return false;
+        }
+        $account = new Account();
+        $merchant = new Merchant();
+        $account->username = $this->username;
+        $account->password = md5($this->password);
+        $account->roleid = 4;
+
+        $merchant->name = $this->name;
+        $merchant->legal = $this->legal;
+        $merchant->telephone = $this->telephone;
+        $merchant->bank = $this->bank;
+
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $account->save();
+            $this->id = $merchant->id = $account->id;
+            $merchant->save();
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            $this->error = $e->getMessage();
+            $this->error = Yii::t('admin', 'Create failure.');
+            return false;
+        }
+        return true;
+    }
+
+    public function updateShopSelfId($shopId) {
+        return MerchantShop::model()->updateByPk($shopId, array('selfid' => $this->id));
     }
 
 }

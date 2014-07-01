@@ -5,7 +5,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-name"><?php echo Yii::t("admin", "Name"); ?></label>
                 <div class="col-sm-9">
-                    <input id="form-field-name" type="text" name="stamp[name]" value="<?php echo $stamp['name']; ?>" placeholder="<?php echo Yii::t("Admin", "Pelase input name"); ?>" class="col-xs-10 col-sm-5" />
+                    <input id="form-field-name" type="text" name="stamp[name]" value="<?php echo $stamp['name']; ?>" placeholder="<?php echo Yii::t("admin", "Pelase input name"); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="form-group">
@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="form-field-intro"><?php echo Yii::t("admin", "Intro"); ?></label>
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-intro"><?php echo Yii::t("admin", "Introduce"); ?></label>
                 <div class="col-sm-9">
                     <textarea id="form-field-intro" name="stamp[intro]" class="col-xs-10 col-sm-5"><?php echo $stamp['intro']; ?></textarea>
                 </div>

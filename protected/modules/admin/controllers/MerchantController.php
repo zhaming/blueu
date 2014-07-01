@@ -140,17 +140,12 @@ class MerchantController extends BController {
             return $this->render("create", $viewData);
         }
         $merchantCreateForm->setAttributes(Yii::app()->request->getPost('merchant'));
-        if (!$merchantCreateForm->validate()) {
+        if (!$merchantCreateForm->execute()) {
             $viewData['message'] = $merchantCreateForm->getFirstError();
             $viewData['merchant'] = $merchantCreateForm->getAttributes();
             return $this->render("create", $viewData);
         }
-        if (!$this->merchantBehavior->register($merchantCreateForm->getAttributes())) {
-            $viewData['message'] = $this->merchantBehavior->getError();
-            $viewData['merchant'] = $merchantCreateForm->getAttributes();
-            return $this->render("create", $viewData);
-        }
-        $this->redirect($this->createUrl('index'));
+        $this->showSuccess(Yii::t("admin", "Create success."), $this->createUrl('index'));
     }
 
     public function actionDelete() {
