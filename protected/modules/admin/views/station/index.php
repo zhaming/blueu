@@ -36,7 +36,7 @@
                                 <td><?php echo $value->id ?></td>
                                 <td><?php echo $value->uuid ?></td>
                                 <td><?php echo $value->name ?></td>
-                                <td><?php echo empty($value->shopid) ? '' : $value->shop->name ?></td>
+                                <td><?php echo !isset($value->shopid) || empty($value->shopid) ? '' : $value->shop->name ?></td>
                                 <td><?php echo $value->positionX ?></td>
                                 <td><?php echo $value->positionY; ?></td>
                                 <td><?php echo $value->disabled == 1 ? "Yes" : "No"; ?></td>
