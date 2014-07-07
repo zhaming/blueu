@@ -6,7 +6,7 @@ class MerchantcodeController extends IController {
 
     public function init() {
         parent::init();
-        $this->pageSize = Yii::app()->param->page_size;
+        $this->pageSize = Yii::app()->params->page_size;
     }
 
     /*
