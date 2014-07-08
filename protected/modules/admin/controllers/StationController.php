@@ -182,7 +182,8 @@ class StationController extends BController {
 
             $data['uuid'] =  $station->uuid;
             $station_ads  = new StationAds;
-            $station_ads->setAttributes($data);
+            $station_ads->_attributes= $data;
+            $station_ads->save();
             if ($station_ads->save()) {
                 $this->showSuccess(Yii::t("commnet","Create success."), $this->createUrl('adslist'));
             } else {
