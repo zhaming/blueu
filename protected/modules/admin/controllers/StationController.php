@@ -220,12 +220,12 @@ class StationController extends BController {
 
     public function actionAdsDelete() {
         $id = Yii::app()->request->getQuery('id');
-        if (empty($id)) $this->showError(Yii::t("comment","Illegal Operation"), $this->createUrl('index'));
+        if (empty($id)) $this->showError(Yii::t("comment","Illegal Operation"), $this->createUrl('adslist'));
         $rs = StationAds::model()->deleteByPk($id);
         if ($rs) {
-            $this->showSuccess(Yii::t("commnet","Delete Success"), $this->createUrl('index'));
+            $this->showSuccess(Yii::t("commnet","Delete Success"), $this->createUrl('adslist'));
         } else {
-            $this->showError(Yii::t("commnet","Delete Failure"), $this->createUrl('index'));
+            $this->showError(Yii::t("commnet","Delete Failure"), $this->createUrl('adslist'));
         }
     }
 }
