@@ -184,9 +184,9 @@ class StationController extends BController {
             $station_ads  = new StationAds;
             $station_ads->setAttributes($data);
             if ($station_ads->save()) {
-                $this->showSuccess(Yii::t("commnet","Delete Success"), $this->createUrl('index'));
+                $this->showSuccess(Yii::t("commnet","Create success."), $this->createUrl('adslist'));
             } else {
-                $this->showError(Yii::t("commnet","Delete Failure"), $this->createUrl('index'));
+                $this->showError(Yii::t("commnet","Create Failure."), $this->createUrl('adslist'));
             }
             //$this->redirect("/admin/station/editads/sid/".$data['sid']."/source/".$data['source']."/shopid/".$data['shopid']."/stationid/".$data['stationid']."");
         }

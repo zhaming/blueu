@@ -78,25 +78,19 @@ class StationBehavior extends BaseBehavior{
     }
 
     public function getAdsList($param){
-        $pager = null;
-        $page=-1;
-        $pageSize=20;
-
         $criteria = new CDbCriteria;
 
-        if(isset($param['page']) && is_numeric($param['page']))
-           $page = $param['page'];
-        if(isset($param['pageSize']) && is_numeric($param['pageSize']))
-           $pageSize = $param['pageSize'];
-        if(-1 != $page){
-            $count = StationAds::model()->count($criteria);
-            $pager = new CPagination($count);
-            $pager->setCurrentPage($page-1);
-            $pager->pageSize = $pageSize;
-            $pager->applyLimit($criteria);
-        }
+        if(isset($param['page']) && is_numeric($param['page'])) $page = $param['page'];
+        $pageSize = Yii::app()->params->page_size;
+        $criteria->offset = $pageSize * ($page -1);
+        $criteria->limit = $pageSize;
 
+        $count = StationAds::model()->count($criteria);
         $data = StationAds::model()->findAll($criteria);
+
+        $pages = new CPagination($count);
+        $pages->pageSize = $pageSize;
+        $pages->applyLimit($criteria);
 
         return compact('data','pager');
     }
@@ -133,7 +127,7 @@ class StationBehavior extends BaseBehavior{
             $account->username = $username;
             $account->password = md5($passwd);
             $account->registertime = time();
-            $account->roleid = 4;//写死的商家角色
+            $account->roleid = 6;//写死的商家角色
             $account->save();
 
             $merchant->id = $account->id;
