@@ -5,19 +5,19 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-name"><?php echo Yii::t("admin", "Name"); ?></label>
                 <div class="col-sm-9">
-                    <input id="form-field-name" type="text" name="stamp[name]" value="<?php echo $stamp['name']; ?>" placeholder="<?php echo Yii::t("admin", "Pelase input name"); ?>" class="col-xs-10 col-sm-5" />
+                    <input id="form-field-name" type="text" name="stamp[name]" value="<?php echo isset($stamp['name'])?$stamp['name']:''; ?>" placeholder="<?php echo Yii::t("admin", "Pelase input name"); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-total"><?php echo Yii::t("admin", "Total"); ?></label>
                 <div class="col-sm-9">
-                    <input id="form-field-total" type="text" name="stamp[total]" value="<?php echo $stamp['total']; ?>" placeholder="<?php echo Yii::t("shop", "Pelase input total"); ?>" class="col-xs-10 col-sm-5" />
+                    <input id="form-field-total" type="text" name="stamp[total]" value="<?php echo isset($stamp['total'])?$stamp['total']:''; ?>" placeholder="<?php echo Yii::t("shop", "Pelase input total"); ?>" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-intro"><?php echo Yii::t("admin", "Introduce"); ?></label>
                 <div class="col-sm-9">
-                    <textarea id="form-field-intro" name="stamp[intro]" class="col-xs-10 col-sm-5"><?php echo $stamp['intro']; ?></textarea>
+                    <textarea id="form-field-intro" name="stamp[intro]" class="col-xs-10 col-sm-5"><?php echo isset($stamp['intro'])?$stamp['intro']:0; ?></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -61,7 +61,7 @@
                     <div class="row">
                         <div class=" col-sm-5">
                             <div class="input-group">
-                                <input id="form-field-validity_start" name="stamp[validityStart]" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" value="<?php echo $stamp['validityStart']; ?>" />
+                                <input id="form-field-validity_start" name="stamp[validityStart]" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" value="<?php echo isset($stamp['validityStart'])?$stamp['validityStart']:''; ?>" />
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar bigger-110"></i>
                                 </span>
@@ -77,7 +77,7 @@
                     <div class="row">
                         <div class=" col-sm-5">
                             <div class="input-group">
-                                <input id="form-field-validity_end" name="stamp[validityEnd]" class="form-control date-picker" type="text" data-date-format="yyyy-mm-dd" value="<?php echo $stamp['validityEnd']; ?>" />
+                                <input id="form-field-validity_end" name="stamp[validityEnd]" class="form-control date-picker" type="text" data-date-format="yyyy-mm-dd" value="<?php echo isset($stamp['validityEnd'])?$stamp['validityEnd']:''; ?>" />
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar bigger-110"></i>
                                 </span>
