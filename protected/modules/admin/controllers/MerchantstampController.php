@@ -34,11 +34,11 @@ class MerchantstampController extends BController {
                 Yii::app()->end;
             }
 
-            if (empty($stamp['validity_end']) || empty($stamp['validity_end'])) {
+            if (empty($stamp['validityEnd']) || empty($stamp['validityEnd'])) {
                 $this->showError(Yii::t("comment", "Pelease select a date"), $this->referer);
             } else {
-                $stamp['validity_start'] = strtotime($stamp['validity_start']);
-                $stamp['validity_end'] = strtotime($stamp['validity_end']);
+                $stamp['validity_start'] = strtotime($stamp['validityStart']);
+                $stamp['validity_end'] = strtotime($stamp['validityEnd']);
             }
 
             $transaction = Yii::app()->db->beginTransaction();
@@ -75,7 +75,7 @@ class MerchantstampController extends BController {
                 Yii::app()->end();
             }
             $transaction->commit();
-            $this->showSuccess(Yii::t("comment", "Create Success"), $this->referer);
+            $this->showSuccess(Yii::t("comment", "Create Success"), $this->createUrl('create'));
         } else {
             $shopBehavior = new MerchantShopBehavior;
             $ar = array();
@@ -122,7 +122,7 @@ class MerchantstampController extends BController {
             }
             $transaction->commit();
 
-            $this->showSuccess(Yii::t("comment", "Modify Success"), $this->referer);
+            $this->showSuccess(Yii::t("comment", "Modify Success"), $this->createUrl('create'));
         } else {
             $id = Yii::app()->request->getParam("id");
             if (empty($id)) {

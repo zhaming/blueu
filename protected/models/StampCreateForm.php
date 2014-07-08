@@ -37,9 +37,9 @@ class StampCreateForm extends BaseForm {
             array('shopids', 'type', 'type' => 'array', 'allowEmpty' => false),
             array('shopids', 'checkShopIds'),
             array('validityStart', 'date', 'format' => 'yyyy-MM-dd', 'allowEmpty' => false, 'timestampAttribute' => 'validity_start'),
-            array('validityStart', 'checkValidityStart'),
+            array('validity_start', 'checkValidityStart'),
             array('validityEnd', 'date', 'format' => 'yyyy-MM-dd', 'allowEmpty' => false, 'timestampAttribute' => 'validity_end'),
-            array('validityEnd', 'checkValidityEnd'),
+            array('validity_end', 'checkValidityEnd'),
             array('intro', 'safe')
         );
     }
