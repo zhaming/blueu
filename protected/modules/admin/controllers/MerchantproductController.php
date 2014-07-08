@@ -81,7 +81,7 @@ class MerchantproductController extends BController {
                 }
             }
             $this->showSuccess(Yii::t("comment", "Create Success"));
-            $this->redirect($this->referer);
+            $this->redirect($this->createUrl('index'));
         } else {
             //我能管理的店铺
             $params = array();
@@ -100,34 +100,28 @@ class MerchantproductController extends BController {
 
     public function actionEdit() {
         if (Yii::app()->request->IsPostrequest) {
-            $shopid = Yii::app()->request->getPost("shopid");
             $product = Yii::app()->request->getPost("product");
-            //TODO 图片处理
+            $shopid = Yii::app()->request->getPost("shopid");
 
+            //TODO 图片处理
             $fileBehavior = new FileBehavior();
             if ($fileBehavior->isHaveUploadFile('product[pic]')) {
                 $file = $fileBehavior->saveUploadFile('product[pic]');
-                if ($file) {
-                    $product['pic'] = $file['path'];
-                }
-            } else {
-                
+                if ($file) {$product['pic'] = $file['path'];}
             }
             $product['merchantid'] = Yii::app()->user->getId();
-            $product['shops'] = $shopid;
             $res = $this->productBehavior->saveOrUpdate($product);
+
             //更新关联表
-            MerchantShopProduct::model()->deleteAllByAttributes(
-                    array(), "productid=:id", array(":id" => $res->id)
-            );
-            foreach ($shopid as $key => $value) {
-                $data = new MerchantShopProduct;
-                $data->shopid = $value;
-                $data->productid = $res->id;
-                $data->save();
+            MerchantShopProduct::model()->deleteAllByAttributes(array('productid' => $res->id));
+            foreach ($shopid as $value) {
+                $shoproductT = new MerchantShopProduct;
+                $shoproductT->shopid = $value;
+                $shoproductT->productid = $res->id;
+                $shoproductT->save();
             }
             $this->showSuccess(Yii::t("commnet", "Edite Success"));
-            $this->redirect($this->referer);
+            $this->redirect($this->createUrl('index'));
         } else {
             $id = Yii::app()->request->getParam("id");
             if (empty($id)) {

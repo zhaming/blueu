@@ -77,20 +77,16 @@ class MerchantProductBehavior extends BaseBehavior{
 
     public  function saveOrUpdate($param){
         $obj = new MerchantProduct;
-        $obj->_attributes = $param;
+        $obj->setAttributes($param);
         if (!empty($param['id'])) {
             $obj->setIsNewRecord(false);
         }else{
             $obj->id = null;
             $obj->setIsNewRecord(true);
-            $obj->created =  time();
+            $obj->created = time();
         }
-
-        $res =  $obj->save();
-        if($res){
-            return $obj;
-        }
-        else
-            return false;
+        $res = $obj->save();
+        if($res) return $obj;
+        return false;
     }
 }

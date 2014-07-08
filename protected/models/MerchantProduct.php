@@ -31,6 +31,12 @@ class MerchantProduct extends CActiveRecord {
         return '{{merchant_product}}';
     }
 
+    public function rules() {
+        return array(
+            array('id,name,pic,intro,price,discount,shopid,merchantid', 'safe'),
+        );
+    }
+
     public function relations() {
         $relations = array(
             'merchant' => array(
