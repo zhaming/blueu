@@ -119,7 +119,7 @@ class MerchantcouponController extends BController {
             }
             $transaction->commit();
 
-            $this->showSuccess(Yii::t("comment", "Modify Success"), $this->referer);
+            $this->showSuccess(Yii::t("comment", "Modify Success"), $this->createUrl('index'));
         } else {
             $id = Yii::app()->request->getParam("id");
             if (empty($id)) {
@@ -183,7 +183,7 @@ class MerchantcouponController extends BController {
 
         MerchantCodeLog::model()->useCoupon($codeid, $userid);
 
-        $this->ShowSuccess(Yii::t('comment', "Success"), $this->referer);
+        $this->ShowSuccess(Yii::t('comment', "Success"), $this->createUrl('index'));
     }
 
 }
