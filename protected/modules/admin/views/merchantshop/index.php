@@ -1,8 +1,10 @@
 <div class="row">
     <div class="col-xs-12">
+        <?php if (HelpTemplate::isLoginAsAdmin() || HelpTemplate::isLoginAsMerchant()) { ?>
         <p>
             <a href="/admin/merchantshop/create" class="btn btn-app btn-success btn-xs"><i class="ace-icon fa fa-plus bigger-120"></i><?php echo Yii::t('admin', 'Create'); ?></a>
         </p>
+        <?php } ?>
         <?php $this->widget("AlterMsgWidget") ?>
         <div class="table-responsive">
             <form  action="/admin/merchantshop/index" method="get" class="well form-inline">

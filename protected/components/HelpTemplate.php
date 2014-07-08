@@ -23,6 +23,7 @@ class HelpTemplate extends CComponent {
     const ADMIN_ROLE = 1;
     const USER_ROLE = 5;
     const MERCHANT_ROLE = 4;
+    const SUBMERCHANT_ROLE = 6;
     const SUPER_ADMIN_ID = 1;
     const USER_SEX_UNKNOWN = 0;
     const USER_SEX_FEMALE = 1;
@@ -87,7 +88,7 @@ class HelpTemplate extends CComponent {
                 return Yii::t('admin', 'Administrator');
             }
         }
-        if ($roleId == self::MERCHANT_ROLE) {
+        if ($roleId == self::MERCHANT_ROLE  || $roleId == self::SUBMERCHANT_ROLE) {
             return Yii::t('admin', 'Merchant');
         }
         return '';
@@ -103,6 +104,10 @@ class HelpTemplate extends CComponent {
 
     public static function isLoginAsMerchant() {
         return Yii::app()->user->getState('roleid') == self::MERCHANT_ROLE;
+    }
+
+    public static function isLoginAsSubMerchant() {
+        return Yii::app()->user->getState('roleid') == self::SUBMERCHANT_ROLE;
     }
 
     public static function getAdUrl($path) {
@@ -155,6 +160,7 @@ class HelpTemplate extends CComponent {
         $map = array(
             self::ADMIN_ROLE => 'green',
             self::MERCHANT_ROLE => 'light-orange',
+            self::SUBMERCHANT_ROLE => 'light-orange',
             self::USER_ROLE => 'orange'
         );
         return $map[$flag];

@@ -21,7 +21,7 @@ class AllUserIdentity extends CUserIdentity {
         } else if (md5($this->password) != $accounts->password) {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
             $this->errorMessage = Yii::t('admin', 'Password invalid.');
-        } else if ($accounts->roleid != HelpTemplate::MERCHANT_ROLE && $accounts->roleid != HelpTemplate::ADMIN_ROLE) {
+        } else if ($accounts->roleid != HelpTemplate::SUBMERCHANT_ROLE && $accounts->roleid != HelpTemplate::MERCHANT_ROLE && $accounts->roleid != HelpTemplate::ADMIN_ROLE) {
 			$this->errorCode = self::ERROR_ROLE_INVALID;
             $this->errorMessage = Yii::t('admin', 'User role invalid.');
 		} else {
