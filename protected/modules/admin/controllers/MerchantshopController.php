@@ -25,6 +25,7 @@ class MerchantshopController extends BController {
         $params['page'] = Yii::app()->request->getParam("page", 1);
         $params['pagesize'] = Yii::app()->request->getParam("pagesize", Yii::app()->params->page_size);
 
+        $params['merchantid'] = $params['selfid'] = Yii::app()->user->getId();
         $res = $this->shopBehavior->getList($params);
         $this->render("index", array_merge($params, $res));
     }

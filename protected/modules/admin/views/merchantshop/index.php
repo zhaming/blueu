@@ -43,7 +43,7 @@
                         <?php foreach ($data as $key => $value) : ?>
                             <tr>
                                 <td><?php echo $value->id ?></td>
-                                <td><?php echo $value->name ?></td>
+                                <td title="<?php echo $value->intro ?>"><?php echo $value->name ?></td>
                                 <td><?php echo $value->owner ?></td>
                                 <td><?php echo $value->telephone ?></td>
                                 <td><?php echo $value->address; ?></td>
@@ -63,7 +63,9 @@
                                                 <i class="ace-icon fa fa-lemon-o bigger-130"></i>
                                             </a>
                                             <?php } else { ?>
-                                                <i class="ace-icon fa fa-lemon-o bigger-130" title="<?php echo Yii::t("admin", "SelfLabel") . $value->merchant->name; ?>"></i>
+                                            <a href="javascript:void(0)" title="<?php echo Yii::t("admin", "SelfLabel") . $value->selfid; ?>" class="orange" onclick="alert('<?php echo Yii::t("admin", "SelfLabel") . $value->selfid; ?>')">
+                                                <i class="ace-icon fa fa-lemon-o bigger-130" title=""></i>
+                                            </a>
                                             <?php } ?>
                                         <?php } ?>
                                         <a href="/admin/station/create/shopid/<?php echo $value->id; ?>" title="<?php echo Yii::t("shop", "Add station"); ?>"> 
