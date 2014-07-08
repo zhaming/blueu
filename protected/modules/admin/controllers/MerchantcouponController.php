@@ -18,6 +18,7 @@ class MerchantcouponController extends BController {
 
         $param['page'] = $page;
         $param['name'] = $name;
+        $param['pageSize'] = $this->pageSize;
         if (!HelpTemplate::isLoginAsAdmin()) $param['merchantid'] = Yii::app()->user->getId();
         $res = $this->couponBehavior->getList($param);
 

@@ -88,9 +88,9 @@ class StationBehavior extends BaseBehavior{
         $count = StationAds::model()->count($criteria);
         $data = StationAds::model()->findAll($criteria);
 
-        $pages = new CPagination($count);
-        $pages->pageSize = $pageSize;
-        $pages->applyLimit($criteria);
+        $pager = new CPagination($count);
+        $pager->pageSize = $pageSize;
+        $pager->applyLimit($criteria);
 
         return compact('data','pager');
     }
