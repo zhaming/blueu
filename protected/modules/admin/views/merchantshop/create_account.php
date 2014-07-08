@@ -21,6 +21,7 @@
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-password"><?php echo Yii::t("admin", "Password"); ?></label>
                 <div class="col-sm-9">
                     <input id="form-field-password" type="password" name="merchant[password]" value="<?php echo $merchant['password']; ?>" class="col-xs-10 col-sm-5" />
+                    <span style="color:red"><?php echo Yii::t("admin", "PasswordTitle"); ?></span>
                 </div>
             </div>
             <div class="form-group">

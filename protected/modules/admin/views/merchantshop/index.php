@@ -57,10 +57,14 @@
                                         <a href="/admin/merchantshop/edit/id/<?php echo $value->id; ?>" title="<?php echo Yii::t("admin", "Detail"); ?>" class="green"> 
                                             <i class="ace-icon fa fa-edit bigger-130"></i>
                                         </a>
-                                        <?php if (empty($value->selfid) && (HelpTemplate::isLoginAsAdmin() || (HelpTemplate::isLoginAsMerchant() && $value['merchantid'] == HelpTemplate::getLoginUserId()))) { ?>
-                                            <a href="/admin/merchantshop/addshopaccount/id/<?php echo $value->id; ?>"  title="<?php echo Yii::t("admin", "Create shop account"); ?>" class="orange" > 
+                                        <?php if ($value->ismain == 0 && (HelpTemplate::isLoginAsAdmin() || (HelpTemplate::isLoginAsMerchant() && $value['merchantid'] == HelpTemplate::getLoginUserId()))) { ?>
+                                            <?php if (empty($value->selfid)) { ?>
+                                            <a href="/admin/merchantshop/addshopaccount/id/<?php echo $value->id; ?>" title="<?php echo Yii::t("admin", "Create shop account"); ?>" class="orange" >
                                                 <i class="ace-icon fa fa-lemon-o bigger-130"></i>
                                             </a>
+                                            <?php } else { ?>
+                                                <i class="ace-icon fa fa-lemon-o bigger-130" title="<?php echo Yii::t("admin", "SelfLabel") . $value->merchant->name; ?>"></i>
+                                            <?php } ?>
                                         <?php } ?>
                                         <a href="/admin/station/create/shopid/<?php echo $value->id; ?>" title="<?php echo Yii::t("shop", "Add station"); ?>"> 
                                             <i class="ace-icon fa fa-rss bigger-130"></i>

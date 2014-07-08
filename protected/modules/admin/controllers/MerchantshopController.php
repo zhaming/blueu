@@ -143,23 +143,6 @@ class MerchantshopController extends BController {
         $this->showSuccess(Yii::t("admin", "Delete success."), $this->createUrl('index'));
     }
 
-    public function actionDistrict() {
-        $this->layout = "null";
-        echo header("Content-Type:application/json");
-
-        $pid = Yii::app()->request->getParam("pid");
-
-        $district = District::model()->findAll();
-        $data = array();
-        if (!empty($district)) {
-            foreach ($district as $value) {
-                if ($value->parentid == $pid)
-                    $data[] = $value;
-            }
-        }
-        echo CJSON::encode($data);
-    }
-
     public function actionCategory() {
         $this->layout = "null";
         echo header("Content-Type:application/json");
@@ -170,11 +153,35 @@ class MerchantshopController extends BController {
         $data = array();
         if (!empty($res)) {
             foreach ($res as $value) {
-                if ($value->parentid == $pid)
-                    $data[] = $value;
+                if ($value->parentid == $pid) {
+                    $data[] = array(
+                        'k' => $value['id'],
+                        'v' => $value['name'],
+                    );
+                }
             }
         }
         echo CJSON::encode($data);
     }
 
+    public function actionDistrict() {
+        $this->layout = "null";
+        echo header("Content-Type:application/json");
+
+        $pid = Yii::app()->request->getParam("pid");
+
+        $district = District::model()->findAll();
+        $data = array();
+        if (!empty($district)) {
+            foreach ($district as $value) {
+                if ($value->parentid == $pid) {
+                    $data[] = array(
+                        'k' => $value['id'],
+                        'v' => $value['district'],
+                    );
+                }
+            }
+        }
+        echo CJSON::encode($data);
+    }
 }

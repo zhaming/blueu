@@ -119,6 +119,7 @@ class ShopCreateForm extends BaseForm {
     }
 
     public function checkMain() {
+        if ($this->ismain != 1) return;
         $shopBehavior = new MerchantShopBehavior();
         if ($shopBehavior->existMain($this->merchantid)) {
             $this->addError('ismain', Yii::t('admin', 'Main shop is exist.'));

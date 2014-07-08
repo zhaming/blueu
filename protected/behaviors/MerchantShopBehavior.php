@@ -58,6 +58,12 @@ class MerchantShopBehavior extends BaseBehavior {
         }
 
         $data = MerchantShop::model()->findAll($criteria);
+        foreach ($data as $k => $v) {
+            //if (empty($v->selfid)) continue;
+            //$userR = User::model()->findByPk($v->selfid);
+            //$v['selfid'] = $userR->username;
+            //$data[$k] = $v;
+        }
 
         return compact('data', 'pager');
     }
