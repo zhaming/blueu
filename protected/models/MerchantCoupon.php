@@ -11,6 +11,12 @@ class MerchantCoupon  extends  CActiveRecord{
         return '{{merchant_coupon}}';
     }
 
+    public function rules() {
+        return array(
+            array('id,name,pic,intro,price,validity_start,validity_end,suit,codeid,shopid,merchantid', 'safe'),
+        );
+    }
+
     public function relations(){
         return array(
             'coupon' => array(

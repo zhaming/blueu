@@ -11,6 +11,12 @@ class MerchantStamp  extends  CActiveRecord{
         return '{{merchant_stamp}}';
     }
 
+    public function rules() {
+        return array(
+            array('id,name,pic,intro,price,validity_start,validity_end,suit,codeid,shopid,merchantid', 'safe'),
+        );
+    }
+
     public function relations(){
         return array(
             'code' => array(

@@ -17,6 +17,7 @@ class MerchantstampController extends BController {
         $param['page'] = $page;
         $param['name'] = $name;
         $param['pageSize'] = Yii::app()->params->page_size;
+        if (!HelpTemplate::isLoginAsAdmin()) $param['merchantid'] = Yii::app()->user->getId();
         $res = $this->stampBehavior->getList($param);
 
         $res['name'] = $name;
