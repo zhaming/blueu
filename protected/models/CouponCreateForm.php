@@ -46,7 +46,8 @@ class CouponCreateForm extends BaseForm {
     }
 
     public function checkName() {
-        if (!empty(MerchantCoupon::model()->findByAttributes(array('name=:name'), '', array(':name' => $this->name)))) {
+        $rs = MerchantCoupon::model()->findByAttributes(array('name' => $this->name));
+        if (!empty($rs)) {
             $this->addError('name', Yii::t('admin', 'Name have be used.'));
         }
     }

@@ -43,7 +43,7 @@ class BaseForm extends CFormModel {
         }
     }
 
-    public function validate($attributes = null, $clearErrors = true) {
+    /*public function validate($attributes = null, $clearErrors = true) {
         if ($clearErrors) {
             $this->clearErrors();
         }
@@ -59,6 +59,6 @@ class BaseForm extends CFormModel {
         } else {
             return false;
         }
-    }
+    }*/
 
 }

@@ -41,7 +41,7 @@ class MerchantStampBehavior extends BaseBehavior {
 
     public function saveOrUpdate($param) {
         $obj = new MerchantStamp;
-        $obj->_attributes = $param;
+        $obj->setAttributes($param);
         if (!empty($param['id'])) {
             $obj->setIsNewRecord(false);
         } else {

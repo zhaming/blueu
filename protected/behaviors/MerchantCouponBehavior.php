@@ -37,7 +37,7 @@ class MerchantCouponBehavior extends BaseBehavior {
 
     public function saveOrUpdate($param) {
         $obj = new MerchantCoupon;
-        $obj->_attributes = $param;
+        $obj->setAttributes($param);
         if (!empty($param['id'])) {
             $obj->setIsNewRecord(false);
         } else {

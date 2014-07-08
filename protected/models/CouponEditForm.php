@@ -40,15 +40,16 @@ class CouponCreateForm extends BaseForm {
             array('pic', 'file', 'allowEmpty' => true, 'types' => 'image/gif, image/jpeg', 'maxSize' => 1024 * 1024 * 3),
             array('shopids', 'checkShopIds'),
             array('validityStart', 'date', 'format' => 'yyyy-MM-dd', 'allowEmpty' => false, 'timestampAttribute' => 'validity_start'),
-            array('validity_start', 'checkValidityStart'),
+            array('validityStart', 'checkValidityStart'),
             array('validityEnd', 'date', 'format' => 'yyyy-MM-dd', 'allowEmpty' => false, 'timestampAttribute' => 'validity_end'),
-            array('validity_end', 'checkValidityEnd'),
+            array('validityEnd', 'checkValidityEnd'),
             array('intro', 'safe')
         );
     }
 
     public function checkName() {
-        if (!empty(MerchantCoupon::model()->findByAttributes(array('name=:name'), '', array(':name' => $this->name)))) {
+        $rs = MerchantCoupon::model()->findByAttributes(array('name=:name'), '', array(':name' => $this->name));
+        if (!empty($rs)) {
             $this->addError('name', Yii::t('admin', 'Name have be used.'));
         }
     }

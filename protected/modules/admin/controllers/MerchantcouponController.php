@@ -30,9 +30,8 @@ class MerchantcouponController extends BController {
         $params = array();
         $couponCreateForm = new CouponCreateForm();
         $shopBehavior = new MerchantShopBehavior();
-        if (HelpTemplate::isLoginAsMerchant()) {
-            $params['merchantid'] = Yii::app()->user->getId();
-            $params['selfid'] = Yii::app()->user->getId();
+        if (HelpTemplate::isLoginAsMerchant() || HelpTemplate::isLoginAsSubMerchant()) {
+            $params['merchantid'] = $params['selfid'] = Yii::app()->user->getId();
         }
         $viewData = $shopBehavior->getList($params);
         if (!Yii::app()->request->isPostRequest) {
@@ -40,6 +39,7 @@ class MerchantcouponController extends BController {
             return $this->render("create", $viewData);
         }
         $couponCreateForm->setAttributes(Yii::app()->request->getPost("coupon"));
+
         if (!$couponCreateForm->validate()) {
             $viewData['message'] = $couponCreateForm->getFirstError();
             $viewData['coupon'] = $couponCreateForm->getAttributes();

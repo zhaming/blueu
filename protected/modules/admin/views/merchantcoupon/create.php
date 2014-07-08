@@ -80,7 +80,7 @@
                     <div class="row">
                         <div class=" col-sm-5">
                             <div class="input-group">
-                                <input name="coupon[validityStart]" type="text"  class="form-control date-picker"　 data-date-format="yyyy-mm-dd" value="<?php echo $coupon['validityStart']; ?>" />
+                                <input name="coupon[validityStart]" type="text" class="form-control date-picker" data-date-format="yyyy-mm-dd" value="<?php echo $coupon['validityStart']; ?>" />
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar bigger-110"></i>
                                 </span>
