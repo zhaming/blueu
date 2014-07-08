@@ -45,6 +45,7 @@
                 <?php } ?>
             </ul>
         </li>
+        <?php } ?>
         <li<?php if (Yii::app()->controller->getId() == 'station') { ?> class="active"<?php } ?>>
             <a class="dropdown-toggle">
                 <i class="menu-icon fa fa-rss"></i>
@@ -61,7 +62,6 @@
 
             </ul>
         </li>
-        <?php } ?>
         <li<?php if (Yii::app()->controller->id == 'merchantshop') { ?> class="active"<?php } ?>>
             <a href="/admin/merchantshop/index">
                 <i class="menu-icon fa fa-shopping-cart"></i>
