@@ -30,7 +30,7 @@
                         </td>
                         <td>
                         <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                <a href="/admin/merchantshop/delete/id/<?php echo $value->sid;?>"  title="<?php echo Yii::t("admin","Delete");?>"  class="delete-confirm red"> 
+                                <a href="/admin/station/adsdelete/id/<?php echo $value->sid;?>"  title="<?php echo Yii::t("admin","Delete");?>"  class="delete-confirm red">
                                     <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                 </a>
                                 <a href="admin/station/editads/source/<?php echo $value->source?>/shopid/<?php echo $value->shopid?>/stationid/<?php echo $value->stationid?>/sid/<?php echo $value->sid;?>" title="<?php echo Yii::t("admin","Detail");?>" class="green"> 
