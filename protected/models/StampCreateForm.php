@@ -37,15 +37,16 @@ class StampCreateForm extends BaseForm {
             array('shopids', 'type', 'type' => 'array', 'allowEmpty' => false),
             array('shopids', 'checkShopIds'),
             array('validityStart', 'date', 'format' => 'yyyy-MM-dd', 'allowEmpty' => false, 'timestampAttribute' => 'validity_start'),
-            array('validity_start', 'checkValidityStart'),
+            array('validityStart', 'checkValidityStart'),
             array('validityEnd', 'date', 'format' => 'yyyy-MM-dd', 'allowEmpty' => false, 'timestampAttribute' => 'validity_end'),
-            array('validity_end', 'checkValidityEnd'),
+            array('validityEnd', 'checkValidityEnd'),
             array('intro', 'safe')
         );
     }
 
     public function checkName() {
-        if (!empty(MerchantStamp::model()->findByAttributes(array('name=:name'), '', array(':name' => $this->name)))) {
+        $rs = MerchantStamp::model()->findByAttributes(array('name' => $this->name));
+        if (!empty($rs)) {
             $this->addError('name', Yii::t('admin', 'Name have be used.'));
         }
     }

@@ -47,7 +47,8 @@ class StampEditForm extends BaseForm {
     }
 
     public function checkName() {
-        if (!empty(MerchantStamp::model()->findByAttributes(array('name=:name'), '', array(':name' => $this->name)))) {
+        $rs = MerchantStamp::model()->findByAttributes(array('name' => $this->name));
+        if (!empty($rs)) {
             $this->addError('name', Yii::t('admin', 'Name have be used.'));
         }
     }
