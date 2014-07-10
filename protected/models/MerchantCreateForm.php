@@ -34,7 +34,7 @@ class MerchantCreateForm extends BaseForm {
             array('username,password,repassword,name', 'required'),
             array('username', 'email'),
             array('repassword', 'checkRepassword'),
-            array('telephone', 'match', 'pattern' => '/^(1(([35][0-9])|(47)|[8][0126789]))\d{8}$/', 'message' => Yii::t('admin', 'Mobile format error.')),
+            //array('telephone', 'match', 'pattern' => '/^(1(([35][0-9])|(47)|[8][0126789]))\d{8}$/', 'message' => Yii::t('admin', 'Mobile format error.')),
             array('username', 'checkUsername'),
             array('agreement', 'checkAgreement'),
             array('legal,bank,shopnum', 'safe')
