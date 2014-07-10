@@ -79,7 +79,7 @@ class MerchantCreateForm extends BaseForm {
         }
     }
 
-    public function execute() {
+    public function execute($roleid = 4) {
         if (!$this->validate()) {
             return false;
         }
@@ -87,7 +87,7 @@ class MerchantCreateForm extends BaseForm {
         $merchant = new Merchant();
         $account->username = $this->username;
         $account->password = md5($this->password);
-        $account->roleid = 6;  //分店商户
+        $account->roleid = $roleid;  //分店商户
         $account->registertime = time();
 
         $merchant->name = $this->name;

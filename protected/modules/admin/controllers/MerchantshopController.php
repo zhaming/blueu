@@ -113,7 +113,7 @@ class MerchantshopController extends BController {
             return $this->render("create_account", $viewData);
         }
         $merchantCreateForm->setAttributes(Yii::app()->request->getPost('merchant'));
-        if (!$merchantCreateForm->execute()) {
+        if (!$merchantCreateForm->execute(6)) {
             $viewData['message'] = $merchantCreateForm->getFirstError();
             $viewData['merchant'] = $merchantCreateForm->getAttributes();
             return $this->render('create_account', $viewData);
